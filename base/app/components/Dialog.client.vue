@@ -125,8 +125,10 @@ watchEffect(() => (open.value ? show() : hide()))
 
   &::backdrop {
     background-color: var(--backdrop-background-color);
+    backdrop-filter: var(--blur);
     transition:
       background-color var(--speed) ease,
+      backdrop-filter var(--speed) ease,
       overlay var(--speed) ease allow-discrete,
       display var(--speed) ease allow-discrete;
 
@@ -148,7 +150,7 @@ watchEffect(() => (open.value ? show() : hide()))
       inset-inline-start: 50%;
       z-index: var(--z-index-dialog);
 
-      + .overlay {
+      +.overlay {
         position: fixed;
         inset: 0;
         z-index: var(--z-index-overlay);
@@ -161,7 +163,7 @@ watchEffect(() => (open.value ? show() : hide()))
     outline: none;
   }
 
-  > .close {
+  >.close {
     position: absolute;
     inset-block-start: 0;
     inset-inline-end: 0;
@@ -181,7 +183,7 @@ watchEffect(() => (open.value ? show() : hide()))
     }
   }
 
-  > h1:first-of-type {
+  >h1:first-of-type {
     inline-size: 100%;
     border-block-end: var(--border);
     block-size: calc(var(--spacer) * 2);
@@ -198,7 +200,7 @@ watchEffect(() => (open.value ? show() : hide()))
     background: var(--background);
   }
 
-  > .actions {
+  >.actions {
     margin-block-start: var(--spacer);
     display: flex;
     gap: var(--spacer);
