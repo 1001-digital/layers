@@ -20,11 +20,11 @@ prose ─extends─► base
 ## Installation
 
 ```bash
-pnpm add @1001.digital/layers.base
+pnpm add @1001-digital/layers.base
 # or
-pnpm add @1001.digital/layers.prose
+pnpm add @1001-digital/layers.prose
 # or
-pnpm add @1001.digital/layers.evm
+pnpm add @1001-digital/layers.evm
 ```
 
 ## Usage
@@ -33,7 +33,7 @@ Extend a layer in your `nuxt.config.ts`:
 
 ```ts
 export default defineNuxtConfig({
-  extends: ['@1001.digital/layers.base']
+  extends: ['@1001-digital/layers.base']
 })
 ```
 
@@ -146,7 +146,7 @@ await useEnsureChainIdCheck()
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-  extends: ['@1001.digital/layers.evm'],
+  extends: ['@1001-digital/layers.evm'],
   runtimeConfig: {
     public: {
       chainId: 1,

@@ -7,7 +7,7 @@ const currentDir = dirname(fileURLToPath(import.meta.url))
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-  extends: ['@1001.digital/layers.base'],
+  extends: ['@1001-digital/layers.base'],
 
   css: [
     join(currentDir, './app/assets/styles/index.css'),

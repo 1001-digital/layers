@@ -1,5 +1,5 @@
 {
-  "name": "@1001.digital/layers.evm",
+  "name": "@1001-digital/layers.evm",
   "type": "module",
   "version": "0.0.1",
   "main": "./nuxt.config.ts",
@@ -21,7 +21,7 @@
     "vue": "latest"
   },
   "dependencies": {
-    "@1001.digital/layers.base": "workspace:^",
+    "@1001-digital/layers.base": "workspace:^",
     "@metamask/sdk": "~0.33.1",
     "@tanstack/vue-query": "^5.92.1",
     "@wagmi/vue": "^0.4.3",

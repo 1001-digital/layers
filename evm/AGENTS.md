@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Nuxt layer for building dAPPs (Ethereum-powered applications). Extends `@1001.digital/layers.base`.
+Nuxt layer for building dAPPs (Ethereum-powered applications). Extends `@1001-digital/layers.base`.
 
 ## Setup commands
 

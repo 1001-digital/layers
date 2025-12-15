@@ -45,7 +45,7 @@ importers:
 
   evm:
     dependencies:
-      '@1001.digital/layers.base':
+      '@1001-digital/layers.base':
         specifier: workspace:^
         version: link:../base
       '@metamask/sdk':
@@ -91,7 +91,7 @@ importers:
 
   prose:
     dependencies:
-      '@1001.digital/layers.base':
+      '@1001-digital/layers.base':
         specifier: workspace:*
         version: link:../base
     devDependencies:

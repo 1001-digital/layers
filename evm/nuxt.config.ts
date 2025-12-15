@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  extends: ['@1001.digital/layers.base'],
+  extends: ['@1001-digital/layers.base'],
 
   modules: ['@wagmi/vue/nuxt'],
 
@@ -21,9 +21,9 @@ export default defineNuxtConfig({
   vite: {
     optimizeDeps: {
       include: [
-        '@1001.digital/layers.evm > @metamask/sdk',
-        '@1001.digital/layers.evm > eventemitter3',
-        '@1001.digital/layers.evm > qrcode',
+        '@1001-digital/layers.evm > @metamask/sdk',
+        '@1001-digital/layers.evm > eventemitter3',
+        '@1001-digital/layers.evm > qrcode',
       ],
     },
   },

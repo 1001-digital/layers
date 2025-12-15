@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Nuxt layer for content-driven sites with typography and prose styling. Extends `@1001.digital/layers.base`.
+Nuxt layer for content-driven sites with typography and prose styling. Extends `@1001-digital/layers.base`.
 
 ## Setup commands
 
