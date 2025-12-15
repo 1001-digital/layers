@@ -5,10 +5,10 @@
   </label>
 </template>
 
-<script setup>
-defineProps({
-  label: String,
-})
+<script setup lang="ts">
+defineProps<{
+  label?: string
+}>()
 </script>
 
 <style scoped>

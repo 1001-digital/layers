@@ -9,12 +9,14 @@
   </span>
 </template>
 
-<script setup>
-defineProps({
-  dismissable: Boolean,
-})
+<script setup lang="ts">
+defineProps<{
+  dismissable?: boolean
+}>()
 
-const emit = defineEmits(['dismiss'])
+const emit = defineEmits<{
+  dismiss: []
+}>()
 </script>
 
 <style scoped>

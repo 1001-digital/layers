@@ -7,14 +7,15 @@
   </button>
 </template>
 
-<script setup>
-defineProps({
-  to: [String, Object],
-  target: {
-    type: String,
-    default: '_self',
-  },
-  exact: Boolean,
+<script setup lang="ts">
+import type { RouteLocationRaw } from 'vue-router'
+
+withDefaults(defineProps<{
+  to?: string | RouteLocationRaw
+  target?: string
+  exact?: boolean
+}>(), {
+  target: '_self',
 })
 </script>
 

@@ -381,7 +381,7 @@
   </main>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const grayShades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
 const zColors = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const semanticColors = ['primary', 'muted', 'error', 'success']
@@ -411,8 +411,8 @@ const radioOptions = [
 ]
 
 // FormSelect demo data
-const selectedFruit = ref()
-const selectedFruits = ref([])
+const selectedFruit = ref<string>()
+const selectedFruits = ref<string[]>([])
 const fruitOptions = [
   { value: 'apple', label: 'Apple' },
   { value: 'banana', label: 'Banana' },

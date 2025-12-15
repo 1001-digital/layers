@@ -15,29 +15,28 @@
   </Teleport>
 </template>
 
-<script setup>
-const dialog = ref(null)
-const props = defineProps({
-  title: String,
-  class: String,
-  xClose: {
-    type: Boolean,
-    default: true,
-  },
-  clickOutside: {
-    type: Boolean,
-    default: true,
-  },
-  compat: Boolean,
+<script setup lang="ts">
+const dialog = ref<HTMLDialogElement | null>(null)
+const props = withDefaults(defineProps<{
+  title?: string
+  class?: string | string[] | Record<string, boolean>
+  xClose?: boolean
+  clickOutside?: boolean
+  compat?: boolean
+}>(), {
+  xClose: true,
+  clickOutside: true,
 })
-const emit = defineEmits(['closed'])
-const open = defineModel('open', { required: true })
+const emit = defineEmits<{
+  closed: []
+}>()
+const open = defineModel<boolean>('open', { required: true })
 const debouncedOpen = ref(open.value)
 const tag = computed(() => (props.compat ? 'article' : 'dialog'))
 const classes = computed(() => {
-  let obj = {
+  let obj: Record<string, boolean> = {
     dialog: true,
-    compat: props.compat,
+    compat: !!props.compat,
   }
 
   // Apply passed classes

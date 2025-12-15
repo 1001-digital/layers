@@ -4,10 +4,10 @@
   </div>
 </template>
 
-<script setup>
-defineProps({
-  radio: Boolean,
-})
+<script setup lang="ts">
+defineProps<{
+  radio?: boolean
+}>()
 </script>
 
 <style scoped>

@@ -9,18 +9,13 @@
   </Transition>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useLocalStorage } from '@vueuse/core'
 
-const props = defineProps({
-  type: {
-    type: String,
-    default: 'info',
-  },
-  dismiss: {
-    type: String,
-  },
-})
+const props = defineProps<{
+  type?: 'info' | 'error'
+  dismiss?: string
+}>()
 
 const dismissKey = computed(() => `alert:${props.dismiss}`)
 
