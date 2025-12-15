@@ -259,10 +259,10 @@
               </FormLabel>
             </FormGroup>
 
-            <FormGroup radio>
-              <span>Options:</span>
-              <label><input type="radio" name="option" /> Option A</label>
-              <label><input type="radio" name="option" /> Option B</label>
+            <FormGroup>
+              <FormLabel label="Options">
+                <FormRadioGroup v-model="selectedOption" :options="radioOptions" name="option" />
+              </FormLabel>
             </FormGroup>
           </Form>
         </div>
@@ -399,6 +399,13 @@ const showDialog = ref(false)
 
 // Dismissable tags demo
 const dismissableTags = ref(['Dismissable 1', 'Dismissable 2', 'Dismissable 3'])
+
+// FormRadioGroup demo data
+const selectedOption = ref('a')
+const radioOptions = [
+  { value: 'a', label: 'Option A' },
+  { value: 'b', label: 'Option B' },
+]
 
 // FormSelect demo data
 const selectedFruit = ref()
