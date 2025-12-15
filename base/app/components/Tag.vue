@@ -1,6 +1,8 @@
 <template>
   <span class="tag">
-    <span><slot /></span>
+    <span>
+      <slot />
+    </span>
     <button v-if="dismissable" class="unstyled" @click="emit('dismiss')">
       <Icon type="close" />
     </button>
@@ -28,12 +30,12 @@ const emit = defineEmits(['dismiss'])
   display: flex;
   align-items: center;
 
-  > span {
-    padding: var(--spacer-xs) var(--spacer-sm);
+  >span {
+    padding: var(--spacer-sm) var(--spacer);
 
-    + button {
-      margin-inline-start: calc(-1 * var(--spacer-xs));
-      padding: var(--spacer-xs);
+    +button {
+      margin-inline-start: calc(-1 * (var(--spacer) - var(--spacer-xs)));
+      padding: var(--spacer-sm);
       display: flex;
       align-items: center;
       justify-content: center;
