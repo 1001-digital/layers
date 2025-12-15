@@ -1,0 +1,39 @@
+/*
+ * Dialogs Layer
+ * Dialog and popover component styling with entry/exit animations
+ */
+
+dialog,
+[popover] {
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity var(--speed) ease,
+    transform var(--speed) ease,
+    overlay var(--speed) ease allow-discrete,
+    display var(--speed) ease allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  &::backdrop {
+    background-color: var(--black-semi);
+    transition:
+      background-color var(--speed) ease,
+      overlay var(--speed) ease allow-discrete,
+      display var(--speed) ease allow-discrete;
+
+    @starting-style {
+      background-color: transparent;
+    }
+  }
+
+  /* Exit animation */
+  &:not([open]),
+  &:not(:popover-open) {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}

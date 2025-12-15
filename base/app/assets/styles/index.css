@@ -13,22 +13,23 @@
 /*
  * Reset Layer - Modern Normalize
  */
-@import './layers/reset.css' layer(reset);
+@import './layers/base/reset.css' layer(reset);
 
 /*
  * Base Layer - Element defaults
  */
-@import './layers/base.css' layer(base);
+@import './layers/base/base.css' layer(base);
 
 /*
- * Components Layer - Forms, buttons, cards
+ * Components Layer - Forms, buttons, cards, dialogs
  */
-@import './layers/forms.css' layer(components);
-@import './layers/buttons.css' layer(components);
-@import './layers/cards.css' layer(components);
+@import './layers/components/forms.css' layer(components);
+@import './layers/components/buttons.css' layer(components);
+@import './layers/components/cards.css' layer(components);
+@import './layers/components/dialogs.css' layer(components);
 
 /*
  * Utilities Layer - Helper classes
  */
-@import './layers/utilities.css' layer(utilities);
-@import './layers/animations.css' layer(utilities);
+@import './layers/utilities/utilities.css' layer(utilities);
+@import './layers/utilities/animations.css' layer(utilities);

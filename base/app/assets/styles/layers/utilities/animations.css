@@ -1,6 +1,6 @@
 /*
  * Animations Layer
- * Vue transitions, keyframe animations, and entry animations
+ * Vue transitions and keyframe animations
  */
 
 /* Default Vue transition */
@@ -57,7 +57,10 @@
   }
 }
 
-/* Generic appearing elements */
+/*
+ * Entry Animations with @starting-style
+ * For elements transitioning from display: none
+ */
 .appear {
   opacity: 1;
   transform: translateY(0);
