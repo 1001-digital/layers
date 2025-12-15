@@ -81,6 +81,7 @@ select:not(.unstyled):is(:hover, :active, :focus, .active) {
 
 input[type='checkbox'] {
   block-size: var(--size-4);
+  margin-right: var(--spacer-sm);
 }
 
 form {
