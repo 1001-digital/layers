@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink v-if="to" :to="to" :exact="exact" :target="target" class="button">
+  <NuxtLink v-if="to" :to="to" :exact="exact" :target="target" :class="['button']">
     <slot />
   </NuxtLink>
   <button v-else>
