@@ -21,14 +21,6 @@ defineProps({
 <style scoped>
 button,
 a.button {
-  /* Primary button variables */
-  --button-primary-background: var(--gray-z-10);
-  --button-primary-border-color: var(--gray-z-8);
-  --button-primary-color: var(--gray-z-0);
-  --button-primary-background-highlight: var(--gray-z-8);
-  --button-primary-border-color-highlight: var(--gray-z-6);
-  --button-primary-color-highlight: var(--gray-z-0);
-
   position: relative;
   min-inline-size: fit-content;
   inline-size: fit-content;
@@ -41,15 +33,16 @@ a.button {
     background: var(--button-background);
     color: var(--button-color);
     padding: var(--ui-padding-block) var(--ui-padding-inline);
-    border: var(--button-border);
+    border: none;
     border-radius: var(--button-border-radius);
+    box-shadow: var(--border-shadow);
     transition:
       background var(--speed),
-      border-color var(--speed),
+      box-shadow var(--speed),
       color var(--speed);
   }
 
-  > span {
+  >span {
     display: flex;
     gap: var(--ui-padding-inline);
     line-height: var(--ui-line-height);
@@ -60,7 +53,7 @@ a.button {
     block-size: 100%;
   }
 
-  > .icon {
+  >.icon {
     color: var(--button-icon-color);
     transition: color var(--speed);
   }
@@ -96,20 +89,20 @@ a.button {
     padding: calc(var(--ui-padding-block) / 2) calc(var(--ui-padding-inline) / 2);
     min-block-size: 0;
 
-    > .icon {
+    >.icon {
       inline-size: var(--size-3);
       block-size: var(--size-3);
     }
   }
 
   &.link {
-    border: 0;
+    box-shadow: none;
     background: transparent;
     line-height: inherit;
     color: var(--color);
     padding: 0;
 
-    > .icon {
+    >.icon {
       align-self: center;
       block-size: 1em;
       inline-size: 1em;
@@ -118,7 +111,7 @@ a.button {
     &.muted {
       color: var(--muted);
 
-      > .icon {
+      >.icon {
         color: var(--muted);
       }
     }
@@ -142,10 +135,10 @@ a.button {
   }
 
   &.danger {
-    border-color: var(--error);
+    box-shadow: 0 0 0 var(--border-width) var(--error);
     color: var(--error) !important;
 
-    > .icon {
+    >.icon {
       color: var(--error);
     }
   }
@@ -153,19 +146,19 @@ a.button {
   /* Primary variant */
   &.primary {
     background: var(--button-primary-background);
-    border-color: var(--button-primary-border-color);
+    box-shadow: 0 0 0 var(--border-width) var(--button-primary-border-color);
     color: var(--button-primary-color);
 
-    > .icon {
+    >.icon {
       color: var(--button-primary-color);
     }
 
     &:is(:hover, :active, :focus, .active) {
       background: var(--button-primary-background-highlight);
-      border-color: var(--button-primary-border-color-highlight);
+      box-shadow: 0 0 0 var(--border-width) var(--button-primary-border-color-highlight);
       color: var(--button-primary-color-highlight);
 
-      > .icon {
+      >.icon {
         color: var(--button-primary-color-highlight);
       }
     }
@@ -173,25 +166,26 @@ a.button {
 
   &:is(:hover, :active, :focus, .active) {
     background: var(--button-background-highlight);
-    border-color: var(--button-border-color-highlight);
+    box-shadow: var(--border-shadow-highlight);
     color: var(--button-color-highlight);
 
-    > .icon {
+    >.icon {
       color: var(--button-icon-color-highlight);
     }
 
     &.link {
       background: transparent !important;
+      box-shadow: none;
       color: var(--color);
 
-      > .icon {
+      >.icon {
         color: var(--gray-z-7);
       }
 
       &.muted {
         color: var(--color);
 
-        > .icon {
+        >.icon {
           color: var(--gray-z-7);
         }
       }

@@ -3,9 +3,9 @@
     <span>
       <slot />
     </span>
-    <button v-if="dismissable" class="unstyled" @click="emit('dismiss')">
+    <Button v-if="dismissable" @click="emit('dismiss')">
       <Icon type="close" />
-    </button>
+    </Button>
   </span>
 </template>
 
@@ -19,7 +19,7 @@ const emit = defineEmits(['dismiss'])
 
 <style scoped>
 .tag {
-  border: var(--border);
+  box-shadow: var(--border-shadow);
   font-family: var(--ui-font-family);
   font-size: var(--font-sm);
   font-weight: var(--ui-font-weight);
@@ -36,9 +36,6 @@ const emit = defineEmits(['dismiss'])
     +button {
       margin-inline-start: calc(-1 * (var(--spacer) - var(--spacer-xs)));
       padding: var(--spacer-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
 
       &:is(:hover, :active, :focus, .active) {
         background: var(--gray-z-1);

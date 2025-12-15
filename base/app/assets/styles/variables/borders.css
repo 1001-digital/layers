@@ -14,4 +14,5 @@
 
   /* Border effects */
   --border-shadow: 0 0 0 var(--border-width) var(--border-color);
+  --border-shadow-highlight: 0 0 0 var(--border-width) var(--border-color-highlight);
 }

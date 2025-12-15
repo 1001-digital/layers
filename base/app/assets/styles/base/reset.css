@@ -28,16 +28,6 @@ pre {
   margin: 0;
 }
 
-/* Reset button appearance */
-button {
-  background-color: transparent;
-  background-image: none;
-}
-
-button:focus {
-  outline-color: transparent;
-}
-
 /* Reset fieldset */
 fieldset {
   margin: 0;

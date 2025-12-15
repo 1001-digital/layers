@@ -19,8 +19,9 @@ select:not(.unstyled) {
 
   inline-size: 100%;
   transition: all var(--speed);
-  border: var(--border);
+  border: none;
   border-radius: var(--button-border-radius);
+  box-shadow: var(--border-shadow);
   background: var(--button-background);
   padding: var(--ui-padding-block) var(--ui-padding-inline);
   user-select: none;
@@ -35,7 +36,7 @@ select:not(.unstyled) {
   &:is(:hover, :active, :focus, .active) {
     outline-color: transparent;
     outline-style: dashed;
-    border-color: var(--button-border-color-highlight);
+    box-shadow: var(--border-shadow-highlight);
     background: var(--button-background-highlight);
   }
 
