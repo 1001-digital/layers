@@ -12,7 +12,7 @@
   --ui-placeholder-color: var(--gray-z-5);
   --ui-color-visited: var(--primary);
 
-  /* UI spacing */
-  --ui-padding-y: var(--spacer-sm);
-  --ui-padding-x: var(--spacer);
+  /* UI spacing (logical property naming) */
+  --ui-padding-block: var(--spacer-sm);
+  --ui-padding-inline: var(--spacer);
 }

@@ -79,7 +79,7 @@
       padding: var(--spacer-xs) var(--spacer-sm);
 
       + button {
-        margin-left: calc(-1 * var(--spacer-xs));
+        margin-inline-start: calc(-1 * var(--spacer-xs));
       }
     }
   }

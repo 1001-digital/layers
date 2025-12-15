@@ -47,7 +47,7 @@
   --image-loading-background: var(--gray-z-0);
 
   /* Forms */
-  --form-item-height: calc(var(--size-4) + var(--ui-padding-y) * 2 + var(--border-width) * 2);
-  --form-item-height-sm: calc(var(--size-4) + var(--ui-padding-y) + var(--border-width) * 2);
+  --form-item-height: calc(var(--size-4) + var(--ui-padding-block) * 2 + var(--border-width) * 2);
+  --form-item-height-sm: calc(var(--size-4) + var(--ui-padding-block) + var(--border-width) * 2);
   --input-text-transform: none;
 }

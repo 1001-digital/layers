@@ -127,7 +127,7 @@ input,
 optgroup,
 select,
 textarea {
-  padding: var(--ui-padding-y) var(--ui-padding-x);
+  padding: var(--ui-padding-block) var(--ui-padding-inline);
   line-height: inherit;
   color: inherit;
 }

@@ -196,7 +196,7 @@
 
   /* Code */
   pre:has(> code) {
-    padding: var(--ui-padding-y) var(--ui-padding-x);
+    padding: var(--ui-padding-block) var(--ui-padding-inline);
     background-color: var(--gray-z-1, var(--background));
     border: var(--border);
     border-radius: var(--border-radius);

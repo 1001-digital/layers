@@ -17,15 +17,15 @@ select:not(.unstyled) {
   line-height: var(--ui-line-height);
   color: var(--ui-color);
 
-  width: 100%;
+  inline-size: 100%;
   transition: all var(--speed);
   border: var(--border);
   border-radius: var(--button-border-radius);
   background: var(--button-background);
-  padding: var(--ui-padding-y) var(--ui-padding-x);
+  padding: var(--ui-padding-block) var(--ui-padding-inline);
   user-select: none;
   display: flex;
-  height: var(--form-item-height);
+  block-size: var(--form-item-height);
 
   &:-internal-autofill-selected {
     background: inherit;
@@ -46,8 +46,8 @@ select:not(.unstyled) {
   }
 
   &.small {
-    padding: calc(var(--ui-padding-y) / 2) calc(var(--ui-padding-x) / 2);
-    height: var(--form-item-height-sm);
+    padding: calc(var(--ui-padding-block) / 2) calc(var(--ui-padding-inline) / 2);
+    block-size: var(--form-item-height-sm);
   }
 }
 
@@ -62,8 +62,8 @@ textarea:not(.unstyled) {
   display: flex;
   align-items: center;
   background: var(--background);
-  width: 100%;
-  max-width: -webkit-fill-available;
+  inline-size: 100%;
+  max-inline-size: -webkit-fill-available;
 
   input,
   textarea,
@@ -79,20 +79,20 @@ textarea:not(.unstyled) {
 
   .prefix,
   .suffix {
-    padding: 0 var(--ui-padding-x);
+    padding: 0 var(--ui-padding-inline);
     color: var(--muted);
-    height: 100%;
+    block-size: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .prefix {
-    border-right: var(--button-border);
+    border-inline-end: var(--button-border);
   }
 
   .suffix {
-    border-left: var(--button-border);
+    border-inline-start: var(--button-border);
   }
 }
 
@@ -110,7 +110,7 @@ select:not(.unstyled):is(:hover, :active, :focus, .active) {
   background-size:
     var(--size-4),
     100% 100%;
-  padding-right: var(--size-7) !important;
+  padding-inline-end: var(--size-7) !important;
 
   &.small {
     background-position:
@@ -124,10 +124,10 @@ select:not(.unstyled):is(:hover, :active, :focus, .active) {
   gap: var(--spacer-sm);
 
   input {
-    width: min-content;
+    inline-size: min-content;
 
     &:not(:first-of-type) {
-      margin-left: var(--spacer-sm);
+      margin-inline-start: var(--spacer-sm);
     }
   }
 
@@ -178,7 +178,7 @@ label:has(.form-item) {
 
 .prose-input {
   span {
-    width: 100%;
+    inline-size: 100%;
   }
 
   [data-empty] {
@@ -195,7 +195,7 @@ label:has(.form-item) {
     font-family: inherit;
     background: inherit;
     letter-spacing: inherit;
-    min-height: 0;
+    min-block-size: 0;
 
     &[hidden] {
       display: none;
@@ -215,7 +215,7 @@ form.form {
 
     h1,
     p {
-      text-align: left;
+      text-align: start;
     }
 
     h1 {
@@ -231,14 +231,14 @@ form.form {
 
   input + .icon {
     position: absolute;
-    right: var(--ui-padding-x);
-    width: var(--size-4);
+    inset-inline-end: var(--ui-padding-inline);
+    inline-size: var(--size-4);
     color: var(--muted);
     z-index: 2;
   }
 
   input:has(+ .icon) {
-    padding-right: calc(var(--ui-padding-x) + var(--spacer-sm));
+    padding-inline-end: calc(var(--ui-padding-inline) + var(--spacer-sm));
 
     &:is(:hover, :active, :focus, .active) + .icon {
       color: var(--gray-z-6);
@@ -254,16 +254,16 @@ form.form {
     &:has(+ input),
     &:has(+ button),
     &:has(+ a) {
-      border-top-right-radius: 0 !important;
-      border-bottom-right-radius: 0 !important;
+      border-start-end-radius: 0 !important;
+      border-end-end-radius: 0 !important;
     }
 
     + input,
     + button,
     + a {
-      margin-left: calc(-1 * var(--border-width));
-      border-top-left-radius: 0 !important;
-      border-bottom-left-radius: 0 !important;
+      margin-inline-start: calc(-1 * var(--border-width));
+      border-start-start-radius: 0 !important;
+      border-end-start-radius: 0 !important;
     }
 
     &:is(:hover, :active, :focus, .active) {
@@ -274,7 +274,7 @@ form.form {
 
 input {
   &[type='checkbox'] {
-    height: var(--size-4);
+    block-size: var(--size-4);
   }
 }
 
@@ -283,6 +283,6 @@ label:has(> input[type='checkbox']) {
   align-items: center;
 
   > * {
-    width: auto;
+    inline-size: auto;
   }
 }
