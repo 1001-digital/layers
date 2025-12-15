@@ -97,7 +97,8 @@
           <h4>Semantic Spacers</h4>
           <div class="spacing-samples">
             <div v-for="spacer in spacers" :key="spacer" class="spacing-sample">
-              <div class="spacing-box" :style="{ width: `var(--spacer${spacer === 'default' ? '' : `-${spacer}`})`, height: `var(--spacer${spacer === 'default' ? '' : `-${spacer}`})` }" />
+              <div class="spacing-box"
+                :style="{ width: `var(--spacer${spacer === 'default' ? '' : `-${spacer}`})`, height: `var(--spacer${spacer === 'default' ? '' : `-${spacer}`})` }" />
               <code>--spacer{{ spacer === 'default' ? '' : `-${spacer}` }}</code>
             </div>
           </div>
@@ -146,10 +147,18 @@
         <div class="component-demo">
           <h4>With Icons</h4>
           <div class="demo-row">
-            <Button><Icon type="add" /> Add Item</Button>
-            <Button class="primary"><Icon type="check" /> Confirm</Button>
-            <Button class="small"><Icon type="edit" /></Button>
-            <Button class="link"><Icon type="link" /> Link</Button>
+            <Button>
+              <Icon type="add" /> Add Item
+            </Button>
+            <Button class="primary">
+              <Icon type="check" /> Confirm
+            </Button>
+            <Button class="small">
+              <Icon type="edit" />
+            </Button>
+            <Button class="link">
+              <Icon type="link" /> Link
+            </Button>
           </div>
         </div>
       </article>
@@ -230,13 +239,13 @@
           <Form>
             <FormGroup>
               <FormLabel label="Email">
-                <input type="email" placeholder="Enter your email" />
+                <input type="email" placeholder="Enter your email" autocomplete="email" />
               </FormLabel>
             </FormGroup>
 
             <FormGroup>
               <FormLabel label="Password">
-                <input type="password" placeholder="Enter your password" />
+                <input type="password" placeholder="Enter your password" autocomplete="current-password" />
               </FormLabel>
             </FormGroup>
 
@@ -257,7 +266,9 @@
 
           <FormItem>
             <input type="text" placeholder="Search" />
-            <template #suffix><Icon type="loader" /></template>
+            <template #suffix>
+              <Icon type="loader" />
+            </template>
           </FormItem>
         </div>
 
@@ -318,31 +329,16 @@
         <h3>Dialog / Modal</h3>
 
         <div class="component-demo">
-          <h4>Modal</h4>
-          <Button @click="showModal = true">Open Modal</Button>
-
-          <Modal v-model="showModal" title="Modal Title" x-close>
-            <p>Modal content with title bar and close button.</p>
-            <Actions>
-              <Button @click="showModal = false">Cancel</Button>
-              <Button class="primary" @click="showModal = false">Confirm</Button>
-            </Actions>
-          </Modal>
-        </div>
-
-        <div class="component-demo">
-          <h4>Dialog (Raw)</h4>
+          <h4>Dialog</h4>
           <Button @click="showDialog = true">Open Dialog</Button>
 
-          <ClientOnly>
-            <Dialog v-model="showDialog" x-close click-outside>
-              <h1>Dialog Title</h1>
-              <p>Raw dialog without modal styling.</p>
-              <Actions>
-                <Button @click="showDialog = false">Close</Button>
-              </Actions>
-            </Dialog>
-          </ClientOnly>
+          <Dialog v-model:open="showDialog" title="Dialog Title">
+            <p>Dialog with title and close button.</p>
+            <Actions>
+              <Button @click="showDialog = false">Cancel</Button>
+              <Button class="primary" @click="showDialog = false">Confirm</Button>
+            </Actions>
+          </Dialog>
         </div>
       </article>
     </section>
@@ -363,7 +359,6 @@ const iconTypes = [
   'maximize', 'times', 'trash', 'twitter', 'user', 'website', 'withdraw'
 ]
 
-const showModal = ref(false)
 const showDialog = ref(false)
 </script>
 
@@ -409,7 +404,7 @@ section {
   gap: var(--spacer-lg);
 }
 
-section > h2 {
+section>h2 {
   font-size: var(--font-xl);
   border-bottom: var(--border);
   padding-bottom: var(--spacer-sm);
@@ -420,7 +415,7 @@ article {
   gap: var(--spacer);
 }
 
-article > h3 {
+article>h3 {
   font-family: var(--ui-font-family);
   font-size: var(--ui-font-size);
   text-transform: var(--ui-text-transform);
@@ -450,7 +445,7 @@ article > h3 {
   text-align: center;
 }
 
-.color-swatch > div {
+.color-swatch>div {
   width: var(--size-8);
   height: var(--size-8);
   border: var(--border);

@@ -6,6 +6,8 @@
         <Icon type="close" />
       </button>
 
+      <h1 v-if="title">{{ title }}</h1>
+
       <slot />
     </component>
 
@@ -18,7 +20,10 @@ const dialog = ref(null)
 const props = defineProps({
   title: String,
   class: String,
-  xClose: Boolean,
+  xClose: {
+    type: Boolean,
+    default: true,
+  },
   clickOutside: {
     type: Boolean,
     default: true,
@@ -83,7 +88,8 @@ watchEffect(() => (open.value ? show() : hide()))
 
 <style>
 .dialog {
-  padding: calc(var(--spacer) * 2);
+  padding: var(--spacer);
+  padding-block-start: calc(var(--spacer) * 3);
   max-inline-size: min(var(--dialog-width, 32rem), calc(100vw - var(--spacer) * 2));
   inline-size: 100%;
   background: var(--background);
@@ -95,6 +101,8 @@ watchEffect(() => (open.value ? show() : hide()))
   min-block-size: min-content;
   max-block-size: 100dvh;
   container-type: inline-size;
+  display: grid;
+  gap: var(--spacer);
 
   /* Entry/exit animations */
   opacity: 1;
@@ -106,6 +114,12 @@ watchEffect(() => (open.value ? show() : hide()))
     display var(--speed) ease allow-discrete;
 
   @starting-style {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  /* Exit animation */
+  &:not([open]):not(:popover-open) {
     opacity: 0;
     transform: scale(0.95);
   }
@@ -122,27 +136,8 @@ watchEffect(() => (open.value ? show() : hide()))
     }
   }
 
-  /* Exit animation */
-  &:not([open]),
-  &:not(:popover-open) {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-
   @media (--md) {
     max-block-size: calc(100dvh - var(--spacer) * 2);
-  }
-
-  &.modal {
-    padding: var(--spacer-lg);
-    display: grid;
-    gap: var(--spacer);
-
-    &:has(> h1:first-of-type) {
-      padding: var(--spacer);
-      padding-block-start: calc(var(--spacer) * 3);
-      font-size: var(--ui-font-size);
-    }
   }
 
   &.compat {
@@ -169,19 +164,6 @@ watchEffect(() => (open.value ? show() : hide()))
 
   > .close {
     position: absolute;
-    inset-block-start: var(--spacer);
-    inset-inline-end: var(--spacer);
-    inline-size: var(--spacer);
-    block-size: var(--spacer);
-    padding: 0;
-    z-index: 10;
-
-    &:is(:hover, :active, :focus, .active) {
-      outline: none;
-    }
-  }
-
-  &.modal > .close {
     inset-block-start: 0;
     inset-inline-end: 0;
     block-size: calc(var(--spacer) * 2);
@@ -191,18 +173,16 @@ watchEffect(() => (open.value ? show() : hide()))
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0;
+    z-index: 10;
     background: var(--background);
+
+    &:is(:hover, :active, :focus, .active) {
+      outline: none;
+    }
   }
 
-  > h1 {
-    padding-inline-end: var(--size-6);
-    font-family: var(--ui-font-family);
-    font-size: var(--ui-font-size);
-    text-transform: var(--ui-text-transform);
-    margin-block-end: var(--size-3);
-  }
-
-  &.modal > h1:first-of-type {
+  > h1:first-of-type {
     inline-size: 100%;
     border-block-end: var(--border);
     block-size: calc(var(--spacer) * 2);
@@ -213,7 +193,9 @@ watchEffect(() => (open.value ? show() : hide()))
     display: flex;
     align-items: center;
     margin: 0;
+    font-family: var(--ui-font-family);
     font-size: var(--ui-font-size);
+    text-transform: var(--ui-text-transform);
     background: var(--background);
   }
 
@@ -222,13 +204,6 @@ watchEffect(() => (open.value ? show() : hide()))
     display: flex;
     gap: var(--spacer);
     justify-content: flex-end;
-  }
-
-  &.modal .modal-footer {
-    margin: var(--spacer) calc(var(--spacer) * -1) calc(var(--spacer) * -1);
-    padding: var(--spacer);
-    justify-content: flex-end;
-    border-block-start: var(--border);
   }
 }
 
