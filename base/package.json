@@ -1,5 +1,5 @@
 {
-  "name": "@1001.digital/layers.base",
+  "name": "@1001-digital/layers.base",
   "type": "module",
   "version": "0.0.1",
   "main": "./nuxt.config.ts",
