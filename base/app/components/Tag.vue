@@ -34,7 +34,6 @@ const emit = defineEmits(['dismiss'])
     padding: var(--spacer-sm) var(--spacer);
 
     +button {
-      margin-inline-start: calc(-1 * (var(--spacer) - var(--spacer-xs)));
       padding: var(--spacer-sm);
 
       &:is(:hover, :active, :focus, .active) {
