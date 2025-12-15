@@ -230,9 +230,13 @@
         <div class="component-demo">
           <h4>Dismissable Tags</h4>
           <Tags>
-            <Tag dismissable>Dismissable 1</Tag>
-            <Tag dismissable>Dismissable 2</Tag>
+            <Tag v-for="tag in dismissableTags" :key="tag" dismissable @dismiss="dismissableTags = dismissableTags.filter(t => t !== tag)">
+              {{ tag }}
+            </Tag>
           </Tags>
+          <Button v-if="dismissableTags.length === 0" class="small" @click="dismissableTags = ['Dismissable 1', 'Dismissable 2', 'Dismissable 3']">
+            Reset Tags
+          </Button>
         </div>
       </article>
 
@@ -366,6 +370,9 @@ const iconTypes = [
 ]
 
 const showDialog = ref(false)
+
+// Dismissable tags demo
+const dismissableTags = ref(['Dismissable 1', 'Dismissable 2', 'Dismissable 3'])
 </script>
 
 <style scoped>
