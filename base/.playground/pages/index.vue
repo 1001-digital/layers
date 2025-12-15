@@ -148,16 +148,22 @@
           <h4>With Icons</h4>
           <div class="demo-row">
             <Button>
-              <Icon type="add" /> Add Item
+              <Icon type="add" />
+              <span>Add Item</span>
             </Button>
             <Button class="primary">
-              <Icon type="check" /> Confirm
+              <Icon type="check" />
+              <span>Confirm</span>
+            </Button>
+            <Button>
+              <Icon type="edit" />
             </Button>
             <Button class="small">
               <Icon type="edit" />
             </Button>
             <Button class="link">
-              <Icon type="link" /> Link
+              <Icon type="link" />
+              <span>Link</span>
             </Button>
           </div>
         </div>
