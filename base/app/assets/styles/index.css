@@ -19,16 +19,7 @@
  * Base Layer - Element defaults
  */
 @import './base/base.css' layer(base);
-
-/*
- * Components Layer
- */
-@import './components/forms.css' layer(components);
-@import './components/buttons.css' layer(components);
-@import './components/cards.css' layer(components);
-@import './components/dialogs.css' layer(components);
-@import './components/tags.css' layer(components);
-@import './components/actions.css' layer(components);
+@import './base/forms.css' layer(base);
 
 /*
  * Utilities Layer - Helper classes

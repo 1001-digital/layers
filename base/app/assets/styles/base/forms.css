@@ -1,6 +1,6 @@
 /*
- * Forms Component
- * Form element styling
+ * Form Elements
+ * Global styling for form elements
  */
 
 button:not(.unstyled),
@@ -33,7 +33,7 @@ select:not(.unstyled) {
   }
 
   &:is(:hover, :active, :focus, .active) {
-    outline: none;
+    outline-color: transparent;
     border-color: var(--button-border-color-highlight);
     background: var(--button-background-highlight);
   }
@@ -54,46 +54,6 @@ select:not(.unstyled) {
 input:not(.unstyled),
 textarea:not(.unstyled) {
   text-transform: var(--input-text-transform);
-}
-
-.form-item {
-  border: var(--border);
-  border-radius: var(--border-radius);
-  display: flex;
-  align-items: center;
-  background: var(--background);
-  inline-size: 100%;
-  max-inline-size: -webkit-fill-available;
-
-  input,
-  textarea,
-  select {
-    border: none;
-  }
-
-  &:has(input:hover),
-  &:has(input:focus) {
-    background: var(--button-background-highlight);
-    border-color: var(--button-border-color-highlight);
-  }
-
-  .prefix,
-  .suffix {
-    padding: 0 var(--ui-padding-inline);
-    color: var(--muted);
-    block-size: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .prefix {
-    border-inline-end: var(--button-border);
-  }
-
-  .suffix {
-    border-inline-start: var(--button-border);
-  }
 }
 
 select:not(.unstyled),
@@ -119,22 +79,8 @@ select:not(.unstyled):is(:hover, :active, :focus, .active) {
   }
 }
 
-.radio.form-group {
-  display: flex;
-  gap: var(--spacer-sm);
-
-  input {
-    inline-size: min-content;
-
-    &:not(:first-of-type) {
-      margin-inline-start: var(--spacer-sm);
-    }
-  }
-
-  label,
-  input {
-    display: inline;
-  }
+input[type='checkbox'] {
+  block-size: var(--size-4);
 }
 
 form {
@@ -142,14 +88,8 @@ form {
   gap: var(--spacer);
 }
 
-.form-group {
-  display: grid;
-  gap: var(--spacer-sm);
-}
-
 form label,
-label.form-label,
-label:has(.form-item) {
+label.form-label {
   /* UI font styles */
   font-family: var(--ui-font-family);
   font-size: var(--ui-font-size);
@@ -173,81 +113,6 @@ label:has(.form-item) {
 
   > span:first-child {
     display: block;
-  }
-}
-
-/* Theme form styles */
-form.form {
-  display: grid;
-  gap: var(--spacer);
-
-  > header,
-  > footer {
-    display: grid;
-    gap: var(--spacer-sm);
-
-    h1,
-    p {
-      text-align: start;
-    }
-
-    h1 {
-      font-size: var(--font-xl);
-    }
-  }
-}
-
-.input-group {
-  position: relative;
-  display: flex;
-  align-items: center;
-
-  input + .icon {
-    position: absolute;
-    inset-inline-end: var(--ui-padding-inline);
-    inline-size: var(--size-4);
-    color: var(--muted);
-    z-index: 2;
-  }
-
-  input:has(+ .icon) {
-    padding-inline-end: calc(var(--ui-padding-inline) + var(--spacer-sm));
-
-    &:is(:hover, :active, :focus, .active) + .icon {
-      color: var(--gray-z-6);
-    }
-  }
-
-  input,
-  button,
-  .button,
-  a {
-    z-index: 1;
-
-    &:has(+ input),
-    &:has(+ button),
-    &:has(+ a) {
-      border-start-end-radius: 0 !important;
-      border-end-end-radius: 0 !important;
-    }
-
-    + input,
-    + button,
-    + a {
-      margin-inline-start: calc(-1 * var(--border-width));
-      border-start-start-radius: 0 !important;
-      border-end-start-radius: 0 !important;
-    }
-
-    &:is(:hover, :active, :focus, .active) {
-      z-index: 2;
-    }
-  }
-}
-
-input {
-  &[type='checkbox'] {
-    block-size: var(--size-4);
   }
 }
 

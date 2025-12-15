@@ -1,8 +1,10 @@
-/*
- * Cards Component
- * Card component styling
- */
+<template>
+  <article class="card">
+    <slot />
+  </article>
+</template>
 
+<style scoped>
 .card {
   display: grid;
   gap: var(--spacer);
@@ -57,3 +59,4 @@
     }
   }
 }
+</style>
