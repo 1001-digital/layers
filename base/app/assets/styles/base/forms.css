@@ -34,8 +34,7 @@ select:not(.unstyled) {
   }
 
   &:is(:hover, :active, :focus, .active) {
-    outline-color: transparent;
-    outline-style: dashed;
+    outline: none;
     box-shadow: var(--border-shadow-highlight);
     background: var(--button-background-highlight);
   }
