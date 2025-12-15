@@ -1,41 +1,39 @@
-<template>
-  <i v-if="symbol" class="icon">
-    {{ symbol }}
-  </i>
-</template>
-
 <script setup lang="ts">
 const props = defineProps<{ type: string }>()
 
-const ICONS: { [key: string]: string } = {
-  add: '+',
-  check: '✓',
-  'chevron-down': '▼',
-  'chevron-left': '◀',
-  'chevron-right': '▶',
-  'chevron-up': '▲',
-  close: '✕',
-  code: '</>',
-  discord: '🤖',
-  edit: '✎',
-  email: '✉',
-  folder: '📁',
-  github: '⌘',
-  home: '⌂',
-  image: '🖼',
-  link: '🔗',
-  loader: '⏳',
-  maximize: '⛶',
-  times: '✕',
-  trash: '🗑',
-  twitter: '𝕏',
-  user: '👤',
-  website: '🌐',
-  withdraw: '↩',
+const ICON_MAP: Record<string, string> = {
+  add: 'lucide:plus',
+  check: 'lucide:check',
+  'chevron-down': 'lucide:chevron-down',
+  'chevron-left': 'lucide:chevron-left',
+  'chevron-right': 'lucide:chevron-right',
+  'chevron-up': 'lucide:chevron-up',
+  close: 'lucide:x',
+  code: 'lucide:code',
+  discord: 'simple-icons:discord',
+  edit: 'lucide:pencil',
+  email: 'lucide:mail',
+  folder: 'lucide:folder',
+  github: 'simple-icons:github',
+  home: 'lucide:home',
+  image: 'lucide:image',
+  link: 'lucide:link',
+  loader: 'lucide:loader-2',
+  maximize: 'lucide:maximize',
+  times: 'lucide:x',
+  trash: 'lucide:trash-2',
+  twitter: 'simple-icons:x',
+  user: 'lucide:user',
+  website: 'lucide:globe',
+  withdraw: 'lucide:undo',
 }
 
-const symbol = computed(() => ICONS[props.type])
+const iconName = computed(() => ICON_MAP[props.type] || props.type)
 </script>
+
+<template>
+  <NuxtIcon v-if="iconName" :name="iconName" class="icon" />
+</template>
 
 <style scoped>
 .icon {
@@ -44,6 +42,5 @@ const symbol = computed(() => ICONS[props.type])
   height: 1em;
   align-items: center;
   justify-content: center;
-  text-align: center;
 }
 </style>

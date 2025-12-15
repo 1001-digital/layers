@@ -7,6 +7,12 @@ const currentDir = dirname(fileURLToPath(import.meta.url))
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
+  modules: ['@nuxt/icon'],
+
+  icon: {
+    componentName: 'NuxtIcon',
+  },
+
   css: [
     join(currentDir, './app/assets/styles/index.css'),
   ],
