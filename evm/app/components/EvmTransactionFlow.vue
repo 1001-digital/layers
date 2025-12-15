@@ -1,7 +1,7 @@
 <template>
   <slot :start="start" name="start"></slot>
 
-  <Modal v-model:open="open" :x-close="false" class="transaction-flow">
+  <Dialog v-model:open="open" :x-close="false" class="transaction-flow">
     <slot name="before" />
 
     <h1 v-if="text.title[step]">{{ text.title[step] }}</h1>
@@ -26,7 +26,7 @@
       <Button @click="cancel" class="secondary">Cancel</Button>
       <Button @click="() => initializeRequest()">{{ text.action[step] || 'Execute' }}</Button>
     </Actions>
-  </Modal>
+  </Dialog>
 </template>
 
 <script setup lang="ts">
