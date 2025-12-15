@@ -1,0 +1,15 @@
+/*
+ * CSS Custom Properties
+ * Organized by category. Order matters as some depend on others.
+ */
+
+@import './colors.css';
+@import './sizes.css';
+@import './fonts.css';
+@import './borders.css';
+@import './effects.css';
+@import './animations.css';
+@import './ui.css';
+@import './layout.css';
+@import './z-index.css';
+@import './components.css';

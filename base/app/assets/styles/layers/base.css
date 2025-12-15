@@ -1,0 +1,32 @@
+/*
+ * Base Layer
+ * Core element styling and document defaults
+ */
+
+html {
+  /* Color settings */
+  background-color: var(--background);
+  color: var(--color);
+
+  /* Font settings */
+  font-size: var(--rem);
+  font-family: var(--font-family);
+  line-height: var(--line-height-md);
+  font-weight: var(--font-weight);
+  font-style: normal;
+  letter-spacing: var(--letter-spacing);
+  text-transform: var(--text-transform);
+  font-synthesis: initial;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  /* Font size separate from root em */
+  font-size: var(--font-base);
+
+  /* Prevent horizontal overflow */
+  overflow-x: hidden;
+}

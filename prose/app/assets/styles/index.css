@@ -1,0 +1,6 @@
+/*
+ * Prose Layer Styles
+ * Extends @base/ layer with prose/typography styling
+ */
+
+@import './layers/prose.css' layer(components);

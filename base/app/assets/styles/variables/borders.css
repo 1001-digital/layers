@@ -1,0 +1,17 @@
+:root {
+  --border-width: 1px;
+  --border-radius: 0;
+
+  /* Border colors */
+  --border-color: var(--gray-z-2);
+  --border-color-highlight: var(--gray-z-3);
+  --border-color-dark: var(--color);
+  --border-color-light: var(--color);
+
+  /* Border shorthand */
+  --border: var(--border-width) solid var(--border-color);
+  --border-dark: var(--border-width) solid var(--border-color-dark);
+
+  /* Border effects */
+  --border-shadow: 0 0 0 var(--border-width) var(--border-color);
+}

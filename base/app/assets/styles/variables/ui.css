@@ -1,0 +1,18 @@
+:root {
+  /* UI typography */
+  --ui-font-family: monospace;
+  --ui-font-size: 13px;
+  --ui-font-weight: 400;
+  --ui-text-transform: uppercase;
+  --ui-letter-spacing: var(--letter-spacing);
+  --ui-line-height: var(--line-height);
+
+  /* UI colors */
+  --ui-color: var(--primary);
+  --ui-placeholder-color: var(--gray-z-5);
+  --ui-color-visited: var(--primary);
+
+  /* UI spacing */
+  --ui-padding-y: var(--spacer-sm);
+  --ui-padding-x: var(--spacer);
+}

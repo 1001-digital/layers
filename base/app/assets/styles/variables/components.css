@@ -1,0 +1,53 @@
+/*
+ * Component-specific variables
+ */
+
+:root {
+  /* Alerts */
+  --alert-color: var(--color);
+  --alert-background-color: transparent;
+  --alert-border-color: var(--border-color);
+
+  --alert-info-color: var(--alert-color);
+  --alert-info-background-color: var(--alert-background-color);
+  --alert-info-border-color: var(--alert-border-color);
+
+  --alert-error-color: var(--error);
+  --alert-error-background-color: color-mix(in srgb, var(--error) 10%, transparent);
+  --alert-error-border-color: var(--error);
+
+  /* Buttons */
+  --button-border: var(--border);
+  --button-border-radius: var(--border-radius);
+  --button-background: var(--background);
+  --button-background-highlight: var(--gray-z-1);
+  --button-border-color-highlight: var(--gray-z-3);
+  --button-color: var(--ui-color);
+  --button-color-highlight: var(--color);
+  --button-icon-color: var(--muted);
+  --button-icon-color-highlight: var(--color);
+
+  /* Cards */
+  --card-border-radius: var(--border-radius);
+  --card-border: var(--border);
+  --card-background: var(--background);
+  --card-background-highlight: var(--gray-z-1);
+  --card-border-color-highlight: var(--gray-z-3);
+
+  /* Dialogs */
+  --dialog-initial-x-offset: 0;
+  --dialog-initial-y-offset: var(--spacer);
+  --dialog-x-offset: 0;
+  --dialog-y-offset: 0;
+  --backdrop-background-color: transparent;
+
+  /* Images */
+  --image-border-radius: var(--size-1);
+  --image-border: var(--border);
+  --image-loading-background: var(--gray-z-0);
+
+  /* Forms */
+  --form-item-height: calc(var(--size-4) + var(--ui-padding-y) * 2 + var(--border-width) * 2);
+  --form-item-height-sm: calc(var(--size-4) + var(--ui-padding-y) + var(--border-width) * 2);
+  --input-text-transform: none;
+}

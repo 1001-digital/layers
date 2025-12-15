@@ -1,0 +1,34 @@
+:root {
+  --rem: 16px;
+
+  /* Font families */
+  --font-family: sans-serif;
+  --font-family-serif: serif;
+
+  /* Font sizes */
+  --font-base: 16px;
+  --font-xs: calc(var(--font-base) * 0.69);
+  --font-sm: calc(var(--font-base) * 0.8);
+  --font-lg: calc(var(--font-base) * 1.2);
+  --font-xl: calc(var(--font-base) * 1.4);
+
+  /* Font weights */
+  --font-weight-light: 300;
+  --font-weight: 400;
+  --font-weight-bold: 500;
+
+  /* Letter spacing */
+  --letter-spacing-sm: -0.025em;
+  --letter-spacing: 0.025em;
+  --letter-spacing-md: 0.05em;
+  --letter-spacing-lg: 0.1em;
+
+  /* Line heights */
+  --line-height-sm: 105%;
+  --line-height: 100%;
+  --line-height-md: 120%;
+  --line-height-lg: 160%;
+
+  /* Text transform */
+  --text-transform: none;
+}

@@ -1,0 +1,75 @@
+/*
+ * Colors
+ * Modern color palette using oklch for perceptual uniformity
+ */
+
+:root {
+  /* Enable system color scheme support */
+  color-scheme: light dark;
+
+  /* Base colors */
+  --black: oklch(0% 0 0);
+  --white: oklch(100% 0 0);
+
+  /* Gray scale (perceptually uniform in oklch) */
+  --gray-50: oklch(98% 0 0);
+  --gray-100: oklch(96% 0 0);
+  --gray-200: oklch(91% 0 0);
+  --gray-300: oklch(85% 0 0);
+  --gray-400: oklch(70% 0 0);
+  --gray-500: oklch(55% 0 0);
+  --gray-600: oklch(45% 0 0);
+  --gray-700: oklch(37% 0 0);
+  --gray-800: oklch(27% 0 0);
+  --gray-900: oklch(20% 0 0);
+  --gray-950: oklch(14% 0 0);
+
+  /* Semi-transparent variants */
+  --black-semi: color-mix(in oklch, var(--black) 73%, transparent);
+  --white-semi: color-mix(in oklch, var(--white) 73%, transparent);
+
+  /* Semantic colors */
+  --primary: var(--color);
+  --muted: var(--gray-z-5);
+  --error: oklch(55% 0.25 27);
+  --success: oklch(75% 0.2 130);
+}
+
+/*
+ * Color scheme aware values
+ * These use light-dark() and re-evaluate based on the element's color-scheme
+ */
+
+:root {
+  --background: light-dark(var(--white), var(--black));
+  --background-semi: light-dark(var(--white-semi), var(--black-semi));
+  --color: light-dark(var(--black), var(--white));
+  --color-semi: light-dark(var(--black-semi), var(--white-semi));
+
+  /* Z-colors (depth from viewer, 0 = closest to background) */
+  --gray-z-0: light-dark(var(--gray-50), var(--gray-950));
+  --gray-z-1: light-dark(var(--gray-100), var(--gray-900));
+  --gray-z-2: light-dark(var(--gray-200), var(--gray-800));
+  --gray-z-3: light-dark(var(--gray-300), var(--gray-700));
+  --gray-z-4: light-dark(var(--gray-400), var(--gray-600));
+  --gray-z-5: var(--gray-500);
+  --gray-z-6: light-dark(var(--gray-600), var(--gray-400));
+  --gray-z-7: light-dark(var(--gray-700), var(--gray-300));
+  --gray-z-8: light-dark(var(--gray-800), var(--gray-200));
+  --gray-z-9: light-dark(var(--gray-900), var(--gray-100));
+  --gray-z-10: light-dark(var(--gray-950), var(--gray-50));
+}
+
+/*
+ * Manual color scheme overrides
+ * Force light/dark mode on nested elements
+ */
+
+.light {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
+

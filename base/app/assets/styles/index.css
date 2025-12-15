@@ -1,2 +1,34 @@
-@import 'modern-normalize/modern-normalize.css';
+/*
+ * CSS Layers Order Definition
+ * This establishes the cascade priority:
+ * reset < base < components < utilities
+ */
+@layer reset, base, components, utilities;
 
+/*
+ * CSS Custom Properties (outside layers for proper cascade)
+ */
+@import './variables/index.css';
+
+/*
+ * Reset Layer - Modern Normalize
+ */
+@import './layers/reset.css' layer(reset);
+
+/*
+ * Base Layer - Element defaults
+ */
+@import './layers/base.css' layer(base);
+
+/*
+ * Components Layer - Forms, buttons, cards
+ */
+@import './layers/forms.css' layer(components);
+@import './layers/buttons.css' layer(components);
+@import './layers/cards.css' layer(components);
+
+/*
+ * Utilities Layer - Helper classes
+ */
+@import './layers/utilities.css' layer(utilities);
+@import './layers/animations.css' layer(utilities);

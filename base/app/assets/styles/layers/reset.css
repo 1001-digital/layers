@@ -1,0 +1,169 @@
+/*
+ * Reset Layer
+ * Based on modern-normalize with additional opinionated resets
+ * Inspired by Tailwind's preflight
+ */
+
+/* Import modern-normalize as the foundation */
+@import 'modern-normalize/modern-normalize.css';
+
+/*
+ * Additional resets (SUIT CSS / Tailwind inspired)
+ */
+
+/* Remove default spacing for semantic elements */
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin: 0;
+}
+
+/* Reset button appearance */
+button {
+  background-color: transparent;
+  background-image: none;
+}
+
+button:focus {
+  outline-color: transparent;
+}
+
+/* Reset fieldset */
+fieldset {
+  margin: 0;
+  padding: 0;
+}
+
+/* Reset lists */
+ol,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+ * Base box model
+ */
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: #e5e7eb;
+}
+
+/* Ensure horizontal rules are visible */
+hr {
+  border-top-width: 1px;
+  border-color: var(--border-color);
+}
+
+/* Reset italic style on i elements */
+i {
+  font-style: normal;
+}
+
+/* Image border style */
+img {
+  border-style: solid;
+}
+
+/* Textarea resize */
+textarea {
+  resize: vertical;
+}
+
+/* Placeholder styling */
+input::placeholder,
+textarea::placeholder {
+  color: var(--ui-placeholder-color);
+}
+
+/* Pointer cursor for interactive elements */
+button,
+[role='button'] {
+  cursor: pointer;
+}
+
+/* Table border collapse */
+table {
+  border-collapse: collapse;
+}
+
+/* Reset heading styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* Reset link styles */
+a {
+  color: inherit;
+  text-decoration: inherit;
+  transition: color var(--speed);
+}
+
+/* Form element defaults */
+.button,
+button,
+input,
+optgroup,
+select,
+textarea {
+  padding: var(--ui-padding-y) var(--ui-padding-x);
+  line-height: inherit;
+  color: inherit;
+}
+
+/* Monospace elements */
+pre,
+code,
+kbd,
+samp {
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    'Liberation Mono',
+    'Courier New',
+    monospace;
+}
+
+/* Block display for media elements */
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block;
+  vertical-align: middle;
+}
+
+/* Responsive images/video */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}

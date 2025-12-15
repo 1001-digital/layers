@@ -1,0 +1,93 @@
+/*
+ * Utilities Layer
+ * Helper classes
+ */
+
+/* UI font utility */
+.ui {
+  font-family: var(--ui-font-family);
+  font-size: var(--ui-font-size);
+  font-weight: var(--ui-font-weight);
+  text-transform: var(--ui-text-transform);
+  letter-spacing: var(--ui-letter-spacing);
+  line-height: var(--ui-line-height);
+  color: var(--ui-color);
+}
+
+/* Muted text */
+.muted {
+  color: var(--muted);
+}
+
+/* Font sizes */
+.font-sm {
+  font-size: var(--font-sm);
+}
+
+/* Responsive visibility */
+.visible-sm {
+  display: none !important;
+
+  @media (min-width: 27rem) {
+    display: initial !important;
+
+    &.flex {
+      display: flex !important;
+    }
+
+    &.inline-flex {
+      display: inline-flex !important;
+    }
+  }
+}
+
+.visible-md {
+  display: none !important;
+
+  @media (min-width: 45rem) {
+    display: initial !important;
+
+    &.flex {
+      display: flex !important;
+    }
+
+    &.inline-flex {
+      display: inline-flex !important;
+    }
+  }
+}
+
+/* Tags */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacer-sm);
+
+  .tag {
+    border: var(--border);
+    font-family: var(--ui-font-family);
+    font-size: var(--font-sm);
+    font-weight: var(--ui-font-weight);
+    text-transform: var(--ui-text-transform);
+    letter-spacing: var(--ui-letter-spacing);
+    line-height: var(--ui-line-height);
+    color: var(--ui-color);
+    display: flex;
+    align-items: center;
+
+    span {
+      padding: var(--spacer-xs) var(--spacer-sm);
+
+      + button {
+        margin-left: calc(-1 * var(--spacer-xs));
+      }
+    }
+  }
+}
+
+/* Actions container */
+.actions {
+  &:not(.left) {
+    justify-content: flex-end;
+  }
+}

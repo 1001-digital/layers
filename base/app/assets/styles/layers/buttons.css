@@ -1,0 +1,53 @@
+/*
+ * Buttons Layer
+ * Button variants and modifiers
+ */
+
+button,
+.button,
+a.button {
+  /* Primary button variables */
+  --button-primary-background: var(--gray-z-10);
+  --button-primary-border-color: var(--gray-z-8);
+  --button-primary-color: var(--gray-z-0);
+
+  --button-primary-background-highlight: var(--gray-z-8);
+  --button-primary-border-color-highlight: var(--gray-z-6);
+  --button-primary-color-highlight: var(--gray-z-0);
+
+  /* Button content alignment */
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacer-sm);
+
+  /* Icon styling */
+  > .icon {
+    color: var(--button-icon-color);
+    transition: color var(--speed);
+  }
+
+  &:is(:hover, :active, :focus, .active) > .icon {
+    color: var(--button-icon-color-highlight);
+  }
+
+  /* Primary variant */
+  &.primary {
+    background: var(--button-primary-background);
+    border-color: var(--button-primary-border-color);
+    color: var(--button-primary-color);
+
+    > .icon {
+      color: var(--button-primary-color);
+    }
+
+    &:is(:hover, :active, :focus, .active) {
+      background: var(--button-primary-background-highlight);
+      border-color: var(--button-primary-border-color-highlight);
+      color: var(--button-primary-color-highlight);
+
+      > .icon {
+        color: var(--button-primary-color-highlight);
+      }
+    }
+  }
+}

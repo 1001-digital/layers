@@ -1,0 +1,249 @@
+/*
+ * Prose Layer
+ * Typography and content styling
+ */
+
+.prose {
+  /* Spacing */
+  > * {
+    margin: var(--spacer) 0;
+    color: var(--color);
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  /* Headings */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    width: 100%;
+    position: relative;
+    margin: var(--spacer) 0;
+    color: var(--color);
+    font-family: var(--font-family);
+    font-weight: var(--font-weight-bold);
+  }
+
+  h1 {
+    font-size: var(--font-xl);
+  }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .lead {
+    font-size: var(--font-lg);
+  }
+
+  hr {
+    margin: var(--spacer-lg) 0;
+    border-color: var(--gray-z-4, var(--muted));
+  }
+
+  > table {
+    margin: var(--spacer) 0;
+
+    th,
+    td {
+      padding: calc(var(--spacer-sm) - var(--spacer-xs)) var(--spacer-sm);
+      border: var(--border);
+    }
+  }
+
+  /* Links */
+  a {
+    color: var(--primary);
+    font-weight: bold;
+    transition: all var(--speed);
+
+    &.muted {
+      color: var(--gray-z-9, var(--muted));
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    > a {
+      color: inherit;
+      border-bottom: none;
+      font-weight: inherit;
+    }
+  }
+
+  /* Quotes */
+  blockquote {
+    padding-left: var(--spacer);
+    font-size: var(--font-lg);
+    font-family: var(--font-family);
+    line-height: var(--line-height-lg);
+    border-left: 4px solid var(--primary);
+    font-style: italic;
+    font-weight: bold;
+    color: var(--gray-z-7, var(--muted));
+
+    cite {
+      display: block;
+      font-size: var(--font-sm);
+      line-height: var(--line-height-sm);
+      text-align: right;
+      margin: 1em 0 0;
+
+      &:before {
+        content: '\2013';
+        margin-right: 0.5em;
+      }
+    }
+  }
+
+  /* Images */
+  figure figcaption,
+  p:has(> img) {
+    font-size: var(--font-sm);
+    line-height: var(--line-height-sm);
+    color: var(--gray-z-7, var(--muted));
+  }
+
+  figure > img,
+  p > img,
+  > img {
+    border: var(--image-border);
+    border-radius: var(--image-border-radius);
+  }
+
+  figure:has(img),
+  > img {
+    margin: var(--spacer-md) 0;
+  }
+
+  /* Lists */
+  ol {
+    list-style: auto;
+  }
+
+  ul {
+    list-style: none;
+
+    > li {
+      position: relative;
+    }
+
+    > li:before {
+      content: '\2022';
+      position: absolute;
+      color: var(--gray-z-5, var(--muted));
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
+  }
+
+  ul,
+  ol {
+    padding-left: 1em;
+
+    li {
+      margin: 0.25em 0;
+    }
+
+    ul,
+    ol {
+      margin: 0;
+
+      li {
+        margin: 0;
+      }
+    }
+  }
+
+  /* Footnotes */
+  sup a,
+  .data-footnote-backref {
+    color: var(--gray-z-7, var(--muted));
+    padding: 0 0 0 var(--size-0);
+
+    &:is(:hover, :active, :focus, .active) {
+      color: var(--primary);
+    }
+  }
+
+  .data-footnote-backref {
+    font-size: var(--font-sm);
+  }
+
+  .footnotes {
+    font-size: var(--font-sm);
+    color: var(--gray-z-7, var(--muted));
+    border-top: var(--border);
+    margin-top: calc(2 * var(--size-5));
+    padding-top: var(--size-5);
+  }
+
+  /* Code */
+  pre:has(> code) {
+    padding: var(--ui-padding-y) var(--ui-padding-x);
+    background-color: var(--gray-z-1, var(--background));
+    border: var(--border);
+    border-radius: var(--border-radius);
+    font-size: 0.8em;
+    overflow: scroll;
+
+    > code {
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      font-size: 1em;
+    }
+  }
+
+  /* Table */
+  > table {
+    margin: var(--size-4) 0;
+  }
+
+  /* Space */
+  > *:first-child,
+  > *:first-child > * {
+    margin-top: 0;
+  }
+
+  > *:last-child,
+  > *:last-child > * {
+    margin-bottom: 0;
+  }
+
+  &.centered {
+    text-align: center;
+  }
+
+  iframe {
+    max-width: 100%;
+  }
+}
+
+/* General prose rules */
+.prose-title {
+  font-size: var(--font-xl);
+}
+
+/* Links in paragraphs */
+p {
+  a {
+    text-decoration: underline;
+  }
+}
