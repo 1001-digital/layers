@@ -332,10 +332,10 @@
 
         <div class="component-demo">
           <h4>Checkbox</h4>
-          <label>
-            <input type="checkbox" />
+          <FormCheckbox v-model="acceptTerms">
             Accept terms and conditions
-          </label>
+          </FormCheckbox>
+          <p>Accepted: {{ acceptTerms }}</p>
         </div>
       </article>
 
@@ -399,6 +399,9 @@ const showDialog = ref(false)
 
 // Dismissable tags demo
 const dismissableTags = ref(['Dismissable 1', 'Dismissable 2', 'Dismissable 3'])
+
+// FormCheckbox demo data
+const acceptTerms = ref(false)
 
 // FormRadioGroup demo data
 const selectedOption = ref('a')
