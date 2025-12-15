@@ -21,12 +21,14 @@
 @import './base/base.css' layer(base);
 
 /*
- * Components Layer - Forms, buttons, cards, dialogs
+ * Components Layer
  */
 @import './components/forms.css' layer(components);
 @import './components/buttons.css' layer(components);
 @import './components/cards.css' layer(components);
 @import './components/dialogs.css' layer(components);
+@import './components/tags.css' layer(components);
+@import './components/actions.css' layer(components);
 
 /*
  * Utilities Layer - Helper classes

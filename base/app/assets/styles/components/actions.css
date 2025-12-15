@@ -1,0 +1,10 @@
+/*
+ * Actions Component
+ * Action button container
+ */
+
+.actions {
+  &:not(.left) {
+    justify-content: flex-end;
+  }
+}
