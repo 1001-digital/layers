@@ -109,7 +109,7 @@ defineProps({
   }
 }
 
-.form-select-content {
+:global(.form-select-content) {
   background: var(--background);
   border: var(--border);
   border-radius: var(--border-radius);
@@ -120,11 +120,11 @@ defineProps({
   overflow: hidden;
 }
 
-.form-select-viewport {
+:global(.form-select-viewport) {
   padding: var(--size-1);
 }
 
-.form-select-item {
+:global(.form-select-item) {
   padding: var(--size-2) var(--size-3);
   border-radius: calc(var(--border-radius) / 2);
   display: flex;
@@ -149,7 +149,7 @@ defineProps({
   }
 }
 
-.form-select-indicator {
+:global(.form-select-indicator) {
   color: var(--accent);
 }
 </style>

@@ -305,6 +305,32 @@
         </div>
 
         <div class="component-demo">
+          <h4>FormSelect (Reka UI)</h4>
+          <FormLabel label="Single Select">
+            <FormItem>
+              <FormSelect v-model="selectedFruit" :options="fruitOptions" placeholder="Select a fruit..." />
+            </FormItem>
+          </FormLabel>
+          <p>Selected: {{ selectedFruit || 'None' }}</p>
+
+          <FormLabel label="Multi Select">
+            <FormItem>
+              <FormSelect v-model="selectedFruits" :options="fruitOptions" multiple placeholder="Select fruits..." />
+            </FormItem>
+          </FormLabel>
+          <p>Selected: {{ selectedFruits?.length ? selectedFruits.join(', ') : 'None' }}</p>
+
+          <FormLabel label="With Prefix Icon">
+            <FormItem>
+              <template #prefix>
+                <Icon type="home" />
+              </template>
+              <FormSelect v-model="selectedFruit" :options="fruitOptions" placeholder="Select..." />
+            </FormItem>
+          </FormLabel>
+        </div>
+
+        <div class="component-demo">
           <h4>Checkbox</h4>
           <label>
             <input type="checkbox" />
@@ -373,6 +399,17 @@ const showDialog = ref(false)
 
 // Dismissable tags demo
 const dismissableTags = ref(['Dismissable 1', 'Dismissable 2', 'Dismissable 3'])
+
+// FormSelect demo data
+const selectedFruit = ref()
+const selectedFruits = ref([])
+const fruitOptions = [
+  { value: 'apple', label: 'Apple' },
+  { value: 'banana', label: 'Banana' },
+  { value: 'cherry', label: 'Cherry' },
+  { value: 'date', label: 'Date' },
+  { value: 'elderberry', label: 'Elderberry' },
+]
 </script>
 
 <style scoped>
