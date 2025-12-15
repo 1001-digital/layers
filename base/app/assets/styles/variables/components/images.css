@@ -1,0 +1,5 @@
+:root {
+  --image-border-radius: var(--size-1);
+  --image-border: var(--border);
+  --image-loading-background: var(--gray-z-0);
+}

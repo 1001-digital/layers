@@ -8,8 +8,8 @@
 @import './fonts.css';
 @import './borders.css';
 @import './effects.css';
-@import './animations.css';
+@import './timing.css';
 @import './ui.css';
 @import './layout.css';
 @import './z-index.css';
-@import './components.css';
+@import './components/index.css';

@@ -1,5 +1,5 @@
 /*
- * Forms Layer
+ * Forms Component
  * Form element styling
  */
 
@@ -173,33 +173,6 @@ label:has(.form-item) {
 
   > span:first-child {
     display: block;
-  }
-}
-
-.prose-input {
-  span {
-    inline-size: 100%;
-  }
-
-  [data-empty] {
-    color: var(--muted);
-  }
-
-  input,
-  textarea,
-  input:is(:hover, :active, :focus, .active),
-  textarea:is(:hover, :active, :focus, .active) {
-    border: 0;
-    padding: 0;
-    font-size: inherit;
-    font-family: inherit;
-    background: inherit;
-    letter-spacing: inherit;
-    min-block-size: 0;
-
-    &[hidden] {
-      display: none;
-    }
   }
 }
 
