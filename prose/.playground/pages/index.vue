@@ -261,7 +261,7 @@
 }
 
 .library-nav a {
-  font-family: var(--ui-font-family);
+  font-family: var(--font-family);
   font-size: var(--ui-font-size);
   text-transform: var(--ui-text-transform);
   color: var(--muted);
@@ -289,7 +289,7 @@ article {
 }
 
 article > h3 {
-  font-family: var(--ui-font-family);
+  font-family: var(--font-family);
   font-size: var(--ui-font-size);
   text-transform: var(--ui-text-transform);
   color: var(--muted);

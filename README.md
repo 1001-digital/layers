@@ -74,7 +74,7 @@ Built on CSS custom properties with a layered architecture (`reset` â†’ `base` â
 **Typography** - Fluid font scaling using `clamp()`:
 ```css
 --font-xs through --font-3xl
---font-family, --font-family-serif
+--font-family
 ```
 
 **Spacing**:
