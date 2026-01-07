@@ -86,6 +86,14 @@ watchEffect(() => (open.value ? show() : hide()))
 </script>
 
 <style>
+:root {
+  --dialog-initial-x-offset: 0;
+  --dialog-initial-y-offset: var(--spacer);
+  --dialog-x-offset: 0;
+  --dialog-y-offset: 0;
+  --backdrop-background-color: transparent;
+}
+
 .dialog {
   padding: var(--spacer);
   padding-block-start: calc(var(--spacer) * 3);

@@ -5,6 +5,7 @@
   --ui-text-transform: uppercase;
   --ui-letter-spacing: var(--letter-spacing);
   --ui-line-height: var(--line-height);
+  --input-text-transform: none;
 
   /* UI colors */
   --ui-color: var(--primary);

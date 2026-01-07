@@ -19,6 +19,27 @@ withDefaults(defineProps<{
 })
 </script>
 
+<style>
+:root {
+  --button-border-radius: var(--border-radius);
+  --button-background: var(--background);
+  --button-background-highlight: var(--gray-z-1);
+  --button-border-color-highlight: var(--gray-z-3);
+  --button-color: var(--color);
+  --button-color-highlight: var(--color);
+  --button-icon-color: var(--muted);
+  --button-icon-color-highlight: var(--color);
+
+  /* Primary Button Styles */
+  --button-primary-background: var(--gray-z-10);
+  --button-primary-border-color: var(--gray-z-8);
+  --button-primary-color: var(--gray-z-0);
+  --button-primary-background-highlight: var(--gray-z-8);
+  --button-primary-border-color-highlight: var(--gray-z-6);
+  --button-primary-color-highlight: var(--gray-z-0);
+}
+</style>
+
 <style scoped>
 button,
 a.button {
