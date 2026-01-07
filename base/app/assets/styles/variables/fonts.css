@@ -1,9 +1,8 @@
 :root {
   --rem: 16px;
 
-  /* Font families */
+  /* Font family */
   --font-family: sans-serif;
-  --font-family-serif: serif;
 
   /* Fluid font sizes using clamp(min, preferred, max) */
   --font-base: clamp(0.9375rem, 0.875rem + 0.25vw, 1.0625rem);

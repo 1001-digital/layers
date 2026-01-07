@@ -37,7 +37,7 @@ const dismiss = () => {
   border-color: var(--alert-border-color);
   background-color: var(--alert-background-color);
   color: var(--alert-color);
-  font-family: var(--ui-font-family);
+  font-family: var(--font-family);
   font-size: var(--ui-font-size);
   text-transform: var(--ui-text-transform);
 

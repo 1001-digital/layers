@@ -194,7 +194,7 @@ watchEffect(() => (open.value ? show() : hide()))
     display: flex;
     align-items: center;
     margin: 0;
-    font-family: var(--ui-font-family);
+    font-family: var(--font-family);
     font-size: var(--ui-font-size);
     text-transform: var(--ui-text-transform);
     background: var(--background);

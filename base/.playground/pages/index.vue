@@ -74,7 +74,7 @@
           <h4>UI Typography</h4>
           <div class="type-sample">
             <span class="ui-text">UI Font Style (Monospace, Uppercase)</span>
-            <code>--ui-font-family</code>
+            <code>--font-family</code>
           </div>
         </div>
       </article>
@@ -448,7 +448,7 @@ const fruitOptions = [
 }
 
 .library-nav a {
-  font-family: var(--ui-font-family);
+  font-family: var(--font-family);
   font-size: var(--ui-font-size);
   text-transform: var(--ui-text-transform);
   color: var(--muted);
@@ -476,7 +476,7 @@ article {
 }
 
 article>h3 {
-  font-family: var(--ui-font-family);
+  font-family: var(--font-family);
   font-size: var(--ui-font-size);
   text-transform: var(--ui-text-transform);
   color: var(--muted);
@@ -536,7 +536,7 @@ article>h3 {
 }
 
 .ui-text {
-  font-family: var(--ui-font-family);
+  font-family: var(--font-family);
   font-size: var(--ui-font-size);
   text-transform: var(--ui-text-transform);
 }

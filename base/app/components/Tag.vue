@@ -22,7 +22,7 @@ const emit = defineEmits<{
 <style scoped>
 .tag {
   box-shadow: var(--border-shadow);
-  font-family: var(--ui-font-family);
+  font-family: var(--font-family);
   font-size: var(--font-sm);
   font-weight: var(--ui-font-weight);
   text-transform: var(--ui-text-transform);
