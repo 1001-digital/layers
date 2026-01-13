@@ -90,8 +90,8 @@ const login = async (connector: Connector) => {
   walletConnectUri.value = ''
   metaMaskUri.value = ''
 
-  const handleMessage = (event: { type: string; data?: string }) => {
-    if (event.type === 'display_uri' && event.data) {
+  const handleMessage = (event: { type: string; data?: unknown }) => {
+    if (event.type === 'display_uri' && typeof event.data === 'string') {
       if (connector.id === 'walletConnect') {
         walletConnectUri.value = event.data
       } else if (connector.id === 'metaMaskSDK') {
