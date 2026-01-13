@@ -1,7 +1,7 @@
 {
   "name": "@1001-digital/layers.evm",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "./nuxt.config.ts",
   "scripts": {
     "dev": "nuxi dev .playground",
@@ -15,7 +15,6 @@
   "devDependencies": {
     "@nuxt/eslint": "latest",
     "@types/node": "^24.10.4",
-    "@types/qrcode": "^1.5.6",
     "eslint": "^9.39.2",
     "nuxt": "^4.2.2",
     "typescript": "^5.9.3",
@@ -23,6 +22,7 @@
   },
   "dependencies": {
     "@1001-digital/layers.base": "workspace:^",
+    "@types/qrcode": "^1.5.6",
     "@metamask/sdk": "~0.33.1",
     "@tanstack/vue-query": "^5.92.1",
     "@wagmi/vue": "^0.4.3",
