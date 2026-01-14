@@ -23,6 +23,7 @@ const props = withDefaults(defineProps<{
   xClose?: boolean
   clickOutside?: boolean
   compat?: boolean
+  large?: boolean
 }>(), {
   xClose: true,
   clickOutside: true,
@@ -37,6 +38,7 @@ const classes = computed(() => {
   let obj: Record<string, boolean> = {
     dialog: true,
     compat: !!props.compat,
+    large: !!props.large,
   }
 
   // Apply passed classes
@@ -213,6 +215,10 @@ watchEffect(() => (open.value ? show() : hide()))
     display: flex;
     gap: var(--spacer);
     justify-content: flex-end;
+  }
+
+  &.large {
+    --dialog-width: min(90vw, 64rem);
   }
 }
 
