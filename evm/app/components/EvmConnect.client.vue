@@ -50,7 +50,7 @@ const PRIORITY: Record<string, number> = {
   'Coinbase Wallet': 10,
 }
 
-const props = defineProps<{
+defineProps<{
   className?: string
 }>()
 const emit = defineEmits<{
