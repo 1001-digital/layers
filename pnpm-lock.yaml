@@ -51,9 +51,6 @@ importers:
 
   evm:
     dependencies:
-      '@1001-digital/layers.base':
-        specifier: workspace:^
-        version: link:../base
       '@metamask/sdk':
         specifier: ~0.33.1
         version: 0.33.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
@@ -76,6 +73,9 @@ importers:
         specifier: ~2.42.1
         version: 2.42.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.22.4)
     devDependencies:
+      '@1001-digital/layers.base':
+        specifier: workspace:^
+        version: link:../base
       '@nuxt/eslint':
         specifier: latest
         version: 1.12.1(@typescript-eslint/utils@8.49.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(@vue/compiler-sfc@3.5.27)(bufferutil@4.0.9)(eslint@9.39.2(jiti@2.6.1))(magicast@0.5.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(vite@7.3.0(@types/node@24.10.4)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2))

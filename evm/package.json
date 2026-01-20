@@ -13,6 +13,7 @@
     "typecheck": "nuxi typecheck .playground"
   },
   "devDependencies": {
+    "@1001-digital/layers.base": "workspace:^",
     "@nuxt/eslint": "latest",
     "@types/node": "^24.10.4",
     "eslint": "^9.39.2",
@@ -20,8 +21,10 @@
     "typescript": "^5.9.3",
     "vue": "latest"
   },
+  "peerDependencies": {
+    "@1001-digital/layers.base": "workspace:^"
+  },
   "dependencies": {
-    "@1001-digital/layers.base": "workspace:^",
     "@types/qrcode": "^1.5.6",
     "@metamask/sdk": "~0.33.1",
     "@tanstack/vue-query": "^5.92.1",

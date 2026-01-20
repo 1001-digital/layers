@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'node:url'
 
 export default defineNuxtConfig({
-  extends: ['..'],
+  extends: ['@1001-digital/layers.base', '..'],
   modules: ['@nuxt/eslint'],
   eslint: {
     config: {
