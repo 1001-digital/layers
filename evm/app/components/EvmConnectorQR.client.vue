@@ -64,7 +64,7 @@ p {
   max-width: 15rem;
   max-height: 15rem;
   border: var(--border);
-  border-radius: var(--border-radius-sm, 0.5rem);
+  border-radius: var(--border-radius);
   margin: 0 auto;
 
   canvas {
