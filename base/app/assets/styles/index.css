@@ -1,14 +1,14 @@
 /*
  * CSS Layers Order Definition
  * This establishes the cascade priority:
- * reset < base < components < utilities
+ * variables, reset < base < components < utilities
  */
-@layer reset, base, components, utilities;
+@layer variables, reset, base, components, utilities;
 
 /*
  * CSS Custom Properties (outside layers for proper cascade)
  */
-@import './variables/index.css';
+@import './variables/index.css' layer(variables);
 
 /*
  * Reset Layer - Modern Normalize

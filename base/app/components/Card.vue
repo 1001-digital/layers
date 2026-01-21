@@ -5,7 +5,7 @@
 </template>
 
 <style>
-@layer components {
+@layer variables {
   :root {
     --card-border-radius: var(--border-radius);
     --card-border: var(--border);
@@ -17,57 +17,61 @@
 </style>
 
 <style scoped>
-.card {
-  display: grid;
-  gap: var(--spacer);
-  background-color: var(--card-background);
-  block-size: 100%;
-  padding: var(--spacer);
-  transition:
-    background var(--speed),
-    border-color var(--speed);
+@layer components {
+  .card {
+    display: grid;
+    gap: var(--spacer);
+    background-color: var(--card-background);
+    block-size: 100%;
+    padding: var(--spacer);
+    transition:
+      background var(--speed),
+      border-color var(--speed);
 
-  &:not(.borderless) {
-    border: var(--card-border);
-    border-radius: var(--card-border-radius);
+    &:not(.borderless) {
+      border: var(--card-border);
+      border-radius: var(--card-border-radius);
 
-    &:has(> .card-link) {
-      &:has(> .card-link:hover),
-      &:has(> .card-link:focus) {
-        border-color: var(--card-border-color-highlight);
+      &:has(> .card-link) {
+
+        &:has(> .card-link:hover),
+        &:has(> .card-link:focus) {
+          border-color: var(--card-border-color-highlight);
+        }
       }
     }
-  }
 
-  &.borderless {
-    padding: 0;
-  }
+    &.borderless {
+      padding: 0;
+    }
 
-  &:has(> .card-link) {
-    &:has(> .card-link:hover),
-    &:has(> .card-link:focus) {
+    &:has(> .card-link) {
+
+      &:has(> .card-link:hover),
+      &:has(> .card-link:focus) {
+        background-color: var(--card-background-highlight);
+      }
+    }
+
+    &.static {
+      background-color: var(--card-background);
+    }
+
+    &.highlight {
       background-color: var(--card-background-highlight);
     }
-  }
 
-  &.static {
-    background-color: var(--card-background);
-  }
+    >* {
+      inline-size: 100%;
+      place-self: center;
 
-  &.highlight {
-    background-color: var(--card-background-highlight);
-  }
+      &:first-child {
+        place-self: flex-start;
+      }
 
-  > * {
-    inline-size: 100%;
-    place-self: center;
-
-    &:first-child {
-      place-self: flex-start;
-    }
-
-    &:last-child {
-      place-self: flex-end;
+      &:last-child {
+        place-self: flex-end;
+      }
     }
   }
 }

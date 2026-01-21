@@ -88,7 +88,7 @@ watchEffect(() => (open.value ? show() : hide()))
 </script>
 
 <style>
-@layer components {
+@layer variables {
   :root {
     --dialog-initial-x-offset: 0;
     --dialog-initial-y-offset: var(--spacer);
@@ -98,136 +98,138 @@ watchEffect(() => (open.value ? show() : hide()))
   }
 }
 
-.dialog {
-  padding: var(--spacer);
-  padding-block-start: calc(var(--spacer) * 3);
-  max-inline-size: min(var(--dialog-width, 32rem), calc(100vw - var(--spacer) * 2));
-  inline-size: 100%;
-  background: var(--background);
-  color: var(--color);
-  border: var(--border);
-  border-radius: var(--border-radius);
-  overscroll-behavior: contain;
-  block-size: 0;
-  min-block-size: min-content;
-  max-block-size: 100dvh;
-  container-type: inline-size;
-  display: grid;
-  gap: var(--spacer);
+@layer components {
+  .dialog {
+    padding: var(--spacer);
+    padding-block-start: calc(var(--spacer) * 3);
+    max-inline-size: min(var(--dialog-width, 32rem), calc(100vw - var(--spacer) * 2));
+    inline-size: 100%;
+    background: var(--background);
+    color: var(--color);
+    border: var(--border);
+    border-radius: var(--border-radius);
+    overscroll-behavior: contain;
+    block-size: 0;
+    min-block-size: min-content;
+    max-block-size: 100dvh;
+    container-type: inline-size;
+    display: grid;
+    gap: var(--spacer);
 
-  /* Entry/exit animations */
-  opacity: 1;
-  transform: scale(1);
-  transition:
-    opacity var(--speed) ease,
-    transform var(--speed) ease,
-    overlay var(--speed) ease allow-discrete,
-    display var(--speed) ease allow-discrete;
-
-  @starting-style {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-
-  /* Exit animation */
-  &:not([open]):not(:popover-open) {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-
-  &::backdrop {
-    background-color: var(--backdrop-background-color);
-    backdrop-filter: var(--blur);
+    /* Entry/exit animations */
+    opacity: 1;
+    transform: scale(1);
     transition:
-      background-color var(--speed) ease,
-      backdrop-filter var(--speed) ease,
+      opacity var(--speed) ease,
+      transform var(--speed) ease,
       overlay var(--speed) ease allow-discrete,
       display var(--speed) ease allow-discrete;
 
     @starting-style {
-      background-color: transparent;
+      opacity: 0;
+      transform: scale(0.95);
     }
-  }
 
-  @media (--md) {
-    max-block-size: calc(100dvh - var(--spacer) * 2);
-  }
+    /* Exit animation */
+    &:not([open]):not(:popover-open) {
+      opacity: 0;
+      transform: scale(0.95);
+    }
 
-  &.compat {
-    position: fixed;
-    transform: translate(-50%, -50%);
+    &::backdrop {
+      background-color: var(--backdrop-background-color);
+      backdrop-filter: var(--blur);
+      transition:
+        background-color var(--speed) ease,
+        backdrop-filter var(--speed) ease,
+        overlay var(--speed) ease allow-discrete,
+        display var(--speed) ease allow-discrete;
 
-    &.open {
-      inset-block-start: 50%;
-      inset-inline-start: 50%;
-      z-index: var(--z-index-dialog);
-
-      +.overlay {
-        position: fixed;
-        inset: 0;
-        z-index: var(--z-index-overlay);
-        background: var(--backdrop-background-color);
+      @starting-style {
+        background-color: transparent;
       }
     }
-  }
 
-  &:focus {
-    outline: none;
-  }
+    @media (--md) {
+      max-block-size: calc(100dvh - var(--spacer) * 2);
+    }
 
-  >.close {
-    position: absolute;
-    inset-block-start: 0;
-    inset-inline-end: 0;
-    block-size: calc(var(--spacer) * 2);
-    inline-size: calc(var(--spacer) * 2);
-    border-inline-start: var(--border);
-    border-block-end: var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    z-index: 10;
-    background: var(--background);
+    &.compat {
+      position: fixed;
+      transform: translate(-50%, -50%);
 
-    &:is(:hover, :active, :focus, .active) {
+      &.open {
+        inset-block-start: 50%;
+        inset-inline-start: 50%;
+        z-index: var(--z-index-dialog);
+
+        +.overlay {
+          position: fixed;
+          inset: 0;
+          z-index: var(--z-index-overlay);
+          background: var(--backdrop-background-color);
+        }
+      }
+    }
+
+    &:focus {
       outline: none;
+    }
+
+    >.close {
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-end: 0;
+      block-size: calc(var(--spacer) * 2);
+      inline-size: calc(var(--spacer) * 2);
+      border-inline-start: var(--border);
+      border-block-end: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      z-index: 10;
+      background: var(--background);
+
+      &:is(:hover, :active, :focus, .active) {
+        outline: none;
+      }
+    }
+
+    >h1:first-of-type {
+      inline-size: 100%;
+      border-block-end: var(--border);
+      block-size: calc(var(--spacer) * 2);
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-start: 0;
+      padding: 0 0 0 var(--spacer);
+      display: flex;
+      align-items: center;
+      margin: 0;
+      font-family: var(--font-family);
+      font-size: var(--ui-font-size);
+      text-transform: var(--ui-text-transform);
+      background: var(--background);
+    }
+
+    >.actions {
+      margin-block-start: var(--spacer);
+      display: flex;
+      gap: var(--spacer);
+      justify-content: flex-end;
+    }
+
+    &.large {
+      --dialog-width: min(90vw, 64rem);
     }
   }
 
-  >h1:first-of-type {
-    inline-size: 100%;
-    border-block-end: var(--border);
-    block-size: calc(var(--spacer) * 2);
-    position: absolute;
-    inset-block-start: 0;
-    inset-inline-start: 0;
-    padding: 0 0 0 var(--spacer);
-    display: flex;
-    align-items: center;
-    margin: 0;
-    font-family: var(--font-family);
-    font-size: var(--ui-font-size);
-    text-transform: var(--ui-text-transform);
-    background: var(--background);
+  html:has(dialog[open]),
+  body:has(dialog[open]),
+  html:has(.dialog.open),
+  body:has(.dialog.open) {
+    overflow: hidden;
   }
-
-  >.actions {
-    margin-block-start: var(--spacer);
-    display: flex;
-    gap: var(--spacer);
-    justify-content: flex-end;
-  }
-
-  &.large {
-    --dialog-width: min(90vw, 64rem);
-  }
-}
-
-html:has(dialog[open]),
-body:has(dialog[open]),
-html:has(.dialog.open),
-body:has(.dialog.open) {
-  overflow: hidden;
 }
 </style>
