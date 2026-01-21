@@ -28,18 +28,20 @@ const dismiss = () => {
 </script>
 
 <style>
-:root {
-  --alert-color: var(--color);
-  --alert-background-color: transparent;
-  --alert-border-color: var(--border-color);
+@layer components {
+  :root {
+    --alert-color: var(--color);
+    --alert-background-color: transparent;
+    --alert-border-color: var(--border-color);
 
-  --alert-info-color: var(--alert-color);
-  --alert-info-background-color: var(--alert-background-color);
-  --alert-info-border-color: var(--alert-border-color);
+    --alert-info-color: var(--alert-color);
+    --alert-info-background-color: var(--alert-background-color);
+    --alert-info-border-color: var(--alert-border-color);
 
-  --alert-error-color: var(--error);
-  --alert-error-background-color: color-mix(in srgb, var(--error) 10%, transparent);
-  --alert-error-border-color: var(--error);
+    --alert-error-color: var(--error);
+    --alert-error-background-color: color-mix(in srgb, var(--error) 10%, transparent);
+    --alert-error-border-color: var(--error);
+  }
 }
 </style>
 

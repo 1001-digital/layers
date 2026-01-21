@@ -11,9 +11,11 @@
 </template>
 
 <style>
-:root {
-  --form-item-height: calc(var(--size-4) + var(--ui-padding-block) * 2);
-  --form-item-height-sm: calc(var(--size-4) + var(--ui-padding-block));
+@layer components {
+  :root {
+    --form-item-height: calc(var(--size-4) + var(--ui-padding-block) * 2);
+    --form-item-height-sm: calc(var(--size-4) + var(--ui-padding-block));
+  }
 }
 </style>
 

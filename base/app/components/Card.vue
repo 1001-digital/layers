@@ -5,12 +5,14 @@
 </template>
 
 <style>
-:root {
-  --card-border-radius: var(--border-radius);
-  --card-border: var(--border);
-  --card-background: var(--background);
-  --card-background-highlight: var(--gray-z-1);
-  --card-border-color-highlight: var(--gray-z-3);
+@layer components {
+  :root {
+    --card-border-radius: var(--border-radius);
+    --card-border: var(--border);
+    --card-background: var(--background);
+    --card-background-highlight: var(--gray-z-1);
+    --card-border-color-highlight: var(--gray-z-3);
+  }
 }
 </style>
 
