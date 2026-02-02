@@ -27,6 +27,7 @@
     display: flex;
     align-items: center;
     background: var(--background);
+    transition: background-color var(--speed), border-color var(--speed);
     inline-size: 100%;
     max-inline-size: -webkit-fill-available;
 
@@ -40,12 +41,20 @@
     &:has(input:focus) {
       background: var(--button-background-highlight);
       border-color: var(--button-border-color-highlight);
+
+      .prefix,
+      .suffix {
+        background: var(--button-background-highlight);
+        border-color: var(--button-border-color-highlight);
+      }
     }
 
     .prefix,
     .suffix {
       padding: 0 var(--ui-padding-inline);
       color: var(--muted);
+      background: var(--button-background);
+      transition: background-color var(--speed), border-color var(--speed), color var(--speed);
       block-size: 100%;
       display: flex;
       align-items: center;
@@ -53,11 +62,11 @@
     }
 
     .prefix {
-      border-inline-end: var(--button-border);
+      border-inline-end: var(--border);
     }
 
     .suffix {
-      border-inline-start: var(--button-border);
+      border-inline-start: var(--border);
     }
   }
 }
