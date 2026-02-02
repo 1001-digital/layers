@@ -1,7 +1,8 @@
 <script setup lang="ts">
 const props = defineProps<{ type: string }>()
+const appConfig = useAppConfig()
 
-const ICON_MAP: Record<string, string> = {
+const DEFAULT_ICON_MAP: Record<string, string> = {
   add: 'lucide:plus',
   check: 'lucide:check',
   'chevron-down': 'lucide:chevron-down',
@@ -30,7 +31,12 @@ const ICON_MAP: Record<string, string> = {
   withdraw: 'lucide:undo',
 }
 
-const iconName = computed(() => ICON_MAP[props.type] || props.type)
+const iconMap = computed(() => ({
+  ...DEFAULT_ICON_MAP,
+  ...(appConfig.icons?.map || {})
+}))
+
+const iconName = computed(() => iconMap.value[props.type] || props.type)
 </script>
 
 <template>
