@@ -137,6 +137,7 @@
           <h4>Variants</h4>
           <div class="demo-row">
             <Button class="primary">Primary</Button>
+            <Button class="tertiary">Tertiary</Button>
             <Button class="small">Small</Button>
             <Button class="link">Link</Button>
             <Button class="inline">Inline</Button>
@@ -154,6 +155,10 @@
             <Button class="primary">
               <Icon type="check" />
               <span>Confirm</span>
+            </Button>
+            <Button class="tertiary">
+              <Icon type="add" />
+              <span>New</span>
             </Button>
             <Button>
               <Icon type="edit" />

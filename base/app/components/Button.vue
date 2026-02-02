@@ -38,6 +38,14 @@ withDefaults(defineProps<{
     --button-primary-background-highlight: var(--gray-z-8);
     --button-primary-border-color-highlight: var(--gray-z-6);
     --button-primary-color-highlight: var(--gray-z-0);
+
+    /* Tertiary Button Styles */
+    --button-tertiary-background: transparent;
+    --button-tertiary-border-color: var(--gray-z-3);
+    --button-tertiary-color: var(--muted);
+    --button-tertiary-background-highlight: var(--gray-z-1);
+    --button-tertiary-border-color-highlight: var(--gray-z-4);
+    --button-tertiary-color-highlight: var(--color);
   }
 }
 </style>
@@ -186,6 +194,27 @@ withDefaults(defineProps<{
 
         >.icon {
           color: var(--button-primary-color-highlight);
+        }
+      }
+    }
+
+    /* Tertiary variant */
+    &.tertiary {
+      background: var(--button-tertiary-background);
+      box-shadow: 0 0 0 var(--border-width) var(--button-tertiary-border-color);
+      color: var(--button-tertiary-color);
+
+      >.icon {
+        color: var(--button-tertiary-color);
+      }
+
+      &:is(:hover, :active, :focus, .active) {
+        background: var(--button-tertiary-background-highlight);
+        box-shadow: 0 0 0 var(--border-width) var(--button-tertiary-border-color-highlight);
+        color: var(--button-tertiary-color-highlight);
+
+        >.icon {
+          color: var(--button-tertiary-color-highlight);
         }
       }
     }
