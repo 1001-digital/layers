@@ -14,7 +14,7 @@ Running `pnpm dev` will prepare and boot `.playground` directory, which imports 
 
 ## Icons
 
-The base `Icon` component relies on Nuxt Icon aliases. Extending layers or apps can override or add aliases via `nuxt.config`:
+The base `Icon` component relies on Nuxt Icon aliases. Defaults are limited to icons used outside `.playground`. Extend or override aliases via `nuxt.config`:
 
 ```ts
 export default defineNuxtConfig({
