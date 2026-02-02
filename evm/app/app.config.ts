@@ -1,20 +1,14 @@
 export default defineAppConfig({
-  myLayer: {
+  evm: {
     name: 'Hello from Nuxt layer'
-  },
-  icons: {
-    map: {}
   }
 })
 
 declare module '@nuxt/schema' {
   interface AppConfigInput {
-    myLayer?: {
+    evm?: {
       /** Project name */
       name?: string
-    }
-    icons?: {
-      map?: Record<string, string>
     }
   }
 }
