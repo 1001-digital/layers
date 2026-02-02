@@ -8,5 +8,10 @@ export default defineNuxtConfig({
       // Use the generated ESLint config for lint root project as well
       rootDir: fileURLToPath(new URL('..', import.meta.url))
     }
-  }
+  },
+  icon: {
+    aliases: {
+      close: 'ic:baseline-close',
+    },
+  },
 })

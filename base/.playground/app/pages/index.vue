@@ -230,11 +230,13 @@
         <div class="component-demo">
           <h4>Dismissable Tags</h4>
           <Tags>
-            <Tag v-for="tag in dismissableTags" :key="tag" dismissable @dismiss="dismissableTags = dismissableTags.filter(t => t !== tag)">
+            <Tag v-for="tag in dismissableTags" :key="tag" dismissable
+              @dismiss="dismissableTags = dismissableTags.filter(t => t !== tag)">
               {{ tag }}
             </Tag>
           </Tags>
-          <Button v-if="dismissableTags.length === 0" class="small" @click="dismissableTags = ['Dismissable 1', 'Dismissable 2', 'Dismissable 3']">
+          <Button v-if="dismissableTags.length === 0" class="small"
+            @click="dismissableTags = ['Dismissable 1', 'Dismissable 2', 'Dismissable 3']">
             Reset Tags
           </Button>
         </div>
@@ -389,10 +391,8 @@ const fontSizes = ['xs', 'sm', 'base', 'lg', 'xl', '2xl', '3xl']
 const sizes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const spacers = ['xs', 'sm', 'default', 'md', 'lg', 'xl']
 const iconTypes = [
-  'add', 'check', 'chevron-down', 'chevron-left', 'chevron-right',
-  'chevron-up', 'close', 'code', 'discord', 'edit', 'email',
-  'folder', 'github', 'home', 'image', 'link', 'loader',
-  'maximize', 'times', 'trash', 'twitter', 'user', 'website', 'withdraw'
+  'lucide:plus', 'check', 'chevron-down', 'lucide:chevron-left', 'lucide:chevron-right',
+  'close',
 ]
 
 const showDialog = ref(false)

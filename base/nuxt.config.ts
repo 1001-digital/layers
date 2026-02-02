@@ -11,11 +11,19 @@ export default defineNuxtConfig({
 
   icon: {
     componentName: 'NuxtIcon',
+    aliases: {
+      check: 'lucide:check',
+      'chevron-down': 'lucide:chevron-down',
+      close: 'lucide:x',
+      copy: 'lucide:copy',
+      help: 'lucide:circle-question-mark',
+      loader: 'lucide:loader-2',
+    }
   },
 
   css: [
     join(currentDir, './app/assets/styles/index.css'),
   ],
 
-  compatibilityDate: '2026-01-28'
+  compatibilityDate: '2026-01-28',
 })

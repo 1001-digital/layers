@@ -9,7 +9,7 @@
   <div class="uri-display">
     <code>{{ uri }}</code>
     <Button @click="copyUri" class="copy-button" :class="{ copied: isCopied }">
-      <Icon :type="isCopied ? 'checkmark' : 'copy'" />
+      <Icon :type="isCopied ? 'check' : 'copy'" />
     </Button>
   </div>
 </template>

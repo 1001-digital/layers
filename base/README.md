@@ -14,12 +14,12 @@ Running `pnpm dev` will prepare and boot `.playground` directory, which imports 
 
 ## Icons
 
-The base `Icon` component includes a default semantic icon map. Extending layers or apps can override or add entries via `app.config`:
+The base `Icon` component relies on Nuxt Icon aliases. Extending layers or apps can override or add aliases via `nuxt.config`:
 
 ```ts
-export default defineAppConfig({
-  icons: {
-    map: {
+export default defineNuxtConfig({
+  icon: {
+    aliases: {
       check: 'custom:check-circle',
       add: 'heroicons:plus'
     }
