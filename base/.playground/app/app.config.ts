@@ -1,5 +1,10 @@
 export default defineAppConfig({
-  myLayer: {
-    name: 'My amazing Nuxt layer (overwritten)'
-  }
+  base: {
+    name: 'Hello from Nuxt layer',
+    icons: {
+      map: {
+        close: 'ic:baseline-close'
+      }
+    }
+  },
 })

@@ -31,9 +31,9 @@ const DEFAULT_ICON_MAP: Record<string, string> = {
   withdraw: 'lucide:undo',
 }
 
-const iconMap = computed(() => ({
+const iconMap = computed<Record<string, string>>(() => ({
   ...DEFAULT_ICON_MAP,
-  ...(appConfig.icons?.map || {})
+  ...((appConfig.base?.icons?.map as Record<string, string> | undefined) || {})
 }))
 
 const iconName = computed(() => iconMap.value[props.type] || props.type)
