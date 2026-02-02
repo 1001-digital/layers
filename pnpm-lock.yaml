@@ -8,6 +8,12 @@ importers:
 
   base:
     dependencies:
+      '@iconify-json/lucide':
+        specifier: ^1.2.87
+        version: 1.2.87
+      '@iconify-json/simple-icons':
+        specifier: ^1.2.69
+        version: 1.2.69
       '@nuxt/icon':
         specifier: ^2.2.1
         version: 2.2.1(magicast@0.5.1)(vite@7.3.0(@types/node@24.10.4)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.27(typescript@5.9.3))
@@ -24,12 +30,6 @@ importers:
         specifier: ^2.7.0
         version: 2.7.0(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3))
     devDependencies:
-      '@iconify-json/lucide':
-        specifier: ^1.2.87
-        version: 1.2.87
-      '@iconify-json/simple-icons':
-        specifier: ^1.2.69
-        version: 1.2.69
       '@nuxt/eslint':
         specifier: latest
         version: 1.13.0(@typescript-eslint/utils@8.54.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(@vue/compiler-sfc@3.5.27)(bufferutil@4.0.9)(eslint@9.39.2(jiti@2.6.1))(magicast@0.5.1)(typescript@5.9.3)(utf-8-validate@5.0.10)(vite@7.3.0(@types/node@24.10.4)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2))
