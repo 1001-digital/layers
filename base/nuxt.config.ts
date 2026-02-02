@@ -16,4 +16,6 @@ export default defineNuxtConfig({
   css: [
     join(currentDir, './app/assets/styles/index.css'),
   ],
+
+  compatibilityDate: '2026-01-28'
 })
