@@ -1,7 +1,7 @@
 {
   "name": "@1001-digital/layers.base",
   "type": "module",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "main": "./nuxt.config.ts",
   "scripts": {
     "dev": "nuxi dev .playground",
@@ -16,7 +16,7 @@
     "@nuxt/eslint": "latest",
     "@types/node": "^24.10.1",
     "eslint": "^9.39.1",
-    "nuxt": "^4.2.2",
+    "nuxt": "^4.3.0",
     "typescript": "^5.9.3",
     "vue": "latest"
   },
@@ -27,6 +27,6 @@
     "@types/luxon": "^3.6.2",
     "luxon": "^3.6.1",
     "modern-normalize": "^3.0.1",
-    "reka-ui": "^2.7.0"
+    "reka-ui": "^2.8.0"
   }
 }

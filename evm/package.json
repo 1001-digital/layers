@@ -1,7 +1,7 @@
 {
   "name": "@1001-digital/layers.evm",
   "type": "module",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "./nuxt.config.ts",
   "scripts": {
     "dev": "nuxi dev .playground",
@@ -17,7 +17,7 @@
     "@nuxt/eslint": "latest",
     "@types/node": "^24.10.4",
     "eslint": "^9.39.2",
-    "nuxt": "^4.2.2",
+    "nuxt": "^4.3.0",
     "typescript": "^5.9.3",
     "vue": "latest"
   },
@@ -26,11 +26,11 @@
   },
   "dependencies": {
     "@types/qrcode": "^1.5.6",
-    "@metamask/sdk": "~0.33.1",
-    "@tanstack/vue-query": "^5.92.1",
-    "@wagmi/vue": "^0.4.3",
-    "@walletconnect/ethereum-provider": "~2.21.1",
+    "@metamask/sdk": "~0.34.0",
+    "@tanstack/vue-query": "^5.92.9",
+    "@wagmi/vue": "^0.4.15",
+    "@walletconnect/ethereum-provider": "~2.23.4",
     "qrcode": "^1.5.4",
-    "viem": "~2.42.1"
+    "viem": "~2.45.1"
   }
 }
