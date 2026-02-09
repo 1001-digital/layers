@@ -22,7 +22,6 @@
 <style scoped>
 @layer components {
   .form-item {
-    border: var(--border);
     border-radius: var(--border-radius);
     display: flex;
     align-items: center;
@@ -30,12 +29,6 @@
     transition: background-color var(--speed), border-color var(--speed);
     inline-size: 100%;
     max-inline-size: -webkit-fill-available;
-
-    :deep(input),
-    :deep(textarea),
-    :deep(select) {
-      border: none;
-    }
 
     &:has(input:hover),
     &:has(input:focus) {
@@ -45,7 +38,7 @@
       .prefix,
       .suffix {
         background: var(--button-background-highlight);
-        border-color: var(--button-border-color-highlight);
+        box-shadow: var(--border-shadow-highlight);
       }
     }
 
@@ -54,19 +47,13 @@
       padding: 0 var(--ui-padding-inline);
       color: var(--muted);
       background: var(--button-background);
-      transition: background-color var(--speed), border-color var(--speed), color var(--speed);
+      transition: all var(--speed);
       block-size: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .prefix {
-      border-inline-end: var(--border);
-    }
-
-    .suffix {
-      border-inline-start: var(--border);
+      box-shadow: var(--border-shadow);
+      width: min-content;
     }
   }
 }
