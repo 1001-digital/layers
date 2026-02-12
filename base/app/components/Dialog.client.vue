@@ -83,7 +83,7 @@ const classes = computed(() => {
     obj = { ...obj, ...props.class }
   }
 
-  if (props.compat && open.value) {
+  if (props.compat) {
     obj.open = true
   }
 
@@ -100,19 +100,14 @@ const onEnter = (el: Element, done: () => void) => {
 }
 
 const onLeave = (el: Element, done: () => void) => {
+  el.addEventListener('transitionend', (e) => {
+    if ((e as TransitionEvent).propertyName === 'opacity') done()
+  })
   if (props.compat) {
-    done()
-    return
+    el.classList.remove('open')
+  } else {
+    ;(el as HTMLDialogElement).close()
   }
-
-  el.addEventListener(
-    'transitionend',
-    (e) => {
-      if ((e as TransitionEvent).propertyName === 'opacity') done()
-    },
-    { once: true },
-  )
-  ;(el as HTMLDialogElement).close()
 }
 
 const onDialogClick = (e: MouseEvent) => {
@@ -154,22 +149,22 @@ const onClickOutside = () => {
 
     /* Entry/exit animations */
     opacity: 1;
-    transform: scale(1);
+    scale: 1;
     transition:
       opacity var(--speed) ease,
-      transform var(--speed) ease,
+      scale var(--speed) ease,
       overlay var(--speed) ease allow-discrete,
       display var(--speed) ease allow-discrete;
 
     @starting-style {
       opacity: 0;
-      transform: scale(0.95);
+      scale: 0.95;
     }
 
     /* Exit animation */
     &:not([open]):not(:popover-open):not(.open) {
       opacity: 0;
-      transform: scale(0.95);
+      scale: 0.95;
     }
 
     &::backdrop {
@@ -188,18 +183,23 @@ const onClickOutside = () => {
 
     &.compat {
       position: fixed;
+      inset-block-start: 50%;
+      inset-inline-start: 50%;
+      z-index: var(--z-index-dialog);
       transform: translate(-50%, -50%);
 
-      &.open {
-        inset-block-start: 50%;
-        inset-inline-start: 50%;
-        z-index: var(--z-index-dialog);
+      &.open + .overlay {
+        position: fixed;
+        inset: 0;
+        z-index: var(--z-index-overlay);
+        background-color: var(--backdrop-background-color);
+        backdrop-filter: var(--blur);
+        transition:
+          background-color var(--speed) ease,
+          backdrop-filter var(--speed) ease;
 
-        + .overlay {
-          position: fixed;
-          inset: 0;
-          z-index: var(--z-index-overlay);
-          background: var(--backdrop-background-color);
+        @starting-style {
+          background-color: transparent;
         }
       }
     }

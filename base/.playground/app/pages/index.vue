@@ -467,8 +467,14 @@
         <h3>Dialog / Modal</h3>
 
         <div class="component-demo">
-          <h4>Dialog</h4>
-          <Button @click="showDialog = true">Open Dialog</Button>
+          <div class="demo-row">
+            <Button @click="showDialog = true">Default</Button>
+            <Button @click="showScrollDialog = true">Scrolling</Button>
+            <Button @click="showNoFooterDialog = true">No Footer</Button>
+            <Button @click="showCompatDialog = true">Compat</Button>
+            <Button @click="showNoCloseDialog = true">No Close Button</Button>
+            <Button @click="showPersistentDialog = true">Persistent</Button>
+          </div>
 
           <Dialog
             v-model:open="showDialog"
@@ -484,13 +490,6 @@
               >
             </template>
           </Dialog>
-        </div>
-
-        <div class="component-demo">
-          <h4>Scrolling Dialog (Sticky Header + Footer)</h4>
-          <Button @click="showScrollDialog = true"
-            >Open Scrolling Dialog</Button
-          >
 
           <Dialog
             v-model:open="showScrollDialog"
@@ -514,13 +513,6 @@
               >
             </template>
           </Dialog>
-        </div>
-
-        <div class="component-demo">
-          <h4>No Footer</h4>
-          <Button @click="showNoFooterDialog = true"
-            >Open No Footer Dialog</Button
-          >
 
           <Dialog
             v-model:open="showNoFooterDialog"
@@ -528,13 +520,6 @@
           >
             <p>This dialog has no footer actions. Close it with the X button.</p>
           </Dialog>
-        </div>
-
-        <div class="component-demo">
-          <h4>Compat Mode</h4>
-          <Button @click="showCompatDialog = true"
-            >Open Compat Dialog</Button
-          >
 
           <Dialog
             v-model:open="showCompatDialog"
@@ -549,13 +534,6 @@
               <Button @click="showCompatDialog = false">Close</Button>
             </template>
           </Dialog>
-        </div>
-
-        <div class="component-demo">
-          <h4>No Close Button</h4>
-          <Button @click="showNoCloseDialog = true"
-            >Open No Close Button Dialog</Button
-          >
 
           <Dialog
             v-model:open="showNoCloseDialog"
@@ -575,13 +553,6 @@
               >
             </template>
           </Dialog>
-        </div>
-
-        <div class="component-demo">
-          <h4>No Click Outside to Close</h4>
-          <Button @click="showPersistentDialog = true"
-            >Open Persistent Dialog</Button
-          >
 
           <Dialog
             v-model:open="showPersistentDialog"
