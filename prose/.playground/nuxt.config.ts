@@ -1,5 +1,7 @@
 import { fileURLToPath } from 'node:url'
 
+const layerDir = fileURLToPath(new URL('..', import.meta.url))
+
 export default defineNuxtConfig({
   // Extends the prose layer (which in turn extends @base/)
   extends: ['..'],
@@ -8,7 +10,14 @@ export default defineNuxtConfig({
 
   eslint: {
     config: {
-      rootDir: fileURLToPath(new URL('..', import.meta.url)),
+      rootDir: layerDir,
+    },
+  },
+  vite: {
+    server: {
+      watch: {
+        ignored: [`!${layerDir}/**`],
+      },
     },
   },
 })
