@@ -1,17 +1,20 @@
 <template>
   <Teleport to="body">
-    <component ref="dialog" :is="tag" :class="classes" @cancel.stop.prevent="open = false">
-      <button v-if="xClose" class="close unstyled" :title="`Close ${title || 'Dialog'}`" @touchdown="open = false"
-        @click="open = false">
-        <Icon type="close" />
-      </button>
+    <Transition :css="false" @enter="onEnter" @leave="onLeave" @after-leave="() => emit('closed')">
+      <component v-if="open" ref="dialog" :is="tag" :class="classes"
+        @cancel.stop.prevent="open = false">
+        <button v-if="xClose" class="close unstyled" :title="`Close ${title || 'Dialog'}`" @pointerdown="open = false"
+          @click="open = false">
+          <Icon type="close" />
+        </button>
 
-      <h1 v-if="title">{{ title }}</h1>
+        <h1 v-if="title">{{ title }}</h1>
 
-      <slot />
-    </component>
+        <slot />
+      </component>
+    </Transition>
 
-    <div v-if="compat" class="overlay" @click="() => onClickOutside()"></div>
+    <div v-if="compat && open" class="overlay" @click="() => onClickOutside()"></div>
   </Teleport>
 </template>
 
@@ -32,7 +35,6 @@ const emit = defineEmits<{
   closed: []
 }>()
 const open = defineModel<boolean>('open', { required: true })
-const debouncedOpen = ref(open.value)
 const tag = computed(() => (props.compat ? 'article' : 'dialog'))
 const classes = computed(() => {
   let obj: Record<string, boolean> = {
@@ -52,29 +54,31 @@ const classes = computed(() => {
     obj = { ...obj, ...props.class }
   }
 
-  // Apply open state class
-  if (props.compat && debouncedOpen.value) {
+  if (props.compat && open.value) {
     obj.open = true
   }
 
   return obj
 })
 
-const show = () => {
-  if (props.compat) {
-    debouncedOpen.value = true
-  } else {
-    dialog.value?.showModal()
+const onEnter = (el: Element, done: () => void) => {
+  if (!props.compat) {
+    (el as HTMLDialogElement).showModal()
   }
+  done()
 }
 
-const hide = () => {
+const onLeave = (el: Element, done: () => void) => {
   if (props.compat) {
-    debouncedOpen.value = false
-  } else {
-    dialog.value?.close()
+    done()
+    return
   }
-  emit('closed')
+
+  el.addEventListener('transitionend', (e) => {
+    if ((e as TransitionEvent).propertyName === 'opacity') done()
+  }, { once: true })
+
+  ;(el as HTMLDialogElement).close()
 }
 
 const onClickOutside = () => {
@@ -82,18 +86,11 @@ const onClickOutside = () => {
     open.value = false
   }
 }
-
-// Keep track of the open/hide state
-watchEffect(() => (open.value ? show() : hide()))
 </script>
 
 <style>
 @layer variables {
   :root {
-    --dialog-initial-x-offset: 0;
-    --dialog-initial-y-offset: var(--spacer);
-    --dialog-x-offset: 0;
-    --dialog-y-offset: 0;
     --backdrop-background-color: transparent;
   }
 }
