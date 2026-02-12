@@ -1,8 +1,16 @@
 <template>
-  <article class="card">
+  <component :is="as" class="card">
     <slot />
-  </article>
+  </component>
 </template>
+
+<script setup lang="ts">
+withDefaults(defineProps<{
+  as?: string
+}>(), {
+  as: 'article'
+})
+</script>
 
 <style>
 @layer variables {
