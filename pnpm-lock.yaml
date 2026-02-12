@@ -20,6 +20,9 @@ importers:
       '@types/luxon':
         specifier: ^3.6.2
         version: 3.7.1
+      '@vueuse/core':
+        specifier: ^14.2.0
+        version: 14.2.0(vue@3.5.27(typescript@5.9.3))
       luxon:
         specifier: ^3.6.1
         version: 3.7.2
@@ -60,6 +63,9 @@ importers:
       '@types/qrcode':
         specifier: ^1.5.6
         version: 1.5.6
+      '@wagmi/core':
+        specifier: ^3.3.2
+        version: 3.3.2(@tanstack/query-core@5.90.20)(@types/react@19.2.7)(ox@0.11.3(typescript@5.9.3)(zod@3.25.76))(typescript@5.9.3)(viem@2.45.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
       '@wagmi/vue':
         specifier: ^0.4.15
         version: 0.4.15(3456fbb723fcdfceb842136478ce5fb6)

@@ -28,6 +28,7 @@
     "@types/qrcode": "^1.5.6",
     "@metamask/sdk": "~0.34.0",
     "@tanstack/vue-query": "^5.92.9",
+    "@wagmi/core": "^3.3.2",
     "@wagmi/vue": "^0.4.15",
     "@walletconnect/ethereum-provider": "~2.23.4",
     "qrcode": "^1.5.4",
