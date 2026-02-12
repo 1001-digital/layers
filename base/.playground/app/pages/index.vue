@@ -28,7 +28,11 @@
         <div class="token-group">
           <h4>Gray Scale</h4>
           <div class="color-grid">
-            <div v-for="shade in grayShades" :key="shade" class="color-swatch">
+            <div
+              v-for="shade in grayShades"
+              :key="shade"
+              class="color-swatch"
+            >
               <div :style="{ background: `var(--gray-${shade})` }" />
               <code>--gray-{{ shade }}</code>
             </div>
@@ -38,7 +42,11 @@
         <div class="token-group">
           <h4>Z-Colors (Theme Aware)</h4>
           <div class="color-grid">
-            <div v-for="z in zColors" :key="z" class="color-swatch">
+            <div
+              v-for="z in zColors"
+              :key="z"
+              class="color-swatch"
+            >
               <div :style="{ background: `var(--gray-z-${z})` }" />
               <code>--gray-z-{{ z }}</code>
             </div>
@@ -48,7 +56,11 @@
         <div class="token-group">
           <h4>Semantic Colors</h4>
           <div class="color-grid">
-            <div v-for="color in semanticColors" :key="color" class="color-swatch">
+            <div
+              v-for="color in semanticColors"
+              :key="color"
+              class="color-swatch"
+            >
               <div :style="{ background: `var(--${color})` }" />
               <code>--{{ color }}</code>
             </div>
@@ -63,8 +75,14 @@
         <div class="token-group">
           <h4>Font Sizes</h4>
           <div class="type-samples">
-            <div v-for="size in fontSizes" :key="size" class="type-sample">
-              <span :style="{ fontSize: `var(--font-${size})` }">The quick brown fox</span>
+            <div
+              v-for="size in fontSizes"
+              :key="size"
+              class="type-sample"
+            >
+              <span :style="{ fontSize: `var(--font-${size})` }"
+                >The quick brown fox</span
+              >
               <code>--font-{{ size }}</code>
             </div>
           </div>
@@ -86,8 +104,18 @@
         <div class="token-group">
           <h4>Size Scale</h4>
           <div class="spacing-samples">
-            <div v-for="n in sizes" :key="n" class="spacing-sample">
-              <div class="spacing-box" :style="{ width: `var(--size-${n})`, height: `var(--size-${n})` }" />
+            <div
+              v-for="n in sizes"
+              :key="n"
+              class="spacing-sample"
+            >
+              <div
+                class="spacing-box"
+                :style="{
+                  width: `var(--size-${n})`,
+                  height: `var(--size-${n})`,
+                }"
+              />
               <code>--size-{{ n }}</code>
             </div>
           </div>
@@ -96,10 +124,21 @@
         <div class="token-group">
           <h4>Semantic Spacers</h4>
           <div class="spacing-samples">
-            <div v-for="spacer in spacers" :key="spacer" class="spacing-sample">
-              <div class="spacing-box"
-                :style="{ width: `var(--spacer${spacer === 'default' ? '' : `-${spacer}`})`, height: `var(--spacer${spacer === 'default' ? '' : `-${spacer}`})` }" />
-              <code>--spacer{{ spacer === 'default' ? '' : `-${spacer}` }}</code>
+            <div
+              v-for="spacer in spacers"
+              :key="spacer"
+              class="spacing-sample"
+            >
+              <div
+                class="spacing-box"
+                :style="{
+                  width: `var(--spacer${spacer === 'default' ? '' : `-${spacer}`})`,
+                  height: `var(--spacer${spacer === 'default' ? '' : `-${spacer}`})`,
+                }"
+              />
+              <code
+                >--spacer{{ spacer === 'default' ? '' : `-${spacer}` }}</code
+              >
             </div>
           </div>
         </div>
@@ -114,7 +153,11 @@
       <article id="icons">
         <h3>Icon</h3>
         <div class="icon-grid">
-          <div v-for="type in iconTypes" :key="type" class="icon-sample">
+          <div
+            v-for="type in iconTypes"
+            :key="type"
+            class="icon-sample"
+          >
             <Icon :type="type" />
             <code>{{ type }}</code>
           </div>
@@ -235,13 +278,28 @@
         <div class="component-demo">
           <h4>Dismissable Tags</h4>
           <Tags>
-            <Tag v-for="tag in dismissableTags" :key="tag" dismissable
-              @dismiss="dismissableTags = dismissableTags.filter(t => t !== tag)">
+            <Tag
+              v-for="tag in dismissableTags"
+              :key="tag"
+              dismissable
+              @dismiss="
+                dismissableTags = dismissableTags.filter((t) => t !== tag)
+              "
+            >
               {{ tag }}
             </Tag>
           </Tags>
-          <Button v-if="dismissableTags.length === 0" class="small"
-            @click="dismissableTags = ['Dismissable 1', 'Dismissable 2', 'Dismissable 3']">
+          <Button
+            v-if="dismissableTags.length === 0"
+            class="small"
+            @click="
+              dismissableTags = [
+                'Dismissable 1',
+                'Dismissable 2',
+                'Dismissable 3',
+              ]
+            "
+          >
             Reset Tags
           </Button>
         </div>
@@ -256,19 +314,31 @@
           <Form>
             <FormGroup>
               <FormLabel label="Email">
-                <input type="email" placeholder="Enter your email" autocomplete="email" />
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  autocomplete="email"
+                />
               </FormLabel>
             </FormGroup>
 
             <FormGroup>
               <FormLabel label="Password">
-                <input type="password" placeholder="Enter your password" autocomplete="current-password" />
+                <input
+                  type="password"
+                  placeholder="Enter your password"
+                  autocomplete="current-password"
+                />
               </FormLabel>
             </FormGroup>
 
             <FormGroup>
               <FormLabel label="Options">
-                <FormRadioGroup v-model="selectedOption" :options="radioOptions" name="option" />
+                <FormRadioGroup
+                  v-model="selectedOption"
+                  :options="radioOptions"
+                  name="option"
+                />
               </FormLabel>
             </FormGroup>
           </Form>
@@ -278,11 +348,17 @@
           <h4>FormItem with Prefix/Suffix</h4>
           <FormItem>
             <template #prefix>$</template>
-            <input type="text" placeholder="Amount" />
+            <input
+              type="text"
+              placeholder="Amount"
+            />
           </FormItem>
 
           <FormItem>
-            <input type="text" placeholder="Search" />
+            <input
+              type="text"
+              placeholder="Search"
+            />
             <template #suffix>
               <Icon type="loader" />
             </template>
@@ -292,7 +368,10 @@
         <div class="component-demo">
           <h4>FormInputGroup</h4>
           <FormInputGroup>
-            <input type="text" placeholder="Enter value" />
+            <input
+              type="text"
+              placeholder="Enter value"
+            />
             <Button class="primary">Submit</Button>
           </FormInputGroup>
         </div>
@@ -315,24 +394,40 @@
           <h4>FormSelect (Reka UI)</h4>
           <FormLabel label="Single Select">
             <FormItem>
-              <FormSelect v-model="selectedFruit" :options="fruitOptions" placeholder="Select a fruit..." />
+              <FormSelect
+                v-model="selectedFruit"
+                :options="fruitOptions"
+                placeholder="Select a fruit..."
+              />
             </FormItem>
           </FormLabel>
           <p>Selected: {{ selectedFruit || 'None' }}</p>
 
           <FormLabel label="Multi Select">
             <FormItem>
-              <FormSelect v-model="selectedFruits" :options="fruitOptions" multiple placeholder="Select fruits..." />
+              <FormSelect
+                v-model="selectedFruits"
+                :options="fruitOptions"
+                multiple
+                placeholder="Select fruits..."
+              />
             </FormItem>
           </FormLabel>
-          <p>Selected: {{ selectedFruits?.length ? selectedFruits.join(', ') : 'None' }}</p>
+          <p>
+            Selected:
+            {{ selectedFruits?.length ? selectedFruits.join(', ') : 'None' }}
+          </p>
 
           <FormLabel label="With Prefix Icon">
             <FormItem>
               <template #prefix>
                 <Icon type="home" />
               </template>
-              <FormSelect v-model="selectedFruit" :options="fruitOptions" placeholder="Select..." />
+              <FormSelect
+                v-model="selectedFruit"
+                :options="fruitOptions"
+                placeholder="Select..."
+              />
             </FormItem>
           </FormLabel>
         </div>
@@ -375,12 +470,49 @@
           <h4>Dialog</h4>
           <Button @click="showDialog = true">Open Dialog</Button>
 
-          <Dialog v-model:open="showDialog" title="Dialog Title">
+          <Dialog
+            v-model:open="showDialog"
+            title="Dialog Title"
+          >
             <p>Dialog with title and close button.</p>
-            <Actions>
+            <template #footer>
               <Button @click="showDialog = false">Cancel</Button>
-              <Button class="primary" @click="showDialog = false">Confirm</Button>
-            </Actions>
+              <Button
+                class="primary"
+                @click="showDialog = false"
+                >Confirm</Button
+              >
+            </template>
+          </Dialog>
+        </div>
+
+        <div class="component-demo">
+          <h4>Scrolling Dialog (Sticky Header + Footer)</h4>
+          <Button @click="showScrollDialog = true"
+            >Open Scrolling Dialog</Button
+          >
+
+          <Dialog
+            v-model:open="showScrollDialog"
+            title="Terms & Conditions"
+          >
+            <p
+              v-for="i in 20"
+              :key="i"
+            >
+              {{ i }}. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco
+              laboris.
+            </p>
+            <template #footer>
+              <Button @click="showScrollDialog = false">Decline</Button>
+              <Button
+                class="primary"
+                @click="showScrollDialog = false"
+                >Accept</Button
+              >
+            </template>
           </Dialog>
         </div>
       </article>
@@ -396,11 +528,16 @@ const fontSizes = ['xs', 'sm', 'base', 'lg', 'xl', '2xl', '3xl']
 const sizes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const spacers = ['xs', 'sm', 'default', 'md', 'lg', 'xl']
 const iconTypes = [
-  'lucide:plus', 'check', 'chevron-down', 'lucide:chevron-left', 'lucide:chevron-right',
+  'lucide:plus',
+  'check',
+  'chevron-down',
+  'lucide:chevron-left',
+  'lucide:chevron-right',
   'close',
 ]
 
 const showDialog = ref(false)
+const showScrollDialog = ref(false)
 
 // Dismissable tags demo
 const dismissableTags = ref(['Dismissable 1', 'Dismissable 2', 'Dismissable 3'])
@@ -469,7 +606,7 @@ section {
   gap: var(--spacer-lg);
 }
 
-section>h2 {
+section > h2 {
   font-size: var(--font-xl);
   border-bottom: var(--border);
   padding-bottom: var(--spacer-sm);
@@ -480,7 +617,7 @@ article {
   gap: var(--spacer);
 }
 
-article>h3 {
+article > h3 {
   font-family: var(--font-family);
   font-size: var(--ui-font-size);
   text-transform: var(--ui-text-transform);
@@ -510,7 +647,7 @@ article>h3 {
   text-align: center;
 }
 
-.color-swatch>div {
+.color-swatch > div {
   width: var(--size-8);
   height: var(--size-8);
   border: var(--border);
