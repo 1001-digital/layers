@@ -1,18 +1,29 @@
 <template>
   <div class="loader">
-    <span v-if="spinner" class="spinner" aria-hidden="true"></span>
-    <span v-if="txt" class="text">{{ txt }}</span>
+    <span
+      v-if="spinner"
+      class="spinner"
+      aria-hidden="true"
+    ></span>
+    <span
+      v-if="txt"
+      class="text"
+      >{{ txt }}</span
+    >
   </div>
 </template>
 
 <script setup lang="ts">
-withDefaults(defineProps<{
-  txt?: string
-  spinner?: boolean
-}>(), {
-  txt: 'Loading...',
-  spinner: false,
-})
+withDefaults(
+  defineProps<{
+    txt?: string
+    spinner?: boolean
+  }>(),
+  {
+    txt: 'Loading...',
+    spinner: false,
+  },
+)
 </script>
 
 <style scoped>
@@ -35,6 +46,7 @@ withDefaults(defineProps<{
 
   .text {
     @mixin ui-font;
+    width: min-content;
     color: var(--muted);
   }
 
