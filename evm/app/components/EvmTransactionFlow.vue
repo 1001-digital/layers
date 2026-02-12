@@ -34,49 +34,51 @@
 
     <Actions v-if="step === 'confirm' || step === 'error'">
       <Button @click="cancel" class="secondary">Cancel</Button>
-      <Button @click="() => initializeRequest()">{{
-        text.action[step] || "Execute"
-      }}</Button>
+      <Button @click="() => initializeRequest()">
+        {{ text.action[step] || 'Execute' }}
+      </Button>
     </Actions>
   </Dialog>
 </template>
 
 <script setup lang="ts">
-import { waitForTransactionReceipt, watchChainId } from "@wagmi/core";
-import type { Config } from "@wagmi/vue";
-import type { TransactionReceipt, Hash } from "viem";
+import { waitForTransactionReceipt, watchChainId } from '@wagmi/core'
+import type { Config } from '@wagmi/vue'
+import type { TransactionReceipt, Hash } from 'viem'
 
 interface TextConfig {
-  title: Record<string, string>;
-  lead: Record<string, string>;
-  action: Record<string, string>;
+  title: Record<string, string>
+  lead: Record<string, string>
+  action: Record<string, string>
 }
 
-const checkChain = useEnsureChainIdCheck();
+type Step = 'idle' | 'confirm' | 'chain' | 'requesting' | 'waiting' | 'complete' | 'error'
 
-const { $wagmi } = useNuxtApp();
-const blockExplorer = useBlockExplorer();
+const checkChain = useEnsureChainIdCheck()
+
+const { $wagmi } = useNuxtApp()
+const blockExplorer = useBlockExplorer()
 
 const props = withDefaults(
   defineProps<{
-    text?: TextConfig;
-    request?: () => Promise<Hash>;
-    delayAfter?: number;
-    delayAutoclose?: number;
-    skipConfirmation?: boolean;
-    autoCloseSuccess?: boolean;
-    dismissable?: boolean;
+    text?: TextConfig
+    request?: () => Promise<Hash>
+    delayAfter?: number
+    delayAutoclose?: number
+    skipConfirmation?: boolean
+    autoCloseSuccess?: boolean
+    dismissable?: boolean
   }>(),
   {
     text: () => ({
       title: {
-        confirm: "Confirm Transaction",
+        confirm: 'Confirm Transaction',
       },
       lead: {
-        confirm: "Please review and confirm this transaction.",
+        confirm: 'Please review and confirm this transaction.',
       },
       action: {
-        confirm: "Execute",
+        confirm: 'Execute',
       },
     }),
     delayAfter: 2000,
@@ -85,147 +87,100 @@ const props = withDefaults(
     autoCloseSuccess: true,
     dismissable: true,
   },
-);
+)
 
 const emit = defineEmits<{
-  complete: [receipt: TransactionReceipt];
-  cancel: [];
-}>();
+  complete: [receipt: TransactionReceipt]
+  cancel: []
+}>()
 
-const open = ref(false);
+const step = ref<Step>('idle')
 
-const switchChain = ref(false);
+const open = computed({
+  get: () => step.value !== 'idle',
+  set: (v) => { if (!v) step.value = 'idle' },
+})
+
 watchChainId($wagmi as Config, {
   async onChange() {
-    if (!switchChain.value) return;
+    if (step.value !== 'chain') return
 
     if (await checkChain()) {
-      switchChain.value = false;
-      initializeRequest();
-    } else {
-      switchChain.value = true;
+      initializeRequest()
     }
   },
-});
+})
 
-const cachedRequest = ref(props.request);
-watch(
-  () => props.request,
-  () => {
-    cachedRequest.value = props.request;
-  },
-);
+const cachedRequest = ref(props.request)
+watch(() => props.request, (v) => { cachedRequest.value = v })
 
-const requesting = ref(false);
-const waiting = ref(false);
-const complete = ref(false);
-const error = ref("");
-const tx = ref<Hash | null>(null);
-const receipt = ref<TransactionReceipt | null>(null);
-const txLink = computed(() => `${blockExplorer}/tx/${tx.value}`);
-
-const step = computed(() => {
-  if (
-    open.value &&
-    !requesting.value &&
-    !switchChain.value &&
-    !waiting.value &&
-    !complete.value
-  ) {
-    return "confirm";
-  }
-
-  if (switchChain.value) {
-    return "chain";
-  }
-
-  if (requesting.value) {
-    return "requesting";
-  }
-
-  if (waiting.value) {
-    return "waiting";
-  }
-
-  if (complete.value) {
-    return "complete";
-  }
-
-  return "error";
-});
+const error = ref('')
+const tx = ref<Hash | null>(null)
+const receipt = ref<TransactionReceipt | null>(null)
+const txLink = computed(() => `${blockExplorer}/tx/${tx.value}`)
 
 const canDismiss = computed(
-  () => props.dismissable && step.value !== "requesting",
-);
+  () => props.dismissable && step.value !== 'requesting' && step.value !== 'waiting',
+)
 
 const initializeRequest = async (request = cachedRequest.value) => {
-  cachedRequest.value = request;
-  complete.value = false;
-  open.value = true;
-  error.value = "";
-  tx.value = null;
-  receipt.value = null;
+  cachedRequest.value = request
+  error.value = ''
+  tx.value = null
+  receipt.value = null
+  step.value = 'confirm'
 
   if (!(await checkChain())) {
-    switchChain.value = true;
-    return;
-  } else {
-    switchChain.value = false;
+    step.value = 'chain'
+    return
   }
-
-  if (requesting.value) return;
 
   try {
-    requesting.value = true;
-    tx.value = await request!();
-    requesting.value = false;
-    waiting.value = true;
-    const [receiptObject] = await Promise.all([
-      waitForTransactionReceipt($wagmi as Config, { hash: tx.value }),
-    ]);
-    await delay(props.delayAfter);
-    receipt.value = receiptObject;
-    emit("complete", receiptObject);
-    complete.value = true;
+    step.value = 'requesting'
+    tx.value = await request!()
+    step.value = 'waiting'
+    const receiptObject = await waitForTransactionReceipt($wagmi as Config, { hash: tx.value })
+    await delay(props.delayAfter)
+    receipt.value = receiptObject
+    emit('complete', receiptObject)
+    step.value = 'complete'
   } catch (e: unknown) {
-    const err = e as { cause?: { code?: number }; shortMessage?: string };
+    const err = e as { cause?: { code?: number }, shortMessage?: string }
     if (err?.cause?.code === 4001) {
-      open.value = false;
+      step.value = 'idle'
     } else {
-      error.value = err.shortMessage || "Error submitting transaction request.";
+      error.value = err.shortMessage || 'Error submitting transaction request.'
+      step.value = 'error'
     }
-    console.log(e);
+    console.log(e)
   }
 
-  requesting.value = false;
-  waiting.value = false;
-
-  if (props.autoCloseSuccess && step.value === "complete") {
-    await delay(props.delayAutoclose);
-    open.value = false;
-    await delay(300);
+  if (props.autoCloseSuccess && step.value === 'complete') {
+    await delay(props.delayAutoclose)
+    step.value = 'idle'
+    await delay(300)
   }
 
-  return receipt.value;
-};
+  return receipt.value
+}
 
 const start = () => {
-  if (props.skipConfirmation && !open.value) {
-    initializeRequest();
+  if (props.skipConfirmation && step.value === 'idle') {
+    initializeRequest()
+    return
   }
 
-  open.value = true;
-};
+  step.value = 'confirm'
+}
 
 const cancel = () => {
-  open.value = false;
-
-  emit("cancel");
-};
+  step.value = 'idle'
+  emit('cancel')
+}
 
 defineExpose({
   initializeRequest,
-});
+})
 </script>
 
 <style>
