@@ -8,13 +8,12 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      title: 'EVM Layer',
-      blockExplorer: 'https://etherscan.io',
-      chainId: 1,
-      rpc1: '',
-      rpc2: '',
-      rpc3: '',
-      walletConnectProjectId: '',
+      evm: {
+        walletConnectProjectId: '',
+        chains: {
+          mainnet: { rpc1: '', rpc2: '', rpc3: '' },
+        },
+      },
     },
   },
 

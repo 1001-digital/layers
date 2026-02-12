@@ -55,7 +55,7 @@ interface TextConfig {
 const checkChain = useEnsureChainIdCheck();
 
 const { $wagmi } = useNuxtApp();
-const config = useRuntimeConfig();
+const blockExplorer = useBlockExplorer();
 
 const props = withDefaults(
   defineProps<{
@@ -122,7 +122,7 @@ const complete = ref(false);
 const error = ref("");
 const tx = ref<Hash | null>(null);
 const receipt = ref<TransactionReceipt | null>(null);
-const txLink = computed(() => `${config.public.blockExplorer}/tx/${tx.value}`);
+const txLink = computed(() => `${blockExplorer}/tx/${tx.value}`);
 
 const step = computed(() => {
   if (

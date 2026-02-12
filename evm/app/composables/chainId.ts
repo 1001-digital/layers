@@ -1,10 +1,21 @@
 import { useConnection, useSwitchChain } from '@wagmi/vue'
 
-export const useMainChainId = () => {
-  const config = useRuntimeConfig()
+const getDefaultChainKey = () => useAppConfig().evm?.defaultChain || 'mainnet'
 
-  return config.public.chainId as 1 | 11155111 | 17000 | 1337 | 31337
+export const useChainConfig = (key?: string) => {
+  const appConfig = useAppConfig()
+  const resolvedKey = key || getDefaultChainKey()
+  const chain = appConfig.evm?.chains?.[resolvedKey]
+
+  return {
+    id: chain?.id ?? 1,
+    blockExplorer: chain?.blockExplorer ?? 'https://etherscan.io',
+  }
 }
+
+export const useMainChainId = () => useChainConfig().id
+
+export const useBlockExplorer = (key?: string) => useChainConfig(key).blockExplorer
 
 export const useEnsureChainIdCheck = () => {
   const chainId = useMainChainId()

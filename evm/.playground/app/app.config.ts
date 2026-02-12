@@ -1,5 +1,12 @@
 export default defineAppConfig({
-  myLayer: {
-    name: 'My amazing Nuxt layer (overwritten)'
-  }
+  evm: {
+    title: 'EVM Layer Playground',
+    defaultChain: 'mainnet',
+    chains: {
+      mainnet: {
+        id: 1,
+        blockExplorer: 'https://etherscan.io',
+      },
+    },
+  },
 })

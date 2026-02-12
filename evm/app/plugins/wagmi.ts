@@ -9,14 +9,38 @@ import {
   type Config,
   type CreateConnectorFn,
 } from '@wagmi/vue'
-import { mainnet, sepolia, holesky, localhost } from '@wagmi/vue/chains'
 import { coinbaseWallet, injected, metaMask, walletConnect } from '@wagmi/vue/connectors'
-import type { CustomTransport, Transport } from 'viem'
+import type { Chain, Transport } from 'viem'
 
 export default defineNuxtPlugin((nuxtApp) => {
-  const title = nuxtApp.$config.public.title || 'EVM Layer'
-  const mainChainId = nuxtApp.$config.public.chainId
+  const appConfig = useAppConfig()
+  const runtimeConfig = nuxtApp.$config.public.evm as {
+    walletConnectProjectId: string
+    chains: Record<string, { rpc1?: string, rpc2?: string, rpc3?: string }>
+  }
 
+  const title = appConfig.evm?.title || 'EVM Layer'
+  const chainEntries = appConfig.evm?.chains || {}
+
+  // Build chains and transports from config
+  const chains: [Chain, ...Chain[]] = [] as unknown as [Chain, ...Chain[]]
+  const transports: Record<number, Transport> = {}
+
+  for (const [key, entry] of Object.entries(chainEntries)) {
+    const chain = resolveChain(entry.id!)
+    chains.push(chain)
+
+    const rpcs = runtimeConfig.chains?.[key]
+    const transportList = []
+    if (rpcs?.rpc1) transportList.push(http(rpcs.rpc1))
+    if (rpcs?.rpc2) transportList.push(http(rpcs.rpc2))
+    if (rpcs?.rpc3) transportList.push(http(rpcs.rpc3))
+    transportList.push(http())
+
+    transports[chain.id] = fallback(transportList)
+  }
+
+  // Connectors
   const connectors: CreateConnectorFn[] = [
     injected(),
     coinbaseWallet({
@@ -33,28 +57,16 @@ export default defineNuxtPlugin((nuxtApp) => {
     }),
   ]
 
-  if (import.meta.client && nuxtApp.$config.public.walletConnectProjectId)
+  if (import.meta.client && runtimeConfig.walletConnectProjectId)
     connectors.push(
       walletConnect({
-        projectId: nuxtApp.$config.public.walletConnectProjectId,
+        projectId: runtimeConfig.walletConnectProjectId,
         showQrModal: false,
       }),
     )
 
-  const transportDefinitions: CustomTransport | Transport[] = []
-
-  if (nuxtApp.$config.public.rpc1)
-    transportDefinitions.push(http(nuxtApp.$config.public.rpc1 as string))
-  if (nuxtApp.$config.public.rpc2)
-    transportDefinitions.push(http(nuxtApp.$config.public.rpc2 as string))
-  if (nuxtApp.$config.public.rpc3)
-    transportDefinitions.push(http(nuxtApp.$config.public.rpc3 as string))
-  transportDefinitions.push(http())
-
-  const transports = fallback(transportDefinitions)
-
   const wagmiConfig: Config = createConfig({
-    chains: [mainnet, sepolia, holesky, localhost],
+    chains,
     batch: {
       multicall: true,
     },
@@ -63,12 +75,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       storage: cookieStorage,
     }),
     ssr: true,
-    transports: {
-      [mainnet.id]: mainChainId == 1 ? transports : http(),
-      [sepolia.id]: transports,
-      [holesky.id]: transports,
-      [localhost.id]: transports,
-    },
+    transports,
   })
 
   nuxtApp.vueApp.use(WagmiPlugin, { config: wagmiConfig }).use(VueQueryPlugin, {})

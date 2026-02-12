@@ -22,7 +22,7 @@ Uses modern wagmi 0.4.x patterns:
 - `useConnectionEffect` (not deprecated `useAccountEffect`)
 - `useSwitchConnection` (not deprecated `useSwitchAccount`)
 
-Configured chains: mainnet, sepolia, holesky, localhost
+Configured chains: resolved dynamically from `app.config.ts` via `evm.chains` map (supports mainnet, sepolia, holesky, optimism, arbitrum, base, polygon, localhost out of the box)
 
 Connectors: injected, coinbaseWallet, metaMask, walletConnect
 
@@ -37,7 +37,9 @@ Connectors: injected, coinbaseWallet, metaMask, walletConnect
 
 ## Composables
 
-- `useMainChainId()` - Get configured chain ID from runtime config
+- `useChainConfig(key?)` - Get `{ id, blockExplorer }` for a named chain (defaults to `defaultChain`)
+- `useMainChainId()` - Get main chain ID from app config
+- `useBlockExplorer(key?)` - Get block explorer URL for a named chain
 - `useEnsureChainIdCheck()` - Validate/switch chain before transactions
 - `useBaseURL()` - Get base URL with trailing slash
 - `useClipboard()` - Copy text to clipboard with copied state
@@ -46,17 +48,29 @@ Connectors: injected, coinbaseWallet, metaMask, walletConnect
 
 - `shortAddress(address, length)` - Truncate address for display
 - `formatETH(value, maxDecimals)` - Format ETH values
+- `resolveChain(id)` - Resolve chain ID to viem Chain object
 
-## Environment Variables
+## Configuration
+
+Static chain config lives in `app.config.ts` (safe to commit):
+
+```ts
+evm: {
+  title: 'My dApp',
+  defaultChain: 'mainnet',
+  chains: {
+    mainnet: { id: 1, blockExplorer: 'https://etherscan.io' },
+  },
+}
+```
+
+Sensitive RPC URLs live in `runtimeConfig.public.evm` (env-driven):
 
 ```bash
-NUXT_PUBLIC_TITLE="App Name"
-NUXT_PUBLIC_CHAIN_ID=1
-NUXT_PUBLIC_BLOCK_EXPLORER="https://etherscan.io"
-NUXT_PUBLIC_RPC1=""
-NUXT_PUBLIC_RPC2=""
-NUXT_PUBLIC_RPC3=""
-NUXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=""
+NUXT_PUBLIC_EVM_WALLET_CONNECT_PROJECT_ID=""
+NUXT_PUBLIC_EVM_CHAINS_MAINNET_RPC1=""
+NUXT_PUBLIC_EVM_CHAINS_MAINNET_RPC2=""
+NUXT_PUBLIC_EVM_CHAINS_MAINNET_RPC3=""
 ```
 
 ## Key directories

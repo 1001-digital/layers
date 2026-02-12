@@ -1,14 +1,30 @@
 export default defineAppConfig({
   evm: {
-    name: 'Hello from Nuxt layer'
-  }
+    title: 'EVM Layer',
+    defaultChain: 'mainnet',
+    chains: {
+      mainnet: {
+        id: 1,
+        blockExplorer: 'https://etherscan.io',
+      },
+    },
+  },
 })
+
+interface EvmChainConfig {
+  id?: number
+  blockExplorer?: string
+}
 
 declare module '@nuxt/schema' {
   interface AppConfigInput {
     evm?: {
-      /** Project name */
-      name?: string
+      /** App title */
+      title?: string
+      /** Key into `chains` that serves as the app's primary chain */
+      defaultChain?: string
+      /** Named chain definitions */
+      chains?: Record<string, EvmChainConfig>
     }
   }
 }
