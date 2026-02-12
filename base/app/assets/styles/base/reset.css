@@ -42,6 +42,11 @@ ul {
   padding: 0;
 }
 
+/* Prevent layout shift when overflow is toggled (e.g. dialog open) */
+html {
+  scrollbar-gutter: stable;
+}
+
 /*
  * Base box model
  */
