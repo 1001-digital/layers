@@ -1,11 +1,17 @@
 import { useConnection, useSwitchChain } from '@wagmi/vue'
 
+interface ChainConfig {
+  id?: number
+  blockExplorer?: string
+}
+
 const getDefaultChainKey = () => useAppConfig().evm?.defaultChain || 'mainnet'
 
 export const useChainConfig = (key?: string) => {
   const appConfig = useAppConfig()
   const resolvedKey = key || getDefaultChainKey()
-  const chain = appConfig.evm?.chains?.[resolvedKey]
+  const chains = appConfig.evm?.chains as Record<string, ChainConfig> | undefined
+  const chain = chains?.[resolvedKey]
 
   return {
     id: chain?.id ?? 1,
