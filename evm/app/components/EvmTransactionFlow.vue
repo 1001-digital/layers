@@ -1,5 +1,10 @@
 <template>
-  <slot :start="start" :step="step" :open="open" name="start"></slot>
+  <slot
+    :start="start"
+    :step="step"
+    :open="open"
+    name="start"
+  ></slot>
 
   <Dialog
     v-model:open="open"
@@ -11,12 +16,21 @@
 
     <h1 v-if="text.title[step]">{{ text.title[step] }}</h1>
 
+    <Loading
+      v-if="step === 'requesting' || step === 'waiting'"
+      spinner
+      txt=""
+    />
+
     <div class="text">
       <p v-if="text.lead[step]">{{ text.lead[step] }}</p>
       <p v-if="error">{{ error }}</p>
     </div>
 
-    <slot :name="step" :cancel="cancel"></slot>
+    <slot
+      :name="step"
+      :cancel="cancel"
+    ></slot>
 
     <Button
       v-if="step === 'waiting'"
@@ -24,16 +38,23 @@
       target="_blank"
       class="block-explorer"
     >
-      <Icon type="loader" class="spin" />
-      <span>View on Block Explorer</span>
+      View on Block Explorer
     </Button>
 
     <Actions v-if="step === 'chain'">
-      <Button @click="cancel" class="secondary">Cancel</Button>
+      <Button
+        @click="cancel"
+        class="secondary"
+        >Cancel</Button
+      >
     </Actions>
 
     <Actions v-if="step === 'confirm' || step === 'error'">
-      <Button @click="cancel" class="secondary">Cancel</Button>
+      <Button
+        @click="cancel"
+        class="secondary"
+        >Cancel</Button
+      >
       <Button @click="() => initializeRequest()">
         {{ text.action[step] || 'Execute' }}
       </Button>
@@ -52,7 +73,14 @@ interface TextConfig {
   action: Record<string, string>
 }
 
-type Step = 'idle' | 'confirm' | 'chain' | 'requesting' | 'waiting' | 'complete' | 'error'
+type Step =
+  | 'idle'
+  | 'confirm'
+  | 'chain'
+  | 'requesting'
+  | 'waiting'
+  | 'complete'
+  | 'error'
 
 const checkChain = useEnsureChainIdCheck()
 
@@ -98,7 +126,9 @@ const step = ref<Step>('idle')
 
 const open = computed({
   get: () => step.value !== 'idle',
-  set: (v) => { if (!v) step.value = 'idle' },
+  set: (v) => {
+    if (!v) step.value = 'idle'
+  },
 })
 
 watchChainId($wagmi as Config, {
@@ -112,7 +142,12 @@ watchChainId($wagmi as Config, {
 })
 
 const cachedRequest = ref(props.request)
-watch(() => props.request, (v) => { cachedRequest.value = v })
+watch(
+  () => props.request,
+  (v) => {
+    cachedRequest.value = v
+  },
+)
 
 const error = ref('')
 const tx = ref<Hash | null>(null)
@@ -120,7 +155,10 @@ const receipt = ref<TransactionReceipt | null>(null)
 const txLink = computed(() => `${blockExplorer}/tx/${tx.value}`)
 
 const canDismiss = computed(
-  () => props.dismissable && step.value !== 'requesting' && step.value !== 'waiting',
+  () =>
+    props.dismissable &&
+    step.value !== 'requesting' &&
+    step.value !== 'waiting',
 )
 
 const initializeRequest = async (request = cachedRequest.value) => {
@@ -139,13 +177,15 @@ const initializeRequest = async (request = cachedRequest.value) => {
     step.value = 'requesting'
     tx.value = await request!()
     step.value = 'waiting'
-    const receiptObject = await waitForTransactionReceipt($wagmi as Config, { hash: tx.value })
+    const receiptObject = await waitForTransactionReceipt($wagmi as Config, {
+      hash: tx.value,
+    })
     await delay(props.delayAfter)
     receipt.value = receiptObject
     emit('complete', receiptObject)
     step.value = 'complete'
   } catch (e: unknown) {
-    const err = e as { cause?: { code?: number }, shortMessage?: string }
+    const err = e as { cause?: { code?: number }; shortMessage?: string }
     if (err?.cause?.code === 4001) {
       step.value = 'idle'
     } else {
@@ -188,20 +228,9 @@ defineExpose({
   display: grid;
   gap: var(--spacer);
 
-  .spinner {
-    width: var(--size-7);
-    height: var(--size-7);
-    margin: calc(-1 * var(--size-4)) 0 var(--size-3);
-  }
-
   .text {
     width: 100%;
     height: min-content;
-  }
-
-  h1 {
-    font-size: var(--font-lg);
-    margin-bottom: var(--size-4);
   }
 
   p {
