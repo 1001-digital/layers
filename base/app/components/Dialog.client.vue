@@ -12,11 +12,12 @@
         :is="tag"
         :class="classes"
         tabindex="-1"
-        @cancel.stop.prevent="open = false"
+        @cancel.stop.prevent="closable && (open = false)"
         @click="onDialogClick"
       >
         <h1 v-if="title">{{ title }}</h1>
         <button
+          v-if="closable"
           class="close"
           :title="`Close ${title || 'Dialog'}`"
           @pointerdown="open = false"
@@ -50,11 +51,13 @@ const props = withDefaults(
     title?: string
     class?: string | string[] | Record<string, boolean>
     clickOutside?: boolean
+    closable?: boolean
     compat?: boolean
     large?: boolean
   }>(),
   {
     clickOutside: true,
+    closable: true,
   },
 )
 const emit = defineEmits<{
@@ -164,7 +167,7 @@ const onClickOutside = () => {
     }
 
     /* Exit animation */
-    &:not([open]):not(:popover-open) {
+    &:not([open]):not(:popover-open):not(.open) {
       opacity: 0;
       transform: scale(0.95);
     }
