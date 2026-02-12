@@ -500,10 +500,10 @@
               v-for="i in 20"
               :key="i"
             >
-              {{ i }}. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco
-              laboris.
+              {{ i }}. Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+              aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+              ullamco laboris.
             </p>
             <template #footer>
               <Button @click="showScrollDialog = false">Decline</Button>
@@ -511,6 +511,92 @@
                 class="primary"
                 @click="showScrollDialog = false"
                 >Accept</Button
+              >
+            </template>
+          </Dialog>
+        </div>
+
+        <div class="component-demo">
+          <h4>No Footer</h4>
+          <Button @click="showNoFooterDialog = true"
+            >Open No Footer Dialog</Button
+          >
+
+          <Dialog
+            v-model:open="showNoFooterDialog"
+            title="Notification"
+          >
+            <p>This dialog has no footer actions. Close it with the X button.</p>
+          </Dialog>
+        </div>
+
+        <div class="component-demo">
+          <h4>Compat Mode</h4>
+          <Button @click="showCompatDialog = true"
+            >Open Compat Dialog</Button
+          >
+
+          <Dialog
+            v-model:open="showCompatDialog"
+            title="Compat Dialog"
+            compat
+          >
+            <p>
+              This dialog uses compat mode, rendering as an article element
+              with an overlay instead of the native dialog element.
+            </p>
+            <template #footer>
+              <Button @click="showCompatDialog = false">Close</Button>
+            </template>
+          </Dialog>
+        </div>
+
+        <div class="component-demo">
+          <h4>No Close Button</h4>
+          <Button @click="showNoCloseDialog = true"
+            >Open No Close Button Dialog</Button
+          >
+
+          <Dialog
+            v-model:open="showNoCloseDialog"
+            title="Required Action"
+            :closable="false"
+            :click-outside="false"
+          >
+            <p>
+              This dialog has no X button and cannot be dismissed by clicking
+              outside. You must use the action below.
+            </p>
+            <template #footer>
+              <Button
+                class="primary"
+                @click="showNoCloseDialog = false"
+                >Acknowledge</Button
+              >
+            </template>
+          </Dialog>
+        </div>
+
+        <div class="component-demo">
+          <h4>No Click Outside to Close</h4>
+          <Button @click="showPersistentDialog = true"
+            >Open Persistent Dialog</Button
+          >
+
+          <Dialog
+            v-model:open="showPersistentDialog"
+            title="Persistent Dialog"
+            :click-outside="false"
+          >
+            <p>
+              Clicking outside this dialog will not close it. You must use
+              the X button or the action below.
+            </p>
+            <template #footer>
+              <Button
+                class="primary"
+                @click="showPersistentDialog = false"
+                >Got it</Button
               >
             </template>
           </Dialog>
@@ -538,6 +624,10 @@ const iconTypes = [
 
 const showDialog = ref(false)
 const showScrollDialog = ref(false)
+const showNoFooterDialog = ref(false)
+const showCompatDialog = ref(false)
+const showNoCloseDialog = ref(false)
+const showPersistentDialog = ref(false)
 
 // Dismissable tags demo
 const dismissableTags = ref(['Dismissable 1', 'Dismissable 2', 'Dismissable 3'])
