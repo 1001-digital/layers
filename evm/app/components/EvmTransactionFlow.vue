@@ -82,7 +82,7 @@ const props = withDefaults(
     delayAfter: 2000,
     delayAutoclose: 2000,
     skipConfirmation: false,
-    autoCloseSuccess: false,
+    autoCloseSuccess: true,
     dismissable: true,
   },
 );
