@@ -93,9 +93,9 @@ import type { Config } from '@wagmi/vue'
 import type { TransactionReceipt, Hash } from 'viem'
 
 interface TextConfig {
-  title: Record<string, string>
-  lead: Record<string, string>
-  action: Record<string, string>
+  title?: Record<string, string>
+  lead?: Record<string, string>
+  action?: Record<string, string>
 }
 
 type Step =
@@ -106,6 +106,28 @@ type Step =
   | 'waiting'
   | 'complete'
   | 'error'
+
+const defaultText = {
+  title: {
+    confirm: 'Confirm Transaction',
+    chain: 'Switch Network',
+    requesting: 'Requesting',
+    waiting: 'Processing',
+    complete: 'Complete',
+    error: 'Error',
+  },
+  lead: {
+    confirm: 'Please review and confirm this transaction.',
+    chain: 'Please switch to the correct network to continue.',
+    requesting: 'Requesting transaction signature...',
+    waiting: 'Waiting for transaction confirmation...',
+    complete: 'Transaction confirmed successfully.',
+  },
+  action: {
+    confirm: 'Execute',
+    error: 'Try Again',
+  },
+} satisfies TextConfig
 
 const slots = useSlots()
 const checkChain = useEnsureChainIdCheck()
@@ -124,17 +146,6 @@ const props = withDefaults(
     dismissable?: boolean
   }>(),
   {
-    text: () => ({
-      title: {
-        confirm: 'Confirm Transaction',
-      },
-      lead: {
-        confirm: 'Please review and confirm this transaction.',
-      },
-      action: {
-        confirm: 'Execute',
-      },
-    }),
     delayAfter: 2000,
     delayAutoclose: 2000,
     skipConfirmation: false,
@@ -147,6 +158,12 @@ const emit = defineEmits<{
   complete: [receipt: TransactionReceipt]
   cancel: []
 }>()
+
+const text = computed<Required<TextConfig>>(() => ({
+  title: { ...defaultText.title, ...props.text?.title },
+  lead: { ...defaultText.lead, ...props.text?.lead },
+  action: { ...defaultText.action, ...props.text?.action },
+}))
 
 const step = ref<Step>('idle')
 

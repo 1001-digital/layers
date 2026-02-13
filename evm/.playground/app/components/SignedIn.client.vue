@@ -17,25 +17,12 @@
     <EvmTransactionFlow
       :request="sendTransaction"
       :text="{
-        title: {
-          confirm: 'Send Transaction',
-          requesting: 'Requesting...',
-          waiting: 'Waiting for confirmation...',
-          complete: 'Transaction Complete!',
-          error: 'Transaction Error',
-        },
+        title: { confirm: 'Send Transaction' },
         lead: {
           confirm:
             'This will send 0 ETH to your address as a test transaction.',
-          requesting: 'Please confirm the transaction in your wallet.',
-          waiting: 'Your transaction is being processed...',
-          complete: 'Your transaction has been confirmed on-chain.',
-          error: 'An error occurred while processing your transaction.',
         },
-        action: {
-          confirm: 'Send Transaction',
-          error: 'Try Again',
-        },
+        action: { confirm: 'Send Transaction' },
       }"
       @complete="onTransactionComplete"
       @cancel="onTransactionCancel"
