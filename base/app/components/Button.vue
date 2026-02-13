@@ -273,6 +273,10 @@ withDefaults(
         }
       }
     }
+
+    &.centered {
+      margin: auto;
+    }
   }
 }
 </style>
