@@ -254,6 +254,10 @@ const onClickOutside = () => {
       justify-content: flex-end;
       padding: var(--spacer);
       border-block-start: var(--border);
+
+      &::empty {
+        display: none;
+      }
     }
 
     &.large {
