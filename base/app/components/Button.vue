@@ -1,5 +1,11 @@
 <template>
-  <NuxtLink v-if="to" :to="to" :exact="exact" :target="target" :class="['button']">
+  <NuxtLink
+    v-if="to"
+    :to="to"
+    :exact="exact"
+    :target="target"
+    :class="['button']"
+  >
     <slot />
   </NuxtLink>
   <button v-else>
@@ -10,13 +16,16 @@
 <script setup lang="ts">
 import type { RouteLocationRaw } from 'vue-router'
 
-withDefaults(defineProps<{
-  to?: string | RouteLocationRaw
-  target?: string
-  exact?: boolean
-}>(), {
-  target: '_self',
-})
+withDefaults(
+  defineProps<{
+    to?: string | RouteLocationRaw
+    target?: string
+    exact?: boolean
+  }>(),
+  {
+    target: '_self',
+  },
+)
 </script>
 
 <style>
@@ -52,7 +61,6 @@ withDefaults(defineProps<{
 
 <style scoped>
 @layer components {
-
   button,
   a.button {
     position: relative;
@@ -76,7 +84,7 @@ withDefaults(defineProps<{
         color var(--speed);
     }
 
-    >span {
+    > span {
       display: flex;
       gap: var(--ui-padding-inline);
       line-height: var(--ui-line-height);
@@ -87,7 +95,7 @@ withDefaults(defineProps<{
       block-size: 100%;
     }
 
-    >.icon {
+    > .icon {
       color: var(--button-icon-color);
       transition: color var(--speed);
     }
@@ -120,10 +128,11 @@ withDefaults(defineProps<{
     }
 
     &.small {
-      padding: calc(var(--ui-padding-block) / 2) calc(var(--ui-padding-inline) / 2);
+      padding: calc(var(--ui-padding-block) / 2)
+        calc(var(--ui-padding-inline) / 2);
       min-block-size: 0;
 
-      >.icon {
+      > .icon {
         inline-size: var(--size-3);
         block-size: var(--size-3);
       }
@@ -136,7 +145,7 @@ withDefaults(defineProps<{
       color: var(--color);
       padding: 0;
 
-      >.icon {
+      > .icon {
         align-self: center;
         block-size: 1em;
         inline-size: 1em;
@@ -145,7 +154,7 @@ withDefaults(defineProps<{
       &.muted {
         color: var(--muted);
 
-        >.icon {
+        > .icon {
           color: var(--muted);
         }
       }
@@ -172,7 +181,7 @@ withDefaults(defineProps<{
       box-shadow: 0 0 0 var(--border-width) var(--error);
       color: var(--error) !important;
 
-      >.icon {
+      > .icon {
         color: var(--error);
       }
     }
@@ -183,16 +192,17 @@ withDefaults(defineProps<{
       box-shadow: 0 0 0 var(--border-width) var(--button-primary-border-color);
       color: var(--button-primary-color);
 
-      >.icon {
+      > .icon {
         color: var(--button-primary-color);
       }
 
       &:is(:hover, :active, :focus, .active) {
         background: var(--button-primary-background-highlight);
-        box-shadow: 0 0 0 var(--border-width) var(--button-primary-border-color-highlight);
+        box-shadow: 0 0 0 var(--border-width)
+          var(--button-primary-border-color-highlight);
         color: var(--button-primary-color-highlight);
 
-        >.icon {
+        > .icon {
           color: var(--button-primary-color-highlight);
         }
       }
@@ -204,16 +214,17 @@ withDefaults(defineProps<{
       box-shadow: 0 0 0 var(--border-width) var(--button-tertiary-border-color);
       color: var(--button-tertiary-color);
 
-      >.icon {
+      > .icon {
         color: var(--button-tertiary-color);
       }
 
       &:is(:hover, :active, :focus, .active) {
         background: var(--button-tertiary-background-highlight);
-        box-shadow: 0 0 0 var(--border-width) var(--button-tertiary-border-color-highlight);
+        box-shadow: 0 0 0 var(--border-width)
+          var(--button-tertiary-border-color-highlight);
         color: var(--button-tertiary-color-highlight);
 
-        >.icon {
+        > .icon {
           color: var(--button-tertiary-color-highlight);
         }
       }
@@ -224,7 +235,7 @@ withDefaults(defineProps<{
       box-shadow: var(--border-shadow-highlight);
       color: var(--button-color-highlight);
 
-      >.icon {
+      > .icon {
         color: var(--button-icon-color-highlight);
       }
 
@@ -233,14 +244,14 @@ withDefaults(defineProps<{
         box-shadow: none;
         color: var(--color);
 
-        >.icon {
+        > .icon {
           color: var(--gray-z-7);
         }
 
         &.muted {
           color: var(--color);
 
-          >.icon {
+          > .icon {
             color: var(--gray-z-7);
           }
         }
