@@ -8,6 +8,9 @@ export default defineAppConfig({
         blockExplorer: 'https://etherscan.io',
       },
     },
+    ens: {
+      mode: 'indexer',
+    },
   },
 })
 
@@ -25,6 +28,11 @@ declare module '@nuxt/schema' {
       defaultChain?: string
       /** Named chain definitions */
       chains?: Record<string, EvmChainConfig>
+      /** ENS resolution configuration */
+      ens?: {
+        /** Resolution strategy: 'indexer' queries a ponder-ens API, 'chain' resolves on-chain */
+        mode?: 'indexer' | 'chain'
+      }
     }
   }
 }

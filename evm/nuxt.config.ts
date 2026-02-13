@@ -13,6 +13,11 @@ export default defineNuxtConfig({
         chains: {
           mainnet: { rpc1: '', rpc2: '', rpc3: '' },
         },
+        ens: {
+          indexer1: '',
+          indexer2: '',
+          indexer3: '',
+        },
       },
     },
   },
