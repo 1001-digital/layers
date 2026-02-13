@@ -244,6 +244,8 @@ const onClickOutside = () => {
       overflow-y: auto;
       overscroll-behavior: contain;
       padding: var(--spacer);
+      display: grid;
+      gap: var(--spacer);
     }
 
     > footer {
