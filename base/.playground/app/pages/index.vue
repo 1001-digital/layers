@@ -603,6 +603,18 @@
         </div>
 
         <div class="component-demo">
+          <h4>With Title</h4>
+          <div class="demo-row">
+            <Popover v-model:open="showPopoverTitle" title="Popover Title" closable>
+              <template #trigger>
+                <Button>With Title</Button>
+              </template>
+              <p>This popover has a title and close button.</p>
+            </Popover>
+          </div>
+        </div>
+
+        <div class="component-demo">
           <h4>With Close Button</h4>
           <div class="demo-row">
             <Popover v-model:open="showPopoverClosable" closable>
@@ -752,6 +764,7 @@ const iconTypes = [
 
 // Popover demo data
 const showPopover = ref(false)
+const showPopoverTitle = ref(false)
 const showPopoverClosable = ref(false)
 const showPopoverArrow = ref(false)
 const showPopoverTop = ref(false)

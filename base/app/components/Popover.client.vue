@@ -16,16 +16,19 @@
         :collision-padding="collisionPadding"
         @open-auto-focus.prevent="onOpenAutoFocus"
       >
+        <h1 v-if="title">{{ title }}</h1>
         <PopoverClose
           v-if="closable"
           :as="Button"
-          class="popover-close small tertiary"
+          class="popover-close tertiary"
           aria-label="Close"
         >
           <Icon type="close" />
         </PopoverClose>
 
-        <slot />
+        <section>
+          <slot />
+        </section>
 
         <PopoverArrow v-if="arrow" class="popover-arrow" />
       </PopoverContent>
@@ -53,6 +56,7 @@ const props = withDefaults(
     alignOffset?: number
     avoidCollisions?: boolean
     collisionPadding?: number
+    title?: string
     arrow?: boolean
     closable?: boolean
     modal?: boolean
@@ -93,7 +97,7 @@ const onOpenAutoFocus = (e: Event) => {
     color: var(--color);
     border: var(--popover-border);
     border-radius: var(--popover-border-radius);
-    padding: var(--popover-padding);
+    padding: 0;
     font-family: var(--font-family);
     font-size: var(--ui-font-size);
     z-index: var(--z-index-ui);
@@ -103,13 +107,11 @@ const onOpenAutoFocus = (e: Event) => {
       calc(100vw - var(--spacer) * 2)
     );
     max-block-size: var(--reka-popover-content-available-height);
-    overflow-y: auto;
-    overscroll-behavior: contain;
+    overflow: hidden;
     container-type: inline-size;
     transform-origin: var(--reka-popover-content-transform-origin);
 
     display: grid;
-    gap: var(--spacer);
 
     /* Entry/exit animations */
     opacity: 1;
@@ -132,10 +134,32 @@ const onOpenAutoFocus = (e: Event) => {
       outline: none;
     }
 
+    > h1:first-child {
+      display: flex;
+      align-items: center;
+      block-size: calc(var(--spacer) * 2);
+      box-shadow: var(--border-shadow);
+      padding-inline-start: var(--popover-padding);
+      padding-right: calc(var(--spacer) * 3);
+      font-family: var(--font-family);
+      font-size: var(--ui-font-size);
+      text-transform: var(--ui-text-transform);
+      margin: 0;
+    }
+
+    > section {
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: var(--popover-padding);
+      display: grid;
+      gap: var(--spacer);
+    }
+
     .popover-close {
       position: absolute !important;
       top: 0;
       right: 0;
+      box-shadow: var(--border-shadow) !important;
     }
 
     .popover-arrow {
