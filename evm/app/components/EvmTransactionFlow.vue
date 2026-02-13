@@ -8,24 +8,37 @@
 
   <Dialog
     v-model:open="open"
-    :x-close="canDismiss"
+    :closable="canDismiss"
     :click-outside="canDismiss"
+    :title="text.title[step]"
     class="transaction-flow"
   >
     <slot name="before" />
 
-    <h1 v-if="text.title[step]">{{ text.title[step] }}</h1>
-
     <Loading
       v-if="step === 'requesting' || step === 'waiting'"
       spinner
-      txt=""
+      stacked
+      :txt="text.lead[step] || ''"
     />
 
-    <div class="text">
+    <p
+      v-if="
+        step !== 'requesting' &&
+        step !== 'waiting' &&
+        step !== 'error' &&
+        text.lead[step]
+      "
+    >
+      {{ text.lead[step] }}
+    </p>
+    <Alert
+      v-if="error"
+      type="error"
+    >
       <p v-if="text.lead[step]">{{ text.lead[step] }}</p>
-      <p v-if="error">{{ error }}</p>
-    </div>
+      <p>{{ error }}</p>
+    </Alert>
 
     <slot
       :name="step"
@@ -36,9 +49,10 @@
       v-if="step === 'waiting'"
       :to="txLink"
       target="_blank"
-      class="block-explorer"
+      class="link muted small"
     >
-      View on Block Explorer
+      <Icon type="link" />
+      <span>View on Block Explorer</span>
     </Button>
 
     <Actions v-if="step === 'chain'">
@@ -127,7 +141,10 @@ const step = ref<Step>('idle')
 const open = computed({
   get: () => step.value !== 'idle',
   set: (v) => {
-    if (!v) step.value = 'idle'
+    if (!v) {
+      step.value = 'idle'
+      error.value = ''
+    }
   },
 })
 
@@ -187,7 +204,8 @@ const initializeRequest = async (request = cachedRequest.value) => {
   } catch (e: unknown) {
     const err = e as { cause?: { code?: number }; shortMessage?: string }
     if (err?.cause?.code === 4001) {
-      step.value = 'idle'
+      error.value = 'Transaction rejected by user.'
+      step.value = 'error'
     } else {
       error.value = err.shortMessage || 'Error submitting transaction request.'
       step.value = 'error'
@@ -215,6 +233,7 @@ const start = () => {
 
 const cancel = () => {
   step.value = 'idle'
+  error.value = ''
   emit('cancel')
 }
 
@@ -224,7 +243,7 @@ defineExpose({
 </script>
 
 <style>
-.transaction-flow {
+.transaction-flow > section {
   display: grid;
   gap: var(--spacer);
 
@@ -240,6 +259,10 @@ defineExpose({
     a {
       text-decoration: underline;
     }
+  }
+
+  .link.muted {
+    justify-self: center;
   }
 }
 </style>

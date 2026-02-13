@@ -14,26 +14,32 @@
     <h2>Transaction Flow Example</h2>
     <p>Send 0 ETH to your own address</p>
 
-    <EvmTransactionFlow :request="sendTransaction" :text="{
-      title: {
-        confirm: 'Send Transaction',
-        requesting: 'Requesting...',
-        waiting: 'Waiting for confirmation...',
-        complete: 'Transaction Complete!',
-        error: 'Transaction Error',
-      },
-      lead: {
-        confirm: 'This will send 0 ETH to your address as a test transaction.',
-        requesting: 'Please confirm the transaction in your wallet.',
-        waiting: 'Your transaction is being processed...',
-        complete: 'Your transaction has been confirmed on-chain.',
-        error: 'An error occurred while processing your transaction.',
-      },
-      action: {
-        confirm: 'Send Transaction',
-        error: 'Try Again',
-      },
-    }" @complete="onTransactionComplete" @cancel="onTransactionCancel">
+    <EvmTransactionFlow
+      :request="sendTransaction"
+      :text="{
+        title: {
+          confirm: 'Send Transaction',
+          requesting: 'Requesting...',
+          waiting: 'Waiting for confirmation...',
+          complete: 'Transaction Complete!',
+          error: 'Transaction Error',
+        },
+        lead: {
+          confirm:
+            'This will send 0 ETH to your address as a test transaction.',
+          requesting: 'Please confirm the transaction in your wallet.',
+          waiting: 'Your transaction is being processed...',
+          complete: 'Your transaction has been confirmed on-chain.',
+          error: 'An error occurred while processing your transaction.',
+        },
+        action: {
+          confirm: 'Send Transaction',
+          error: 'Try Again',
+        },
+      }"
+      @complete="onTransactionComplete"
+      @cancel="onTransactionCancel"
+    >
       <template #start="{ start }">
         <Actions>
           <Button @click="start">Start Transaction</Button>
@@ -46,10 +52,6 @@
           <p><strong>Amount:</strong> 0 ETH</p>
           <p><strong>Chain:</strong> {{ chainId }}</p>
         </div>
-      </template>
-
-      <template #complete>
-        <p class="success">Transaction confirmed successfully!</p>
       </template>
     </EvmTransactionFlow>
   </Card>
