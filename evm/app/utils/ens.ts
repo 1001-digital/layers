@@ -1,6 +1,8 @@
 import { isAddress, type PublicClient, type Address } from 'viem'
 import { normalize } from 'viem/ens'
 
+// --- Types ---
+
 export interface EnsProfile {
   address: string
   ens: string | null
@@ -17,26 +19,18 @@ export interface EnsProfile {
   } | null
 }
 
-const TEXT_RECORD_KEYS = ['avatar', 'header', 'description', 'url', 'email', 'com.twitter', 'com.github'] as const
+// --- Text record keys ---
 
-function buildData(keys: string[], results: string[]): EnsProfile['data'] {
-  const get = (key: string) => {
-    const i = keys.indexOf(key)
-    return i >= 0 ? results[i] || '' : ''
-  }
+const ALL_KEYS = ['avatar', 'header', 'description', 'url', 'email', 'com.twitter', 'com.github'] as const
 
-  return {
-    avatar: get('avatar'),
-    header: get('header'),
-    description: get('description'),
-    links: {
-      url: get('url'),
-      email: get('email'),
-      twitter: get('com.twitter'),
-      github: get('com.github'),
-    },
-  }
-}
+export const ENS_KEYS_AVATAR = ['avatar'] as const
+export const ENS_KEYS_PROFILE = [...ALL_KEYS]
+
+// --- Cache ---
+
+export const ensCache = createCache<EnsProfile>(5 * 60 * 1000, 500)
+
+// --- Fetchers ---
 
 export async function fetchEnsFromIndexer(
   identifier: string,
@@ -82,8 +76,23 @@ export async function fetchEnsFromChain(
     keys.map(key => client.getEnsText({ name, key }).catch(() => null)),
   )
 
-  return { address, ens, data: buildData(keys, results.map(r => r || '')) }
+  return { address, ens, data: toProfileData(keys, results.map(r => r || '')) }
 }
 
-export const ENS_KEYS_AVATAR = ['avatar'] as const
-export const ENS_KEYS_PROFILE = [...TEXT_RECORD_KEYS]
+// --- Helpers ---
+
+function toProfileData(keys: string[], results: string[]): EnsProfile['data'] {
+  const get = (key: string) => results[keys.indexOf(key)] || ''
+
+  return {
+    avatar: get('avatar'),
+    header: get('header'),
+    description: get('description'),
+    links: {
+      url: get('url'),
+      email: get('email'),
+      twitter: get('com.twitter'),
+      github: get('com.github'),
+    },
+  }
+}
