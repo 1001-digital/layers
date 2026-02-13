@@ -22,6 +22,7 @@ export default defineNuxtConfig({
       home: 'lucide:house',
       link: 'lucide:link',
       loader: 'lucide:loader-2',
+      wallet: 'lucide:wallet',
     }
   },
 

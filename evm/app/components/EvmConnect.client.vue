@@ -1,35 +1,81 @@
 <template>
-  <Button v-if="showConnect" @click="chooseModalOpen = true" :class="className">
+  <Button
+    v-if="showConnect"
+    @click="chooseModalOpen = true"
+    :class="className"
+  >
     <slot>Connect Wallet</slot>
   </Button>
-  <slot v-else name="connected" :address="address">
+  <slot
+    v-else
+    name="connected"
+    :address="address"
+  >
     <EvmAccount :address="address" />
   </slot>
 
-  <Teleport to="body">
-    <Dialog v-if="showConnect" title="Connect Wallet" v-model:open="chooseModalOpen" @closed="onModalClosed">
-      <Alert v-if="errorMessage" type="error">
+  <Dialog
+    v-if="showConnect"
+    title="Connect Wallet"
+    v-model:open="chooseModalOpen"
+    @closed="onModalClosed"
+  >
+      <Alert
+        v-if="errorMessage"
+        type="error"
+      >
         {{ errorMessage }}
       </Alert>
-      <EvmWalletConnectQR v-if="walletConnectUri" :uri="walletConnectUri" />
-      <EvmMetaMaskQR v-else-if="metaMaskUri" :uri="metaMaskUri" />
+      <EvmWalletConnectQR
+        v-if="walletConnectUri"
+        :uri="walletConnectUri"
+      />
+      <EvmMetaMaskQR
+        v-else-if="metaMaskUri"
+        :uri="metaMaskUri"
+      />
       <template v-else-if="isConnecting">
-        <Loading txt="Waiting for wallet confirmation..." spinner />
+        <Loading
+          txt="Waiting for wallet confirmation..."
+          spinner
+          stacked
+        />
       </template>
-      <div v-else class="wallet-options">
-        <Button v-for="connector in shownConnectors" :key="connector.uid" @click="() => login(connector)"
-          class="choose-connector">
-          <img v-if="ICONS[connector.name]" :src="connector.icon || `${base}icons/wallets/${ICONS[connector.name]}`"
-            :alt="connector.name" />
+      <div
+        v-else
+        class="wallet-options"
+      >
+        <Button
+          v-for="connector in shownConnectors"
+          :key="connector.uid"
+          @click="() => login(connector)"
+          class="choose-connector"
+        >
+          <img
+            v-if="ICONS[connector.name]"
+            :src="
+              connector.icon || `${base}icons/wallets/${ICONS[connector.name]}`
+            "
+            :alt="connector.name"
+          />
+          <div
+            v-else
+            class="default-wallet-icon"
+          >
+            <Icon type="wallet" />
+          </div>
           <span>{{ connector.name }}</span>
         </Button>
-        <Button to="https://ethereum.org/wallets/" target="_blank" class="link muted small">
+        <Button
+          to="https://ethereum.org/wallets/"
+          target="_blank"
+          class="link muted small"
+        >
           <Icon type="help" />
           <span>New to wallets?</span>
         </Button>
       </div>
-    </Dialog>
-  </Teleport>
+  </Dialog>
 </template>
 
 <script setup lang="ts">
@@ -46,7 +92,7 @@ const ICONS: Record<string, string> = {
 }
 
 const PRIORITY: Record<string, number> = {
-  'WalletConnect': 20,
+  WalletConnect: 20,
   'Coinbase Wallet': 10,
 }
 
@@ -66,10 +112,13 @@ const { address, isConnected } = useConnection()
 const showConnect = computed(() => !isConnected.value)
 const shownConnectors = computed(() => {
   const unique = Array.from(
-    new Map(connectors?.map((connector) => [connector.name, connector])).values(),
+    new Map(
+      connectors?.map((connector) => [connector.name, connector]),
+    ).values(),
   )
 
-  const filtered = unique.length > 1 ? unique.filter((c) => c.id !== 'injected') : unique
+  const filtered =
+    unique.length > 1 ? unique.filter((c) => c.id !== 'injected') : unique
 
   return filtered.sort((a, b) => {
     const priorityA = PRIORITY[a.name] ?? 5
@@ -119,7 +168,11 @@ const login = async (connector: Connector) => {
     metaMaskUri.value = ''
 
     const errorMsg = error instanceof Error ? error.message : ''
-    if (errorMsg.includes('User rejected') || errorMsg.includes('rejected') || errorMsg.includes('denied')) {
+    if (
+      errorMsg.includes('User rejected') ||
+      errorMsg.includes('rejected') ||
+      errorMsg.includes('denied')
+    ) {
       errorMessage.value = 'Connection cancelled. Please try again.'
     } else {
       errorMessage.value = 'Failed to connect. Please try again.'
@@ -140,7 +193,9 @@ const onModalClosed = () => {
 }
 
 const check = () =>
-  isConnected.value ? emit('connected', { address: address.value }) : emit('disconnected')
+  isConnected.value
+    ? emit('connected', { address: address.value })
+    : emit('disconnected')
 watch(isConnected, () => check())
 onMounted(() => check())
 </script>
@@ -155,18 +210,25 @@ onMounted(() => check())
     inline-size: auto;
     justify-content: flex-start;
 
-    img {
+    img,
+    .default-wallet-icon {
       margin: -1rem 0 -1rem -0.6rem;
       width: var(--size-5);
       height: var(--size-5);
     }
 
-    span {
+    .default-wallet-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gray-z-2);
+    }
+
+    span:last-child {
       border-left: var(--border);
       padding-left: var(--spacer-sm);
     }
   }
-
 }
 
 .link.muted {
