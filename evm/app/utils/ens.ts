@@ -1,5 +1,5 @@
-import type { PublicClient, Address } from 'viem'
-import { isAddress, normalize } from 'viem/ens'
+import { isAddress, type PublicClient, type Address } from 'viem'
+import { normalize } from 'viem/ens'
 
 export interface EnsProfile {
   address: string
@@ -79,10 +79,10 @@ export async function fetchEnsFromChain(
 
   const name = normalize(ens)
   const results = await Promise.all(
-    keys.map(key => client.getEnsText({ name, key }).catch(() => '')),
+    keys.map(key => client.getEnsText({ name, key }).catch(() => null)),
   )
 
-  return { address, ens, data: buildData(keys, results) }
+  return { address, ens, data: buildData(keys, results.map(r => r || '')) }
 }
 
 export const ENS_KEYS_AVATAR = ['avatar'] as const

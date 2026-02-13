@@ -61,7 +61,7 @@ function useEnsBase(
 export const useEns = (identifier: MaybeRefOrGetter<string | undefined>, options?: UseEnsOptions) =>
   useEnsBase('resolve', identifier, [], options)
 
-export const useEnsAvatar = (identifier: MaybeRefOrGetter<string | undefined>, options?: UseEnsOptions) =>
+export const useEnsWithAvatar = (identifier: MaybeRefOrGetter<string | undefined>, options?: UseEnsOptions) =>
   useEnsBase('avatar', identifier, [...ENS_KEYS_AVATAR], options)
 
 export const useEnsProfile = (identifier: MaybeRefOrGetter<string | undefined>, options?: UseEnsOptions) =>
