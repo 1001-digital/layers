@@ -19,7 +19,9 @@
         :collision-padding="collisionPadding"
         @open-auto-focus.prevent="onOpenAutoFocus"
       >
-        <h1 v-if="title">{{ title }}</h1>
+        <h1 v-if="title || $slots.title">
+          <slot name="title">{{ title }}</slot>
+        </h1>
         <PopoverClose
           v-if="closable"
           :as="Button"
