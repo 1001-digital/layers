@@ -14,6 +14,7 @@
         <a href="#forms">Forms</a>
         <a href="#actions">Actions</a>
         <a href="#dialogs">Dialogs</a>
+        <a href="#popovers">Popovers</a>
         <a href="#toasts">Toasts</a>
       </nav>
     </header>
@@ -585,6 +586,80 @@
         </div>
       </article>
 
+      <!-- Popovers -->
+      <article id="popovers">
+        <h3>Popover</h3>
+
+        <div class="component-demo">
+          <h4>Default</h4>
+          <div class="demo-row">
+            <Popover v-model:open="showPopover">
+              <template #trigger>
+                <Button>Open Popover</Button>
+              </template>
+              <p>This is a basic popover.</p>
+            </Popover>
+          </div>
+        </div>
+
+        <div class="component-demo">
+          <h4>With Close Button</h4>
+          <div class="demo-row">
+            <Popover v-model:open="showPopoverClosable" closable>
+              <template #trigger>
+                <Button>Closable</Button>
+              </template>
+              <p>This popover has a close button.</p>
+            </Popover>
+          </div>
+        </div>
+
+        <div class="component-demo">
+          <h4>With Arrow</h4>
+          <div class="demo-row">
+            <Popover v-model:open="showPopoverArrow" arrow>
+              <template #trigger>
+                <Button>With Arrow</Button>
+              </template>
+              <p>This popover has an arrow pointing to its trigger.</p>
+            </Popover>
+          </div>
+        </div>
+
+        <div class="component-demo">
+          <h4>Positioning</h4>
+          <div class="demo-row">
+            <Popover v-model:open="showPopoverTop" side="top">
+              <template #trigger>
+                <Button>Top</Button>
+              </template>
+              <p>Opens above the trigger.</p>
+            </Popover>
+
+            <Popover v-model:open="showPopoverRight" side="right">
+              <template #trigger>
+                <Button>Right</Button>
+              </template>
+              <p>Opens to the right.</p>
+            </Popover>
+
+            <Popover v-model:open="showPopoverLeft" side="left">
+              <template #trigger>
+                <Button>Left</Button>
+              </template>
+              <p>Opens to the left.</p>
+            </Popover>
+
+            <Popover v-model:open="showPopoverBottom" side="bottom" align="start" arrow>
+              <template #trigger>
+                <Button>Bottom Start</Button>
+              </template>
+              <p>Opens below, aligned to start.</p>
+            </Popover>
+          </div>
+        </div>
+      </article>
+
       <!-- Toasts -->
       <article id="toasts">
         <h3>Toast</h3>
@@ -674,6 +749,15 @@ const iconTypes = [
   'lucide:chevron-right',
   'close',
 ]
+
+// Popover demo data
+const showPopover = ref(false)
+const showPopoverClosable = ref(false)
+const showPopoverArrow = ref(false)
+const showPopoverTop = ref(false)
+const showPopoverRight = ref(false)
+const showPopoverLeft = ref(false)
+const showPopoverBottom = ref(false)
 
 const showDialog = ref(false)
 const showScrollDialog = ref(false)
