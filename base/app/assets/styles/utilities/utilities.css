@@ -19,6 +19,10 @@
   color: var(--muted);
 }
 
+:is(a, button).muted:is(:hover, :active, :focus, .active) {
+  color: var(--color);
+}
+
 /* Font sizes */
 .font-sm {
   font-size: var(--font-sm);
