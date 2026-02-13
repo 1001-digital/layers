@@ -440,6 +440,16 @@
           </FormCheckbox>
           <p>Accepted: {{ acceptTerms }}</p>
         </div>
+
+        <div class="component-demo">
+          <h4>Textarea (Auto-expanding)</h4>
+          <FormLabel label="Message">
+            <FormTextarea
+              v-model="textareaValue"
+              placeholder="Type something... add new lines to see it grow"
+            />
+          </FormLabel>
+        </div>
       </article>
 
       <!-- Actions -->
@@ -677,6 +687,9 @@ const dismissableTags = ref(['Dismissable 1', 'Dismissable 2', 'Dismissable 3'])
 
 // FormCheckbox demo data
 const acceptTerms = ref(false)
+
+// FormTextarea demo data
+const textareaValue = ref('')
 
 // FormRadioGroup demo data
 const selectedOption = ref('a')
