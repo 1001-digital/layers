@@ -1,5 +1,5 @@
 <template>
-  <div class="loader">
+  <div :class="['loader', { stacked }]">
     <span
       v-if="spinner"
       class="spinner"
@@ -18,6 +18,7 @@ withDefaults(
   defineProps<{
     txt?: string
     spinner?: boolean
+    stacked?: boolean
   }>(),
   {
     txt: 'Loading...',
@@ -46,8 +47,18 @@ withDefaults(
 
   .text {
     @mixin ui-font;
-    width: min-content;
     color: var(--muted);
+  }
+
+  &:not(.stacked) {
+    .text {
+      width: min-content;
+    }
+  }
+
+  &.stacked {
+    flex-direction: column;
+    gap: var(--spacer);
   }
 
   &:not(.inline) {
