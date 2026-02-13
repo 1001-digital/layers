@@ -32,6 +32,7 @@
     >
       {{ text.lead[step] }}
     </p>
+
     <Alert
       v-if="error"
       type="error"
@@ -40,39 +41,49 @@
       <p>{{ error }}</p>
     </Alert>
 
-    <slot
-      :name="step"
-      :cancel="cancel"
-    ></slot>
-
     <Button
       v-if="step === 'waiting'"
       :to="txLink"
       target="_blank"
-      class="link muted small"
+      class="link muted small centered"
     >
       <Icon type="link" />
       <span>View on Block Explorer</span>
     </Button>
 
-    <Actions v-if="step === 'chain'">
-      <Button
-        @click="cancel"
-        class="secondary"
-        >Cancel</Button
-      >
-    </Actions>
+    <slot
+      :name="step"
+      :cancel="cancel"
+    ></slot>
 
-    <Actions v-if="step === 'confirm' || step === 'error'">
-      <Button
-        @click="cancel"
-        class="secondary"
-        >Cancel</Button
-      >
-      <Button @click="() => initializeRequest()">
-        {{ text.action[step] || 'Execute' }}
-      </Button>
-    </Actions>
+    <template #footer>
+      <template v-if="step === 'chain'">
+        <Button
+          @click="cancel"
+          class="secondary"
+          >Cancel</Button
+        >
+      </template>
+
+      <template v-if="step === 'confirm' || step === 'error'">
+        <Button
+          @click="cancel"
+          class="secondary"
+          >Cancel</Button
+        >
+        <Button @click="() => initializeRequest()">
+          {{ text.action[step] || 'Execute' }}
+        </Button>
+      </template>
+
+      <slot
+        name="actions"
+        :step="step"
+        :cancel="cancel"
+        :execute="() => initializeRequest()"
+        :tx-link="txLink"
+      />
+    </template>
   </Dialog>
 </template>
 
@@ -96,6 +107,7 @@ type Step =
   | 'complete'
   | 'error'
 
+const slots = useSlots()
 const checkChain = useEnsureChainIdCheck()
 
 const { $wagmi } = useNuxtApp()
@@ -259,10 +271,6 @@ defineExpose({
     a {
       text-decoration: underline;
     }
-  }
-
-  .link.muted {
-    justify-self: center;
   }
 }
 </style>
