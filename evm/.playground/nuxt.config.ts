@@ -11,11 +11,9 @@ export default defineNuxtConfig({
       rootDir: layerDir,
     }
   },
-  vite: {
-    server: {
-      watch: {
-        ignored: [`!${layerDir}/**`],
-      },
+  hooks: {
+    'vite:serverCreated': (server) => {
+      server.watcher.add(layerDir)
     },
   },
 })
