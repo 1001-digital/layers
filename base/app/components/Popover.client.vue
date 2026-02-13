@@ -86,18 +86,6 @@ const onOpenAutoFocus = (e: Event) => {
 }
 </script>
 
-<style>
-@layer variables {
-  :root {
-    --popover-background: var(--background);
-    --popover-border: var(--border);
-    --popover-border-radius: var(--border-radius);
-    --popover-padding: var(--spacer);
-    --popover-arrow-fill: var(--background);
-  }
-}
-</style>
-
 <style scoped>
 @layer components {
   :deep(.popover) {

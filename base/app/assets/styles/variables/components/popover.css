@@ -1,0 +1,7 @@
+:root {
+  --popover-background: var(--background);
+  --popover-border: var(--border);
+  --popover-border-radius: var(--border-radius);
+  --popover-padding: var(--spacer);
+  --popover-arrow-fill: var(--background);
+}

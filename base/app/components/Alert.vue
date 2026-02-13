@@ -27,24 +27,6 @@ const dismiss = () => {
 }
 </script>
 
-<style>
-@layer variables {
-  :root {
-    --alert-color: var(--color);
-    --alert-background-color: transparent;
-    --alert-border-color: var(--border-color);
-
-    --alert-info-color: var(--alert-color);
-    --alert-info-background-color: var(--alert-background-color);
-    --alert-info-border-color: var(--alert-border-color);
-
-    --alert-error-color: var(--error);
-    --alert-error-background-color: color-mix(in srgb, var(--error) 10%, transparent);
-    --alert-error-border-color: var(--error);
-  }
-}
-</style>
-
 <style scoped>
 @layer components {
   .alert {

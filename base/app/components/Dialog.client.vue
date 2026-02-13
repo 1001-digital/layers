@@ -123,12 +123,6 @@ const onClickOutside = () => {
 </script>
 
 <style>
-@layer variables {
-  :root {
-    --backdrop-background-color: transparent;
-  }
-}
-
 @layer components {
   .dialog {
     max-inline-size: min(

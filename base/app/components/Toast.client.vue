@@ -80,28 +80,6 @@ withDefaults(
 const { toasts, dismiss } = useToast()
 </script>
 
-<style>
-@layer variables {
-  :root {
-    --toast-width: 22rem;
-    --toast-padding: var(--spacer-sm);
-    --toast-gap: var(--spacer-xs);
-
-    --toast-info-color: var(--color);
-    --toast-info-background: var(--card-background);
-    --toast-info-border-color: var(--border-color);
-
-    --toast-success-color: var(--color);
-    --toast-success-background: var(--card-background);
-    --toast-success-border-color: var(--success);
-
-    --toast-error-color: var(--color);
-    --toast-error-background: var(--card-background);
-    --toast-error-border-color: var(--error);
-  }
-}
-</style>
-
 <style scoped>
 @layer components {
   :deep(.toast-viewport) {

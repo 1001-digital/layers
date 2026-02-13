@@ -18,18 +18,6 @@ withDefaults(
 )
 </script>
 
-<style>
-@layer variables {
-  :root {
-    --card-border-radius: var(--border-radius);
-    --card-border: var(--border);
-    --card-background: var(--gray-z-0);
-    --card-background-highlight: var(--gray-z-1);
-    --card-border-color-highlight: var(--gray-z-3);
-  }
-}
-</style>
-
 <style scoped>
 @layer components {
   .card {

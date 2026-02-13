@@ -10,15 +10,6 @@
   </div>
 </template>
 
-<style>
-@layer variables {
-  :root {
-    --form-item-height: calc(var(--size-4) + var(--ui-padding-block) * 2);
-    --form-item-height-sm: calc(var(--size-4) + var(--ui-padding-block));
-  }
-}
-</style>
-
 <style scoped>
 @layer components {
   .form-item {
