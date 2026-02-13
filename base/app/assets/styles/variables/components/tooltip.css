@@ -1,0 +1,7 @@
+:root {
+  --tooltip-background: var(--popover-background);
+  --tooltip-border: var(--popover-border);
+  --tooltip-border-radius: var(--popover-border-radius);
+  --tooltip-padding: calc(var(--popover-padding) / 2) var(--popover-padding);
+  --tooltip-arrow-fill: var(--popover-arrow-fill);
+}

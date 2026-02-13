@@ -15,6 +15,7 @@
         <a href="#actions">Actions</a>
         <a href="#dialogs">Dialogs</a>
         <a href="#popovers">Popovers</a>
+        <a href="#tooltips">Tooltips</a>
         <a href="#toasts">Toasts</a>
       </nav>
     </header>
@@ -668,6 +669,112 @@
               </template>
               <p>Opens below, aligned to start.</p>
             </Popover>
+          </div>
+        </div>
+      </article>
+
+      <!-- Tooltips -->
+      <article id="tooltips">
+        <h3>Tooltip</h3>
+
+        <div class="component-demo">
+          <h4>Default (Top)</h4>
+          <div class="demo-row">
+            <Tooltip>
+              <template #trigger>
+                <Button>Hover me</Button>
+              </template>
+              Default tooltip on top
+            </Tooltip>
+          </div>
+        </div>
+
+        <div class="component-demo">
+          <h4>Positioning</h4>
+          <div class="demo-row">
+            <Tooltip side="top">
+              <template #trigger>
+                <Button>Top</Button>
+              </template>
+              Tooltip on top
+            </Tooltip>
+
+            <Tooltip side="right">
+              <template #trigger>
+                <Button>Right</Button>
+              </template>
+              Tooltip on right
+            </Tooltip>
+
+            <Tooltip side="bottom">
+              <template #trigger>
+                <Button>Bottom</Button>
+              </template>
+              Tooltip on bottom
+            </Tooltip>
+
+            <Tooltip side="left">
+              <template #trigger>
+                <Button>Left</Button>
+              </template>
+              Tooltip on left
+            </Tooltip>
+          </div>
+        </div>
+
+        <div class="component-demo">
+          <h4>Without Arrow</h4>
+          <div class="demo-row">
+            <Tooltip :arrow="false">
+              <template #trigger>
+                <Button>No Arrow</Button>
+              </template>
+              Tooltip without arrow
+            </Tooltip>
+          </div>
+        </div>
+
+        <div class="component-demo">
+          <h4>On Icon Button</h4>
+          <div class="demo-row">
+            <Tooltip>
+              <template #trigger>
+                <Button>
+                  <Icon type="lucide:plus" />
+                </Button>
+              </template>
+              Add item
+            </Tooltip>
+
+            <Tooltip>
+              <template #trigger>
+                <Button>
+                  <Icon type="edit" />
+                </Button>
+              </template>
+              Edit
+            </Tooltip>
+
+            <Tooltip>
+              <template #trigger>
+                <Button>
+                  <Icon type="close" />
+                </Button>
+              </template>
+              Delete
+            </Tooltip>
+          </div>
+        </div>
+
+        <div class="component-demo">
+          <h4>Instant (No Delay)</h4>
+          <div class="demo-row">
+            <Tooltip :delay-duration="0">
+              <template #trigger>
+                <Button>Instant</Button>
+              </template>
+              Shows immediately
+            </Tooltip>
           </div>
         </div>
       </article>
