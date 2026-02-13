@@ -43,7 +43,7 @@ export const useCountDown = (s: Ref<number | bigint>, showSecondsWithin: number 
   }
 }
 
-export const useSecondsAgo = (time: Ref<string | undefined>) => {
+export const useTimeAgo = (time: Ref<string | undefined>) => {
   const ago = ref<string>()
   const now = useSeconds()
 
@@ -60,4 +60,10 @@ export const useSecondsAgo = (time: Ref<string | undefined>) => {
   )
 
   return ago
+}
+
+/** @deprecated Use `useTimeAgo` instead. */
+export const useSecondsAgo = (...args: Parameters<typeof useTimeAgo>) => {
+  console.warn('[deprecated] useSecondsAgo is deprecated, use useTimeAgo instead.')
+  return useTimeAgo(...args)
 }
