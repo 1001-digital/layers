@@ -4,4 +4,5 @@
   --z-index-ui: 2;
   --z-index-overlay: 9;
   --z-index-dialog: 10;
+  --z-index-toast: 11;
 }

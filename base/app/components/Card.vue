@@ -1,15 +1,21 @@
 <template>
-  <component :is="as" class="card">
+  <component
+    :is="as"
+    class="card"
+  >
     <slot />
   </component>
 </template>
 
 <script setup lang="ts">
-withDefaults(defineProps<{
-  as?: string
-}>(), {
-  as: 'article'
-})
+withDefaults(
+  defineProps<{
+    as?: string
+  }>(),
+  {
+    as: 'article',
+  },
+)
 </script>
 
 <style>
@@ -17,7 +23,7 @@ withDefaults(defineProps<{
   :root {
     --card-border-radius: var(--border-radius);
     --card-border: var(--border);
-    --card-background: var(--background);
+    --card-background: var(--gray-z-0);
     --card-background-highlight: var(--gray-z-1);
     --card-border-color-highlight: var(--gray-z-3);
   }
@@ -41,7 +47,6 @@ withDefaults(defineProps<{
       border-radius: var(--card-border-radius);
 
       &:has(> .card-link) {
-
         &:has(> .card-link:hover),
         &:has(> .card-link:focus) {
           border-color: var(--card-border-color-highlight);
@@ -54,7 +59,6 @@ withDefaults(defineProps<{
     }
 
     &:has(> .card-link) {
-
       &:has(> .card-link:hover),
       &:has(> .card-link:focus) {
         background-color: var(--card-background-highlight);
@@ -69,7 +73,7 @@ withDefaults(defineProps<{
       background-color: var(--card-background-highlight);
     }
 
-    >* {
+    > * {
       inline-size: 100%;
       place-self: center;
 

@@ -14,6 +14,7 @@
         <a href="#forms">Forms</a>
         <a href="#actions">Actions</a>
         <a href="#dialogs">Dialogs</a>
+        <a href="#toasts">Toasts</a>
       </nav>
     </header>
 
@@ -573,11 +574,82 @@
           </Dialog>
         </div>
       </article>
+
+      <!-- Toasts -->
+      <article id="toasts">
+        <h3>Toast</h3>
+
+        <div class="component-demo">
+          <h4>Variants</h4>
+          <div class="demo-row">
+            <Button
+              @click="
+                toast.add({
+                  variant: 'info',
+                  title: 'Info',
+                  description: 'This is an informational toast.',
+                })
+              "
+            >
+              Info
+            </Button>
+            <Button
+              @click="
+                toast.add({
+                  variant: 'success',
+                  title: 'Success',
+                  description: 'Operation completed successfully.',
+                })
+              "
+            >
+              Success
+            </Button>
+            <Button
+              @click="
+                toast.add({
+                  variant: 'error',
+                  title: 'Error',
+                  description: 'Something went wrong.',
+                })
+              "
+            >
+              Error
+            </Button>
+          </div>
+        </div>
+
+        <div class="component-demo">
+          <h4>With Action</h4>
+          <div class="demo-row">
+            <Button
+              @click="
+                toast.add({
+                  variant: 'info',
+                  title: 'Item deleted',
+                  description: 'The item has been removed.',
+                  action: {
+                    label: 'Undo',
+                    onClick: () =>
+                      toast.add({
+                        variant: 'success',
+                        title: 'Restored',
+                        description: 'The item has been restored.',
+                      }),
+                  },
+                })
+              "
+            >
+              Delete with Undo
+            </Button>
+          </div>
+        </div>
+      </article>
     </section>
   </main>
 </template>
 
 <script setup lang="ts">
+const toast = useToast()
 const grayShades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
 const zColors = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const semanticColors = ['primary', 'muted', 'error', 'success']
