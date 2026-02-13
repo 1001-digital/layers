@@ -107,7 +107,6 @@ const onOpenAutoFocus = (e: Event) => {
       calc(100vw - var(--spacer) * 2)
     );
     max-block-size: var(--reka-popover-content-available-height);
-    overflow: hidden;
     container-type: inline-size;
     transform-origin: var(--reka-popover-content-transform-origin);
 
@@ -164,6 +163,7 @@ const onOpenAutoFocus = (e: Event) => {
 
     .popover-arrow {
       fill: var(--popover-arrow-fill);
+      stroke: var(--border-color);
     }
   }
 }
