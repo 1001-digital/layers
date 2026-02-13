@@ -138,6 +138,22 @@ withDefaults(
       }
     }
 
+    &.muted {
+      color: var(--muted);
+
+      > .icon {
+        color: var(--muted);
+      }
+
+      &:is(:hover, :active, :focus, .active) {
+        color: var(--color);
+
+        > .icon {
+          color: var(--color);
+        }
+      }
+    }
+
     &.link {
       box-shadow: none;
       background: transparent;
