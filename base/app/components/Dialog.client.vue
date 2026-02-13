@@ -255,7 +255,7 @@ const onClickOutside = () => {
       padding: var(--spacer);
       border-block-start: var(--border);
 
-      &::empty {
+      &:empty {
         display: none;
       }
     }
