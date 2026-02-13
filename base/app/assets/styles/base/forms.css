@@ -17,7 +17,6 @@ select:not(.unstyled) {
   line-height: var(--ui-line-height);
   color: var(--ui-color);
 
-  inline-size: 100%;
   transition: all var(--speed);
   border: none;
   border-radius: var(--button-border-radius);
@@ -50,6 +49,12 @@ select:not(.unstyled) {
     padding: calc(var(--ui-padding-block) / 2) calc(var(--ui-padding-inline) / 2);
     block-size: var(--form-item-height-sm);
   }
+}
+
+input:not(.unstyled),
+textarea:not(.unstyled),
+select:not(.unstyled) {
+  inline-size: 100%;
 }
 
 input:not(.unstyled),
