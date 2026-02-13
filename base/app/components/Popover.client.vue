@@ -1,5 +1,8 @@
 <template>
-  <PopoverRoot v-model:open="open" :modal="modal">
+  <PopoverRoot
+    v-model:open="open"
+    :modal="modal"
+  >
     <PopoverTrigger as-child>
       <slot name="trigger" />
     </PopoverTrigger>
@@ -30,7 +33,10 @@
           <slot />
         </section>
 
-        <PopoverArrow v-if="arrow" class="popover-arrow" />
+        <PopoverArrow
+          v-if="arrow"
+          class="popover-arrow"
+        />
       </PopoverContent>
     </PopoverPortal>
   </PopoverRoot>
@@ -74,7 +80,7 @@ const open = defineModel<boolean>('open', { required: true })
 
 // Focus the popover itself to prevent the close button from gaining focus
 const onOpenAutoFocus = (e: Event) => {
-  (e.target as HTMLElement)?.focus()
+  ;(e.target as HTMLElement)?.focus()
 }
 </script>
 
@@ -101,8 +107,11 @@ const onOpenAutoFocus = (e: Event) => {
     font-family: var(--font-family);
     font-size: var(--ui-font-size);
     z-index: var(--z-index-ui);
-    min-inline-size: max(var(--popover-min-width, 12rem), var(--reka-popover-trigger-width));
-    max-inline-size: min(
+    min-inline-size: max(
+      var(--popover-min-width, 12rem),
+      var(--reka-popover-trigger-width)
+    );
+    inline-size: min(
       var(--popover-width, 20rem),
       calc(100vw - var(--spacer) * 2)
     );
