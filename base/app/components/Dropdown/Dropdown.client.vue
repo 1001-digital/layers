@@ -16,7 +16,9 @@
         :collision-padding="collisionPadding"
         :loop="loop"
       >
-        <slot />
+        <div class="dropdown-items">
+          <slot />
+        </div>
         <DropdownMenuArrow
           v-if="arrow"
           class="dropdown-arrow"
@@ -69,14 +71,12 @@ const open = defineModel<boolean>('open', { required: true })
     color: var(--color);
     border: var(--dropdown-border);
     border-radius: var(--dropdown-border-radius);
-    padding: var(--dropdown-padding);
+    padding: 0;
     font-family: var(--font-family);
     font-size: var(--ui-font-size);
     z-index: var(--z-index-ui);
     min-inline-size: var(--reka-dropdown-menu-trigger-width);
     max-block-size: var(--reka-dropdown-menu-content-available-height);
-    overflow-y: auto;
-    overscroll-behavior: contain;
     transform-origin: var(--reka-dropdown-menu-content-transform-origin);
 
     /* Entry/exit animations */
@@ -99,6 +99,17 @@ const open = defineModel<boolean>('open', { required: true })
     &:focus {
       outline: none;
     }
+
+    .dropdown-arrow {
+      fill: var(--dropdown-arrow-fill);
+      stroke: var(--border-color);
+    }
+  }
+
+  .dropdown-items {
+    padding: var(--dropdown-padding);
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .dropdown-item {
@@ -149,9 +160,5 @@ const open = defineModel<boolean>('open', { required: true })
     margin-inline-start: auto;
   }
 
-  .dropdown-arrow {
-    fill: var(--dropdown-arrow-fill);
-    stroke: var(--border-color);
-  }
 }
 </style>
