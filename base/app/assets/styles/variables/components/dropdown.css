@@ -1,0 +1,7 @@
+:root {
+  --dropdown-background: var(--popover-background);
+  --dropdown-border: var(--popover-border);
+  --dropdown-border-radius: var(--popover-border-radius);
+  --dropdown-padding: var(--size-1);
+  --dropdown-arrow-fill: var(--popover-arrow-fill);
+}
