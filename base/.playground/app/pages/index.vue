@@ -15,6 +15,7 @@
         <a href="#actions">Actions</a>
         <a href="#dialogs">Dialogs</a>
         <a href="#popovers">Popovers</a>
+        <a href="#dropdowns">Dropdowns</a>
         <a href="#tooltips">Tooltips</a>
         <a href="#toasts">Toasts</a>
       </nav>
@@ -673,6 +674,152 @@
         </div>
       </article>
 
+      <!-- Dropdowns -->
+      <article id="dropdowns">
+        <h3>Dropdown</h3>
+
+        <div class="component-demo">
+          <h4>Basic</h4>
+          <div class="demo-row">
+            <Dropdown v-model:open="showDropdown">
+              <template #trigger>
+                <Button>
+                  <span>Actions</span>
+                  <Icon type="chevron-down" />
+                </Button>
+              </template>
+              <DropdownItem>Cut</DropdownItem>
+              <DropdownItem>Copy</DropdownItem>
+              <DropdownItem>Paste</DropdownItem>
+              <DropdownSeparator />
+              <DropdownItem disabled>Delete</DropdownItem>
+            </Dropdown>
+          </div>
+        </div>
+
+        <div class="component-demo">
+          <h4>With Groups &amp; Labels</h4>
+          <div class="demo-row">
+            <Dropdown v-model:open="showDropdownGroups">
+              <template #trigger>
+                <Button>
+                  <span>Edit</span>
+                  <Icon type="chevron-down" />
+                </Button>
+              </template>
+              <DropdownGroup>
+                <DropdownLabel>Text</DropdownLabel>
+                <DropdownItem>Cut</DropdownItem>
+                <DropdownItem>Copy</DropdownItem>
+                <DropdownItem>Paste</DropdownItem>
+              </DropdownGroup>
+              <DropdownSeparator />
+              <DropdownGroup>
+                <DropdownLabel>View</DropdownLabel>
+                <DropdownItem>Zoom In</DropdownItem>
+                <DropdownItem>Zoom Out</DropdownItem>
+              </DropdownGroup>
+            </Dropdown>
+          </div>
+        </div>
+
+        <div class="component-demo">
+          <h4>Checkbox Items</h4>
+          <div class="demo-row">
+            <Dropdown v-model:open="showDropdownCheckbox">
+              <template #trigger>
+                <Button>
+                  <span>Format</span>
+                  <Icon type="chevron-down" />
+                </Button>
+              </template>
+              <DropdownCheckboxItem v-model="dropdownBold">Bold</DropdownCheckboxItem>
+              <DropdownCheckboxItem v-model="dropdownItalic">Italic</DropdownCheckboxItem>
+              <DropdownCheckboxItem v-model="dropdownUnderline">Underline</DropdownCheckboxItem>
+            </Dropdown>
+            <code>Bold: {{ dropdownBold }}, Italic: {{ dropdownItalic }}, Underline: {{ dropdownUnderline }}</code>
+          </div>
+        </div>
+
+        <div class="component-demo">
+          <h4>Radio Items</h4>
+          <div class="demo-row">
+            <Dropdown v-model:open="showDropdownRadio">
+              <template #trigger>
+                <Button>
+                  <span>Size: {{ dropdownSize }}</span>
+                  <Icon type="chevron-down" />
+                </Button>
+              </template>
+              <DropdownRadioGroup v-model="dropdownSize">
+                <DropdownLabel>Font Size</DropdownLabel>
+                <DropdownRadioItem value="Small">Small</DropdownRadioItem>
+                <DropdownRadioItem value="Medium">Medium</DropdownRadioItem>
+                <DropdownRadioItem value="Large">Large</DropdownRadioItem>
+              </DropdownRadioGroup>
+            </Dropdown>
+          </div>
+        </div>
+
+        <div class="component-demo">
+          <h4>With Submenu</h4>
+          <div class="demo-row">
+            <Dropdown v-model:open="showDropdownSub">
+              <template #trigger>
+                <Button>
+                  <span>Options</span>
+                  <Icon type="chevron-down" />
+                </Button>
+              </template>
+              <DropdownItem>New File</DropdownItem>
+              <DropdownItem>Open</DropdownItem>
+              <DropdownSeparator />
+              <DropdownSub>
+                <template #trigger>Share</template>
+                <DropdownItem>Email</DropdownItem>
+                <DropdownItem>Link</DropdownItem>
+                <DropdownItem>Slack</DropdownItem>
+              </DropdownSub>
+              <DropdownSub>
+                <template #trigger>Export</template>
+                <DropdownItem>PDF</DropdownItem>
+                <DropdownItem>CSV</DropdownItem>
+                <DropdownItem>JSON</DropdownItem>
+              </DropdownSub>
+            </Dropdown>
+          </div>
+        </div>
+
+        <div class="component-demo">
+          <h4>Positioning</h4>
+          <div class="demo-row">
+            <Dropdown v-model:open="showDropdownTop" side="top">
+              <template #trigger>
+                <Button>Top</Button>
+              </template>
+              <DropdownItem>Item 1</DropdownItem>
+              <DropdownItem>Item 2</DropdownItem>
+            </Dropdown>
+
+            <Dropdown v-model:open="showDropdownRight" side="right">
+              <template #trigger>
+                <Button>Right</Button>
+              </template>
+              <DropdownItem>Item 1</DropdownItem>
+              <DropdownItem>Item 2</DropdownItem>
+            </Dropdown>
+
+            <Dropdown v-model:open="showDropdownEnd" side="bottom" align="end" arrow>
+              <template #trigger>
+                <Button>Bottom End + Arrow</Button>
+              </template>
+              <DropdownItem>Item 1</DropdownItem>
+              <DropdownItem>Item 2</DropdownItem>
+            </Dropdown>
+          </div>
+        </div>
+      </article>
+
       <!-- Tooltips -->
       <article id="tooltips">
         <h3>Tooltip</h3>
@@ -878,6 +1025,20 @@ const showPopoverTop = ref(false)
 const showPopoverRight = ref(false)
 const showPopoverLeft = ref(false)
 const showPopoverBottom = ref(false)
+
+// Dropdown demo data
+const showDropdown = ref(false)
+const showDropdownGroups = ref(false)
+const showDropdownCheckbox = ref(false)
+const dropdownBold = ref(true)
+const dropdownItalic = ref(false)
+const dropdownUnderline = ref(false)
+const showDropdownRadio = ref(false)
+const dropdownSize = ref('Medium')
+const showDropdownSub = ref(false)
+const showDropdownTop = ref(false)
+const showDropdownRight = ref(false)
+const showDropdownEnd = ref(false)
 
 const showDialog = ref(false)
 const showScrollDialog = ref(false)
