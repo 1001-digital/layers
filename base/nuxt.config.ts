@@ -15,6 +15,7 @@ export default defineNuxtConfig({
       add: 'lucide:plus',
       check: 'lucide:check',
       'chevron-down': 'lucide:chevron-down',
+      'chevron-right': 'lucide:chevron-right',
       close: 'lucide:x',
       copy: 'lucide:copy',
       edit: 'lucide:pencil',
