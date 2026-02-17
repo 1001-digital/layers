@@ -698,6 +698,23 @@
         </div>
 
         <div class="component-demo">
+          <h4>Icon Button Trigger</h4>
+          <div class="demo-row">
+            <Dropdown v-model:open="showDropdownIcon">
+              <template #trigger>
+                <Button>
+                  <Icon type="lucide:ellipsis-vertical" />
+                </Button>
+              </template>
+              <DropdownItem>Edit</DropdownItem>
+              <DropdownItem>Duplicate</DropdownItem>
+              <DropdownSeparator />
+              <DropdownItem>Delete</DropdownItem>
+            </Dropdown>
+          </div>
+        </div>
+
+        <div class="component-demo">
           <h4>With Groups &amp; Labels</h4>
           <div class="demo-row">
             <Dropdown v-model:open="showDropdownGroups">
@@ -1028,6 +1045,7 @@ const showPopoverBottom = ref(false)
 
 // Dropdown demo data
 const showDropdown = ref(false)
+const showDropdownIcon = ref(false)
 const showDropdownGroups = ref(false)
 const showDropdownCheckbox = ref(false)
 const dropdownBold = ref(true)
