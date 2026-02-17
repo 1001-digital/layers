@@ -641,6 +641,22 @@
         </div>
 
         <div class="component-demo">
+          <h4>Long Content (Scrolling)</h4>
+          <div class="demo-row">
+            <Popover v-model:open="showPopoverScroll" title="Terms & Conditions" closable>
+              <template #trigger>
+                <Button>Scrolling</Button>
+              </template>
+              <p v-for="i in 20" :key="i">
+                {{ i }}. Lorem ipsum dolor sit amet, consectetur adipiscing
+                elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+                aliqua.
+              </p>
+            </Popover>
+          </div>
+        </div>
+
+        <div class="component-demo">
           <h4>Positioning</h4>
           <div class="demo-row">
             <Popover v-model:open="showPopoverTop" side="top">
@@ -1042,6 +1058,7 @@ const showPopoverTop = ref(false)
 const showPopoverRight = ref(false)
 const showPopoverLeft = ref(false)
 const showPopoverBottom = ref(false)
+const showPopoverScroll = ref(false)
 
 // Dropdown demo data
 const showDropdown = ref(false)
