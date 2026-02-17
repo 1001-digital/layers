@@ -643,7 +643,7 @@
         <div class="component-demo">
           <h4>Long Content (Scrolling)</h4>
           <div class="demo-row">
-            <Popover v-model:open="showPopoverScroll" title="Terms & Conditions" closable>
+            <Popover v-model:open="showPopoverScroll" title="Terms & Conditions" closable arrow>
               <template #trigger>
                 <Button>Scrolling</Button>
               </template>

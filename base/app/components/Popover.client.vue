@@ -110,8 +110,7 @@ const onOpenAutoFocus = (e: Event) => {
     transform-origin: var(--reka-popover-content-transform-origin);
 
     display: grid;
-    grid-template-rows: auto 1fr auto;
-    overflow: hidden;
+    grid-template-rows: auto minmax(0, 1fr) auto;
 
     /* Entry/exit animations */
     opacity: 1;
