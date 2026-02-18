@@ -18,6 +18,7 @@
         :avoid-collisions="avoidCollisions"
         :collision-padding="collisionPadding"
         @open-auto-focus.prevent="onOpenAutoFocus"
+        @interact-outside="onInteractOutside"
       >
         <h1 v-if="title || $slots.title">
           <slot name="title">{{ title }}</slot>
@@ -67,6 +68,7 @@ const props = withDefaults(
     title?: string
     arrow?: boolean
     closable?: boolean
+    dismissable?: boolean
     modal?: boolean
   }>(),
   {
@@ -75,6 +77,7 @@ const props = withDefaults(
     sideOffset: 4,
     avoidCollisions: true,
     collisionPadding: 8,
+    dismissable: true,
   },
 )
 
@@ -83,6 +86,10 @@ const open = defineModel<boolean>('open', { required: true })
 // Focus the popover itself to prevent the close button from gaining focus
 const onOpenAutoFocus = (e: Event) => {
   ;(e.target as HTMLElement)?.focus()
+}
+
+const onInteractOutside = (e: Event) => {
+  if (!props.dismissable) e.preventDefault()
 }
 </script>
 
