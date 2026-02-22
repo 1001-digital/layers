@@ -22,7 +22,7 @@ defineProps<{
     display: flex;
     gap: var(--spacer-sm);
 
-    :deep(input) {
+    & :deep(input) {
       inline-size: min-content;
 
       &:not(:first-of-type) {
@@ -30,8 +30,8 @@ defineProps<{
       }
     }
 
-    :deep(label),
-    :deep(input) {
+    & :deep(label),
+    & :deep(input) {
       display: inline;
     }
   }

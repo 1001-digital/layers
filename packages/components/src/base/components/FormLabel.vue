@@ -28,7 +28,7 @@ defineProps<{
     color: var(--color);
   }
 
-  :deep(a) {
+  & :deep(a) {
     text-decoration: underline;
   }
 

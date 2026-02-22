@@ -22,10 +22,10 @@
     display: none !important;
   }
 
-  :deep(> a),
-  :deep(> button),
-  :deep(> .input-group),
-  :deep(> .input-group > *) {
+  & :deep(> a),
+  & :deep(> button),
+  & :deep(> .input-group),
+  & :deep(> .input-group > *) {
     block-size: var(--form-item-height);
 
     &.small {
@@ -33,7 +33,7 @@
     }
   }
 
-  :deep(> label) {
+  & :deep(> label) {
     font-family: var(--font-family);
     font-size: var(--ui-font-size);
     font-weight: var(--ui-font-weight);
@@ -46,11 +46,11 @@
     white-space: nowrap;
   }
 
-  :deep(.button) {
+  & :deep(.button) {
     inline-size: auto;
   }
 
-  :deep(select) {
+  & :deep(select) {
     inline-size: auto;
   }
 }

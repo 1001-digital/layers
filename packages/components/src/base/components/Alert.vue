@@ -64,7 +64,7 @@ const dismiss = () => {
       color: var(--alert-error-color);
     }
 
-    :deep(> h1) {
+    & :deep(> h1) {
       text-transform: uppercase;
       font-weight: bold;
     }

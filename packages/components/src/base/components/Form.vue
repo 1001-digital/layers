@@ -9,8 +9,8 @@
   display: grid;
   gap: var(--spacer);
 
-  :deep(> header),
-  :deep(> footer) {
+  & :deep(> header),
+  & :deep(> footer) {
     display: grid;
     gap: var(--spacer-sm);
 
