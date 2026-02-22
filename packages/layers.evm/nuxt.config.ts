@@ -23,6 +23,9 @@ export default defineNuxtConfig({
   },
 
   vite: {
+    resolve: {
+      dedupe: ['@wagmi/vue', '@wagmi/core', 'viem'],
+    },
     optimizeDeps: {
       include: [
         '@1001-digital/layers.evm > @metamask/sdk',
