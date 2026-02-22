@@ -27,6 +27,7 @@ const emit = defineEmits<{
 
 <style scoped>
 .tag {
+  border-radius: var(--tag-border-radius);
   box-shadow: var(--border-shadow);
   font-family: var(--font-family);
   font-size: var(--font-sm);
@@ -42,6 +43,8 @@ const emit = defineEmits<{
     padding: var(--spacer-sm) var(--spacer);
 
     + button {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
       padding: var(--spacer-sm);
 
       &:is(:hover, :active, :focus, .active) {
