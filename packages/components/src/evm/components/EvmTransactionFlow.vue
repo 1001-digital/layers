@@ -22,13 +22,7 @@
       :txt="text.lead[step] || ''"
     />
 
-    <p
-      v-if="
-        step !== 'requesting' &&
-        step !== 'error' &&
-        text.lead[step]
-      "
-    >
+    <p v-if="step !== 'requesting' && step !== 'error' && text.lead[step]">
       {{ text.lead[step] }}
     </p>
 
@@ -203,9 +197,7 @@ onBeforeUnmount(() => {
 })
 
 const canDismiss = computed(
-  () =>
-    props.dismissable &&
-    step.value !== 'requesting',
+  () => props.dismissable && step.value !== 'requesting',
 )
 
 const initializeRequest = async (request = cachedRequest.value) => {

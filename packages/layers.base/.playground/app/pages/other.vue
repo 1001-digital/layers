@@ -2,9 +2,7 @@
   <main class="page">
     <h1>Other Page</h1>
     <p>Navigate here after triggering a toast to verify it stays visible.</p>
-    <NuxtLink to="/#toasts">
-      Back to components
-    </NuxtLink>
+    <NuxtLink to="/#toasts"> Back to components </NuxtLink>
   </main>
 </template>
 

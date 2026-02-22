@@ -25,9 +25,10 @@ export const useGasPrice = () => {
     eth: formatEther(price.value),
 
     formatted: {
-      gwei: price.value > 2_000_000_000_000n
-        ? Math.round(parseFloat(formatGwei(price.value)))
-        : parseFloat(formatGwei(price.value)).toFixed(1),
+      gwei:
+        price.value > 2_000_000_000_000n
+          ? Math.round(parseFloat(formatGwei(price.value)))
+          : parseFloat(formatGwei(price.value)).toFixed(1),
       eth: formatEther(price.value),
     },
   }))

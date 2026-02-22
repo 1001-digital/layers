@@ -53,10 +53,13 @@ function saveToStorage() {
   if (typeof window === 'undefined') return
 
   try {
-    localStorage.setItem(STORAGE_KEY, stringifyJSON({
-      ethUSDRaw: state.ethUSDRaw,
-      lastUpdated: state.lastUpdated,
-    }))
+    localStorage.setItem(
+      STORAGE_KEY,
+      stringifyJSON({
+        ethUSDRaw: state.ethUSDRaw,
+        lastUpdated: state.lastUpdated,
+      }),
+    )
   } catch {
     // Ignore storage errors
   }
@@ -68,12 +71,18 @@ export const usePriceFeed = () => {
   // Load cached data on first use
   if (!state.lastUpdated) loadFromStorage()
 
-  const ethUSD = computed(() => state.ethUSDRaw ? state.ethUSDRaw / BigInt(1e8) : 0n)
-  const ethUSC = computed(() => state.ethUSDRaw ? state.ethUSDRaw / BigInt(1e6) : 0n)
-  const ethUSDFormatted = computed(() => formatPrice(Number(ethUSC.value) / 100, 2))
+  const ethUSD = computed(() =>
+    state.ethUSDRaw ? state.ethUSDRaw / BigInt(1e8) : 0n,
+  )
+  const ethUSC = computed(() =>
+    state.ethUSDRaw ? state.ethUSDRaw / BigInt(1e6) : 0n,
+  )
+  const ethUSDFormatted = computed(() =>
+    formatPrice(Number(ethUSC.value) / 100, 2),
+  )
 
   const weiToUSD = (wei: bigint) => {
-    const cents = (wei * (state.ethUSDRaw || 0n)) / (10n ** 18n) / (10n ** 6n)
+    const cents = (wei * (state.ethUSDRaw || 0n)) / 10n ** 18n / 10n ** 6n
     return formatPrice(Number(cents) / 100, 2)
   }
 

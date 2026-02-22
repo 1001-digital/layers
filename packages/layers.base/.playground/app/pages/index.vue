@@ -1088,9 +1088,7 @@
             >
               Toast + Navigate
             </Button>
-            <NuxtLink to="/other">
-              Go to other page
-            </NuxtLink>
+            <NuxtLink to="/other"> Go to other page </NuxtLink>
           </div>
         </div>
 

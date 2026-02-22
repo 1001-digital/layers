@@ -22,7 +22,15 @@ export interface EnsProfile {
 
 // --- Text record keys ---
 
-const ALL_KEYS = ['avatar', 'header', 'description', 'url', 'email', 'com.twitter', 'com.github'] as const
+const ALL_KEYS = [
+  'avatar',
+  'header',
+  'description',
+  'url',
+  'email',
+  'com.twitter',
+  'com.github',
+] as const
 
 export const ENS_KEYS_AVATAR = ['avatar'] as const
 export const ENS_KEYS_PROFILE = [...ALL_KEYS]
@@ -62,7 +70,7 @@ export async function fetchEnsFromChain(
 
   if (isAddr) {
     address = identifier
-    ens = await client.getEnsName({ address: identifier as Address }) ?? null
+    ens = (await client.getEnsName({ address: identifier as Address })) ?? null
   } else {
     ens = identifier
     const resolved = await client.getEnsAddress({ name: normalize(identifier) })
@@ -74,10 +82,17 @@ export async function fetchEnsFromChain(
 
   const name = normalize(ens)
   const results = await Promise.all(
-    keys.map(key => client.getEnsText({ name, key }).catch(() => null)),
+    keys.map((key) => client.getEnsText({ name, key }).catch(() => null)),
   )
 
-  return { address, ens, data: toProfileData(keys, results.map(r => r || '')) }
+  return {
+    address,
+    ens,
+    data: toProfileData(
+      keys,
+      results.map((r) => r || ''),
+    ),
+  }
 }
 
 // --- Helpers ---
