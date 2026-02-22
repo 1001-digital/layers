@@ -9,6 +9,7 @@ const clientOnlyComponents = [
   'EvmConnect',
   'EvmConnectorQR',
   'EvmMetaMaskQR',
+  'EvmTransactionFlow',
   'EvmWalletConnectQR',
 ]
 
