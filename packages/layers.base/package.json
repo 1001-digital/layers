@@ -21,8 +21,8 @@
     "vue": "latest"
   },
   "dependencies": {
-    "@1001-digital/components": "workspace:*",
-    "@1001-digital/styles": "workspace:*",
+    "@1001-digital/components": "workspace:^",
+    "@1001-digital/styles": "workspace:^",
     "@iconify-json/lucide": "^1.2.87",
     "@iconify-json/simple-icons": "^1.2.69",
     "@nuxt/icon": "^2.2.1"

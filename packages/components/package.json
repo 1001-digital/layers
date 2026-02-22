@@ -13,7 +13,7 @@
     "src"
   ],
   "peerDependencies": {
-    "@1001-digital/styles": "workspace:*",
+    "@1001-digital/styles": "workspace:^",
     "@wagmi/core": ">=3.0.0",
     "@wagmi/vue": ">=0.4.0",
     "viem": ">=2.0.0",

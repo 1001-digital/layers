@@ -21,6 +21,6 @@
     "vue": "latest"
   },
   "dependencies": {
-    "@1001-digital/layers.base": "workspace:*"
+    "@1001-digital/layers.base": "workspace:^"
   }
 }
