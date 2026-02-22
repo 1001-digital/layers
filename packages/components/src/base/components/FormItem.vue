@@ -69,7 +69,7 @@
       border-start-start-radius: 0;
       border-end-start-radius: 0;
 
-      & :deep(input) {
+      & :deep(> :last-child) {
         border-start-start-radius: 0;
         border-end-start-radius: 0;
       }
@@ -79,7 +79,7 @@
       border-start-end-radius: 0;
       border-end-end-radius: 0;
 
-      & :deep(input) {
+      & :deep(> :first-child) {
         border-start-end-radius: 0;
         border-end-end-radius: 0;
       }

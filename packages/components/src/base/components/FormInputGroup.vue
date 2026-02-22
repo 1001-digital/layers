@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
 
-  :deep(input + .icon) {
+  & :deep(input + .icon) {
     position: absolute;
     inset-inline-end: var(--ui-padding-inline);
     inline-size: var(--size-4);
@@ -18,7 +18,7 @@
     z-index: 2;
   }
 
-  :deep(input:has(+ .icon)) {
+  & :deep(input:has(+ .icon)) {
     padding-inline-end: calc(var(--ui-padding-inline) + var(--spacer-sm));
 
     &:is(:hover, :active, :focus, .active) + .icon {
@@ -26,10 +26,10 @@
     }
   }
 
-  :deep(input),
-  :deep(button),
-  :deep(.button),
-  :deep(a) {
+  & :deep(input),
+  & :deep(button),
+  & :deep(.button),
+  & :deep(a) {
     z-index: 1;
 
     &:has(+ input),

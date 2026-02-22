@@ -88,7 +88,7 @@ defineProps({
 <style scoped>
 .form-select-trigger {
   border: none;
-  background: transparent;
+  background: var(--background);
   padding: var(--ui-padding-block) var(--ui-padding-inline);
   font-family: var(--font-family);
   font-size: var(--ui-font-size);
