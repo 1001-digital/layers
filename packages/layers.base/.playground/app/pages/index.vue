@@ -1057,6 +1057,22 @@
         </div>
 
         <div class="component-demo">
+          <h4>Title Only</h4>
+          <div class="demo-row">
+            <Button
+              @click="
+                toast.add({
+                  variant: 'info',
+                  title: 'Settings saved',
+                })
+              "
+            >
+              Title Only
+            </Button>
+          </div>
+        </div>
+
+        <div class="component-demo">
           <h4>With Action</h4>
           <div class="demo-row">
             <Button

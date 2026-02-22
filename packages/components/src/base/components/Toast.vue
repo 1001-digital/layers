@@ -11,38 +11,38 @@
       :class="[toast.variant || 'info']"
       @update:open="(open) => !open && dismiss(toast.id)"
     >
-      <ToastTitle
-        v-if="toast.title"
-        class="toast-title"
-      >
+      <ToastTitle class="toast-title">
         {{ toast.title }}
       </ToastTitle>
-      <ToastDescription
-        v-if="toast.description"
-        class="toast-description"
-      >
-        {{ toast.description }}
-      </ToastDescription>
-      <ToastAction
-        v-if="toast.action"
-        :alt-text="toast.action.label"
-        :as="Actions"
-        class="left"
-      >
-        <Button
-          class="small"
-          @click="toast.action!.onClick()"
-        >
-          {{ toast.action.label }}
-        </Button>
-      </ToastAction>
       <ToastClose
-        class="toast-close small tertiary"
+        class="toast-close tertiary"
         :as="Button"
         aria-label="Close"
       >
         <Icon type="close" />
       </ToastClose>
+
+      <section v-if="toast.description || toast.action">
+        <ToastDescription
+          v-if="toast.description"
+          class="toast-description"
+        >
+          {{ toast.description }}
+        </ToastDescription>
+        <ToastAction
+          v-if="toast.action"
+          :alt-text="toast.action.label"
+          :as="Actions"
+          class="left"
+        >
+          <Button
+            class="small"
+            @click="toast.action!.onClick()"
+          >
+            {{ toast.action.label }}
+          </Button>
+        </ToastAction>
+      </section>
     </ToastRoot>
 
     <ToastViewport
@@ -121,11 +121,13 @@ const { toasts, dismiss } = useToast()
   :deep(.toast) {
     position: relative;
     display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
     inline-size: var(--toast-width);
     max-inline-size: calc(100vw - var(--spacer) * 2);
-    padding: var(--toast-padding);
+    padding: 0;
     border: var(--border);
     border-radius: var(--border-radius);
+    overflow: hidden;
     font-family: var(--font-family);
     font-size: var(--ui-font-size);
     text-transform: var(--ui-text-transform);
@@ -164,6 +166,7 @@ const { toasts, dismiss } = useToast()
 
     /* Variants */
     &.info {
+      --border-color: var(--toast-info-border-color);
       color: var(--toast-info-color);
       background: var(--toast-info-background);
       border-color: var(--toast-info-border-color);
@@ -175,6 +178,7 @@ const { toasts, dismiss } = useToast()
     }
 
     &.success {
+      --border-color: var(--toast-success-border-color);
       color: var(--toast-success-color);
       background: var(--toast-success-background);
       border-color: var(--toast-success-border-color);
@@ -186,6 +190,7 @@ const { toasts, dismiss } = useToast()
     }
 
     &.error {
+      --border-color: var(--toast-error-border-color);
       color: var(--toast-error-color);
       background: var(--toast-error-background);
       border-color: var(--toast-error-border-color);
@@ -197,8 +202,20 @@ const { toasts, dismiss } = useToast()
     }
 
     .toast-title {
+      display: flex;
+      align-items: center;
+      block-size: calc(var(--spacer) * 2);
+      box-shadow: var(--border-shadow);
+      padding-inline-start: var(--toast-padding);
+      padding-right: calc(var(--spacer) * 3);
       font-weight: bold;
-      padding-inline-end: calc(var(--spacer) * 1.5) toast;
+      margin: 0;
+    }
+
+    > section {
+      padding: var(--toast-padding);
+      display: grid;
+      gap: var(--spacer);
     }
 
     .toast-description {
@@ -209,12 +226,12 @@ const { toasts, dismiss } = useToast()
       position: absolute !important;
       top: 0;
       right: 0;
+      box-shadow: var(--border-shadow) !important;
       border-radius: 0 !important;
       border-start-end-radius: var(--border-radius) !important;
     }
 
     .actions {
-      margin-top: var(--spacer) !important;
       width: min-content;
     }
   }
