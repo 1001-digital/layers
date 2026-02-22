@@ -54,6 +54,16 @@
       box-shadow: var(--border-shadow);
       width: min-content;
     }
+
+    .prefix {
+      border-start-start-radius: var(--border-radius);
+      border-end-start-radius: var(--border-radius);
+    }
+
+    .suffix {
+      border-start-end-radius: var(--border-radius);
+      border-end-end-radius: var(--border-radius);
+    }
   }
 }
 </style>
