@@ -145,6 +145,8 @@ const onInteractOutside = (e: Event) => {
       display: flex;
       align-items: center;
       block-size: calc(var(--spacer) * 2);
+      border-start-start-radius: var(--popover-border-radius);
+      border-start-end-radius: var(--popover-border-radius);
       box-shadow: var(--border-shadow);
       padding-inline-start: var(--popover-padding);
       padding-right: calc(var(--spacer) * 3);
@@ -167,6 +169,8 @@ const onInteractOutside = (e: Event) => {
       top: 0;
       right: 0;
       box-shadow: var(--border-shadow) !important;
+      border-radius: 0 !important;
+      border-start-end-radius: var(--popover-border-radius) !important;
     }
 
     .popover-arrow {
