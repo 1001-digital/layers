@@ -1,8 +1,32 @@
+import { fileURLToPath } from 'node:url'
+
+const componentsDir = fileURLToPath(
+  new URL('../components/src/base/components', import.meta.url),
+)
+
+const clientOnlyComponents = ['Dialog', 'Toast', 'Popover', 'Dropdown']
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
   modules: ['@nuxt/icon'],
+
+  hooks: {
+    'components:dirs': (dirs) => {
+      dirs.push({
+        path: componentsDir,
+        pathPrefix: false,
+      })
+    },
+    'components:extend': (components) => {
+      for (const c of components) {
+        if (clientOnlyComponents.includes(c.pascalName)) {
+          c.mode = 'client'
+        }
+      }
+    },
+  },
 
   icon: {
     componentName: 'NuxtIcon',
