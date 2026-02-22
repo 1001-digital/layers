@@ -26,9 +26,9 @@
   },
   "dependencies": {
     "@1001-digital/components": "workspace:^",
-    "@metamask/sdk": "~0.34.0",
+    "@metamask/sdk": "~0.33.1",
     "@tanstack/vue-query": "^5.92.9",
-    "@wagmi/vue": "^0.4.15",
+    "@wagmi/vue": "^0.5.0",
     "@walletconnect/ethereum-provider": "~2.23.4",
     "viem": "~2.45.1"
   }
