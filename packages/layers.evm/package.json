@@ -25,7 +25,7 @@
     "@1001-digital/layers.base": "workspace:^"
   },
   "dependencies": {
-    "@1001-digital/evm": "workspace:*",
+    "@1001-digital/components": "workspace:*",
     "@metamask/sdk": "~0.34.0",
     "@tanstack/vue-query": "^5.92.9",
     "@wagmi/core": "^3.3.2",

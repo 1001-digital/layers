@@ -17,8 +17,9 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue'
 import QRCode from 'qrcode'
-import { Button, Icon } from '@1001-digital/components'
-import { useClipboard } from '../composables/clipboard'
+import { useClipboard } from '@vueuse/core'
+import Button from '../../components/Button.vue'
+import Icon from '../../components/Icon.vue'
 
 const props = defineProps<{
   uri: string

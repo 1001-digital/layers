@@ -29,7 +29,7 @@ Connectors: injected, coinbaseWallet, metaMask, walletConnect
 ## Components
 
 - `EvmConnect.client.vue` - Wallet connection button with modal
-- `EvmAccount.client.vue` - Address display with ENS resolution
+- `EvmAccount.client.vue` - Address display
 - `EvmTransactionFlow.vue` - Guided transaction execution flow
 - `EvmConnectorQR.client.vue` - Base QR code renderer
 - `EvmWalletConnectQR.client.vue` - WalletConnect QR wrapper
@@ -42,7 +42,6 @@ Connectors: injected, coinbaseWallet, metaMask, walletConnect
 - `useBlockExplorer(key?)` - Get block explorer URL for a named chain
 - `useEnsureChainIdCheck()` - Validate/switch chain before transactions
 - `useBaseURL()` - Get base URL with trailing slash
-- `useClipboard()` - Copy text to clipboard with copied state
 
 ## Utilities
 

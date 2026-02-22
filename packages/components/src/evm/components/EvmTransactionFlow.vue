@@ -92,9 +92,13 @@ import { ref, computed, watch, useSlots, withDefaults } from 'vue'
 import { waitForTransactionReceipt, watchChainId } from '@wagmi/core'
 import { useConfig, type Config } from '@wagmi/vue'
 import type { TransactionReceipt, Hash } from 'viem'
-import { Dialog, Loading, Alert, Button, Icon } from '@1001-digital/components'
+import Dialog from '../../components/Dialog.vue'
+import Loading from '../../components/Loading.vue'
+import Alert from '../../components/Alert.vue'
+import Button from '../../components/Button.vue'
+import Icon from '../../components/Icon.vue'
 import { useEnsureChainIdCheck, useBlockExplorer } from '../composables/chainId'
-import { delay } from '../composables/helpers'
+import { delay } from '../../utils/time'
 
 interface TextConfig {
   title?: Record<string, string>

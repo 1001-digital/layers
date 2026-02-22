@@ -44,3 +44,6 @@ export { delay, daysInSeconds, nowInSeconds, asUTCDate } from './utils/time'
 export { IconAliasesKey, defaultIconAliases } from './icons'
 export type { IconAliases } from './icons'
 export { LinkComponentKey } from './link'
+
+// EVM
+export * from './evm/index'

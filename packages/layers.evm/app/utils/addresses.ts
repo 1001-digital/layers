@@ -1,1 +1,1 @@
-export { shortAddress } from '@1001-digital/evm'
+export { shortAddress } from '@1001-digital/components'

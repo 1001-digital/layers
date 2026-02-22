@@ -1,1 +1,1 @@
-export { formatETH } from '@1001-digital/evm'
+export { formatETH } from '@1001-digital/components'
