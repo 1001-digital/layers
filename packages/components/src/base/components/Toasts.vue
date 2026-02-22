@@ -13,6 +13,11 @@
       @update:open="(open) => !open && onClose(toast.id)"
     >
       <ToastTitle class="toast-title">
+        <span
+          v-if="toast.loading"
+          class="toast-spinner"
+          aria-hidden="true"
+        />
         {{ toast.title }}
       </ToastTitle>
       <ToastClose
@@ -211,6 +216,7 @@ const onClose = (id: string) => {
     .toast-title {
       display: flex;
       align-items: center;
+      gap: var(--spacer-sm);
       block-size: calc(var(--spacer) * 2);
       box-shadow: var(--border-shadow);
       padding-inline-start: var(--ui-padding-inline);
@@ -220,6 +226,16 @@ const onClose = (id: string) => {
       font-weight: normal;
       text-transform: var(--ui-text-transform);
       margin: 0;
+    }
+
+    .toast-spinner {
+      width: var(--ui-font-size);
+      height: var(--ui-font-size);
+      border: 2px solid currentColor;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin var(--speed-slow, 1s) linear infinite;
+      flex-shrink: 0;
     }
 
     > section {
@@ -248,6 +264,12 @@ const onClose = (id: string) => {
       > * {
         white-space: nowrap;
       }
+    }
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
     }
   }
 }

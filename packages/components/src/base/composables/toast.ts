@@ -14,6 +14,7 @@ export interface Toast {
   variant?: ToastVariant
   action?: ToastAction
   duration?: number
+  loading?: boolean
 }
 
 const toasts = ref<Toast[]>([])

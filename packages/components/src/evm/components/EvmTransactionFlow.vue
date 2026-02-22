@@ -237,6 +237,7 @@ const initializeRequest = async (request = cachedRequest.value) => {
     title: text.value.title.waiting,
     description: text.value.lead.waiting,
     duration: Infinity,
+    loading: true,
     action: {
       label: 'View on Block Explorer',
       onClick: () => window.open(link, '_blank'),
@@ -256,6 +257,7 @@ const initializeRequest = async (request = cachedRequest.value) => {
       variant: 'success',
       title: text.value.title.complete,
       description: text.value.lead.complete,
+      loading: false,
       ...(props.autoCloseSuccess && { duration: props.delayAutoclose }),
     })
   } catch (e: unknown) {
@@ -269,6 +271,7 @@ const initializeRequest = async (request = cachedRequest.value) => {
         variant: 'error',
         title: text.value.title.error,
         description: err.shortMessage || 'Transaction failed.',
+        loading: false,
       })
     }
     console.log(e)
