@@ -28,7 +28,7 @@ export { default as Loading } from './base/components/Loading.vue'
 export { default as Popover } from './base/components/Popover.vue'
 export { default as Tag } from './base/components/Tag.vue'
 export { default as Tags } from './base/components/Tags.vue'
-export { default as Toast } from './base/components/Toast.vue'
+export { default as Toasts } from './base/components/Toasts.vue'
 export { default as Tooltip } from './base/components/Tooltip.vue'
 
 // Composables

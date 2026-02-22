@@ -4,7 +4,7 @@ const componentsDir = fileURLToPath(
   new URL('../components/src/base/components', import.meta.url),
 )
 
-const clientOnlyComponents = ['Dialog', 'Toast', 'Popover', 'Dropdown']
+const clientOnlyComponents = ['Dialog', 'Toasts', 'Popover', 'Dropdown']
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
