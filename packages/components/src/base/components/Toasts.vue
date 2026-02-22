@@ -230,6 +230,7 @@ const onClose = (id: string) => {
 
     .toast-description {
       color: var(--muted);
+      font-size: var(--font-sm);
     }
 
     .toast-close {
@@ -243,6 +244,10 @@ const onClose = (id: string) => {
 
     .actions {
       width: min-content;
+
+      > * {
+        white-space: nowrap;
+      }
     }
   }
 }

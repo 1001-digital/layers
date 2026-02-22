@@ -264,12 +264,8 @@ const initializeRequest = async (request = cachedRequest.value) => {
       variant: 'success',
       title: text.value.title.complete,
       description: text.value.lead.complete,
+      ...(props.autoCloseSuccess && { duration: props.delayAutoclose }),
     })
-
-    if (props.autoCloseSuccess) {
-      await delay(props.delayAutoclose)
-      toast.dismiss(toastId)
-    }
   } catch (e: unknown) {
     const err = e as { shortMessage?: string }
     if (mounted) {
