@@ -7,9 +7,10 @@
       v-for="toast in toasts"
       :key="toast.id"
       :duration="toast.duration"
+      force-mount
       class="toast"
       :class="[toast.variant || 'info']"
-      @update:open="(open) => !open && dismiss(toast.id)"
+      @update:open="(open) => !open && onClose(toast.id)"
     >
       <ToastTitle class="toast-title">
         {{ toast.title }}
@@ -81,6 +82,10 @@ withDefaults(
 )
 
 const { toasts, dismiss } = useToast()
+
+const onClose = (id: string) => {
+  setTimeout(() => dismiss(id), 300)
+}
 </script>
 
 <style scoped>
@@ -146,7 +151,10 @@ const { toasts, dismiss } = useToast()
     /* Exit animation */
     &[data-state='closed'] {
       opacity: 0;
-      translate: 100% 0;
+      translate: 25% 0;
+      transition:
+        opacity var(--speed-fast) ease,
+        translate var(--speed) ease;
     }
 
     /* Swipe */
