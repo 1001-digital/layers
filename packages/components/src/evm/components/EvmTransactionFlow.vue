@@ -3,40 +3,8 @@
     :start="start"
     :step="step"
     :open="open"
-    :backgrounded="backgrounded"
     name="start"
   ></slot>
-
-  <Teleport to="body">
-    <div
-      v-if="backgrounded && step !== 'idle'"
-      class="transaction-flow-toast"
-      :class="{ complete: step === 'complete' }"
-      @click="backgrounded = false"
-    >
-      <div class="transaction-flow-toast-title">
-        {{ text.title[step] }}
-      </div>
-      <section>
-        <Loading
-          v-if="step === 'waiting'"
-          spinner
-          :txt="text.lead[step] || ''"
-        />
-        <p v-else-if="text.lead[step]">{{ text.lead[step] }}</p>
-        <Button
-          v-if="tx"
-          :to="txLink"
-          target="_blank"
-          class="link muted small"
-          @click.stop
-        >
-          <Icon type="link" />
-          <span>View on Block Explorer</span>
-        </Button>
-      </section>
-    </div>
-  </Teleport>
 
   <Dialog
     v-model:open="open"
@@ -48,7 +16,7 @@
     <slot name="before" />
 
     <Loading
-      v-if="step === 'requesting' || step === 'waiting'"
+      v-if="step === 'requesting'"
       spinner
       stacked
       :txt="text.lead[step] || ''"
@@ -57,7 +25,6 @@
     <p
       v-if="
         step !== 'requesting' &&
-        step !== 'waiting' &&
         step !== 'error' &&
         text.lead[step]
       "
@@ -72,16 +39,6 @@
       <p v-if="text.lead[step]">{{ text.lead[step] }}</p>
       <p>{{ error }}</p>
     </Alert>
-
-    <Button
-      v-if="step === 'waiting'"
-      :to="txLink"
-      target="_blank"
-      class="link muted small centered"
-    >
-      <Icon type="link" />
-      <span>View on Block Explorer</span>
-    </Button>
 
     <slot
       :name="step"
@@ -114,14 +71,13 @@
         :cancel="cancel"
         :execute="() => initializeRequest()"
         :tx-link="txLink"
-        :backgrounded="backgrounded"
       />
     </template>
   </Dialog>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, useSlots, withDefaults } from 'vue'
+import { ref, computed, watch, onBeforeUnmount } from 'vue'
 import { waitForTransactionReceipt, watchChainId } from '@wagmi/core'
 import { useConfig, type Config } from '@wagmi/vue'
 import type { TransactionReceipt, Hash } from 'viem'
@@ -129,8 +85,8 @@ import Dialog from '../../base/components/Dialog.vue'
 import Loading from '../../base/components/Loading.vue'
 import Alert from '../../base/components/Alert.vue'
 import Button from '../../base/components/Button.vue'
-import Icon from '../../base/components/Icon.vue'
 import { useEnsureChainIdCheck, useBlockExplorer } from '../composables/chainId'
+import { useToast } from '../../base/composables/toast'
 import { delay } from '../../base/utils/time'
 
 interface TextConfig {
@@ -170,11 +126,11 @@ const defaultText = {
   },
 } satisfies TextConfig
 
-const slots = useSlots()
 const checkChain = useEnsureChainIdCheck()
 
 const wagmiConfig = useConfig()
 const blockExplorer = useBlockExplorer()
+const toast = useToast()
 
 const props = withDefaults(
   defineProps<{
@@ -209,12 +165,11 @@ const text = computed<Required<TextConfig>>(() => ({
 const step = ref<Step>('idle')
 
 const open = computed({
-  get: () => step.value !== 'idle' && !backgrounded.value,
+  get: () => step.value !== 'idle',
   set: (v) => {
     if (!v) {
       step.value = 'idle'
       error.value = ''
-      backgrounded.value = false
     }
   },
 })
@@ -240,21 +195,18 @@ watch(
 const error = ref('')
 const tx = ref<Hash | null>(null)
 const receipt = ref<TransactionReceipt | null>(null)
-const backgrounded = ref(false)
 const txLink = computed(() => `${blockExplorer}/tx/${tx.value}`)
+
+let mounted = true
+onBeforeUnmount(() => {
+  mounted = false
+})
 
 const canDismiss = computed(
   () =>
     props.dismissable &&
-    step.value !== 'requesting' &&
-    step.value !== 'waiting',
+    step.value !== 'requesting',
 )
-
-watch(step, (v) => {
-  if (backgrounded.value && v !== 'waiting' && v !== 'complete') {
-    backgrounded.value = false
-  }
-})
 
 const initializeRequest = async (request = cachedRequest.value) => {
   cachedRequest.value = request
@@ -268,37 +220,70 @@ const initializeRequest = async (request = cachedRequest.value) => {
     return
   }
 
+  // Phase 1: Signing (dialog)
   try {
     step.value = 'requesting'
     tx.value = await request!()
-    backgrounded.value = true
-    step.value = 'waiting'
-    const receiptObject = await waitForTransactionReceipt(
-      wagmiConfig as Config,
-      {
-        hash: tx.value,
-      },
-    )
-    await delay(props.delayAfter)
-    receipt.value = receiptObject
-    emit('complete', receiptObject)
-    step.value = 'complete'
   } catch (e: unknown) {
     const err = e as { cause?: { code?: number }; shortMessage?: string }
     if (err?.cause?.code === 4001) {
       error.value = 'Transaction rejected by user.'
-      step.value = 'error'
     } else {
       error.value = err.shortMessage || 'Error submitting transaction request.'
-      step.value = 'error'
     }
+    step.value = 'error'
     console.log(e)
+    return
   }
 
-  if (props.autoCloseSuccess && step.value === 'complete') {
-    await delay(props.delayAutoclose)
-    step.value = 'idle'
-    await delay(300)
+  // Phase 2: Receipt (toast)
+  step.value = 'idle'
+
+  const link = `${blockExplorer}/tx/${tx.value}`
+  const toastId = toast.add({
+    variant: 'info',
+    title: text.value.title.waiting,
+    description: text.value.lead.waiting,
+    duration: Infinity,
+    action: {
+      label: 'View on Block Explorer',
+      onClick: () => window.open(link, '_blank'),
+    },
+  })
+
+  try {
+    const receiptObject = await waitForTransactionReceipt(
+      wagmiConfig as Config,
+      { hash: tx.value },
+    )
+    await delay(props.delayAfter)
+    receipt.value = receiptObject
+    emit('complete', receiptObject)
+
+    toast.update(toastId, {
+      variant: 'success',
+      title: text.value.title.complete,
+      description: text.value.lead.complete,
+    })
+
+    if (props.autoCloseSuccess) {
+      await delay(props.delayAutoclose)
+      toast.dismiss(toastId)
+    }
+  } catch (e: unknown) {
+    const err = e as { shortMessage?: string }
+    if (mounted) {
+      toast.dismiss(toastId)
+      error.value = err.shortMessage || 'Transaction failed.'
+      step.value = 'error'
+    } else {
+      toast.update(toastId, {
+        variant: 'error',
+        title: text.value.title.error,
+        description: err.shortMessage || 'Transaction failed.',
+      })
+    }
+    console.log(e)
   }
 
   return receipt.value
@@ -316,13 +301,11 @@ const start = () => {
 const cancel = () => {
   step.value = 'idle'
   error.value = ''
-  backgrounded.value = false
   emit('cancel')
 }
 
 defineExpose({
   initializeRequest,
-  backgrounded,
 })
 </script>
 
@@ -343,61 +326,6 @@ defineExpose({
     a {
       text-decoration: underline;
     }
-  }
-}
-
-.transaction-flow-toast {
-  position: fixed;
-  bottom: var(--spacer);
-  right: var(--spacer);
-  z-index: var(--z-index-toast);
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  inline-size: var(--toast-width);
-  max-inline-size: calc(100vw - var(--spacer) * 2);
-  border: var(--border);
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  font-family: var(--font-family);
-  font-size: var(--ui-font-size);
-  cursor: pointer;
-  color: var(--toast-info-color);
-  background: var(--toast-info-background);
-  border-color: var(--toast-info-border-color);
-
-  opacity: 1;
-  translate: 0;
-  transition:
-    opacity var(--speed) ease,
-    translate var(--speed) ease;
-
-  @starting-style {
-    opacity: 0;
-    translate: 100% 0;
-  }
-
-  &.complete {
-    color: var(--toast-success-color);
-    background: var(--toast-success-background);
-    border-color: var(--toast-success-border-color);
-  }
-
-  .transaction-flow-toast-title {
-    display: flex;
-    align-items: center;
-    block-size: calc(var(--spacer) * 2);
-    box-shadow: var(--border-shadow);
-    padding-inline: var(--ui-padding-inline);
-    font-size: var(--ui-font-size);
-    font-weight: normal;
-    text-transform: var(--ui-text-transform);
-    margin: 0;
-  }
-
-  > section {
-    padding: var(--ui-padding-inline);
-    display: grid;
-    gap: var(--spacer);
   }
 }
 </style>

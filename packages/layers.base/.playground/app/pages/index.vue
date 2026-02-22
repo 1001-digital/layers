@@ -1095,6 +1095,25 @@
         </div>
 
         <div class="component-demo">
+          <h4>Persistent</h4>
+          <p>This toast won't auto-dismiss. Close it manually.</p>
+          <div class="demo-row">
+            <Button
+              @click="
+                toast.add({
+                  variant: 'info',
+                  title: 'Persistent toast',
+                  description: 'This toast will stay until you dismiss it.',
+                  duration: 0,
+                })
+              "
+            >
+              Persistent
+            </Button>
+          </div>
+        </div>
+
+        <div class="component-demo">
           <h4>With Action</h4>
           <div class="demo-row">
             <Button
