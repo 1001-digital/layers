@@ -1,3 +1,5 @@
+import { ref } from 'vue'
+
 export const useClipboard = () => {
   const copied = ref(false)
   let timeout: ReturnType<typeof setTimeout> | null = null

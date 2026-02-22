@@ -1,5 +1,6 @@
 import { isAddress, type PublicClient, type Address } from 'viem'
 import { normalize } from 'viem/ens'
+import { createCache } from './cache'
 
 // --- Types ---
 
@@ -40,7 +41,9 @@ export async function fetchEnsFromIndexer(
 
   for (const url of urls) {
     try {
-      return await $fetch<EnsProfile>(`${url}/${identifier}`)
+      const response = await fetch(`${url}/${identifier}`)
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      return await response.json() as EnsProfile
     } catch (err) {
       lastError = err as Error
     }

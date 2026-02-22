@@ -1,5 +1,2 @@
 packages:
-  - base
-  - prose
-  - evm
   - packages/*
