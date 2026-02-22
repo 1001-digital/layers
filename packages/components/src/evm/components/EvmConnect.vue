@@ -81,7 +81,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
 import type { Connector } from '@wagmi/vue'
-import { useConnection, useConnect, useChainId } from '@wagmi/vue'
+import { useConnection, useConnect, useConnectors, useChainId } from '@wagmi/vue'
 import Button from '../../base/components/Button.vue'
 import Dialog from '../../base/components/Dialog.vue'
 import Icon from '../../base/components/Icon.vue'
@@ -116,14 +116,15 @@ const emit = defineEmits<{
 const base = useBaseURL()
 
 const chainId = useChainId()
-const { connectors, connectAsync } = useConnect()
+const connectors = useConnectors()
+const { mutateAsync: connectAsync } = useConnect()
 const { address, isConnected } = useConnection()
 
 const showConnect = computed(() => !isConnected.value)
 const shownConnectors = computed(() => {
   const unique = Array.from(
     new Map(
-      connectors?.map((connector) => [connector.name, connector]),
+      connectors.value?.map((connector) => [connector.name, connector]),
     ).values(),
   )
 

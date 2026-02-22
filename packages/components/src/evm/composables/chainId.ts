@@ -23,7 +23,7 @@ export const useBlockExplorer = (key?: string) => useChainConfig(key).blockExplo
 
 export const useEnsureChainIdCheck = () => {
   const chainId = useMainChainId()
-  const { switchChain } = useSwitchChain()
+  const { mutate: switchChain } = useSwitchChain()
   const { chainId: currentChainId } = useConnection()
 
   return async () => {
