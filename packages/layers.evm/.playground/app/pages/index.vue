@@ -15,6 +15,11 @@
     </Card>
 
     <SignedIn />
+
+    <Card>
+      <h2>Pages</h2>
+      <NuxtLink to="/transaction-flow">Transaction Flow States</NuxtLink>
+    </Card>
   </div>
 </template>
 
