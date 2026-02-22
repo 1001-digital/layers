@@ -3,8 +3,40 @@
     :start="start"
     :step="step"
     :open="open"
+    :backgrounded="backgrounded"
     name="start"
   ></slot>
+
+  <Teleport to="body">
+    <div
+      v-if="backgrounded && step !== 'idle'"
+      class="transaction-flow-toast"
+      :class="{ complete: step === 'complete' }"
+      @click="backgrounded = false"
+    >
+      <div class="transaction-flow-toast-title">
+        {{ text.title[step] }}
+      </div>
+      <section>
+        <Loading
+          v-if="step === 'waiting'"
+          spinner
+          :txt="text.lead[step] || ''"
+        />
+        <p v-else-if="text.lead[step]">{{ text.lead[step] }}</p>
+        <Button
+          v-if="tx"
+          :to="txLink"
+          target="_blank"
+          class="link muted small"
+          @click.stop
+        >
+          <Icon type="link" />
+          <span>View on Block Explorer</span>
+        </Button>
+      </section>
+    </div>
+  </Teleport>
 
   <Dialog
     v-model:open="open"
@@ -82,6 +114,7 @@
         :cancel="cancel"
         :execute="() => initializeRequest()"
         :tx-link="txLink"
+        :backgrounded="backgrounded"
       />
     </template>
   </Dialog>
@@ -176,11 +209,12 @@ const text = computed<Required<TextConfig>>(() => ({
 const step = ref<Step>('idle')
 
 const open = computed({
-  get: () => step.value !== 'idle',
+  get: () => step.value !== 'idle' && !backgrounded.value,
   set: (v) => {
     if (!v) {
       step.value = 'idle'
       error.value = ''
+      backgrounded.value = false
     }
   },
 })
@@ -206,6 +240,7 @@ watch(
 const error = ref('')
 const tx = ref<Hash | null>(null)
 const receipt = ref<TransactionReceipt | null>(null)
+const backgrounded = ref(false)
 const txLink = computed(() => `${blockExplorer}/tx/${tx.value}`)
 
 const canDismiss = computed(
@@ -214,6 +249,12 @@ const canDismiss = computed(
     step.value !== 'requesting' &&
     step.value !== 'waiting',
 )
+
+watch(step, (v) => {
+  if (backgrounded.value && v !== 'waiting' && v !== 'complete') {
+    backgrounded.value = false
+  }
+})
 
 const initializeRequest = async (request = cachedRequest.value) => {
   cachedRequest.value = request
@@ -230,6 +271,7 @@ const initializeRequest = async (request = cachedRequest.value) => {
   try {
     step.value = 'requesting'
     tx.value = await request!()
+    backgrounded.value = true
     step.value = 'waiting'
     const receiptObject = await waitForTransactionReceipt(
       wagmiConfig as Config,
@@ -274,11 +316,13 @@ const start = () => {
 const cancel = () => {
   step.value = 'idle'
   error.value = ''
+  backgrounded.value = false
   emit('cancel')
 }
 
 defineExpose({
   initializeRequest,
+  backgrounded,
 })
 </script>
 
@@ -299,6 +343,61 @@ defineExpose({
     a {
       text-decoration: underline;
     }
+  }
+}
+
+.transaction-flow-toast {
+  position: fixed;
+  bottom: var(--spacer);
+  right: var(--spacer);
+  z-index: var(--z-index-toast);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  inline-size: var(--toast-width);
+  max-inline-size: calc(100vw - var(--spacer) * 2);
+  border: var(--border);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  font-family: var(--font-family);
+  font-size: var(--ui-font-size);
+  cursor: pointer;
+  color: var(--toast-info-color);
+  background: var(--toast-info-background);
+  border-color: var(--toast-info-border-color);
+
+  opacity: 1;
+  translate: 0;
+  transition:
+    opacity var(--speed) ease,
+    translate var(--speed) ease;
+
+  @starting-style {
+    opacity: 0;
+    translate: 100% 0;
+  }
+
+  &.complete {
+    color: var(--toast-success-color);
+    background: var(--toast-success-background);
+    border-color: var(--toast-success-border-color);
+  }
+
+  .transaction-flow-toast-title {
+    display: flex;
+    align-items: center;
+    block-size: calc(var(--spacer) * 2);
+    box-shadow: var(--border-shadow);
+    padding-inline: var(--ui-padding-inline);
+    font-size: var(--ui-font-size);
+    font-weight: normal;
+    text-transform: var(--ui-text-transform);
+    margin: 0;
+  }
+
+  > section {
+    padding: var(--ui-padding-inline);
+    display: grid;
+    gap: var(--spacer);
   }
 }
 </style>
