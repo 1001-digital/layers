@@ -17,6 +17,7 @@ export default defineNuxtConfig({
       dirs.push({
         path: componentsDir,
         pathPrefix: false,
+        ignore: ['Icon.vue'],
       })
     },
     'components:extend': (components) => {
