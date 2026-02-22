@@ -37,7 +37,7 @@
           class="left"
         >
           <Button
-            class="small"
+            class="small tertiary"
             @click="toast.action!.onClick()"
           >
             {{ toast.action.label }}
