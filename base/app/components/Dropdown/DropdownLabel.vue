@@ -1,9 +1,4 @@
-<template>
-  <DropdownMenuLabel class="dropdown-label">
-    <slot />
-  </DropdownMenuLabel>
-</template>
-
-<script setup lang="ts">
-import { DropdownMenuLabel } from 'reka-ui'
+<script lang="ts">
+import { DropdownLabel } from '@1001-digital/components'
+export default DropdownLabel
 </script>

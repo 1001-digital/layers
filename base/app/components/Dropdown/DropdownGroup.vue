@@ -1,9 +1,4 @@
-<template>
-  <DropdownMenuGroup>
-    <slot />
-  </DropdownMenuGroup>
-</template>
-
-<script setup lang="ts">
-import { DropdownMenuGroup } from 'reka-ui'
+<script lang="ts">
+import { DropdownGroup } from '@1001-digital/components'
+export default DropdownGroup
 </script>

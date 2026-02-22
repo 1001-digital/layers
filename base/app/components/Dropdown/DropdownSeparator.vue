@@ -1,7 +1,4 @@
-<template>
-  <DropdownMenuSeparator class="dropdown-separator" />
-</template>
-
-<script setup lang="ts">
-import { DropdownMenuSeparator } from 'reka-ui'
+<script lang="ts">
+import { DropdownSeparator } from '@1001-digital/components'
+export default DropdownSeparator
 </script>

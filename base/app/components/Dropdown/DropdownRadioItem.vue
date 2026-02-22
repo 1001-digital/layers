@@ -1,31 +1,4 @@
-<template>
-  <DropdownMenuRadioItem
-    class="dropdown-item"
-    :value="value"
-    :disabled="disabled"
-    :text-value="textValue"
-    @select="(e: Event) => emit('select', e)"
-  >
-    <DropdownMenuItemIndicator class="dropdown-item-indicator">
-      <Icon type="check" />
-    </DropdownMenuItemIndicator>
-    <slot />
-  </DropdownMenuRadioItem>
-</template>
-
-<script setup lang="ts">
-import {
-  DropdownMenuItemIndicator,
-  DropdownMenuRadioItem,
-} from 'reka-ui'
-
-defineProps<{
-  value: string
-  disabled?: boolean
-  textValue?: string
-}>()
-
-const emit = defineEmits<{
-  select: [event: Event]
-}>()
+<script lang="ts">
+import { DropdownRadioItem } from '@1001-digital/components'
+export default DropdownRadioItem
 </script>

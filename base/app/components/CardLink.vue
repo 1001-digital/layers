@@ -1,39 +1,4 @@
-<template>
-  <NuxtLink :to="to" class="card-link">
-    <span>{{ title }}</span>
-  </NuxtLink>
-</template>
-
-<script setup lang="ts">
-import type { RouteLocationRaw } from 'vue-router'
-
-withDefaults(defineProps<{
-  to: RouteLocationRaw
-  title?: string
-}>(), {
-  title: 'View',
-})
+<script lang="ts">
+import { CardLink } from '@1001-digital/components'
+export default CardLink
 </script>
-
-<style scoped>
-a {
-  position: absolute;
-  z-index: 1;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  border: 0;
-
-  span {
-    opacity: 0;
-    pointer-events: none;
-  }
-}
-</style>
-
-<style>
-*:has(> .card-link) {
-  position: relative;
-}
-</style>
