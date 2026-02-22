@@ -1073,6 +1073,28 @@
         </div>
 
         <div class="component-demo">
+          <h4>Navigation</h4>
+          <p>Trigger a toast, then navigate to verify it persists.</p>
+          <div class="demo-row">
+            <Button
+              @click="
+                toast.add({
+                  variant: 'info',
+                  title: 'Navigating…',
+                  description: 'This toast should survive the route change.',
+                  duration: 10_000,
+                })
+              "
+            >
+              Toast + Navigate
+            </Button>
+            <NuxtLink to="/other">
+              Go to other page
+            </NuxtLink>
+          </div>
+        </div>
+
+        <div class="component-demo">
           <h4>With Action</h4>
           <div class="demo-row">
             <Button
