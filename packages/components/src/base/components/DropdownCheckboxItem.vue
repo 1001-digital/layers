@@ -1,10 +1,9 @@
 <template>
   <DropdownMenuCheckboxItem
     class="dropdown-item"
-    :checked="model"
+    v-model="model"
     :disabled="disabled"
     :text-value="textValue"
-    @update:checked="(v: boolean) => (model = v)"
     @select="(e: Event) => emit('select', e)"
   >
     <DropdownMenuItemIndicator class="dropdown-item-indicator">
