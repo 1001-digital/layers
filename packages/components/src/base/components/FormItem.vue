@@ -64,6 +64,26 @@
       border-start-end-radius: var(--border-radius);
       border-end-end-radius: var(--border-radius);
     }
+
+    &:has(> .prefix) {
+      border-start-start-radius: 0;
+      border-end-start-radius: 0;
+
+      & :deep(input) {
+        border-start-start-radius: 0;
+        border-end-start-radius: 0;
+      }
+    }
+
+    &:has(> .suffix) {
+      border-start-end-radius: 0;
+      border-end-end-radius: 0;
+
+      & :deep(input) {
+        border-start-end-radius: 0;
+        border-end-end-radius: 0;
+      }
+    }
   }
 }
 </style>
