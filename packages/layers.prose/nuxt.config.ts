@@ -9,7 +9,5 @@ export default defineNuxtConfig({
 
   extends: ['@1001-digital/layers.base'],
 
-  css: [
-    join(currentDir, './app/assets/styles/index.css'),
-  ],
+  css: [join(currentDir, './app/assets/styles/index.css')],
 })

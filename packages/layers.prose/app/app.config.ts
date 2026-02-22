@@ -1,7 +1,7 @@
 export default defineAppConfig({
   prose: {
-    name: 'Hello from Nuxt layer'
-  }
+    name: 'Hello from Nuxt layer',
+  },
 })
 
 declare module '@nuxt/schema' {

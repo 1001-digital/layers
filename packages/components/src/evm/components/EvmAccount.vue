@@ -1,5 +1,8 @@
 <template>
-  <slot :display="display" :is-current="isCurrent">
+  <slot
+    :display="display"
+    :is-current="isCurrent"
+  >
     <span>{{ display }}</span>
   </slot>
 </template>

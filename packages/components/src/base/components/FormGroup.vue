@@ -1,5 +1,8 @@
 <template>
-  <div class="form-group" :class="{ radio }">
+  <div
+    class="form-group"
+    :class="{ radio }"
+  >
     <slot />
   </div>
 </template>

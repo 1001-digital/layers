@@ -1,4 +1,7 @@
-export function formatETH(value: string | number, maxDecimals: number = 3): string {
+export function formatETH(
+  value: string | number,
+  maxDecimals: number = 3,
+): string {
   const numberValue = typeof value === 'string' ? parseFloat(value) : value
 
   if (isNaN(numberValue)) {

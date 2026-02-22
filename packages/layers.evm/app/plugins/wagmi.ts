@@ -9,16 +9,25 @@ import {
   type Config,
   type CreateConnectorFn,
 } from '@wagmi/vue'
-import { coinbaseWallet, injected, metaMask, walletConnect } from '@wagmi/vue/connectors'
+import {
+  coinbaseWallet,
+  injected,
+  metaMask,
+  walletConnect,
+} from '@wagmi/vue/connectors'
 import type { Chain, Transport } from 'viem'
-import { EvmConfigKey, resolveChain, type EvmConfig } from '@1001-digital/components'
+import {
+  EvmConfigKey,
+  resolveChain,
+  type EvmConfig,
+} from '@1001-digital/components'
 
 export default defineNuxtPlugin((nuxtApp) => {
   const appConfig = useAppConfig()
   const runtimeConfig = nuxtApp.$config.public.evm as {
     walletConnectProjectId: string
-    chains: Record<string, { rpc1?: string, rpc2?: string, rpc3?: string }>
-    ens: { indexer1?: string, indexer2?: string, indexer3?: string }
+    chains: Record<string, { rpc1?: string; rpc2?: string; rpc3?: string }>
+    ens: { indexer1?: string; indexer2?: string; indexer3?: string }
   }
 
   const title = appConfig.evm?.title || 'EVM Layer'

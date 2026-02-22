@@ -1,5 +1,9 @@
 <template>
-  <DropdownMenuRoot v-model:open="open" :modal="modal" :dir="dir">
+  <DropdownMenuRoot
+    v-model:open="open"
+    :modal="modal"
+    :dir="dir"
+  >
     <DropdownMenuTrigger as-child>
       <slot name="trigger" />
     </DropdownMenuTrigger>
@@ -159,6 +163,5 @@ const open = defineModel<boolean>('open', { required: true })
     color: var(--muted);
     margin-inline-start: auto;
   }
-
 }
 </style>

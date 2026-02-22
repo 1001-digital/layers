@@ -1,5 +1,9 @@
 <template>
-  <component :is="linkComponent" v-bind="linkProps" class="card-link">
+  <component
+    :is="linkComponent"
+    v-bind="linkProps"
+    class="card-link"
+  >
     <span>{{ title }}</span>
   </component>
 </template>
@@ -8,12 +12,15 @@
 import { computed, inject } from 'vue'
 import { LinkComponentKey } from '../link'
 
-const props = withDefaults(defineProps<{
-  to: string | Record<string, any>
-  title?: string
-}>(), {
-  title: 'View',
-})
+const props = withDefaults(
+  defineProps<{
+    to: string | Record<string, any>
+    title?: string
+  }>(),
+  {
+    title: 'View',
+  },
+)
 
 const linkComponent = inject(LinkComponentKey, 'a')
 

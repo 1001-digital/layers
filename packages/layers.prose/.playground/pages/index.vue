@@ -25,8 +25,15 @@
           <h4>Default</h4>
           <Prose>
             <h1>This is a prose container</h1>
-            <p>The Prose component wraps content and applies consistent typography styles for long-form text content like articles, blog posts, and documentation.</p>
-            <p>It handles spacing, headings, links, lists, and other elements automatically.</p>
+            <p>
+              The Prose component wraps content and applies consistent
+              typography styles for long-form text content like articles, blog
+              posts, and documentation.
+            </p>
+            <p>
+              It handles spacing, headings, links, lists, and other elements
+              automatically.
+            </p>
           </Prose>
         </div>
 
@@ -34,7 +41,9 @@
           <h4>Centered</h4>
           <Prose centered>
             <h2>Centered Content</h2>
-            <p>Use the <code>centered</code> prop to center-align text content.</p>
+            <p>
+              Use the <code>centered</code> prop to center-align text content.
+            </p>
           </Prose>
         </div>
       </article>
@@ -70,15 +79,25 @@
         <div class="component-demo">
           <h4>Paragraphs</h4>
           <Prose>
-            <p>This is a paragraph with regular text. It demonstrates the default styling applied to prose content including line height and spacing.</p>
-            <p>Multiple paragraphs are spaced evenly. Links in paragraphs are <a href="#">styled with underlines</a> to make them visible.</p>
+            <p>
+              This is a paragraph with regular text. It demonstrates the default
+              styling applied to prose content including line height and
+              spacing.
+            </p>
+            <p>
+              Multiple paragraphs are spaced evenly. Links in paragraphs are
+              <a href="#">styled with underlines</a> to make them visible.
+            </p>
           </Prose>
         </div>
 
         <div class="component-demo">
           <h4>Lead Text</h4>
           <Prose>
-            <p class="lead">This is lead text, styled slightly larger for introductory content.</p>
+            <p class="lead">
+              This is lead text, styled slightly larger for introductory
+              content.
+            </p>
             <p>Regular paragraph text follows after the lead.</p>
           </Prose>
         </div>
@@ -87,7 +106,7 @@
           <h4>Horizontal Rule</h4>
           <Prose>
             <p>Content above the rule.</p>
-            <hr>
+            <hr />
             <p>Content below the rule.</p>
           </Prose>
         </div>
@@ -103,7 +122,10 @@
             <ul>
               <li>First item</li>
               <li>Second item</li>
-              <li>Third item with a longer description that wraps to multiple lines</li>
+              <li>
+                Third item with a longer description that wraps to multiple
+                lines
+              </li>
               <li>
                 Nested list
                 <ul>
@@ -142,7 +164,10 @@
           <h4>Basic Quote</h4>
           <Prose>
             <blockquote>
-              <p>This is a blockquote. It's styled with a left border and italic text to distinguish it from regular content.</p>
+              <p>
+                This is a blockquote. It's styled with a left border and italic
+                text to distinguish it from regular content.
+              </p>
             </blockquote>
           </Prose>
         </div>
@@ -151,7 +176,10 @@
           <h4>With Citation</h4>
           <Prose>
             <blockquote>
-              <p>Design is not just what it looks like and feels like. Design is how it works.</p>
+              <p>
+                Design is not just what it looks like and feels like. Design is
+                how it works.
+              </p>
               <cite>Steve Jobs</cite>
             </blockquote>
           </Prose>
@@ -165,7 +193,10 @@
         <div class="component-demo">
           <h4>Inline Code</h4>
           <Prose>
-            <p>Use the <code>Prose</code> component to wrap your content. Set <code>centered</code> for centered text.</p>
+            <p>
+              Use the <code>Prose</code> component to wrap your content. Set
+              <code>centered</code> for centered text.
+            </p>
           </Prose>
         </div>
 
@@ -213,8 +244,14 @@
         <div class="component-demo">
           <h4>Basic Image</h4>
           <Prose>
-            <p>Images in prose get consistent styling with borders and rounded corners.</p>
-            <img src="https://picsum.photos/600/300" alt="Sample image">
+            <p>
+              Images in prose get consistent styling with borders and rounded
+              corners.
+            </p>
+            <img
+              src="https://picsum.photos/600/300"
+              alt="Sample image"
+            />
           </Prose>
         </div>
 
@@ -222,8 +259,13 @@
           <h4>Figure with Caption</h4>
           <Prose>
             <figure>
-              <img src="https://picsum.photos/600/300?random=2" alt="Sample figure">
-              <figcaption>Figure caption styled in muted text below the image.</figcaption>
+              <img
+                src="https://picsum.photos/600/300?random=2"
+                alt="Sample figure"
+              />
+              <figcaption>
+                Figure caption styled in muted text below the image.
+              </figcaption>
             </figure>
           </Prose>
         </div>
@@ -232,8 +274,7 @@
   </main>
 </template>
 
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <style scoped>
 .library {

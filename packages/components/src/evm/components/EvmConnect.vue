@@ -20,68 +20,73 @@
     v-model:open="chooseModalOpen"
     @closed="onModalClosed"
   >
-      <Alert
-        v-if="errorMessage"
-        type="error"
+    <Alert
+      v-if="errorMessage"
+      type="error"
+    >
+      {{ errorMessage }}
+    </Alert>
+    <EvmWalletConnectQR
+      v-if="walletConnectUri"
+      :uri="walletConnectUri"
+    />
+    <EvmMetaMaskQR
+      v-else-if="metaMaskUri"
+      :uri="metaMaskUri"
+    />
+    <template v-else-if="isConnecting">
+      <Loading
+        txt="Waiting for wallet confirmation..."
+        spinner
+        stacked
+      />
+    </template>
+    <div
+      v-else
+      class="wallet-options"
+    >
+      <Button
+        v-for="connector in shownConnectors"
+        :key="connector.uid"
+        @click="() => login(connector)"
+        class="choose-connector"
       >
-        {{ errorMessage }}
-      </Alert>
-      <EvmWalletConnectQR
-        v-if="walletConnectUri"
-        :uri="walletConnectUri"
-      />
-      <EvmMetaMaskQR
-        v-else-if="metaMaskUri"
-        :uri="metaMaskUri"
-      />
-      <template v-else-if="isConnecting">
-        <Loading
-          txt="Waiting for wallet confirmation..."
-          spinner
-          stacked
+        <img
+          v-if="ICONS[connector.name]"
+          :src="
+            connector.icon || `${base}icons/wallets/${ICONS[connector.name]}`
+          "
+          :alt="connector.name"
         />
-      </template>
-      <div
-        v-else
-        class="wallet-options"
+        <div
+          v-else
+          class="default-wallet-icon"
+        >
+          <Icon type="wallet" />
+        </div>
+        <span>{{ connector.name }}</span>
+      </Button>
+      <Button
+        to="https://ethereum.org/wallets/"
+        target="_blank"
+        class="link muted small"
       >
-        <Button
-          v-for="connector in shownConnectors"
-          :key="connector.uid"
-          @click="() => login(connector)"
-          class="choose-connector"
-        >
-          <img
-            v-if="ICONS[connector.name]"
-            :src="
-              connector.icon || `${base}icons/wallets/${ICONS[connector.name]}`
-            "
-            :alt="connector.name"
-          />
-          <div
-            v-else
-            class="default-wallet-icon"
-          >
-            <Icon type="wallet" />
-          </div>
-          <span>{{ connector.name }}</span>
-        </Button>
-        <Button
-          to="https://ethereum.org/wallets/"
-          target="_blank"
-          class="link muted small"
-        >
-          <Icon type="help" />
-          <span>New to wallets?</span>
-        </Button>
-      </div>
+        <Icon type="help" />
+        <span>New to wallets?</span>
+      </Button>
+    </div>
   </Dialog>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
 import type { Connector } from '@wagmi/vue'
-import { useConnection, useConnect, useConnectors, useChainId } from '@wagmi/vue'
+import {
+  useConnection,
+  useConnect,
+  useConnectors,
+  useChainId,
+} from '@wagmi/vue'
 import Button from '../../base/components/Button.vue'
 import Dialog from '../../base/components/Dialog.vue'
 import Icon from '../../base/components/Icon.vue'

@@ -14,10 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  DropdownMenuItemIndicator,
-  DropdownMenuRadioItem,
-} from 'reka-ui'
+import { DropdownMenuItemIndicator, DropdownMenuRadioItem } from 'reka-ui'
 import Icon from './Icon.vue'
 
 defineProps<{

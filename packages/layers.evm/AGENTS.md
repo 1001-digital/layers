@@ -18,6 +18,7 @@ Nuxt layer for building dAPPs (Ethereum-powered applications). Extends `@1001-di
 ## Wagmi Configuration
 
 Uses modern wagmi 0.4.x patterns:
+
 - `useConnection` (not deprecated `useAccount`)
 - `useConnectionEffect` (not deprecated `useAccountEffect`)
 - `useSwitchConnection` (not deprecated `useSwitchAccount`)

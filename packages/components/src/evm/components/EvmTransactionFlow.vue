@@ -231,9 +231,12 @@ const initializeRequest = async (request = cachedRequest.value) => {
     step.value = 'requesting'
     tx.value = await request!()
     step.value = 'waiting'
-    const receiptObject = await waitForTransactionReceipt(wagmiConfig as Config, {
-      hash: tx.value,
-    })
+    const receiptObject = await waitForTransactionReceipt(
+      wagmiConfig as Config,
+      {
+        hash: tx.value,
+      },
+    )
     await delay(props.delayAfter)
     receipt.value = receiptObject
     emit('complete', receiptObject)

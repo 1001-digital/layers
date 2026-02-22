@@ -8,7 +8,11 @@
   <p class="uri-label">Or copy the connection URI:</p>
   <div class="uri-display">
     <code>{{ uri }}</code>
-    <Button @click="copyUri" class="copy-button" :class="{ copied: isCopied }">
+    <Button
+      @click="copyUri"
+      class="copy-button"
+      :class="{ copied: isCopied }"
+    >
       <Icon :type="isCopied ? 'check' : 'copy'" />
     </Button>
   </div>

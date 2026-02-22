@@ -1,7 +1,15 @@
 <template>
   <Transition name="fade">
-    <aside v-if="!dismissed" class="alert" :class="[type]">
-      <button v-if="dismissable" @click="dismiss" class="close">
+    <aside
+      v-if="!dismissed"
+      class="alert"
+      :class="[type]"
+    >
+      <button
+        v-if="dismissable"
+        @click="dismiss"
+        class="close"
+      >
         <Icon type="close" />
       </button>
       <slot />

@@ -1,5 +1,8 @@
 <template>
-  <DropdownMenuRadioGroup :model-value="model" @update:model-value="(v) => (model = v)">
+  <DropdownMenuRadioGroup
+    :model-value="model"
+    @update:model-value="(v) => (model = v)"
+  >
     <slot />
   </DropdownMenuRadioGroup>
 </template>

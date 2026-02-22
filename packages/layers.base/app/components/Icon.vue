@@ -1,5 +1,9 @@
 <template>
-  <NuxtIcon v-if="iconName" :name="iconName" class="icon" />
+  <NuxtIcon
+    v-if="iconName"
+    :name="iconName"
+    class="icon"
+  />
 </template>
 
 <script setup lang="ts">

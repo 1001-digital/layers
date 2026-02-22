@@ -17,7 +17,10 @@ export const useSeconds = () => {
   return now
 }
 
-export const useCountDown = (s: Ref<number | bigint>, showSecondsWithin: number = 60) => {
+export const useCountDown = (
+  s: Ref<number | bigint>,
+  showSecondsWithin: number = 60,
+) => {
   const duration = computed(() => Math.abs(Number(s.value)))
 
   const seconds = computed(() => duration.value % 60)
@@ -30,7 +33,9 @@ export const useCountDown = (s: Ref<number | bigint>, showSecondsWithin: number 
       days.value ? `${days.value}d` : null,
       hours.value ? `${hours.value}h` : null,
       minutes.value ? `${minutes.value}m` : null,
-      duration.value < showSecondsWithin && seconds.value ? `${seconds.value}s` : null,
+      duration.value < showSecondsWithin && seconds.value
+        ? `${seconds.value}s`
+        : null,
     ]
       .filter((s) => !!s)
       .join(' '),
@@ -53,7 +58,11 @@ export const useTimeAgo = (time: Ref<string | undefined>) => {
     nowRef,
     () => {
       if (time.value) {
-        ago.value = DateTime.fromISO(time.value).toRelative({ style: 'short', locale: 'en' }) ?? undefined
+        ago.value =
+          DateTime.fromISO(time.value).toRelative({
+            style: 'short',
+            locale: 'en',
+          }) ?? undefined
       }
     },
     {
@@ -66,6 +75,8 @@ export const useTimeAgo = (time: Ref<string | undefined>) => {
 
 /** @deprecated Use `useTimeAgo` instead. */
 export const useSecondsAgo = (...args: Parameters<typeof useTimeAgo>) => {
-  console.warn('[deprecated] useSecondsAgo is deprecated, use useTimeAgo instead.')
+  console.warn(
+    '[deprecated] useSecondsAgo is deprecated, use useTimeAgo instead.',
+  )
   return useTimeAgo(...args)
 }

@@ -9,7 +9,12 @@ export { formatETH } from './utils/format-eth'
 
 // Composables
 export { useBaseURL } from './composables/base'
-export { useChainConfig, useMainChainId, useBlockExplorer, useEnsureChainIdCheck } from './composables/chainId'
+export {
+  useChainConfig,
+  useMainChainId,
+  useBlockExplorer,
+  useEnsureChainIdCheck,
+} from './composables/chainId'
 
 // Components
 export { default as EvmAccount } from './components/EvmAccount.vue'

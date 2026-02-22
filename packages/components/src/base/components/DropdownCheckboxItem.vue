@@ -15,10 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  DropdownMenuCheckboxItem,
-  DropdownMenuItemIndicator,
-} from 'reka-ui'
+import { DropdownMenuCheckboxItem, DropdownMenuItemIndicator } from 'reka-ui'
 import Icon from './Icon.vue'
 
 defineProps<{

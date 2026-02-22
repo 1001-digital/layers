@@ -513,10 +513,10 @@
               v-for="i in 20"
               :key="i"
             >
-              {{ i }}. Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
-              aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-              ullamco laboris.
+              {{ i }}. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco
+              laboris.
             </p>
             <template #footer>
               <Button @click="showScrollDialog = false">Decline</Button>
@@ -532,7 +532,9 @@
             v-model:open="showNoFooterDialog"
             title="Notification"
           >
-            <p>This dialog has no footer actions. Close it with the X button.</p>
+            <p>
+              This dialog has no footer actions. Close it with the X button.
+            </p>
           </Dialog>
 
           <Dialog
@@ -541,8 +543,8 @@
             compat
           >
             <p>
-              This dialog uses compat mode, rendering as an article element
-              with an overlay instead of the native dialog element.
+              This dialog uses compat mode, rendering as an article element with
+              an overlay instead of the native dialog element.
             </p>
             <template #footer>
               <Button @click="showCompatDialog = false">Close</Button>
@@ -574,8 +576,8 @@
             :click-outside="false"
           >
             <p>
-              Clicking outside this dialog will not close it. You must use
-              the X button or the action below.
+              Clicking outside this dialog will not close it. You must use the X
+              button or the action below.
             </p>
             <template #footer>
               <Button
@@ -607,7 +609,11 @@
         <div class="component-demo">
           <h4>With Title</h4>
           <div class="demo-row">
-            <Popover v-model:open="showPopoverTitle" title="Popover Title" closable>
+            <Popover
+              v-model:open="showPopoverTitle"
+              title="Popover Title"
+              closable
+            >
               <template #trigger>
                 <Button>With Title</Button>
               </template>
@@ -619,7 +625,10 @@
         <div class="component-demo">
           <h4>With Close Button</h4>
           <div class="demo-row">
-            <Popover v-model:open="showPopoverClosable" closable>
+            <Popover
+              v-model:open="showPopoverClosable"
+              closable
+            >
               <template #trigger>
                 <Button>Closable</Button>
               </template>
@@ -631,7 +640,10 @@
         <div class="component-demo">
           <h4>With Arrow</h4>
           <div class="demo-row">
-            <Popover v-model:open="showPopoverArrow" arrow>
+            <Popover
+              v-model:open="showPopoverArrow"
+              arrow
+            >
               <template #trigger>
                 <Button>With Arrow</Button>
               </template>
@@ -643,11 +655,19 @@
         <div class="component-demo">
           <h4>Long Content (Scrolling)</h4>
           <div class="demo-row">
-            <Popover v-model:open="showPopoverScroll" title="Terms & Conditions" closable arrow>
+            <Popover
+              v-model:open="showPopoverScroll"
+              title="Terms & Conditions"
+              closable
+              arrow
+            >
               <template #trigger>
                 <Button>Scrolling</Button>
               </template>
-              <p v-for="i in 20" :key="i">
+              <p
+                v-for="i in 20"
+                :key="i"
+              >
                 {{ i }}. Lorem ipsum dolor sit amet, consectetur adipiscing
                 elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
                 aliqua.
@@ -659,28 +679,42 @@
         <div class="component-demo">
           <h4>Positioning</h4>
           <div class="demo-row">
-            <Popover v-model:open="showPopoverTop" side="top">
+            <Popover
+              v-model:open="showPopoverTop"
+              side="top"
+            >
               <template #trigger>
                 <Button>Top</Button>
               </template>
               <p>Opens above the trigger.</p>
             </Popover>
 
-            <Popover v-model:open="showPopoverRight" side="right">
+            <Popover
+              v-model:open="showPopoverRight"
+              side="right"
+            >
               <template #trigger>
                 <Button>Right</Button>
               </template>
               <p>Opens to the right.</p>
             </Popover>
 
-            <Popover v-model:open="showPopoverLeft" side="left">
+            <Popover
+              v-model:open="showPopoverLeft"
+              side="left"
+            >
               <template #trigger>
                 <Button>Left</Button>
               </template>
               <p>Opens to the left.</p>
             </Popover>
 
-            <Popover v-model:open="showPopoverBottom" side="bottom" align="start" arrow>
+            <Popover
+              v-model:open="showPopoverBottom"
+              side="bottom"
+              align="start"
+              arrow
+            >
               <template #trigger>
                 <Button>Bottom Start</Button>
               </template>
@@ -766,11 +800,20 @@
                   <Icon type="chevron-down" />
                 </Button>
               </template>
-              <DropdownCheckboxItem v-model="dropdownBold">Bold</DropdownCheckboxItem>
-              <DropdownCheckboxItem v-model="dropdownItalic">Italic</DropdownCheckboxItem>
-              <DropdownCheckboxItem v-model="dropdownUnderline">Underline</DropdownCheckboxItem>
+              <DropdownCheckboxItem v-model="dropdownBold"
+                >Bold</DropdownCheckboxItem
+              >
+              <DropdownCheckboxItem v-model="dropdownItalic"
+                >Italic</DropdownCheckboxItem
+              >
+              <DropdownCheckboxItem v-model="dropdownUnderline"
+                >Underline</DropdownCheckboxItem
+              >
             </Dropdown>
-            <code>Bold: {{ dropdownBold }}, Italic: {{ dropdownItalic }}, Underline: {{ dropdownUnderline }}</code>
+            <code
+              >Bold: {{ dropdownBold }}, Italic: {{ dropdownItalic }},
+              Underline: {{ dropdownUnderline }}</code
+            >
           </div>
         </div>
 
@@ -826,7 +869,10 @@
         <div class="component-demo">
           <h4>Positioning</h4>
           <div class="demo-row">
-            <Dropdown v-model:open="showDropdownTop" side="top">
+            <Dropdown
+              v-model:open="showDropdownTop"
+              side="top"
+            >
               <template #trigger>
                 <Button>Top</Button>
               </template>
@@ -834,7 +880,10 @@
               <DropdownItem>Item 2</DropdownItem>
             </Dropdown>
 
-            <Dropdown v-model:open="showDropdownRight" side="right">
+            <Dropdown
+              v-model:open="showDropdownRight"
+              side="right"
+            >
               <template #trigger>
                 <Button>Right</Button>
               </template>
@@ -842,7 +891,12 @@
               <DropdownItem>Item 2</DropdownItem>
             </Dropdown>
 
-            <Dropdown v-model:open="showDropdownEnd" side="bottom" align="end" arrow>
+            <Dropdown
+              v-model:open="showDropdownEnd"
+              side="bottom"
+              align="end"
+              arrow
+            >
               <template #trigger>
                 <Button>Bottom End + Arrow</Button>
               </template>

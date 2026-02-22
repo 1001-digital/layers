@@ -1,5 +1,9 @@
 <template>
-  <IconifyIcon v-if="resolvedIcon" :icon="resolvedIcon" class="icon" />
+  <IconifyIcon
+    v-if="resolvedIcon"
+    :icon="resolvedIcon"
+    class="icon"
+  />
 </template>
 
 <script setup lang="ts">

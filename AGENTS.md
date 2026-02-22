@@ -18,5 +18,6 @@ Components in nested directories use auto-generated names based on path and file
 Example: `components/base/foo/Button.vue` → `<BaseFooButton />`
 
 For clarity, rename files to match the full component name:
+
 - ✗ `components/base/foo/Button.vue`
 - ✓ `components/base/foo/BaseFooButton.vue`

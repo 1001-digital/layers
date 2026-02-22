@@ -1,8 +1,6 @@
 <template>
   <EvmConnectorQR :uri="uri">
-    <template #instruction>
-      Scan the code in your wallet application
-    </template>
+    <template #instruction> Scan the code in your wallet application </template>
   </EvmConnectorQR>
 </template>
 

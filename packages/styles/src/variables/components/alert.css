@@ -8,6 +8,10 @@
   --alert-info-border-color: var(--alert-border-color);
 
   --alert-error-color: var(--error);
-  --alert-error-background-color: color-mix(in srgb, var(--error) 10%, transparent);
+  --alert-error-background-color: color-mix(
+    in srgb,
+    var(--error) 10%,
+    transparent
+  );
   --alert-error-border-color: var(--error);
 }

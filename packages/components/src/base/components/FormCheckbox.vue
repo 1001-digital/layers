@@ -1,6 +1,12 @@
 <template>
   <label class="form-checkbox">
-    <CheckboxRoot v-model="model" :disabled="disabled" :name="name" :value="value" class="form-checkbox-button">
+    <CheckboxRoot
+      v-model="model"
+      :disabled="disabled"
+      :name="name"
+      :value="value"
+      class="form-checkbox-button"
+    >
       <CheckboxIndicator class="form-checkbox-indicator">
         <Icon type="check" />
       </CheckboxIndicator>
@@ -10,10 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  CheckboxIndicator,
-  CheckboxRoot,
-} from 'reka-ui'
+import { CheckboxIndicator, CheckboxRoot } from 'reka-ui'
 import Icon from './Icon.vue'
 
 const model = defineModel<boolean | 'indeterminate'>()

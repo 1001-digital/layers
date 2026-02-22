@@ -46,7 +46,8 @@ select:not(.unstyled) {
   }
 
   &.small {
-    padding: calc(var(--ui-padding-block) / 2) calc(var(--ui-padding-inline) / 2);
+    padding: calc(var(--ui-padding-block) / 2)
+      calc(var(--ui-padding-inline) / 2);
     block-size: var(--form-item-height-sm);
   }
 }

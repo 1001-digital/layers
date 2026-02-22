@@ -4,11 +4,11 @@ A monorepo containing composable Nuxt layers for building modern web application
 
 ## Layers
 
-| Layer | Description |
-|-------|-------------|
-| **base** | Foundation layer with accessible UI components and a comprehensive design token system |
-| **prose** | Typography and content styling for documentation and content-driven sites |
-| **evm** | Ethereum/Web3 integration for building decentralized applications |
+| Layer     | Description                                                                            |
+| --------- | -------------------------------------------------------------------------------------- |
+| **base**  | Foundation layer with accessible UI components and a comprehensive design token system |
+| **prose** | Typography and content styling for documentation and content-driven sites              |
+| **evm**   | Ethereum/Web3 integration for building decentralized applications                      |
 
 ### Layer Inheritance
 
@@ -33,7 +33,7 @@ Extend a layer in your `nuxt.config.ts`:
 
 ```ts
 export default defineNuxtConfig({
-  extends: ['@1001-digital/layers.base']
+  extends: ['@1001-digital/layers.base'],
 })
 ```
 
@@ -65,6 +65,7 @@ The foundation for building modern web applications with accessible, semantic co
 Built on CSS custom properties with a layered architecture (`reset` → `base` → `components` → `utilities`).
 
 **Colors** - OKLCH color palette with automatic light/dark mode support:
+
 ```css
 --primary, --muted, --error, --success
 --gray-50 through --gray-950
@@ -72,22 +73,23 @@ Built on CSS custom properties with a layered architecture (`reset` → `base` �
 ```
 
 **Typography** - Fluid font scaling using `clamp()`:
+
 ```css
 --font-xs through --font-3xl
 --font-family
 ```
 
 **Spacing**:
+
 ```css
 --size-0 through --size-10
 --spacer-xs, --spacer-sm, --spacer, --spacer-md, --spacer-lg, --spacer-xl
 ```
 
 **Layout**:
+
 ```css
---content-width-wide: 90rem
---content-width: 60rem
---content-width-sm: 35rem
+--content-width-wide: 90rem --content-width: 60rem --content-width-sm: 35rem;
 ```
 
 ### Dependencies
@@ -152,9 +154,9 @@ export default defineNuxtConfig({
       chainId: 1,
       blockExplorer: 'https://etherscan.io',
       rpc1: 'https://...',
-      walletConnectProjectId: '...'
-    }
-  }
+      walletConnectProjectId: '...',
+    },
+  },
 })
 ```
 

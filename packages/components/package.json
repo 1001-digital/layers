@@ -9,7 +9,9 @@
     ".": "./src/index.ts",
     "./*": "./src/*"
   },
-  "files": ["src"],
+  "files": [
+    "src"
+  ],
   "peerDependencies": {
     "@1001-digital/styles": "workspace:*",
     "@wagmi/core": ">=3.0.0",
@@ -18,9 +20,15 @@
     "vue": "^3.5.0"
   },
   "peerDependenciesMeta": {
-    "@wagmi/core": { "optional": true },
-    "@wagmi/vue": { "optional": true },
-    "viem": { "optional": true }
+    "@wagmi/core": {
+      "optional": true
+    },
+    "@wagmi/vue": {
+      "optional": true
+    },
+    "viem": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@iconify/vue": "^5.0.0",

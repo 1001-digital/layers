@@ -19,7 +19,8 @@ export const useChainConfig = (key?: string): ChainConfig => {
 
 export const useMainChainId = () => useChainConfig().id
 
-export const useBlockExplorer = (key?: string) => useChainConfig(key).blockExplorer
+export const useBlockExplorer = (key?: string) =>
+  useChainConfig(key).blockExplorer
 
 export const useEnsureChainIdCheck = () => {
   const chainId = useMainChainId()

@@ -1,7 +1,20 @@
 <template>
-  <RadioGroupRoot v-model="model" :disabled="disabled" :name="name" :orientation="orientation" class="form-radio-group">
-    <label v-for="option in options" :key="option[valueKey]" class="form-radio-item">
-      <RadioGroupItem :value="option[valueKey]" class="form-radio-button">
+  <RadioGroupRoot
+    v-model="model"
+    :disabled="disabled"
+    :name="name"
+    :orientation="orientation"
+    class="form-radio-group"
+  >
+    <label
+      v-for="option in options"
+      :key="option[valueKey]"
+      class="form-radio-item"
+    >
+      <RadioGroupItem
+        :value="option[valueKey]"
+        class="form-radio-button"
+      >
         <RadioGroupIndicator class="form-radio-indicator" />
       </RadioGroupItem>
       <span>{{ option[labelKey] }}</span>
@@ -10,11 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  RadioGroupIndicator,
-  RadioGroupItem,
-  RadioGroupRoot,
-} from 'reka-ui'
+import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from 'reka-ui'
 
 const model = defineModel<string>()
 

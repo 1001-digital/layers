@@ -21,8 +21,8 @@ export default defineNuxtConfig({
   icon: {
     aliases: {
       check: 'custom:check-circle',
-      add: 'heroicons:plus'
-    }
-  }
+      add: 'heroicons:plus',
+    },
+  },
 })
 ```

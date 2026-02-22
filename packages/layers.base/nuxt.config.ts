@@ -19,12 +19,10 @@ export default defineNuxtConfig({
       link: 'lucide:link',
       loader: 'lucide:loader-2',
       wallet: 'lucide:wallet',
-    }
+    },
   },
 
-  css: [
-    '@1001-digital/styles',
-  ],
+  css: ['@1001-digital/styles'],
 
   compatibilityDate: '2026-01-28',
 })

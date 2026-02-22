@@ -1,5 +1,10 @@
 <template>
-  <SelectRoot v-model="model" :multiple="multiple" :disabled="disabled" :name="name">
+  <SelectRoot
+    v-model="model"
+    :multiple="multiple"
+    :disabled="disabled"
+    :name="name"
+  >
     <SelectTrigger class="form-select-trigger">
       <SelectValue :placeholder="placeholder" />
       <SelectIcon class="form-select-icon">
@@ -8,10 +13,18 @@
     </SelectTrigger>
 
     <SelectPortal>
-      <SelectContent position="popper" :side-offset="4" class="form-select-content">
+      <SelectContent
+        position="popper"
+        :side-offset="4"
+        class="form-select-content"
+      >
         <SelectViewport class="form-select-viewport">
-          <SelectItem v-for="option in options" :key="option[valueKey]" :value="option[valueKey]"
-            class="form-select-item">
+          <SelectItem
+            v-for="option in options"
+            :key="option[valueKey]"
+            :value="option[valueKey]"
+            class="form-select-item"
+          >
             <SelectItemText>{{ option[labelKey] }}</SelectItemText>
             <SelectItemIndicator class="form-select-indicator">
               <Icon type="check" />
@@ -101,7 +114,7 @@ defineProps({
   color: var(--muted);
   transition: transform var(--speed);
 
-  [data-state='open']>& {
+  [data-state='open'] > & {
     transform: rotate(180deg);
   }
 }

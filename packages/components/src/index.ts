@@ -33,12 +33,31 @@ export { default as Tooltip } from './base/components/Tooltip.vue'
 
 // Composables
 export { useToast } from './base/composables/toast'
-export type { Toast as ToastType, ToastAction, ToastVariant } from './base/composables/toast'
-export { useSeconds, useCountDown, useTimeAgo, useSecondsAgo } from './base/composables/time'
+export type {
+  Toast as ToastType,
+  ToastAction,
+  ToastVariant,
+} from './base/composables/toast'
+export {
+  useSeconds,
+  useCountDown,
+  useTimeAgo,
+  useSecondsAgo,
+} from './base/composables/time'
 
 // Utils
-export { formatNumber, roundAndFormatNumber, asPercentageOf, formatUSD } from './base/utils/format-number'
-export { delay, daysInSeconds, nowInSeconds, asUTCDate } from './base/utils/time'
+export {
+  formatNumber,
+  roundAndFormatNumber,
+  asPercentageOf,
+  formatUSD,
+} from './base/utils/format-number'
+export {
+  delay,
+  daysInSeconds,
+  nowInSeconds,
+  asUTCDate,
+} from './base/utils/time'
 
 // Injection keys & types
 export { IconAliasesKey, defaultIconAliases } from './base/icons'

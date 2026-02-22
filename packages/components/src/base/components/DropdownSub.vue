@@ -5,7 +5,10 @@
       :disabled="disabled"
     >
       <slot name="trigger" />
-      <Icon class="dropdown-sub-icon" type="chevron-right" />
+      <Icon
+        class="dropdown-sub-icon"
+        type="chevron-right"
+      />
     </DropdownMenuSubTrigger>
 
     <DropdownMenuPortal>

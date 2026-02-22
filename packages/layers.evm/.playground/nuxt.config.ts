@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     config: {
       // Use the generated ESLint config for lint root project as well
       rootDir: layerDir,
-    }
+    },
   },
   hooks: {
     'vite:serverCreated': (server) => {

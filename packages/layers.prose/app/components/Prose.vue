@@ -1,5 +1,8 @@
 <template>
-  <div class="prose" :class="{ centered }">
+  <div
+    class="prose"
+    :class="{ centered }"
+  >
     <slot />
   </div>
 </template>

@@ -3,7 +3,10 @@
     <span>
       <slot />
     </span>
-    <Button v-if="dismissable" @click="emit('dismiss')">
+    <Button
+      v-if="dismissable"
+      @click="emit('dismiss')"
+    >
       <Icon type="close" />
     </Button>
   </span>
@@ -35,10 +38,10 @@ const emit = defineEmits<{
   display: flex;
   align-items: center;
 
-  >span {
+  > span {
     padding: var(--spacer-sm) var(--spacer);
 
-    +button {
+    + button {
       padding: var(--spacer-sm);
 
       &:is(:hover, :active, :focus, .active) {

@@ -1,10 +1,16 @@
 <template>
   <div class="form-item">
-    <span v-if="$slots.prefix" class="prefix">
+    <span
+      v-if="$slots.prefix"
+      class="prefix"
+    >
       <slot name="prefix" />
     </span>
     <slot />
-    <span v-if="$slots.suffix" class="suffix">
+    <span
+      v-if="$slots.suffix"
+      class="suffix"
+    >
       <slot name="suffix" />
     </span>
   </div>
@@ -17,7 +23,9 @@
     display: flex;
     align-items: center;
     background: var(--background);
-    transition: background-color var(--speed), border-color var(--speed);
+    transition:
+      background-color var(--speed),
+      border-color var(--speed);
     inline-size: 100%;
     max-inline-size: -webkit-fill-available;
 
