@@ -250,9 +250,10 @@ const onClickOutside = () => {
     > footer {
       display: flex;
       gap: var(--spacer);
-      justify-content: flex-end;
+      justify-content: safe flex-end;
       padding: var(--spacer);
       border-block-start: var(--border);
+      overflow-x: auto;
 
       &:empty {
         display: none;
