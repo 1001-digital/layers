@@ -1,7 +1,7 @@
 :root {
   --toast-width: 22rem;
   --toast-padding: var(--spacer-sm);
-  --toast-gap: var(--spacer-xs);
+  --toast-gap: var(--spacer-sm);
 
   --toast-info-color: var(--color);
   --toast-info-background: var(--card-background);
