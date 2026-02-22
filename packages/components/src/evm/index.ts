@@ -3,9 +3,18 @@ export { EvmConfigKey, defaultEvmConfig, useEvmConfig } from './config'
 export type { EvmConfig, EvmChainConfig } from './config'
 
 // Utils
+export { createCache } from './utils/cache'
 export { shortAddress } from './utils/addresses'
 export { resolveChain } from './utils/chains'
 export { formatETH } from './utils/format-eth'
+export {
+  ensCache,
+  fetchEnsFromIndexer,
+  fetchEnsFromChain,
+  ENS_KEYS_AVATAR,
+  ENS_KEYS_PROFILE,
+} from './utils/ens'
+export type { EnsProfile } from './utils/ens'
 
 // Composables
 export { useBaseURL } from './composables/base'
@@ -15,6 +24,7 @@ export {
   useBlockExplorer,
   useEnsureChainIdCheck,
 } from './composables/chainId'
+export { useEns, useEnsWithAvatar, useEnsProfile } from './composables/ens'
 
 // Components
 export { default as EvmAccount } from './components/EvmAccount.vue'
