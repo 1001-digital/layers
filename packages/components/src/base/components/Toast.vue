@@ -206,14 +206,14 @@ const { toasts, dismiss } = useToast()
       align-items: center;
       block-size: calc(var(--spacer) * 2);
       box-shadow: var(--border-shadow);
-      padding-inline-start: var(--toast-padding);
+      padding-inline-start: var(--ui-padding-inline);
       padding-right: calc(var(--spacer) * 3);
       font-weight: bold;
       margin: 0;
     }
 
     > section {
-      padding: var(--toast-padding);
+      padding: var(--ui-padding-inline);
       display: grid;
       gap: var(--spacer);
     }
