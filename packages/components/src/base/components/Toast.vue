@@ -130,7 +130,6 @@ const { toasts, dismiss } = useToast()
     overflow: hidden;
     font-family: var(--font-family);
     font-size: var(--ui-font-size);
-    text-transform: var(--ui-text-transform);
 
     /* Entry animation */
     opacity: 1;
@@ -208,7 +207,10 @@ const { toasts, dismiss } = useToast()
       box-shadow: var(--border-shadow);
       padding-inline-start: var(--ui-padding-inline);
       padding-right: calc(var(--spacer) * 3);
-      font-weight: bold;
+      font-family: var(--font-family);
+      font-size: var(--ui-font-size);
+      font-weight: normal;
+      text-transform: var(--ui-text-transform);
       margin: 0;
     }
 
