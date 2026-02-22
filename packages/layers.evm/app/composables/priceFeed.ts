@@ -1,1 +1,1 @@
-export { usePriceFeed } from '@1001-digital/components/evm/composables/priceFeed'
+export { usePriceFeed } from '@1001-digital/components'

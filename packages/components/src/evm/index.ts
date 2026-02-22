@@ -25,7 +25,6 @@ export {
   useBlockExplorer,
   useEnsureChainIdCheck,
 } from './composables/chainId'
-export { useClipboard } from './composables/clipboard'
 export { useEns, useEnsWithAvatar, useEnsProfile } from './composables/ens'
 export { useGasPrice } from './composables/gasPrice'
 export { usePriceFeed } from './composables/priceFeed'
