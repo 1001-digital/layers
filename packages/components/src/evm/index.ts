@@ -15,6 +15,7 @@ export {
   ENS_KEYS_PROFILE,
 } from './utils/ens'
 export type { EnsProfile } from './utils/ens'
+export { stringifyJSON, parseJSON, formatPrice } from './utils/price'
 
 // Composables
 export { useBaseURL } from './composables/base'
@@ -24,7 +25,10 @@ export {
   useBlockExplorer,
   useEnsureChainIdCheck,
 } from './composables/chainId'
+export { useClipboard } from './composables/clipboard'
 export { useEns, useEnsWithAvatar, useEnsProfile } from './composables/ens'
+export { useGasPrice } from './composables/gasPrice'
+export { usePriceFeed } from './composables/priceFeed'
 
 // Components
 export { default as EvmAccount } from './components/EvmAccount.vue'
