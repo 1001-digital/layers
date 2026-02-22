@@ -21,6 +21,7 @@
     "dev": "vite build --watch"
   },
   "peerDependencies": {
+    "@1001-digital/styles": "workspace:*",
     "vue": "^3.5.0"
   },
   "dependencies": {
