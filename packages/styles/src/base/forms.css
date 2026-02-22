@@ -35,6 +35,9 @@ select:not(.unstyled) {
   &:is(:hover, :active, :focus, .active) {
     outline: none;
     box-shadow: var(--border-shadow-highlight);
+  }
+
+  &:not(select):is(:hover, :active, :focus, .active) {
     background: var(--button-background-highlight);
   }
 
@@ -63,14 +66,14 @@ textarea:not(.unstyled) {
   text-transform: var(--input-text-transform);
 }
 
-select:not(.unstyled),
-select:not(.unstyled):is(:hover, :active, :focus, .active) {
+select:not(.unstyled) {
+  --select-bg: var(--button-background);
   appearance: none;
   line-height: 1;
   transition-property: box-shadow, background-color, color;
   background:
     url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM4ODgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0iZmVhdGhlciBmZWF0aGVyLWNoZXZyb24tZG93biI+PHBvbHlsaW5lIHBvaW50cz0iNiA5IDEyIDE1IDE4IDkiPjwvcG9seWxpbmU+PC9zdmc+),
-    var(--button-background);
+    var(--select-bg);
   background-repeat: no-repeat, no-repeat;
   background-position:
     calc(100% - var(--size-4)) 50%,
@@ -79,6 +82,10 @@ select:not(.unstyled):is(:hover, :active, :focus, .active) {
     var(--size-4),
     100% 100%;
   padding-inline-end: var(--size-7) !important;
+
+  &:is(:hover, :active, :focus, .active) {
+    --select-bg: var(--button-background-highlight);
+  }
 
   &.small {
     background-position:
