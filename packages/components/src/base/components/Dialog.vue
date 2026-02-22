@@ -231,6 +231,8 @@ const onClickOutside = () => {
       align-items: center;
       justify-content: center;
       padding: 0;
+      border-radius: 0;
+      border-start-end-radius: var(--border-radius);
 
       &:is(:hover, :active, :focus, .active) {
         outline: none;

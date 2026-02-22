@@ -209,6 +209,8 @@ const { toasts, dismiss } = useToast()
       position: absolute !important;
       top: 0;
       right: 0;
+      border-radius: 0 !important;
+      border-start-end-radius: var(--border-radius) !important;
     }
 
     .actions {
