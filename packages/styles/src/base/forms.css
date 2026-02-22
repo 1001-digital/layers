@@ -76,12 +76,12 @@ select:not(.unstyled) {
     var(--select-bg);
   background-repeat: no-repeat, no-repeat;
   background-position:
-    calc(100% - var(--size-4)) 50%,
+    calc(100% - var(--ui-padding-inline)) 50%,
     0% 0%;
   background-size:
     var(--size-4),
     100% 100%;
-  padding-inline-end: var(--size-7) !important;
+  padding-inline-end: calc(var(--ui-padding-inline) + var(--size-4) + var(--ui-padding-inline) / 2) !important;
 
   &:is(:hover, :active, :focus, .active) {
     --select-bg: var(--button-background-highlight);
@@ -89,7 +89,7 @@ select:not(.unstyled) {
 
   &.small {
     background-position:
-      calc(100% - var(--size-2)) 50%,
+      calc(100% - calc(var(--ui-padding-inline) / 2)) 50%,
       0% 0%;
   }
 }
