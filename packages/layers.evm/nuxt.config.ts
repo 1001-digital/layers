@@ -1,8 +1,17 @@
 import { fileURLToPath } from 'node:url'
+import { createRequire } from 'node:module'
+import { dirname } from 'node:path'
+
+const require = createRequire(import.meta.url)
 
 const componentsDir = fileURLToPath(
   new URL('../components/src/evm/components', import.meta.url),
 )
+
+// Force all @wagmi/vue imports to resolve to a single copy.
+// pnpm creates separate instances per dependency set, each with its own
+// Symbol-based configKey — breaking Vue's provide/inject across packages.
+const wagmiVue = dirname(require.resolve('@wagmi/vue/package.json'))
 
 const clientOnlyComponents = [
   'EvmAccount',
@@ -55,7 +64,10 @@ export default defineNuxtConfig({
 
   vite: {
     resolve: {
-      dedupe: ['@wagmi/vue', '@wagmi/core', 'viem'],
+      alias: {
+        '@wagmi/vue': wagmiVue,
+      },
+      dedupe: ['viem'],
     },
     optimizeDeps: {
       include: [

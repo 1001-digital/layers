@@ -1,7 +1,11 @@
-export default defineNuxtPlugin(() => {
-  const priceFeed = usePriceFeed()
+export default defineNuxtPlugin({
+  name: 'price-feed',
+  dependsOn: ['wagmi'],
+  setup() {
+    const priceFeed = usePriceFeed()
 
-  priceFeed.fetchPrice()
+    priceFeed.fetchPrice()
 
-  setInterval(() => priceFeed.fetchPrice(), 60 * 60 * 1000)
+    setInterval(() => priceFeed.fetchPrice(), 60 * 60 * 1000)
+  },
 })
