@@ -8,6 +8,9 @@ importers:
 
   packages/components:
     dependencies:
+      '@1001-digital/styles':
+        specifier: workspace:*
+        version: link:../styles
       '@iconify/vue':
         specifier: ^5.0.0
         version: 5.0.0(vue@3.5.28(typescript@5.9.3))
@@ -24,18 +27,6 @@ importers:
       '@types/luxon':
         specifier: ^3.7.0
         version: 3.7.1
-      '@vitejs/plugin-vue':
-        specifier: ^6.0.0
-        version: 6.0.3(vite@7.3.1(@types/node@24.10.9)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2))(vue@3.5.28(typescript@5.9.3))
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-      vite:
-        specifier: ^7.3.0
-        version: 7.3.1(@types/node@24.10.9)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2)
-      vite-plugin-dts:
-        specifier: ^4.5.0
-        version: 4.5.4(@types/node@24.10.9)(rollup@4.57.1)(typescript@5.9.3)(vite@7.3.1(@types/node@24.10.9)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2))
       vue:
         specifier: ^3.5.0
         version: 3.5.28(typescript@5.9.3)
@@ -13780,25 +13771,6 @@ snapshots:
       typescript: 5.9.3
     optionalDependencies:
       vite: 6.4.1(@types/node@24.10.9)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2)
-    transitivePeerDependencies:
-      - '@types/node'
-      - rollup
-      - supports-color
-
-  vite-plugin-dts@4.5.4(@types/node@24.10.9)(rollup@4.57.1)(typescript@5.9.3)(vite@7.3.1(@types/node@24.10.9)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2)):
-    dependencies:
-      '@microsoft/api-extractor': 7.57.2(@types/node@24.10.9)
-      '@rollup/pluginutils': 5.3.0(rollup@4.57.1)
-      '@volar/typescript': 2.4.28
-      '@vue/language-core': 2.2.0(typescript@5.9.3)
-      compare-versions: 6.1.1
-      debug: 4.4.3
-      kolorist: 1.8.0
-      local-pkg: 1.1.2
-      magic-string: 0.30.21
-      typescript: 5.9.3
-    optionalDependencies:
-      vite: 7.3.1(@types/node@24.10.9)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2)
     transitivePeerDependencies:
       - '@types/node'
       - rollup

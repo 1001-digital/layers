@@ -5,21 +5,11 @@
   "sideEffects": [
     "*.css"
   ],
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    },
-    "./style.css": "./dist/style.css"
+    ".": "./src/index.ts",
+    "./*": "./src/*"
   },
-  "files": ["dist"],
-  "scripts": {
-    "build": "vite build",
-    "dev": "vite build --watch"
-  },
+  "files": ["src"],
   "peerDependencies": {
     "@1001-digital/styles": "workspace:*",
     "vue": "^3.5.0"
@@ -32,10 +22,6 @@
   },
   "devDependencies": {
     "@types/luxon": "^3.7.0",
-    "@vitejs/plugin-vue": "^6.0.0",
-    "typescript": "^5.9.3",
-    "vite": "^7.3.0",
-    "vite-plugin-dts": "^4.5.0",
     "vue": "^3.5.0"
   }
 }
