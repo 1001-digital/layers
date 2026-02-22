@@ -26,7 +26,7 @@
       <h2>Design Tokens</h2>
 
       <!-- Colors -->
-      <article id="colors">
+      <Card id="colors">
         <h3>Colors</h3>
 
         <div class="token-group">
@@ -70,10 +70,10 @@
             </div>
           </div>
         </div>
-      </article>
+      </Card>
 
       <!-- Typography -->
-      <article id="typography">
+      <Card id="typography">
         <h3>Typography</h3>
 
         <div class="token-group">
@@ -99,10 +99,10 @@
             <code>--font-family</code>
           </div>
         </div>
-      </article>
+      </Card>
 
       <!-- Spacing -->
-      <article id="spacing">
+      <Card id="spacing">
         <h3>Spacing</h3>
 
         <div class="token-group">
@@ -146,7 +146,7 @@
             </div>
           </div>
         </div>
-      </article>
+      </Card>
     </section>
 
     <!-- Components -->
@@ -154,7 +154,7 @@
       <h2>Components</h2>
 
       <!-- Icon -->
-      <article id="icons">
+      <Card id="icons">
         <h3>Icon</h3>
         <div class="icon-grid">
           <div
@@ -166,10 +166,10 @@
             <code>{{ type }}</code>
           </div>
         </div>
-      </article>
+      </Card>
 
       <!-- Button -->
-      <article id="buttons">
+      <Card id="buttons">
         <h3>Button</h3>
 
         <div class="component-demo">
@@ -219,10 +219,10 @@
             </Button>
           </div>
         </div>
-      </article>
+      </Card>
 
       <!-- Alert -->
-      <article id="alerts">
+      <Card id="alerts">
         <h3>Alert</h3>
 
         <div class="component-demo">
@@ -240,10 +240,10 @@
             <p>Something went wrong. Please try again.</p>
           </Alert>
         </div>
-      </article>
+      </Card>
 
       <!-- Card -->
-      <article id="cards">
+      <Card id="cards">
         <h3>Card</h3>
 
         <div class="component-demo">
@@ -264,10 +264,10 @@
             </Card>
           </div>
         </div>
-      </article>
+      </Card>
 
       <!-- Tags -->
-      <article id="tags">
+      <Card id="tags">
         <h3>Tag / Tags</h3>
 
         <div class="component-demo">
@@ -307,10 +307,10 @@
             Reset Tags
           </Button>
         </div>
-      </article>
+      </Card>
 
       <!-- Forms -->
-      <article id="forms">
+      <Card id="forms">
         <h3>Form Components</h3>
 
         <div class="component-demo">
@@ -453,10 +453,10 @@
             />
           </FormLabel>
         </div>
-      </article>
+      </Card>
 
       <!-- Actions -->
-      <article id="actions">
+      <Card id="actions">
         <h3>Actions</h3>
 
         <div class="component-demo">
@@ -474,10 +474,10 @@
             <Button>Action 2</Button>
           </Actions>
         </div>
-      </article>
+      </Card>
 
       <!-- Dialog/Modal -->
-      <article id="dialogs">
+      <Card id="dialogs">
         <h3>Dialog / Modal</h3>
 
         <div class="component-demo">
@@ -588,10 +588,10 @@
             </template>
           </Dialog>
         </div>
-      </article>
+      </Card>
 
       <!-- Popovers -->
-      <article id="popovers">
+      <Card id="popovers">
         <h3>Popover</h3>
 
         <div class="component-demo">
@@ -722,10 +722,10 @@
             </Popover>
           </div>
         </div>
-      </article>
+      </Card>
 
       <!-- Dropdowns -->
-      <article id="dropdowns">
+      <Card id="dropdowns">
         <h3>Dropdown</h3>
 
         <div class="component-demo">
@@ -905,10 +905,10 @@
             </Dropdown>
           </div>
         </div>
-      </article>
+      </Card>
 
       <!-- Tooltips -->
-      <article id="tooltips">
+      <Card id="tooltips">
         <h3>Tooltip</h3>
 
         <div class="component-demo">
@@ -1011,10 +1011,10 @@
             </Tooltip>
           </div>
         </div>
-      </article>
+      </Card>
 
       <!-- Toasts -->
-      <article id="toasts">
+      <Card id="toasts">
         <h3>Toast</h3>
 
         <div class="component-demo">
@@ -1081,7 +1081,7 @@
             </Button>
           </div>
         </div>
-      </article>
+      </Card>
     </section>
   </main>
 </template>
@@ -1212,12 +1212,7 @@ section > h2 {
   padding-bottom: var(--spacer-sm);
 }
 
-article {
-  display: grid;
-  gap: var(--spacer);
-}
-
-article > h3 {
+:deep(.card) > h3 {
   font-family: var(--font-family);
   font-size: var(--ui-font-size);
   text-transform: var(--ui-text-transform);
