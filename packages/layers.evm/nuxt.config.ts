@@ -67,7 +67,6 @@ export default defineNuxtConfig({
       alias: {
         '@wagmi/vue': wagmiVue,
       },
-      dedupe: ['viem'],
     },
     optimizeDeps: {
       include: [
