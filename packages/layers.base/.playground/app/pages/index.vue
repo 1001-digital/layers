@@ -15,6 +15,7 @@
         <a href="#actions">Actions</a>
         <a href="#dialogs">Dialogs</a>
         <a href="#popovers">Popovers</a>
+        <a href="#combobox">Combobox</a>
         <a href="#dropdowns">Dropdowns</a>
         <a href="#tooltips">Tooltips</a>
         <a href="#toasts">Toasts</a>
@@ -782,6 +783,65 @@
         </div>
       </Card>
 
+      <!-- Combobox -->
+      <Card id="combobox">
+        <h3>Combobox</h3>
+
+        <div class="component-demo">
+          <h4>Single Select</h4>
+          <FormLabel label="Fruit">
+            <FormItem>
+              <Combobox
+                v-model="comboboxFruit"
+                :options="fruitOptions"
+                placeholder="Search fruit..."
+              />
+            </FormItem>
+          </FormLabel>
+          <code>Selected: {{ comboboxFruit || 'None' }}</code>
+        </div>
+
+        <div class="component-demo">
+          <h4>Multi Select</h4>
+          <FormLabel label="Fruits">
+            <FormItem>
+              <Combobox
+                v-model="comboboxFruits"
+                :options="fruitOptions"
+                multiple
+                placeholder="Search fruits..."
+              />
+            </FormItem>
+          </FormLabel>
+          <code>Selected: {{ comboboxFruits?.length ? comboboxFruits.join(', ') : 'None' }}</code>
+        </div>
+
+        <div class="component-demo">
+          <h4>Many Options</h4>
+          <FormLabel label="Country">
+            <FormItem>
+              <Combobox
+                v-model="comboboxCountry"
+                :options="countryOptions"
+                placeholder="Search country..."
+              />
+            </FormItem>
+          </FormLabel>
+          <code>Selected: {{ comboboxCountry || 'None' }}</code>
+        </div>
+
+        <div class="component-demo">
+          <h4>Disabled</h4>
+          <FormItem>
+            <Combobox
+              model-value="apple"
+              :options="fruitOptions"
+              disabled
+            />
+          </FormItem>
+        </div>
+      </Card>
+
       <!-- Dropdowns -->
       <Card id="dropdowns">
         <h3>Dropdown</h3>
@@ -1442,6 +1502,28 @@ const fruitOptions = [
   { value: 'cherry', label: 'Cherry' },
   { value: 'date', label: 'Date' },
   { value: 'elderberry', label: 'Elderberry' },
+]
+
+// Combobox demo data
+const comboboxFruit = ref<string>()
+const comboboxFruits = ref<string[]>([])
+const comboboxCountry = ref<string>()
+const countryOptions = [
+  { value: 'ar', label: 'Argentina' },
+  { value: 'au', label: 'Australia' },
+  { value: 'br', label: 'Brazil' },
+  { value: 'ca', label: 'Canada' },
+  { value: 'cn', label: 'China' },
+  { value: 'de', label: 'Germany' },
+  { value: 'fr', label: 'France' },
+  { value: 'in', label: 'India' },
+  { value: 'jp', label: 'Japan' },
+  { value: 'mx', label: 'Mexico' },
+  { value: 'ng', label: 'Nigeria' },
+  { value: 'kr', label: 'South Korea' },
+  { value: 'es', label: 'Spain' },
+  { value: 'gb', label: 'United Kingdom' },
+  { value: 'us', label: 'United States' },
 ]
 </script>
 

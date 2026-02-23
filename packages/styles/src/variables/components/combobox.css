@@ -1,0 +1,6 @@
+:root {
+  --combobox-background: var(--background);
+  --combobox-border: var(--border);
+  --combobox-border-radius: var(--border-radius);
+  --combobox-padding: var(--size-1);
+}
