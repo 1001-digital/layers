@@ -276,6 +276,7 @@ const initializeRequest = async (request = cachedRequest.value) => {
       { hash: tx.value },
     )
     clearInterval(progressTimer)
+    toast.update(toastId, { progress: 100, loading: false })
     await delay(props.delayAfter)
     receipt.value = receiptObject
     emit('complete', receiptObject)
@@ -284,7 +285,6 @@ const initializeRequest = async (request = cachedRequest.value) => {
       variant: 'success',
       title: text.value.title.complete,
       description: text.value.lead.complete,
-      loading: false,
       progress: false,
       ...(props.autoCloseSuccess && { duration: props.delayAutoclose }),
     })
