@@ -4,13 +4,13 @@ A monorepo containing composable Nuxt layers, a shared component library, and a 
 
 ## Packages
 
-| Package | Version | Description |
-| --- | --- | --- |
-| [@1001-digital/layers.base](./packages/layers.base) | 0.0.34 | Foundation layer with accessible UI components and design tokens |
-| [@1001-digital/layers.prose](./packages/layers.prose) | 0.0.4 | Typography and content styling for documentation and content-driven sites |
-| [@1001-digital/layers.evm](./packages/layers.evm) | 1.0.12 | Ethereum/Web3 integration for building decentralized applications |
-| [@1001-digital/components](./packages/components) | 0.0.5 | Shared Vue component library (Reka UI) |
-| [@1001-digital/styles](./packages/styles) | 0.0.3 | Shared CSS framework and design tokens |
+| Package | Description |
+| --- | --- |
+| [@1001-digital/layers.base](./packages/layers.base) | Foundation layer with accessible UI components and design tokens |
+| [@1001-digital/layers.prose](./packages/layers.prose) | Typography and content styling for documentation and content-driven sites |
+| [@1001-digital/layers.evm](./packages/layers.evm) | Ethereum/Web3 integration for building decentralized applications |
+| [@1001-digital/components](./packages/components) | Shared Vue component library (Reka UI) |
+| [@1001-digital/styles](./packages/styles) | Shared CSS framework and design tokens |
 
 ### Layer Inheritance
 
