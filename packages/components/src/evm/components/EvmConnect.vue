@@ -30,6 +30,10 @@
       v-else-if="metaMaskUri"
       :uri="metaMaskUri"
     />
+    <EvmWalletConnectWallets
+      v-else-if="walletConnectUri"
+      :uri="walletConnectUri"
+    />
     <template v-else-if="isConnecting">
       <Loading
         txt="Waiting for wallet confirmation..."
@@ -90,6 +94,7 @@ import Alert from '../../base/components/Alert.vue'
 import Loading from '../../base/components/Loading.vue'
 import EvmAccount from './EvmAccount.vue'
 import EvmMetaMaskQR from './EvmMetaMaskQR.vue'
+import EvmWalletConnectWallets from './EvmWalletConnectWallets.vue'
 import { useBaseURL } from '../composables/base'
 
 const ICONS: Record<string, string> = {
@@ -142,23 +147,30 @@ const chooseModalOpen = ref(false)
 const errorMessage = ref('')
 const isConnecting = ref(false)
 const metaMaskUri = ref('')
+const walletConnectUri = ref('')
 
 const login = async (connector: Connector) => {
   errorMessage.value = ''
   isConnecting.value = true
   metaMaskUri.value = ''
+  walletConnectUri.value = ''
 
-  const handleMessage = (event: { type: string; data?: unknown }) => {
+  const handleMetaMaskMessage = (event: { type: string; data?: unknown }) => {
     if (event.type === 'display_uri' && typeof event.data === 'string') {
       metaMaskUri.value = event.data
     }
   }
 
+  const handleWcMessage = (event: { type: string; data?: unknown }) => {
+    if (event.type === 'display_uri' && typeof event.data === 'string') {
+      walletConnectUri.value = event.data
+    }
+  }
+
   if (connector.id === 'metaMaskSDK') {
-    connector.emitter.on('message', handleMessage)
+    connector.emitter.on('message', handleMetaMaskMessage)
   } else if (connector.id === 'walletConnect') {
-    // WalletConnect opens its own modal — close ours to avoid stacking
-    chooseModalOpen.value = false
+    connector.emitter.on('message', handleWcMessage)
   }
 
   try {
@@ -168,10 +180,12 @@ const login = async (connector: Connector) => {
       chooseModalOpen.value = false
       isConnecting.value = false
       metaMaskUri.value = ''
+      walletConnectUri.value = ''
     }, 100)
   } catch (error: unknown) {
     isConnecting.value = false
     metaMaskUri.value = ''
+    walletConnectUri.value = ''
 
     // Only show errors if our dialog is still open
     if (chooseModalOpen.value) {
@@ -189,7 +203,9 @@ const login = async (connector: Connector) => {
     console.error('Wallet connection error:', error)
   } finally {
     if (connector.id === 'metaMaskSDK') {
-      connector.emitter.off('message', handleMessage)
+      connector.emitter.off('message', handleMetaMaskMessage)
+    } else if (connector.id === 'walletConnect') {
+      connector.emitter.off('message', handleWcMessage)
     }
   }
 }
@@ -198,6 +214,7 @@ const onModalClosed = () => {
   errorMessage.value = ''
   isConnecting.value = false
   metaMaskUri.value = ''
+  walletConnectUri.value = ''
 }
 
 const check = () =>
