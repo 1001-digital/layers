@@ -1,10 +1,19 @@
 # AGENTS.md
 
-Monorepo containing Nuxt layers.
+Monorepo containing Nuxt layers, a shared component library, and a shared CSS framework.
 
-- `base` the base layer for creating modern web applications.
-- `prose` the layer to extend when building content driven sites.
-- `evm` the layer to extend when building dAPPs (Ethereum powered applications).
+## Packages
+
+- `layers.base` — Base Nuxt layer for modern web applications
+- `layers.prose` — Nuxt layer for content-driven sites (extends base)
+- `layers.evm` — Nuxt layer for Ethereum dAPPs (extends base)
+- `components` — Shared Vue component library (`@1001-digital/components`)
+- `styles` — Shared CSS framework and design tokens (`@1001-digital/styles`)
+
+## Setup
+
+- Package manager: pnpm (workspaces)
+- Install deps: `pnpm install`
 
 ## Code style
 

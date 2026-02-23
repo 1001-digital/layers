@@ -1,73 +1,106 @@
-# Nuxt Layer Starter
+# @1001-digital/layers.evm
 
-Create Nuxt extendable layer with this GitHub template.
+Nuxt layer for building Ethereum dAPPs. Extends the [base layer](../layers.base) with wallet connection, chain management, and Web3 utilities.
 
-## Setup
-
-Make sure to install the dependencies:
+## Installation
 
 ```bash
-pnpm install
+pnpm add @1001-digital/layers.evm
 ```
-
-## Working on your layer
-
-Your layer is at the root of this repository, it is exactly like a regular Nuxt project, except you can publish it on NPM.
-
-The `.playground` directory should help you on trying your layer during development.
-
-Running `pnpm dev` will prepare and boot `.playground` directory, which imports your layer itself.
-
-## Distributing your layer
-
-Your Nuxt layer is shaped exactly the same as any other Nuxt project, except you can publish it on NPM.
-
-To do so, you only have to check if `files` in `package.json` are valid, then run:
-
-```bash
-npm publish --access public
-```
-
-Once done, your users will only have to run:
-
-```bash
-npm install --save your-layer
-```
-
-Then add the dependency to their `extends` in `nuxt.config`:
 
 ```ts
-defineNuxtConfig({
-  extends: 'your-layer',
+export default defineNuxtConfig({
+  extends: ['@1001-digital/layers.evm'],
 })
 ```
 
-## Development Server
+## Features
 
-Start the development server on http://localhost:3000
+- Wallet connection (MetaMask, Coinbase, WalletConnect, Safe, injected)
+- Multiple RPC endpoints with fallback
+- Chain switching (mainnet, sepolia, holesky, localhost)
+- ENS resolution (via indexer or on-chain)
+- ETH price feed with hourly refresh
+- IPFS and Arweave gateway support
 
-```bash
-pnpm dev
+## Components
+
+- **EvmAccount** - Account display
+- **EvmConnect** - Wallet connection UI
+- **EvmConnectorQR** / **EvmMetaMaskQR** / **EvmWalletConnectQR** - QR code connectors
+- **EvmTransactionFlow** - Transaction status flow
+
+All components are client-only.
+
+## Composables
+
+- `useChainConfig(key?)` - Get chain configuration (id, block explorer)
+- `useMainChainId()` - Get the main chain ID
+- `useBlockExplorer(key?)` - Get block explorer URL
+- `useEnsureChainIdCheck()` - Validate and switch chain before transactions
+- `useEns()` / `useEnsWithAvatar()` / `useEnsProfile()` - ENS resolution
+- `useGasPrice()` - Current gas prices
+- `usePriceFeed()` - ETH price feed
+- `useBaseURL()` - Base URL helper
+
+## Utilities
+
+```ts
+shortAddress('0x1234...abcd')           // '0x123...bcd'
+formatETH(1000000000000000000n)          // '1'
+resolveChain(1)                          // mainnet Chain object
 ```
 
-## Production
+## Configuration
 
-Build the application for production:
-
-```bash
-pnpm build
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  extends: ['@1001-digital/layers.evm'],
+})
 ```
 
-Or statically generate it with:
-
-```bash
-pnpm generate
+```ts
+// app.config.ts
+export default defineAppConfig({
+  evm: {
+    title: 'My dApp',
+    defaultChain: 'mainnet',
+    chains: {
+      mainnet: {
+        id: 1,
+        blockExplorer: 'https://etherscan.io',
+      },
+    },
+    ens: { mode: 'indexer' },
+    ipfsGateway: 'https://ipfs.io/ipfs/',
+    arweaveGateway: 'https://arweave.net/',
+  },
+})
 ```
 
-Locally preview production build:
+RPC and API endpoints are configured via environment variables:
 
 ```bash
-pnpm preview
+NUXT_PUBLIC_EVM_WALLET_CONNECT_PROJECT_ID=...
+NUXT_PUBLIC_EVM_CHAINS_MAINNET_RPC1=https://...
+NUXT_PUBLIC_EVM_CHAINS_MAINNET_RPC2=https://...
+NUXT_PUBLIC_EVM_CHAINS_MAINNET_RPC3=https://...
+NUXT_PUBLIC_EVM_ENS_INDEXER1=https://...
 ```
 
-Checkout the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Dependencies
+
+- [@1001-digital/layers.base](../layers.base) - Foundation layer
+- [Wagmi](https://wagmi.sh) - Vue hooks for Ethereum
+- [Viem](https://viem.sh) - Type-safe Ethereum utilities
+- [TanStack Query](https://tanstack.com/query) - Data fetching and caching
+
+## Development
+
+```bash
+pnpm dev        # Start playground dev server
+pnpm build      # Build playground
+pnpm typecheck  # Run type checks
+pnpm lint       # Lint
+```

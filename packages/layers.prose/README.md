@@ -1,73 +1,47 @@
-# Nuxt Layer Starter
+# @1001-digital/layers.prose
 
-Create Nuxt extendable layer with this GitHub template.
+Nuxt layer for content-driven sites. Extends the [base layer](../layers.base) with typography and prose styling.
 
-## Setup
-
-Make sure to install the dependencies:
+## Installation
 
 ```bash
-pnpm install
+pnpm add @1001-digital/layers.prose
 ```
-
-## Working on your layer
-
-Your layer is at the root of this repository, it is exactly like a regular Nuxt project, except you can publish it on NPM.
-
-The `.playground` directory should help you on trying your layer during development.
-
-Running `pnpm dev` will prepare and boot `.playground` directory, which imports your layer itself.
-
-## Distributing your layer
-
-Your Nuxt layer is shaped exactly the same as any other Nuxt project, except you can publish it on NPM.
-
-To do so, you only have to check if `files` in `package.json` are valid, then run:
-
-```bash
-npm publish --access public
-```
-
-Once done, your users will only have to run:
-
-```bash
-npm install --save your-layer
-```
-
-Then add the dependency to their `extends` in `nuxt.config`:
 
 ```ts
-defineNuxtConfig({
-  extends: 'your-layer',
+export default defineNuxtConfig({
+  extends: ['@1001-digital/layers.prose'],
 })
 ```
 
-## Development Server
+## Components
 
-Start the development server on http://localhost:3000
+- **Prose** - Content wrapper with typography styles
+  - `centered` prop for center-aligned text
+
+## Styled Elements
+
+Wrap content in `<Prose>` to apply styles for:
+
+- Headings (h1-h6)
+- Links with hover transitions
+- Tables with borders and padding
+- Ordered and unordered lists (with nesting)
+- Blockquotes with accent borders and citation support
+- Images with borders and figure captions
+- Code blocks with syntax styling and horizontal scroll
+- Horizontal rules
+- Footnotes
+
+## Dependencies
+
+- [@1001-digital/layers.base](../layers.base) - Foundation layer (components, design tokens, utilities)
+
+## Development
 
 ```bash
-pnpm dev
+pnpm dev        # Start playground dev server
+pnpm build      # Build playground
+pnpm typecheck  # Run type checks
+pnpm lint       # Lint
 ```
-
-## Production
-
-Build the application for production:
-
-```bash
-pnpm build
-```
-
-Or statically generate it with:
-
-```bash
-pnpm generate
-```
-
-Locally preview production build:
-
-```bash
-pnpm preview
-```
-
-Checkout the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
