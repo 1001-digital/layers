@@ -33,6 +33,7 @@
   "dependencies": {
     "@iconify/vue": "^5.0.0",
     "@internationalized/date": "^3.8.0",
+    "@visualizevalue/opepicons": "^0.1.0",
     "@vueuse/core": "^14.2.0",
     "luxon": "^3.7.0",
     "qrcode": "^1.5.4",
