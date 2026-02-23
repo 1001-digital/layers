@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onBeforeUnmount } from 'vue'
 import Icon from './Icon.vue'
 
 const dialog = ref<HTMLDialogElement | null>(null)
@@ -123,6 +123,12 @@ const onClickOutside = () => {
     open.value = false
   }
 }
+
+onBeforeUnmount(() => {
+  if (!props.compat && dialog.value) {
+    dialog.value.close()
+  }
+})
 </script>
 
 <style>
