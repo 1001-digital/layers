@@ -26,18 +26,7 @@
         "
       />
       <div class="avatar-wrapper">
-        <img
-          v-if="ensAvatar"
-          :src="ensAvatar"
-          :alt="display"
-          class="avatar"
-        />
-        <div
-          v-else
-          class="avatar placeholder"
-        >
-          <Icon type="wallet" />
-        </div>
+        <EvmAvatar :address="address" large />
       </div>
     </div>
 
@@ -90,6 +79,7 @@ import { shortAddress } from '../utils/addresses'
 import Button from '../../base/components/Button.vue'
 import Dialog from '../../base/components/Dialog.vue'
 import Icon from '../../base/components/Icon.vue'
+import EvmAvatar from './EvmAvatar.vue'
 import EvmSwitchNetwork from './EvmSwitchNetwork.vue'
 
 defineProps<{
@@ -165,20 +155,8 @@ const disconnect = async () => {
     z-index: 1;
   }
 
-  .avatar {
-    width: 20%;
-    aspect-ratio: 1;
-    border-radius: 50%;
+  :deep(.evm-avatar) {
     border: 3px solid var(--background);
-    object-fit: cover;
-
-    &.placeholder {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--gray-z-3);
-      font-size: var(--size-4);
-    }
   }
 }
 

@@ -9,13 +9,13 @@
       v-if="src"
       :src="src"
       :alt="ens || 'Avatar'"
-      class="evm-avatar"
+      :class="['evm-avatar', { large }]"
     />
     <img
       v-else-if="opepicon"
       :src="opepicon"
       :alt="ens || 'Avatar'"
-      class="evm-avatar"
+      :class="['evm-avatar', { large }]"
     />
   </slot>
 </template>
@@ -30,6 +30,7 @@ import { useResolveUri } from '../composables/uri'
 
 const props = defineProps<{
   address?: Address
+  large?: boolean
 }>()
 const address = computed(() => props.address)
 
@@ -52,7 +53,7 @@ watchEffect(() => {
     return
   }
 
-  const canvas = createIcon({ seed: address.value, size: 64 })
+  const canvas = createIcon({ seed: address.value, size: props.large ? 256 : 64 })
   opepicon.value = canvas.toDataURL()
 })
 </script>
@@ -64,5 +65,10 @@ watchEffect(() => {
   border-radius: 50%;
   background-color: var(--background);
   object-fit: cover;
+
+  &.large {
+    width: var(--size-9);
+    height: var(--size-9);
+  }
 }
 </style>
