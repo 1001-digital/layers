@@ -18,7 +18,7 @@ export default defineNuxtConfig({
 
 - Wallet connection (MetaMask, Coinbase, WalletConnect, Safe, injected)
 - Multiple RPC endpoints with fallback
-- Chain switching (mainnet, sepolia, holesky, localhost)
+- Chain switching (mainnet, sepolia, holesky, optimism, arbitrum, base, polygon, localhost)
 - ENS resolution (via indexer or on-chain)
 - ETH price feed with hourly refresh
 - IPFS and Arweave gateway support
@@ -26,9 +26,13 @@ export default defineNuxtConfig({
 ## Components
 
 - **EvmAccount** - Account display
+- **EvmAvatar** - ENS avatar with generative fallback
 - **EvmConnect** - Wallet connection UI
 - **EvmConnectorQR** / **EvmMetaMaskQR** / **EvmWalletConnectQR** - QR code connectors
+- **EvmProfile** - ENS profile with avatar and header
+- **EvmSwitchNetwork** - Network switching UI
 - **EvmTransactionFlow** - Transaction status flow
+- **EvmWalletConnectWallets** - WalletConnect wallet list
 
 All components are client-only.
 
@@ -41,6 +45,8 @@ All components are client-only.
 - `useEns()` / `useEnsWithAvatar()` / `useEnsProfile()` - ENS resolution
 - `useGasPrice()` - Current gas prices
 - `usePriceFeed()` - ETH price feed
+- `useResolveUri()` - IPFS/Arweave/data URI resolution
+- `useWalletExplorer()` - Wallet connection explorer with search
 - `useBaseURL()` - Base URL helper
 
 ## Utilities

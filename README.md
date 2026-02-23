@@ -52,17 +52,17 @@ export default defineNuxtConfig({
 # Install dependencies
 pnpm install
 
-# Prepare Nuxt
-pnpm dev:prepare
-
-# Start dev server (uses .playground)
-pnpm dev
-
-# Build for production
-pnpm build
-
 # Format code
 pnpm format
+```
+
+Each layer has its own playground. Run commands from within the package directory:
+
+```bash
+cd packages/layers.base
+pnpm dev:prepare  # Prepare Nuxt types
+pnpm dev          # Start playground dev server
+pnpm build        # Build playground
 ```
 
 ## Code Style
