@@ -3,6 +3,8 @@
     :duration="duration"
     :swipe-direction="swipeDirection"
   >
+    <slot />
+
     <ToastRoot
       v-for="toast in toasts"
       :key="toast.id"

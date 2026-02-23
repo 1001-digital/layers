@@ -1,4 +1,5 @@
 <template>
-  <NuxtPage />
-  <Globals />
+  <Globals>
+    <NuxtPage />
+  </Globals>
 </template>
