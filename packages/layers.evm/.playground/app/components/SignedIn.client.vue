@@ -43,6 +43,43 @@
       </template>
     </EvmTransactionFlow>
   </Card>
+
+  <Card v-if="isConnected">
+    <h2>Cross-Chain Transaction</h2>
+    <p>Send 0 ETH on Optimism (different from default chain Sepolia).</p>
+
+    <EvmTransactionFlow
+      :request="sendOptimismTransaction"
+      chain="optimism"
+      :text="{
+        title: {
+          confirm: 'Send on Optimism',
+          chain: 'Switch to Optimism',
+        },
+        lead: {
+          confirm: 'This will send 0 ETH to your address on Optimism.',
+          chain: 'This transaction requires the Optimism network.',
+        },
+        action: { confirm: 'Send Transaction' },
+      }"
+      @complete="onTransactionComplete"
+      @cancel="onTransactionCancel"
+    >
+      <template #start="{ start }">
+        <Actions>
+          <Button @click="start">Start Optimism Transaction</Button>
+        </Actions>
+      </template>
+
+      <template #confirm>
+        <div class="tx-details">
+          <p><strong>To:</strong> {{ address }}</p>
+          <p><strong>Amount:</strong> 0 ETH</p>
+          <p><strong>Chain:</strong> Optimism</p>
+        </div>
+      </template>
+    </EvmTransactionFlow>
+  </Card>
 </template>
 
 <script setup lang="ts">
@@ -60,6 +97,15 @@ const sendTransaction = async () => {
   const hash = await sendTx($wagmi as Config, {
     to: address.value!,
     value: parseEther('0'),
+  })
+  return hash
+}
+
+const sendOptimismTransaction = async () => {
+  const hash = await sendTx($wagmi as Config, {
+    to: address.value!,
+    value: parseEther('0'),
+    chainId: 10,
   })
   return hash
 }

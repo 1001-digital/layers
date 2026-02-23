@@ -7,6 +7,10 @@ export default defineAppConfig({
         id: 11155111,
         blockExplorer: 'https://sepolia.etherscan.io',
       },
+      optimism: {
+        id: 10,
+        blockExplorer: 'https://optimistic.etherscan.io',
+      },
     },
   },
 })
