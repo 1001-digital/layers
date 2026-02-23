@@ -13,6 +13,7 @@
         <a href="#tags">Tags</a>
         <a href="#forms">Forms</a>
         <a href="#actions">Actions</a>
+        <a href="#confirm">Confirm</a>
         <a href="#dialogs">Dialogs</a>
         <a href="#popovers">Popovers</a>
         <a href="#combobox">Combobox</a>
@@ -532,6 +533,30 @@
             <Button>Action 1</Button>
             <Button>Action 2</Button>
           </Actions>
+        </div>
+      </Card>
+
+      <!-- Confirm Dialog -->
+      <Card id="confirm">
+        <h3>Confirm Dialog</h3>
+
+        <div class="component-demo">
+          <h4>Basic</h4>
+          <div class="demo-row">
+            <Button @click="onConfirmBasic">
+              Delete Item
+            </Button>
+            <code>Last result: {{ confirmResult }}</code>
+          </div>
+        </div>
+
+        <div class="component-demo">
+          <h4>Custom Text</h4>
+          <div class="demo-row">
+            <Button @click="onConfirmCustom">
+              Publish Changes
+            </Button>
+          </div>
         </div>
       </Card>
 
@@ -1401,6 +1426,30 @@ import { CalendarDate } from '@internationalized/date'
 import type { DateValue } from '@internationalized/date'
 
 const toast = useToast()
+const { confirm } = useConfirm()
+
+// Confirm demo data
+const confirmResult = ref<string>('none')
+
+const onConfirmBasic = async () => {
+  const ok = await confirm({
+    title: 'Delete this item?',
+    description: 'This action cannot be undone.',
+  })
+  confirmResult.value = ok ? 'confirmed' : 'cancelled'
+}
+
+const onConfirmCustom = async () => {
+  const ok = await confirm({
+    title: 'Publish changes?',
+    description: 'Your changes will be visible to all users.',
+    okText: 'Publish',
+    cancelText: 'Not yet',
+  })
+  if (ok) {
+    toast.add({ variant: 'success', title: 'Published!' })
+  }
+}
 const grayShades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
 const zColors = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const semanticColors = ['primary', 'muted', 'error', 'success']
