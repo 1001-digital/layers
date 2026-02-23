@@ -16,6 +16,7 @@
 
     <EvmTransactionFlow
       :request="sendTransaction"
+      chain="sepolia"
       :text="{
         title: { confirm: 'Send Transaction' },
         lead: {
@@ -37,7 +38,7 @@
         <div class="tx-details">
           <p><strong>To:</strong> {{ address }}</p>
           <p><strong>Amount:</strong> 0 ETH</p>
-          <p><strong>Chain:</strong> {{ chainId }}</p>
+          <p><strong>Chain:</strong> Sepolia</p>
         </div>
       </template>
     </EvmTransactionFlow>
