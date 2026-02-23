@@ -120,14 +120,9 @@ const defaultText = {
   },
 } satisfies TextConfig
 
-const checkChain = useEnsureChainIdCheck()
-
-const wagmiConfig = useConfig()
-const blockExplorer = useBlockExplorer()
-const toast = useToast()
-
 const props = withDefaults(
   defineProps<{
+    chain?: string
     text?: TextConfig
     request?: () => Promise<Hash>
     delayAfter?: number
@@ -144,6 +139,12 @@ const props = withDefaults(
     dismissable: true,
   },
 )
+
+const checkChain = useEnsureChainIdCheck(props.chain)
+
+const wagmiConfig = useConfig()
+const blockExplorer = useBlockExplorer(props.chain)
+const toast = useToast()
 
 const emit = defineEmits<{
   complete: [receipt: TransactionReceipt]
