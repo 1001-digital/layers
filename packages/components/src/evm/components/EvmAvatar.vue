@@ -43,6 +43,7 @@ const src = computed(() => resolve(ensData.value?.data?.avatar))
   width: var(--size-5);
   height: var(--size-5);
   border-radius: 50%;
+  background-color: var(--background);
   object-fit: cover;
 }
 </style>

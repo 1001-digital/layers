@@ -16,11 +16,14 @@
   <Dialog
     v-model:open="dialogOpen"
     class="evm-profile"
+    title="Account"
   >
     <div class="profile-header">
       <div
         class="banner"
-        :style="ensHeader ? { backgroundImage: `url(${ensHeader})` } : undefined"
+        :style="
+          ensHeader ? { backgroundImage: `url(${ensHeader})` } : undefined
+        "
       />
       <div class="avatar-wrapper">
         <img
@@ -49,29 +52,25 @@
       </Button>
     </div>
 
-    <div class="profile-network">
-      <span class="label">Network</span>
-      <EvmSwitchNetwork class-name="small">
+    <div class="profile-actions">
+      <EvmSwitchNetwork>
         <template #default="{ currentChain }">
-          <span>{{ currentChain?.name || 'Unknown' }}</span>
-          <Icon type="chevron-down" />
+          <Icon type="wallet" />
+          <span>Switch Network ({{ currentChain?.name || 'Unknown' }})</span>
         </template>
       </EvmSwitchNetwork>
-    </div>
-
-    <template #footer>
       <Button
         class="danger"
         @click="disconnect"
       >
         <span>Disconnect</span>
       </Button>
-    </template>
+    </div>
   </Dialog>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, nextTick } from 'vue'
 import { useConnection, useDisconnect } from '@wagmi/vue'
 import { useClipboard } from '@vueuse/core'
 import { useConfirm } from '../../base/composables/confirm'
@@ -124,8 +123,9 @@ const disconnect = async () => {
 
   if (!confirmed) return
 
-  disconnectWallet()
   dialogOpen.value = false
+  await nextTick()
+  disconnectWallet()
   emit('disconnected')
 }
 </script>
@@ -133,11 +133,14 @@ const disconnect = async () => {
 <style scoped>
 .profile-header {
   position: relative;
-  margin: calc(var(--spacer) * -1);
+  margin: calc(var(--spacer) * -3) calc(var(--spacer) * -1) 0;
   margin-bottom: 0;
+  z-index: -1;
 
   .banner {
-    height: var(--size-7);
+    aspect-ratio: 3 / 1;
+    width: 100%;
+    height: auto;
     background: var(--gray-z-2);
     background-size: cover;
     background-position: center;
@@ -146,14 +149,14 @@ const disconnect = async () => {
   .avatar-wrapper {
     display: flex;
     justify-content: center;
-    margin-top: calc(var(--size-6) * -0.5);
+    margin-top: -10%;
     position: relative;
     z-index: 1;
   }
 
   .avatar {
-    width: var(--size-6);
-    height: var(--size-6);
+    width: 20%;
+    aspect-ratio: 1;
     border-radius: 50%;
     border: 3px solid var(--background);
     object-fit: cover;
@@ -178,17 +181,14 @@ const disconnect = async () => {
   }
 }
 
-.profile-network {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--spacer-sm) 0;
+.profile-actions {
+  display: grid;
+  gap: var(--spacer);
   border-top: var(--border);
+  padding-block-start: var(--spacer);
 
-  .label {
-    font-size: var(--ui-font-size);
-    text-transform: var(--ui-text-transform);
-    color: var(--muted);
+  & :deep(button) {
+    width: 100%;
   }
 }
 </style>

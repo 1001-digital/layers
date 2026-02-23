@@ -6,13 +6,8 @@
     </p>
     <Actions>
       <EvmProfile @disconnected="onDisconnected">
-        <template #default="{ display, ensAvatar }">
-          <img
-            v-if="ensAvatar"
-            :src="ensAvatar"
-            alt=""
-            style="width: 1.2em; height: 1.2em; border-radius: 50%"
-          />
+        <template #default="{ display, address }">
+          <EvmAvatar :address="address" />
           <span>{{ display }}</span>
         </template>
       </EvmProfile>
