@@ -14,6 +14,7 @@ export interface EvmConfig {
     indexerUrls?: string[]
   }
   baseURL?: string
+  walletConnectProjectId?: string
 }
 
 export const EvmConfigKey: InjectionKey<EvmConfig> = Symbol('EvmConfig')

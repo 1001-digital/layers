@@ -117,6 +117,7 @@ export default defineNuxtPlugin({
         indexerUrls,
       },
       baseURL: nuxtApp.$config.app.baseURL,
+      walletConnectProjectId: runtimeConfig.walletConnectProjectId || undefined,
     }
 
     nuxtApp.vueApp
