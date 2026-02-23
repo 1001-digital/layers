@@ -1,7 +1,7 @@
 {
   "name": "@1001-digital/layers.evm",
   "type": "module",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "main": "./nuxt.config.ts",
   "scripts": {
     "dev": "nuxi dev .playground",
