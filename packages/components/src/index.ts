@@ -5,6 +5,7 @@ export { default as Button } from './base/components/Button.vue'
 export { default as Calendar } from './base/components/Calendar.vue'
 export { default as Card } from './base/components/Card.vue'
 export { default as Combobox } from './base/components/Combobox.vue'
+export { default as ConfirmDialog } from './base/components/ConfirmDialog.vue'
 export { default as CardLink } from './base/components/CardLink.vue'
 export { default as Dialog } from './base/components/Dialog.vue'
 export { default as Dropdown } from './base/components/Dropdown.vue'
@@ -36,6 +37,8 @@ export { default as Toasts } from './base/components/Toasts.vue'
 export { default as Tooltip } from './base/components/Tooltip.vue'
 
 // Composables
+export { useConfirm } from './base/composables/confirm'
+export type { ConfirmOptions } from './base/composables/confirm'
 export { useToast } from './base/composables/toast'
 export type {
   Toast as ToastType,
