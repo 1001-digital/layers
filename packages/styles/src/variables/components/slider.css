@@ -1,0 +1,9 @@
+:root {
+  --slider-track-size: var(--size-1);
+  --slider-track-radius: var(--size-4);
+  --slider-track-background: var(--gray-z-2);
+  --slider-range-background: var(--primary);
+  --slider-thumb-size: var(--size-4);
+  --slider-thumb-radius: var(--size-4);
+  --slider-thumb-background: var(--background);
+}

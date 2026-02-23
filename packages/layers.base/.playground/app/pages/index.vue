@@ -480,6 +480,35 @@
             </FormSwitch>
           </div>
         </div>
+
+        <div class="component-demo">
+          <h4>Slider</h4>
+          <FormSlider v-model="sliderValue" />
+          <code>Value: {{ sliderValue }}</code>
+        </div>
+
+        <div class="component-demo">
+          <h4>Slider (Range)</h4>
+          <FormSlider v-model="sliderRange" />
+          <code>Range: {{ sliderRange }}</code>
+        </div>
+
+        <div class="component-demo">
+          <h4>Slider (Steps)</h4>
+          <FormSlider
+            v-model="sliderSteps"
+            :step="10"
+          />
+          <code>Value: {{ sliderSteps }}</code>
+        </div>
+
+        <div class="component-demo">
+          <h4>Slider (Disabled)</h4>
+          <FormSlider
+            :model-value="[40]"
+            disabled
+          />
+        </div>
       </Card>
 
       <!-- Actions -->
@@ -1299,6 +1328,11 @@ const textareaValue = ref('')
 
 // FormSwitch demo data
 const switchEnabled = ref(false)
+
+// FormSlider demo data
+const sliderValue = ref([50])
+const sliderRange = ref([25, 75])
+const sliderSteps = ref([30])
 
 // FormRadioGroup demo data
 const selectedOption = ref('a')
