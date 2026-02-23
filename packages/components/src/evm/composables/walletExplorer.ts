@@ -3,7 +3,6 @@ import { useEvmConfig } from '../config'
 
 const EXPLORER_API = 'https://explorer-api.walletconnect.com/v3'
 const RECENT_KEY = 'evm:recent-wallets'
-const RECOMMENDED_COUNT = 8
 const PAGE_SIZE = 40
 
 export interface ExplorerWallet {
@@ -20,7 +19,6 @@ export function useWalletExplorer() {
   const config = useEvmConfig()
   const projectId = computed(() => config.walletConnectProjectId || '')
 
-  const recommended = ref<ExplorerWallet[]>([])
   const wallets = ref<ExplorerWallet[]>([])
   const searchResults = ref<ExplorerWallet[]>([])
   const totalCount = ref(0)
@@ -29,15 +27,9 @@ export function useWalletExplorer() {
   const searching = ref(false)
   const recentIds = ref<string[]>(loadRecent())
 
-  const allKnown = computed(() => {
-    const map = new Map<string, ExplorerWallet>()
-    for (const w of [...recommended.value, ...wallets.value]) map.set(w.id, w)
-    return map
-  })
-
   const recentWallets = computed(() =>
     recentIds.value
-      .map(id => allKnown.value.get(id))
+      .map(id => wallets.value.find(w => w.id === id))
       .filter((w): w is ExplorerWallet => !!w)
   )
 
@@ -62,23 +54,6 @@ export function useWalletExplorer() {
     }
 
     return null
-  }
-
-  async function fetchRecommended() {
-    if (!projectId.value) return
-    loading.value = true
-    try {
-      const res = await fetch(
-        `${EXPLORER_API}/wallets?projectId=${projectId.value}&entries=${RECOMMENDED_COUNT}&page=1&sdks=sign_v2`
-      )
-      const data = await res.json()
-      recommended.value = Object.values(data.listings || {})
-      totalCount.value = data.total || 0
-    } catch (e) {
-      console.error('Failed to fetch wallets:', e)
-    } finally {
-      loading.value = false
-    }
   }
 
   async function fetchNextPage() {
@@ -138,7 +113,6 @@ export function useWalletExplorer() {
   }
 
   return {
-    recommended,
     wallets,
     searchResults,
     totalCount,
@@ -149,7 +123,6 @@ export function useWalletExplorer() {
     hasMore,
     imageUrl,
     walletHref,
-    fetchRecommended,
     fetchNextPage,
     search,
     addRecent,
