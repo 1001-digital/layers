@@ -1,0 +1,6 @@
+:root {
+  --progress-height: var(--size-1);
+  --progress-radius: var(--size-4);
+  --progress-track-background: var(--gray-z-2);
+  --progress-indicator-background: var(--primary);
+}

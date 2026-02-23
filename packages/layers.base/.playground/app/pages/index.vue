@@ -21,6 +21,7 @@
         <a href="#tooltips">Tooltips</a>
         <a href="#toasts">Toasts</a>
         <a href="#pin-input">Pin Input</a>
+        <a href="#progress">Progress</a>
         <a href="#calendar">Calendar</a>
         <a href="#date-picker">Date Picker</a>
       </nav>
@@ -1226,6 +1227,59 @@
         </div>
       </Card>
 
+      <!-- Progress -->
+      <Card id="progress">
+        <h3>Progress</h3>
+
+        <div class="component-demo">
+          <h4>Default</h4>
+          <Progress v-model="progressValue" />
+          <div class="demo-row">
+            <Button
+              class="small"
+              @click="progressValue = Math.max(0, (progressValue ?? 0) - 10)"
+            >
+              -10
+            </Button>
+            <Button
+              class="small"
+              @click="progressValue = Math.min(100, (progressValue ?? 0) + 10)"
+            >
+              +10
+            </Button>
+            <code>Value: {{ progressValue }}</code>
+          </div>
+        </div>
+
+        <div class="component-demo">
+          <h4>Custom Max</h4>
+          <Progress
+            v-model="progressSteps"
+            :max="5"
+          />
+          <div class="demo-row">
+            <Button
+              class="small"
+              @click="progressSteps = Math.max(0, (progressSteps ?? 0) - 1)"
+            >
+              -1
+            </Button>
+            <Button
+              class="small"
+              @click="progressSteps = Math.min(5, (progressSteps ?? 0) + 1)"
+            >
+              +1
+            </Button>
+            <code>{{ progressSteps }} / 5</code>
+          </div>
+        </div>
+
+        <div class="component-demo">
+          <h4>Indeterminate</h4>
+          <Progress :model-value="null" />
+        </div>
+      </Card>
+
       <!-- Calendar -->
       <Card id="calendar">
         <h3>Calendar</h3>
@@ -1521,6 +1575,10 @@ const radioOptions = [
   { value: 'a', label: 'Option A' },
   { value: 'b', label: 'Option B' },
 ]
+
+// Progress demo data
+const progressValue = ref<number | null>(60)
+const progressSteps = ref<number | null>(3)
 
 // PinInput demo data
 const pin = ref<string[]>([])
