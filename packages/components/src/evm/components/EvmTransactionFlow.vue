@@ -20,7 +20,9 @@
       v-if="step === 'requesting'"
       spinner
       stacked
-      :txt="text.lead[step] || ''"
+      :txt="connector?.name
+        ? `Requesting signature from ${connector.name}...`
+        : text.lead[step] || ''"
     />
 
     <p v-if="step !== 'requesting' && step !== 'error' && text.lead[step]">
@@ -74,7 +76,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onBeforeUnmount } from 'vue'
 import { waitForTransactionReceipt, watchChainId } from '@wagmi/core'
-import { useConfig, type Config } from '@wagmi/vue'
+import { useConfig, useConnection, type Config } from '@wagmi/vue'
 import type { TransactionReceipt, Hash } from 'viem'
 import Dialog from '../../base/components/Dialog.vue'
 import Loading from '../../base/components/Loading.vue'
@@ -144,6 +146,7 @@ const props = withDefaults(
 const checkChain = useEnsureChainIdCheck(props.chain)
 
 const wagmiConfig = useConfig()
+const { connector } = useConnection()
 const blockExplorer = useBlockExplorer(props.chain)
 const toast = useToast()
 

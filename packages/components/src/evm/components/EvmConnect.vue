@@ -36,7 +36,7 @@
     />
     <template v-else-if="isConnecting">
       <Loading
-        txt="Waiting for wallet confirmation..."
+        :txt="`Waiting for ${connectingWallet} confirmation...`"
         spinner
         stacked
       />
@@ -146,12 +146,14 @@ const shownConnectors = computed(() => {
 const chooseModalOpen = ref(false)
 const errorMessage = ref('')
 const isConnecting = ref(false)
+const connectingWallet = ref('')
 const metaMaskUri = ref('')
 const walletConnectUri = ref('')
 
 const login = async (connector: Connector) => {
   errorMessage.value = ''
   isConnecting.value = true
+  connectingWallet.value = connector.name
   metaMaskUri.value = ''
   walletConnectUri.value = ''
 
@@ -213,6 +215,7 @@ const login = async (connector: Connector) => {
 const onModalClosed = () => {
   errorMessage.value = ''
   isConnecting.value = false
+  connectingWallet.value = ''
   metaMaskUri.value = ''
   walletConnectUri.value = ''
 }
