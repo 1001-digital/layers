@@ -18,6 +18,7 @@
         <a href="#dropdowns">Dropdowns</a>
         <a href="#tooltips">Tooltips</a>
         <a href="#toasts">Toasts</a>
+        <a href="#pin-input">Pin Input</a>
       </nav>
     </header>
 
@@ -1013,6 +1014,76 @@
         </div>
       </Card>
 
+      <!-- Pin Input -->
+      <Card id="pin-input">
+        <h3>Pin Input</h3>
+
+        <div class="component-demo">
+          <h4>Default (4 digits)</h4>
+          <PinInput v-model="pin" />
+          <code>Value: {{ pin?.join('') || 'empty' }}</code>
+        </div>
+
+        <div class="component-demo">
+          <h4>6 Digits</h4>
+          <PinInput
+            v-model="pin6"
+            :length="6"
+          />
+        </div>
+
+        <div class="component-demo">
+          <h4>Numeric Only</h4>
+          <PinInput
+            v-model="pinNumeric"
+            type="number"
+            placeholder="0"
+          />
+        </div>
+
+        <div class="component-demo">
+          <h4>With Placeholder</h4>
+          <PinInput
+            v-model="pinPlaceholder"
+            placeholder="○"
+          />
+        </div>
+
+        <div class="component-demo">
+          <h4>Masked (Password)</h4>
+          <PinInput
+            v-model="pinMasked"
+            mask
+          />
+        </div>
+
+        <div class="component-demo">
+          <h4>OTP Mode</h4>
+          <PinInput
+            v-model="pinOtp"
+            :length="6"
+            type="number"
+            placeholder="·"
+            otp
+            @complete="
+              toast.add({
+                variant: 'success',
+                title: 'OTP Entered',
+                description: `Code: ${$event.join('')}`,
+              })
+            "
+          />
+        </div>
+
+        <div class="component-demo">
+          <h4>Disabled</h4>
+          <PinInput
+            :model-value="['1', '2', '3', '4']"
+            disabled
+          />
+        </div>
+      </Card>
+
       <!-- Toasts -->
       <Card id="toasts">
         <h3>Toast</h3>
@@ -1206,6 +1277,14 @@ const radioOptions = [
   { value: 'a', label: 'Option A' },
   { value: 'b', label: 'Option B' },
 ]
+
+// PinInput demo data
+const pin = ref<string[]>([])
+const pin6 = ref<string[]>([])
+const pinNumeric = ref<string[]>([])
+const pinPlaceholder = ref<string[]>([])
+const pinMasked = ref<string[]>([])
+const pinOtp = ref<string[]>([])
 
 // FormSelect demo data
 const selectedFruit = ref<string>()

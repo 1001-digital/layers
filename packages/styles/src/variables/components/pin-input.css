@@ -1,0 +1,11 @@
+:root {
+  --pin-input-size: var(--form-item-height);
+  --pin-input-gap: var(--spacer-sm);
+  --pin-input-border-radius: var(--border-radius);
+  --pin-input-background: var(--button-background);
+  --pin-input-background-focus: var(--button-background-highlight);
+  --pin-input-color: var(--color);
+  --pin-input-font-size: var(--ui-font-size);
+  --pin-input-font-weight: var(--ui-font-weight);
+  --pin-input-complete-border-color: var(--primary);
+}
