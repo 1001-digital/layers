@@ -87,7 +87,7 @@ p {
   gap: var(--spacer-xs);
   background: var(--color-bg-secondary);
   border: var(--border);
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--button-border-radius);
   overflow: hidden;
   height: min-content;
   padding: 0;
@@ -107,6 +107,8 @@ p {
     padding: var(--spacer-xs);
     min-width: auto;
     margin: -1px;
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
 
     &.copied {
       color: var(--color-success);
