@@ -12,6 +12,7 @@
     :click-outside="canDismiss"
     :title="text.title[step]"
     class="transaction-flow"
+    compat
   >
     <slot name="before" />
 
