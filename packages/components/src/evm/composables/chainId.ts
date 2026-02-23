@@ -24,18 +24,19 @@ export const useBlockExplorer = (key?: string) =>
 
 export const useEnsureChainIdCheck = () => {
   const chainId = useMainChainId()
-  const { mutate: switchChain } = useSwitchChain()
+  const { mutateAsync: switchChain } = useSwitchChain()
   const { chainId: currentChainId } = useConnection()
 
   return async () => {
-    if (chainId !== currentChainId.value) {
-      switchChain({ chainId })
-    }
-
     if (chainId === currentChainId.value) {
       return true
     }
 
-    return false
+    try {
+      await switchChain({ chainId })
+      return true
+    } catch {
+      return false
+    }
   }
 }
