@@ -5,17 +5,15 @@
   <div class="qr-frame">
     <canvas ref="qrCanvas"></canvas>
   </div>
-  <p class="uri-label">Or copy the connection URI:</p>
-  <div class="uri-display">
-    <code>{{ uri }}</code>
-    <Button
-      @click="copyUri"
-      class="copy-button"
-      :class="{ copied: isCopied }"
-    >
-      <Icon :type="isCopied ? 'check' : 'copy'" />
-    </Button>
-  </div>
+  <Button
+    @click="copyUri"
+    class="copy-uri tertiary small"
+  >
+    <Icon :type="isCopied ? 'check' : 'copy'" />
+    <span>
+      {{ isCopied ? 'Copied' : 'Copy Link' }}
+    </span>
+  </Button>
 </template>
 
 <script setup lang="ts">
@@ -81,38 +79,8 @@ p {
   }
 }
 
-.uri-display {
-  display: flex;
-  align-items: center;
-  gap: var(--spacer-xs);
-  background: var(--color-bg-secondary);
-  border: var(--border);
-  border-radius: var(--button-border-radius);
-  overflow: hidden;
-  height: min-content;
-  padding: 0;
-
-  code {
-    flex: 1;
-    font-size: var(--font-xs);
-    font-family: monospace;
-    white-space: nowrap;
-    overflow: hidden;
-    padding: 0 var(--spacer-sm);
-    color: var(--muted);
-  }
-
-  .copy-button {
-    flex-shrink: 0;
-    padding: var(--spacer-xs);
-    min-width: auto;
-    margin: -1px;
-    border-start-start-radius: 0;
-    border-end-start-radius: 0;
-
-    &.copied {
-      color: var(--color-success);
-    }
-  }
+.copy-uri {
+  width: fit-content;
+  margin: 0 auto;
 }
 </style>
