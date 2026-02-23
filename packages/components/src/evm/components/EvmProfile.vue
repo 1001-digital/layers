@@ -76,6 +76,7 @@ import { useConnection, useDisconnect } from '@wagmi/vue'
 import { useClipboard } from '@vueuse/core'
 import { useConfirm } from '../../base/composables/confirm'
 import { useEnsProfile } from '../composables/ens'
+import { useResolveUri } from '../composables/uri'
 import { shortAddress } from '../utils/addresses'
 import Button from '../../base/components/Button.vue'
 import Dialog from '../../base/components/Dialog.vue'
@@ -96,10 +97,11 @@ const { confirm } = useConfirm()
 const { data: ensData } = useEnsProfile(address)
 
 const { copy, copied } = useClipboard()
+const resolve = useResolveUri()
 
 const ensName = computed(() => ensData.value?.ens || null)
-const ensAvatar = computed(() => ensData.value?.data?.avatar || null)
-const ensHeader = computed(() => ensData.value?.data?.header || null)
+const ensAvatar = computed(() => resolve(ensData.value?.data?.avatar))
+const ensHeader = computed(() => resolve(ensData.value?.data?.header))
 
 const shortAddr = computed(() =>
   address.value ? shortAddress(address.value) : '',

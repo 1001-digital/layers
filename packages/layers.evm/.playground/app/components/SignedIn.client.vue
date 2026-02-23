@@ -1,7 +1,9 @@
 <template>
   <Card v-if="isConnected">
     <h2>Profile</h2>
-    <p>Opens a profile dialog with ENS data, network switcher, and disconnect.</p>
+    <p>
+      Opens a profile dialog with ENS data, network switcher, and disconnect.
+    </p>
     <Actions>
       <EvmProfile @disconnected="onDisconnected">
         <template #default="{ display, ensAvatar }">
@@ -26,7 +28,7 @@
         @error="onNetworkError"
       >
         <template #default="{ currentChain }">
-          <span>{{ currentChain?.name || 'Unknown' }}</span>
+          <span> Switch Network ({{ currentChain?.name || 'Unknown' }}) </span>
         </template>
       </EvmSwitchNetwork>
     </Actions>
@@ -124,7 +126,13 @@ const onDisconnected = () => {
   console.log('Wallet disconnected')
 }
 
-const onNetworkSwitched = ({ chainId, name }: { chainId: number; name: string }) => {
+const onNetworkSwitched = ({
+  chainId,
+  name,
+}: {
+  chainId: number
+  name: string
+}) => {
   console.log(`Switched to ${name} (${chainId})`)
 }
 

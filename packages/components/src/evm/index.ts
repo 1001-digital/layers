@@ -16,6 +16,8 @@ export {
 } from './utils/ens'
 export type { EnsProfile } from './utils/ens'
 export { stringifyJSON, parseJSON, formatPrice } from './utils/price'
+export { resolveUri } from './utils/uri'
+export type { ResolveUriOptions } from './utils/uri'
 
 // Composables
 export { useBaseURL } from './composables/base'
@@ -26,6 +28,7 @@ export {
   useEnsureChainIdCheck,
 } from './composables/chainId'
 export { useEns, useEnsWithAvatar, useEnsProfile } from './composables/ens'
+export { useResolveUri } from './composables/uri'
 export { useGasPrice } from './composables/gasPrice'
 export { usePriceFeed } from './composables/priceFeed'
 export { useWalletExplorer } from './composables/walletExplorer'
@@ -33,6 +36,7 @@ export type { ExplorerWallet } from './composables/walletExplorer'
 
 // Components
 export { default as EvmAccount } from './components/EvmAccount.vue'
+export { default as EvmAvatar } from './components/EvmAvatar.vue'
 export { default as EvmConnect } from './components/EvmConnect.vue'
 export { default as EvmProfile } from './components/EvmProfile.vue'
 export { default as EvmSwitchNetwork } from './components/EvmSwitchNetwork.vue'

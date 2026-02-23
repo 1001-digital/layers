@@ -11,6 +11,8 @@ export default defineAppConfig({
     ens: {
       mode: 'indexer',
     },
+    ipfsGateway: 'https://ipfs.io/ipfs/',
+    arweaveGateway: 'https://arweave.net/',
   },
 })
 
@@ -33,6 +35,10 @@ declare module '@nuxt/schema' {
         /** Resolution strategy: 'indexer' queries a ponder-ens API, 'chain' resolves on-chain */
         mode?: 'indexer' | 'chain'
       }
+      /** IPFS gateway URL (must end with /) */
+      ipfsGateway?: string
+      /** Arweave gateway URL (must end with /) */
+      arweaveGateway?: string
     }
   }
 }
