@@ -34,6 +34,8 @@ export type { ExplorerWallet } from './composables/walletExplorer'
 // Components
 export { default as EvmAccount } from './components/EvmAccount.vue'
 export { default as EvmConnect } from './components/EvmConnect.vue'
+export { default as EvmProfile } from './components/EvmProfile.vue'
+export { default as EvmSwitchNetwork } from './components/EvmSwitchNetwork.vue'
 export { default as EvmConnectorQR } from './components/EvmConnectorQR.vue'
 export { default as EvmMetaMaskQR } from './components/EvmMetaMaskQR.vue'
 export { default as EvmWalletConnectQR } from './components/EvmWalletConnectQR.vue'
