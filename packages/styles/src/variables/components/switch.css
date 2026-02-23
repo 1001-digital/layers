@@ -1,0 +1,10 @@
+:root {
+  --switch-width: calc(var(--size-7) - var(--size-1));
+  --switch-height: var(--size-4);
+  --switch-border-radius: var(--size-4);
+  --switch-background: var(--gray-z-2);
+  --switch-background-checked: var(--primary);
+  --switch-thumb-size: calc(var(--size-4) - var(--size-0) * 2);
+  --switch-thumb-offset: var(--size-0);
+  --switch-thumb-background: var(--background);
+}

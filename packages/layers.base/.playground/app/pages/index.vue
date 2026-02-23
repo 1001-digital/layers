@@ -454,6 +454,32 @@
             />
           </FormLabel>
         </div>
+
+        <div class="component-demo">
+          <h4>Switch</h4>
+          <FormSwitch v-model="switchEnabled">
+            Enable notifications
+          </FormSwitch>
+          <p>Enabled: {{ switchEnabled }}</p>
+        </div>
+
+        <div class="component-demo">
+          <h4>Switch (Disabled)</h4>
+          <div class="demo-row">
+            <FormSwitch
+              :model-value="false"
+              disabled
+            >
+              Off &amp; disabled
+            </FormSwitch>
+            <FormSwitch
+              :model-value="true"
+              disabled
+            >
+              On &amp; disabled
+            </FormSwitch>
+          </div>
+        </div>
       </Card>
 
       <!-- Actions -->
@@ -1270,6 +1296,9 @@ const acceptTerms = ref(false)
 
 // FormTextarea demo data
 const textareaValue = ref('')
+
+// FormSwitch demo data
+const switchEnabled = ref(false)
 
 // FormRadioGroup demo data
 const selectedOption = ref('a')
