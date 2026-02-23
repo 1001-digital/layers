@@ -10,7 +10,7 @@ import {
   type CreateConnectorFn,
 } from '@wagmi/vue'
 import {
-  coinbaseWallet,
+  baseAccount,
   injected,
   metaMask,
   walletConnect,
@@ -62,9 +62,8 @@ export default defineNuxtPlugin({
     // Connectors
     const connectors: CreateConnectorFn[] = [
       injected(),
-      coinbaseWallet({
+      baseAccount({
         appName: title,
-        appLogoUrl: '',
       }),
       metaMask({
         headless: true,

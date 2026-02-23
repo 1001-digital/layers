@@ -93,7 +93,7 @@ import EvmMetaMaskQR from './EvmMetaMaskQR.vue'
 import { useBaseURL } from '../composables/base'
 
 const ICONS: Record<string, string> = {
-  'Coinbase Wallet': 'coinbase.svg',
+  'Base Account': 'coinbase.svg',
   MetaMask: 'metamask.svg',
   Phantom: 'phantom.svg',
   'Rabby Wallet': 'rabby.svg',
@@ -103,7 +103,7 @@ const ICONS: Record<string, string> = {
 
 const PRIORITY: Record<string, number> = {
   WalletConnect: 20,
-  'Coinbase Wallet': 10,
+  'Base Account': 10,
 }
 
 defineProps<{

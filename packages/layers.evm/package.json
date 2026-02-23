@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@1001-digital/components": "workspace:^",
+    "@base-org/account": "^2.5.2",
     "@metamask/sdk": "~0.33.1",
     "@tanstack/vue-query": "^5.92.9",
     "@wagmi/vue": "^0.5.0",
