@@ -19,6 +19,8 @@
         <a href="#tooltips">Tooltips</a>
         <a href="#toasts">Toasts</a>
         <a href="#pin-input">Pin Input</a>
+        <a href="#calendar">Calendar</a>
+        <a href="#date-picker">Date Picker</a>
       </nav>
     </header>
 
@@ -1139,6 +1141,73 @@
         </div>
       </Card>
 
+      <!-- Calendar -->
+      <Card id="calendar">
+        <h3>Calendar</h3>
+
+        <div class="component-demo">
+          <h4>Default</h4>
+          <Calendar v-model="calendarDate" />
+          <code>Selected: {{ calendarDate?.toString() || 'None' }}</code>
+        </div>
+
+        <div class="component-demo">
+          <h4>Multiple Selection</h4>
+          <Calendar
+            v-model="calendarDates"
+            multiple
+          />
+          <code>Selected: {{ Array.isArray(calendarDates) ? calendarDates.map(d => d.toString()).join(', ') : calendarDates?.toString() || 'None' }}</code>
+        </div>
+
+        <div class="component-demo">
+          <h4>Min/Max Dates</h4>
+          <Calendar
+            v-model="calendarBounded"
+            :min-value="calendarMin"
+            :max-value="calendarMax"
+          />
+        </div>
+
+        <div class="component-demo">
+          <h4>Two Months</h4>
+          <Calendar
+            v-model="calendarTwoMonth"
+            :number-of-months="2"
+          />
+        </div>
+
+        <div class="component-demo">
+          <h4>Disabled</h4>
+          <Calendar disabled />
+        </div>
+      </Card>
+
+      <!-- Date Picker -->
+      <Card id="date-picker">
+        <h3>Date Picker</h3>
+
+        <div class="component-demo">
+          <h4>Date Field (Standalone)</h4>
+          <FormDateField v-model="dateFieldValue" />
+          <code>Value: {{ dateFieldValue?.toString() || 'None' }}</code>
+        </div>
+
+        <div class="component-demo">
+          <h4>Date Picker</h4>
+          <FormDatePicker v-model="datePickerValue" />
+          <code>Value: {{ datePickerValue?.toString() || 'None' }}</code>
+        </div>
+
+        <div class="component-demo">
+          <h4>Disabled</h4>
+          <div class="demo-row">
+            <FormDateField disabled />
+            <FormDatePicker disabled />
+          </div>
+        </div>
+      </Card>
+
       <!-- Toasts -->
       <Card id="toasts">
         <h3>Toast</h3>
@@ -1268,6 +1337,9 @@
 </template>
 
 <script setup lang="ts">
+import { CalendarDate } from '@internationalized/date'
+import type { DateValue } from '@internationalized/date'
+
 const toast = useToast()
 const grayShades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
 const zColors = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -1348,6 +1420,18 @@ const pinNumeric = ref<string[]>([])
 const pinPlaceholder = ref<string[]>([])
 const pinMasked = ref<string[]>([])
 const pinOtp = ref<string[]>([])
+
+// Calendar demo data
+const calendarDate = ref<DateValue>()
+const calendarDates = ref<DateValue | DateValue[] | undefined>([])
+const calendarBounded = ref<DateValue>()
+const calendarMin = new CalendarDate(2026, 2, 10)
+const calendarMax = new CalendarDate(2026, 2, 28)
+const calendarTwoMonth = ref<DateValue>()
+
+// DateField / DatePicker demo data
+const dateFieldValue = ref<DateValue>()
+const datePickerValue = ref<DateValue>()
 
 // FormSelect demo data
 const selectedFruit = ref<string>()

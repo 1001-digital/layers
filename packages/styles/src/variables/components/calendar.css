@@ -1,0 +1,9 @@
+:root {
+  --calendar-cell-size: var(--size-8);
+  --calendar-cell-border-radius: var(--border-radius);
+  --calendar-selected-background: var(--primary);
+  --calendar-selected-color: var(--background);
+  --calendar-today-border: 1px solid var(--primary);
+  --calendar-hover-background: var(--gray-z-2);
+  --calendar-nav-size: var(--size-6);
+}

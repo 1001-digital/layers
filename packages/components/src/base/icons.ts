@@ -6,10 +6,12 @@ export const IconAliasesKey: InjectionKey<IconAliases> = Symbol('IconAliases')
 
 export const defaultIconAliases: IconAliases = {
   add: 'lucide:plus',
+  calendar: 'lucide:calendar',
   check: 'lucide:check',
-  close: 'lucide:x',
+  'chevron-left': 'lucide:chevron-left',
   'chevron-down': 'lucide:chevron-down',
   'chevron-right': 'lucide:chevron-right',
+  close: 'lucide:x',
   copy: 'lucide:copy',
   edit: 'lucide:pencil',
   help: 'lucide:circle-question-mark',

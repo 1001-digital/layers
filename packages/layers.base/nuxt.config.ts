@@ -4,7 +4,7 @@ const componentsDir = fileURLToPath(
   new URL('../components/src/base/components', import.meta.url),
 )
 
-const clientOnlyComponents = ['Dialog', 'Toasts', 'Popover', 'Dropdown']
+const clientOnlyComponents = ['Dialog', 'Toasts', 'Popover', 'Dropdown', 'FormDatePicker']
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -33,8 +33,10 @@ export default defineNuxtConfig({
     componentName: 'NuxtIcon',
     aliases: {
       add: 'lucide:plus',
+      calendar: 'lucide:calendar',
       check: 'lucide:check',
       'chevron-down': 'lucide:chevron-down',
+      'chevron-left': 'lucide:chevron-left',
       'chevron-right': 'lucide:chevron-right',
       close: 'lucide:x',
       copy: 'lucide:copy',

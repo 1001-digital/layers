@@ -1,0 +1,7 @@
+:root {
+  --date-field-background: var(--background);
+  --date-field-segment-focus-background: var(--primary);
+  --date-field-segment-focus-color: var(--background);
+  --date-field-segment-padding: var(--size-0) var(--size-1);
+  --date-field-segment-border-radius: calc(var(--border-radius) / 2);
+}

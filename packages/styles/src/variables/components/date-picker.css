@@ -1,0 +1,6 @@
+:root {
+  --date-picker-content-background: var(--popover-background);
+  --date-picker-content-border: var(--popover-border);
+  --date-picker-content-border-radius: var(--popover-border-radius);
+  --date-picker-trigger-icon-color: var(--muted);
+}

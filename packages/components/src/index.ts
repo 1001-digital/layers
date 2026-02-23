@@ -2,6 +2,7 @@
 export { default as Actions } from './base/components/Actions.vue'
 export { default as Alert } from './base/components/Alert.vue'
 export { default as Button } from './base/components/Button.vue'
+export { default as Calendar } from './base/components/Calendar.vue'
 export { default as Card } from './base/components/Card.vue'
 export { default as CardLink } from './base/components/CardLink.vue'
 export { default as Dialog } from './base/components/Dialog.vue'
@@ -16,6 +17,8 @@ export { default as DropdownSeparator } from './base/components/DropdownSeparato
 export { default as DropdownSub } from './base/components/DropdownSub.vue'
 export { default as Form } from './base/components/Form.vue'
 export { default as FormCheckbox } from './base/components/FormCheckbox.vue'
+export { default as FormDateField } from './base/components/FormDateField.vue'
+export { default as FormDatePicker } from './base/components/FormDatePicker.vue'
 export { default as FormGroup } from './base/components/FormGroup.vue'
 export { default as FormInputGroup } from './base/components/FormInputGroup.vue'
 export { default as FormItem } from './base/components/FormItem.vue'
@@ -58,6 +61,14 @@ export {
   nowInSeconds,
   asUTCDate,
 } from './base/utils/time'
+
+// Date types
+export {
+  CalendarDate,
+  CalendarDateTime,
+  ZonedDateTime,
+} from '@internationalized/date'
+export type { DateValue } from '@internationalized/date'
 
 // Injection keys & types
 export { IconAliasesKey, defaultIconAliases } from './base/icons'
