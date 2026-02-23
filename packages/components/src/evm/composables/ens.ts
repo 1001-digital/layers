@@ -1,6 +1,6 @@
 import { ref, computed, watchEffect, toValue, type MaybeRefOrGetter, type Ref } from 'vue'
 import { getPublicClient } from '@wagmi/core'
-import { useConfig } from '@wagmi/vue'
+import { useConfig, type Config } from '@wagmi/vue'
 import { useEvmConfig } from '../config'
 import {
   ensCache,
@@ -21,7 +21,7 @@ async function resolve(
   identifier: string,
   strategies: EnsMode[],
   indexerUrls: string[],
-  wagmi: ReturnType<typeof useConfig>,
+  wagmi: Config,
   chainKeys: string[],
 ): Promise<EnsProfile> {
   for (const strategy of strategies) {
