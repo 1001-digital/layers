@@ -1,5 +1,7 @@
+import { ref, computed, watchEffect, toValue, type MaybeRefOrGetter, type Ref } from 'vue'
 import { getPublicClient } from '@wagmi/core'
-import type { Config } from '@wagmi/vue'
+import { useConfig } from '@wagmi/vue'
+import { useEvmConfig } from '../config'
 import {
   ensCache,
   fetchEnsFromIndexer,
@@ -15,22 +17,11 @@ interface UseEnsOptions {
   mode?: MaybeRefOrGetter<EnsMode | undefined>
 }
 
-interface EnsRuntimeConfig {
-  ens?: { indexer1?: string; indexer2?: string; indexer3?: string }
-}
-
-function getIndexerUrls(config: EnsRuntimeConfig): string[] {
-  if (!config.ens) return []
-  return [config.ens.indexer1, config.ens.indexer2, config.ens.indexer3].filter(
-    Boolean,
-  ) as string[]
-}
-
 async function resolve(
   identifier: string,
   strategies: EnsMode[],
   indexerUrls: string[],
-  wagmi: Config,
+  wagmi: ReturnType<typeof useConfig>,
   chainKeys: string[],
 ): Promise<EnsProfile> {
   for (const strategy of strategies) {
@@ -59,36 +50,45 @@ function useEnsBase(
   chainKeys: string[],
   options: UseEnsOptions = {},
 ) {
-  const { $wagmi } = useNuxtApp()
-  const appConfig = useAppConfig()
-  const runtimeConfig = useRuntimeConfig()
+  const config = useConfig()
+  const evmConfig = useEvmConfig()
 
   const mode = computed<EnsMode>(
-    () => toValue(options.mode) || appConfig.evm?.ens?.mode || 'indexer',
+    () => toValue(options.mode) || evmConfig.ens?.mode || 'indexer',
   )
-  const indexerUrls = computed(() =>
-    getIndexerUrls(runtimeConfig.public.evm as EnsRuntimeConfig),
-  )
+  const indexerUrls = computed(() => evmConfig.ens?.indexerUrls || [])
   const cacheKey = computed(() => `ens-${tier}-${toValue(identifier)}`)
 
-  return useAsyncData(
-    cacheKey.value,
-    async () => {
-      const id = toValue(identifier)
-      if (!id) return null
-
-      const strategies: EnsMode[] =
-        mode.value === 'indexer' ? ['indexer', 'chain'] : ['chain', 'indexer']
-
-      return ensCache.fetch(cacheKey.value, () =>
-        resolve(id, strategies, indexerUrls.value, $wagmi as Config, chainKeys),
-      )
-    },
-    {
-      watch: [() => toValue(identifier)],
-      getCachedData: () => ensCache.get(cacheKey.value) ?? undefined,
-    },
+  const data: Ref<EnsProfile | null | undefined> = ref(
+    ensCache.get(cacheKey.value) ?? undefined,
   )
+
+  watchEffect(async () => {
+    const id = toValue(identifier)
+    if (!id) {
+      data.value = null
+      return
+    }
+
+    const cached = ensCache.get(cacheKey.value)
+    if (cached) {
+      data.value = cached
+      return
+    }
+
+    const strategies: EnsMode[] =
+      mode.value === 'indexer' ? ['indexer', 'chain'] : ['chain', 'indexer']
+
+    try {
+      data.value = await ensCache.fetch(cacheKey.value, () =>
+        resolve(id, strategies, indexerUrls.value, config, chainKeys),
+      )
+    } catch {
+      data.value = null
+    }
+  })
+
+  return { data }
 }
 
 export const useEns = (

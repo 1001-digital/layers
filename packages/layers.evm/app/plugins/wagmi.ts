@@ -118,6 +118,8 @@ export default defineNuxtPlugin({
         mode: appConfig.evm?.ens?.mode || 'indexer',
         indexerUrls,
       },
+      ipfsGateway: appConfig.evm?.ipfsGateway,
+      arweaveGateway: appConfig.evm?.arweaveGateway,
       baseURL: nuxtApp.$config.app.baseURL,
       walletConnectProjectId: runtimeConfig.walletConnectProjectId || undefined,
     }

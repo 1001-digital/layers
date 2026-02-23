@@ -13,6 +13,8 @@ export interface EvmConfig {
     mode?: 'indexer' | 'chain'
     indexerUrls?: string[]
   }
+  ipfsGateway?: string
+  arweaveGateway?: string
   baseURL?: string
   walletConnectProjectId?: string
 }

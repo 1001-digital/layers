@@ -1,11 +1,12 @@
+import { useEvmConfig } from '../config'
 import { resolveUri } from '../utils/uri'
 
 export const useResolveUri = () => {
-  const appConfig = useAppConfig()
+  const evmConfig = useEvmConfig()
 
   return (uri?: string) =>
     resolveUri(uri, {
-      ipfsGateway: appConfig.evm?.ipfsGateway,
-      arweaveGateway: appConfig.evm?.arweaveGateway,
+      ipfsGateway: evmConfig.ipfsGateway,
+      arweaveGateway: evmConfig.arweaveGateway,
     })
 }

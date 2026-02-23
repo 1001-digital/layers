@@ -49,7 +49,9 @@ export async function fetchEnsFromIndexer(
 
   for (const url of urls) {
     try {
-      return await $fetch<EnsProfile>(`${url}/${identifier}`)
+      const res = await fetch(`${url}/${identifier}`)
+      if (!res.ok) throw new Error(`Indexer error: ${res.status}`)
+      return (await res.json()) as EnsProfile
     } catch (err) {
       lastError = err as Error
     }

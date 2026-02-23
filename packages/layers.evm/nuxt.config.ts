@@ -69,6 +69,7 @@ export default defineNuxtConfig({
       },
     },
     optimizeDeps: {
+      exclude: ['@1001-digital/components'],
       include: [
         '@1001-digital/layers.evm > @metamask/sdk',
         '@1001-digital/layers.evm > eventemitter3',
