@@ -1,7 +1,7 @@
 {
   "name": "@1001-digital/layers.prose",
   "type": "module",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "main": "./nuxt.config.ts",
   "scripts": {
     "dev": "nuxi dev .playground",
