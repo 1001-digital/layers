@@ -78,7 +78,7 @@ const linkProps = computed(() => {
       transition: color var(--speed);
     }
 
-    &:has(> .icon:first-child) {
+    &:has(> :is(.icon, img):first-child) {
       padding-inline-start: calc(var(--ui-padding-inline) - var(--size-1));
 
       &.small {
@@ -86,7 +86,7 @@ const linkProps = computed(() => {
       }
     }
 
-    &:has(> .icon:first-child:last-child) {
+    &:has(> :is(.icon, img):first-child:last-child) {
       padding: var(--ui-padding-block);
       aspect-ratio: 1;
 
