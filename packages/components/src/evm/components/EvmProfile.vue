@@ -17,6 +17,7 @@
     v-model:open="dialogOpen"
     class="evm-profile"
     title="Account"
+    compat
   >
     <div class="profile-header">
       <div
@@ -26,7 +27,10 @@
         "
       />
       <div class="avatar-wrapper">
-        <EvmAvatar :address="address" large />
+        <EvmAvatar
+          :address="address"
+          large
+        />
       </div>
     </div>
 

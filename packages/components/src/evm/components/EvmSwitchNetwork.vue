@@ -12,6 +12,7 @@
     title="Switch Network"
     v-model:open="dialogOpen"
     @closed="onClosed"
+    compat
   >
     <Alert
       v-if="errorMessage"
@@ -94,9 +95,10 @@ const switchTo = async (chain: Chain) => {
     dialogOpen.value = false
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : 'Failed to switch network.'
-    errorMessage.value = message.includes('rejected') || message.includes('denied')
-      ? 'Network switch cancelled.'
-      : 'Failed to switch network. Please try again.'
+    errorMessage.value =
+      message.includes('rejected') || message.includes('denied')
+        ? 'Network switch cancelled.'
+        : 'Failed to switch network. Please try again.'
     emit('error', { message: errorMessage.value })
   } finally {
     switching.value = false
