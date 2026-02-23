@@ -143,6 +143,17 @@ const props = withDefaults(
   },
 )
 
+function isUserRejection(e: unknown): boolean {
+  const re = /reject|denied|cancel/i
+  let current = e as Record<string, unknown> | undefined
+  while (current) {
+    if ((current as { code?: number }).code === 4001) return true
+    if (re.test((current as { details?: string }).details || '')) return true
+    current = current.cause as Record<string, unknown> | undefined
+  }
+  return false
+}
+
 const checkChain = useEnsureChainIdCheck(props.chain)
 
 const wagmiConfig = useConfig()
@@ -222,10 +233,10 @@ const initializeRequest = async (request = cachedRequest.value) => {
     step.value = 'requesting'
     tx.value = await request!()
   } catch (e: unknown) {
-    const err = e as { cause?: { code?: number }; shortMessage?: string }
-    if (err?.cause?.code === 4001) {
+    if (isUserRejection(e)) {
       error.value = 'Transaction rejected by user.'
     } else {
+      const err = e as { shortMessage?: string }
       error.value = err.shortMessage || 'Error submitting transaction request.'
     }
     step.value = 'error'

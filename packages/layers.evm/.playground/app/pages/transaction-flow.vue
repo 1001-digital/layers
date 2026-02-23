@@ -181,9 +181,13 @@ const hangingRequest = () => new Promise<Hash>(() => {})
 
 const rejectedRequest = async (): Promise<Hash> => {
   await delay(500)
-  const err = new Error('User rejected the request.')
-  ;(err as any).cause = { code: 4001 }
-  ;(err as any).shortMessage = 'User rejected the request.'
+  // Mimics Rainbow wallet's actual error shape (InternalRpcError wrapped in TransactionExecutionError)
+  const cause = new Error('An internal error was received.')
+  ;(cause as any).code = -32603
+  ;(cause as any).details = 'User rejected the request.'
+  const err = new Error('An internal error was received.')
+  ;(err as any).cause = cause
+  ;(err as any).shortMessage = 'An internal error was received.'
   throw err
 }
 
