@@ -80,7 +80,7 @@ export default defineNuxtPlugin({
       connectors.push(
         walletConnect({
           projectId: runtimeConfig.walletConnectProjectId,
-          showQrModal: false,
+          showQrModal: true,
         }),
       )
 
