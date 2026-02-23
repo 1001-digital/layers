@@ -27,6 +27,8 @@
   "dependencies": {
     "@1001-digital/components": "workspace:^",
     "@base-org/account": "^2.5.2",
+    "@safe-global/safe-apps-provider": "~0.18.6",
+    "@safe-global/safe-apps-sdk": "^9.1.0",
     "@metamask/sdk": "~0.33.1",
     "@tanstack/vue-query": "^5.92.9",
     "@wagmi/vue": "^0.5.0",

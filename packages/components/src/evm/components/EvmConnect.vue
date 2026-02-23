@@ -67,6 +67,17 @@
         <span>{{ connector.name }}</span>
       </Button>
       <Button
+        v-if="wcConnector"
+        @click="loginWithSafe"
+        class="choose-connector"
+      >
+        <img
+          :src="`${base}icons/wallets/safe.png`"
+          alt="Safe"
+        />
+        <span>Safe</span>
+      </Button>
+      <Button
         to="https://ethereum.org/wallets/"
         target="_blank"
         class="link muted small"
@@ -103,6 +114,7 @@ const ICONS: Record<string, string> = {
   Phantom: 'phantom.svg',
   'Rabby Wallet': 'rabby.svg',
   Rainbow: 'rainbow.svg',
+  Safe: 'safe.png',
   WalletConnect: 'walletconnect.svg',
 }
 
@@ -134,7 +146,9 @@ const shownConnectors = computed(() => {
   )
 
   const filtered =
-    unique.length > 1 ? unique.filter((c) => c.id !== 'injected') : unique
+    unique.length > 1
+      ? unique.filter((c) => c.id !== 'injected' && c.id !== 'safe')
+      : unique
 
   return filtered.sort((a, b) => {
     const priorityA = PRIORITY[a.name] ?? 5
@@ -143,17 +157,28 @@ const shownConnectors = computed(() => {
   })
 })
 
+const wcConnector = computed(() =>
+  connectors.value.find((c) => c.id === 'walletConnect'),
+)
+
 const chooseModalOpen = ref(false)
 const errorMessage = ref('')
 const isConnecting = ref(false)
 const connectingWallet = ref('')
 const metaMaskUri = ref('')
 const walletConnectUri = ref('')
+const safeDeepLink = ref(false)
+
+const loginWithSafe = () => {
+  if (!wcConnector.value) return
+  safeDeepLink.value = true
+  login(wcConnector.value)
+}
 
 const login = async (connector: Connector) => {
   errorMessage.value = ''
   isConnecting.value = true
-  connectingWallet.value = connector.name
+  connectingWallet.value = safeDeepLink.value ? 'Safe' : connector.name
   metaMaskUri.value = ''
   walletConnectUri.value = ''
 
@@ -165,7 +190,15 @@ const login = async (connector: Connector) => {
 
   const handleWcMessage = (event: { type: string; data?: unknown }) => {
     if (event.type === 'display_uri' && typeof event.data === 'string') {
-      walletConnectUri.value = event.data
+      if (safeDeepLink.value) {
+        window.open(
+          `https://app.safe.global/wc?uri=${encodeURIComponent(event.data)}`,
+          '_blank',
+          'noreferrer',
+        )
+      } else {
+        walletConnectUri.value = event.data
+      }
     }
   }
 
@@ -183,11 +216,13 @@ const login = async (connector: Connector) => {
       isConnecting.value = false
       metaMaskUri.value = ''
       walletConnectUri.value = ''
+      safeDeepLink.value = false
     }, 100)
   } catch (error: unknown) {
     isConnecting.value = false
     metaMaskUri.value = ''
     walletConnectUri.value = ''
+    safeDeepLink.value = false
 
     // Only show errors if our dialog is still open
     if (chooseModalOpen.value) {
@@ -218,13 +253,17 @@ const onModalClosed = () => {
   connectingWallet.value = ''
   metaMaskUri.value = ''
   walletConnectUri.value = ''
+  safeDeepLink.value = false
 }
 
 const check = () =>
   isConnected.value
     ? emit('connected', { address: address.value })
     : emit('disconnected')
-watch(isConnected, () => check())
+watch(isConnected, () => {
+  check()
+  if (!isConnected.value) onModalClosed()
+})
 onMounted(() => check())
 </script>
 

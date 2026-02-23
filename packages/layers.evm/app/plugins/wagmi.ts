@@ -13,6 +13,7 @@ import {
   baseAccount,
   injected,
   metaMask,
+  safe,
   walletConnect,
 } from '@wagmi/vue/connectors'
 import type { Chain, Transport } from 'viem'
@@ -62,6 +63,7 @@ export default defineNuxtPlugin({
     // Connectors
     const connectors: CreateConnectorFn[] = [
       injected(),
+      safe(),
       baseAccount({
         appName: title,
       }),
