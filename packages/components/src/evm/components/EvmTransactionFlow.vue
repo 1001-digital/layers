@@ -208,8 +208,11 @@ const receipt = ref<TransactionReceipt | null>(null)
 const txLink = computed(() => `${blockExplorer}/tx/${tx.value}`)
 
 let mounted = true
+let progressTimer: ReturnType<typeof setInterval> | undefined
+
 onBeforeUnmount(() => {
   mounted = false
+  clearInterval(progressTimer)
 })
 
 const canDismiss = computed(
@@ -254,17 +257,25 @@ const initializeRequest = async (request = cachedRequest.value) => {
     description: text.value.lead.waiting,
     duration: Infinity,
     loading: true,
+    progress: 0,
     action: {
       label: 'View on Block Explorer',
       onClick: () => window.open(link, '_blank'),
     },
   })
 
+  const start = Date.now()
+  progressTimer = setInterval(() => {
+    const elapsed = (Date.now() - start) / 1000
+    toast.update(toastId, { progress: Math.round(90 * (1 - Math.exp(-elapsed / 15))) })
+  }, 500)
+
   try {
     const receiptObject = await waitForTransactionReceipt(
       wagmiConfig as Config,
       { hash: tx.value },
     )
+    clearInterval(progressTimer)
     await delay(props.delayAfter)
     receipt.value = receiptObject
     emit('complete', receiptObject)
@@ -274,9 +285,11 @@ const initializeRequest = async (request = cachedRequest.value) => {
       title: text.value.title.complete,
       description: text.value.lead.complete,
       loading: false,
+      progress: false,
       ...(props.autoCloseSuccess && { duration: props.delayAutoclose }),
     })
   } catch (e: unknown) {
+    clearInterval(progressTimer)
     const err = e as { shortMessage?: string }
     if (mounted) {
       toast.dismiss(toastId)
@@ -288,6 +301,7 @@ const initializeRequest = async (request = cachedRequest.value) => {
         title: text.value.title.error,
         description: err.shortMessage || 'Transaction failed.',
         loading: false,
+        progress: false,
       })
     }
     console.log(e)

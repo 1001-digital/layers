@@ -15,6 +15,7 @@ export interface Toast {
   action?: ToastAction
   duration?: number
   loading?: boolean
+  progress?: number | boolean
 }
 
 const toasts = ref<Toast[]>([])

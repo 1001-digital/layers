@@ -28,13 +28,17 @@
         <Icon type="close" />
       </ToastClose>
 
-      <section v-if="toast.description || toast.action">
+      <section v-if="toast.description || toast.action || toast.progress">
         <ToastDescription
           v-if="toast.description"
           class="toast-description"
         >
           {{ toast.description }}
         </ToastDescription>
+        <Progress
+          v-if="toast.progress"
+          :model-value="toast.progress === true ? null : toast.progress"
+        />
         <ToastAction
           v-if="toast.action"
           :alt-text="toast.action.label"
@@ -62,6 +66,7 @@
 import Actions from './Actions.vue'
 import Button from './Button.vue'
 import Icon from './Icon.vue'
+import Progress from './Progress.vue'
 import { useToast } from '../composables/toast'
 import {
   ToastAction,

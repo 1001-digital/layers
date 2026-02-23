@@ -26,9 +26,6 @@ importers:
       '@vueuse/core':
         specifier: ^14.2.0
         version: 14.2.0(vue@3.5.28(typescript@5.9.3))
-      '@wagmi/vue':
-        specifier: '>=0.5.0'
-        version: 0.5.0(63da0473f12eb343984a4a38b254756b)
       luxon:
         specifier: ^3.7.0
         version: 3.7.2
@@ -38,9 +35,6 @@ importers:
       reka-ui:
         specifier: ^2.8.0
         version: 2.8.0(vue@3.5.28(typescript@5.9.3))
-      viem:
-        specifier: '>=2.0.0'
-        version: 2.45.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
     devDependencies:
       '@types/luxon':
         specifier: ^3.7.0
@@ -48,6 +42,15 @@ importers:
       '@types/qrcode':
         specifier: ^1.5.6
         version: 1.5.6
+      '@wagmi/core':
+        specifier: ^3.4.0
+        version: 3.4.0(@tanstack/query-core@5.90.20)(@types/react@19.2.7)(ox@0.11.3(typescript@5.9.3)(zod@3.25.76))(typescript@5.9.3)(viem@2.45.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+      '@wagmi/vue':
+        specifier: ^0.5.0
+        version: 0.5.0(63da0473f12eb343984a4a38b254756b)
+      viem:
+        specifier: ^2.45.0
+        version: 2.45.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
       vue:
         specifier: ^3.5.0
         version: 3.5.28(typescript@5.9.3)
