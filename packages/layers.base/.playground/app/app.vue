@@ -1,5 +1,4 @@
 <template>
   <NuxtPage />
-  <Toasts />
-  <ConfirmDialog />
+  <Globals />
 </template>

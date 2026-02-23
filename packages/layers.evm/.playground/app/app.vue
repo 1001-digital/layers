@@ -1,4 +1,4 @@
 <template>
   <NuxtPage />
-  <Toasts />
+  <Globals />
 </template>
