@@ -59,6 +59,16 @@
           <span>Switch Network ({{ currentChain?.name || 'Unknown' }})</span>
         </template>
       </EvmSwitchNetwork>
+
+      <Button
+        v-if="ensName"
+        :to="`https://app.ens.domains/${ensName}`"
+        target="_blank"
+      >
+        <Icon type="link" />
+        <span>Manage ENS</span>
+      </Button>
+
       <Button
         class="danger"
         @click="disconnect"
@@ -141,9 +151,10 @@ const disconnect = async () => {
     aspect-ratio: 3 / 1;
     width: 100%;
     height: auto;
-    background: var(--gray-z-2);
+    background-color: var(--gray-z-1);
     background-size: cover;
     background-position: center;
+    border-bottom: var(--border);
   }
 
   .avatar-wrapper {
@@ -184,9 +195,9 @@ const disconnect = async () => {
 .profile-actions {
   display: grid;
   gap: var(--spacer);
-  border-top: var(--border);
   padding-block-start: var(--spacer);
 
+  & :deep(.button),
   & :deep(button) {
     width: 100%;
   }
