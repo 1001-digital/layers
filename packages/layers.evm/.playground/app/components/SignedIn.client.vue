@@ -1,7 +1,35 @@
 <template>
   <Card v-if="isConnected">
-    <h2>Disconnect?</h2>
-    <Button @click="disconnect">Disconnect</Button>
+    <h2>Profile</h2>
+    <p>Opens a profile dialog with ENS data, network switcher, and disconnect.</p>
+    <Actions>
+      <EvmProfile @disconnected="onDisconnected">
+        <template #default="{ display, ensAvatar }">
+          <img
+            v-if="ensAvatar"
+            :src="ensAvatar"
+            alt=""
+            style="width: 1.2em; height: 1.2em; border-radius: 50%"
+          />
+          <span>{{ display }}</span>
+        </template>
+      </EvmProfile>
+    </Actions>
+  </Card>
+
+  <Card v-if="isConnected">
+    <h2>Switch Network</h2>
+    <p>Standalone network switcher dialog.</p>
+    <Actions>
+      <EvmSwitchNetwork
+        @switched="onNetworkSwitched"
+        @error="onNetworkError"
+      >
+        <template #default="{ currentChain }">
+          <span>{{ currentChain?.name || 'Unknown' }}</span>
+        </template>
+      </EvmSwitchNetwork>
+    </Actions>
   </Card>
 
   <Card v-if="isConnected">
@@ -83,7 +111,7 @@
 </template>
 
 <script setup lang="ts">
-import { useConnection, useDisconnect } from '@wagmi/vue'
+import { useConnection } from '@wagmi/vue'
 import { sendTransaction as sendTx } from '@wagmi/core'
 import { parseEther } from 'viem'
 import type { Config } from '@wagmi/vue'
@@ -91,7 +119,18 @@ import type { TransactionReceipt } from 'viem'
 
 const { $wagmi } = useNuxtApp()
 const { address, isConnected, chainId } = useConnection()
-const { mutate: disconnect } = useDisconnect()
+
+const onDisconnected = () => {
+  console.log('Wallet disconnected')
+}
+
+const onNetworkSwitched = ({ chainId, name }: { chainId: number; name: string }) => {
+  console.log(`Switched to ${name} (${chainId})`)
+}
+
+const onNetworkError = ({ message }: { message: string }) => {
+  console.log('Network switch error:', message)
+}
 
 const sendTransaction = async () => {
   const hash = await sendTx($wagmi as Config, {
