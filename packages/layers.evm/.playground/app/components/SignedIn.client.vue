@@ -53,7 +53,7 @@ import type { TransactionReceipt } from 'viem'
 
 const { $wagmi } = useNuxtApp()
 const { address, isConnected, chainId } = useConnection()
-const { disconnect } = useDisconnect()
+const { mutate: disconnect } = useDisconnect()
 
 const sendTransaction = async () => {
   const hash = await sendTx($wagmi as Config, {
