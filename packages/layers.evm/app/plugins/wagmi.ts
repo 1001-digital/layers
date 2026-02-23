@@ -36,10 +36,16 @@ export default defineNuxtPlugin({
     const chainEntries = appConfig.evm?.chains || {}
 
     // Build chains and transports from config
+    // Ensure defaultChain is first — wagmi uses chains[0] as its default
+    const defaultChain = appConfig.evm?.defaultChain || 'mainnet'
+    const sortedEntries = Object.entries(chainEntries).sort(([a], [b]) =>
+      a === defaultChain ? -1 : b === defaultChain ? 1 : 0,
+    )
+
     const chains: [Chain, ...Chain[]] = [] as unknown as [Chain, ...Chain[]]
     const transports: Record<number, Transport> = {}
 
-    for (const [key, entry] of Object.entries(chainEntries)) {
+    for (const [key, entry] of sortedEntries) {
       const chain = resolveChain(entry.id!)
       chains.push(chain)
 
