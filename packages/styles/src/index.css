@@ -20,6 +20,7 @@
  */
 @import './base/base.css' layer(base);
 @import './base/forms.css' layer(base);
+@import './base/scroll.css' layer(base);
 
 /*
  * Utilities Layer - Helper classes

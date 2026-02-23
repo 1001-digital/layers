@@ -1,0 +1,4 @@
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray-z-2) transparent;
+}
