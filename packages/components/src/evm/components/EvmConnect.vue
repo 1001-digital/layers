@@ -87,10 +87,11 @@
         @click="showInAppSetup = true"
         class="choose-connector"
       >
-        <div class="default-wallet-icon">
-          <Icon type="key" />
-        </div>
-        <span>Seed Phrase</span>
+        <img
+          :src="`${base}icons/wallets/in-app.svg`"
+          alt="Seed Phrase"
+        />
+        <span>In App</span>
       </Button>
       <Button
         to="https://ethereum.org/wallets/"
@@ -131,6 +132,7 @@ const ICONS: Record<string, string> = {
   'Rabby Wallet': 'rabby.svg',
   Rainbow: 'rainbow.svg',
   Safe: 'safe.png',
+  'In App': 'in-app.svg',
   WalletConnect: 'walletconnect.svg',
 }
 
@@ -170,9 +172,7 @@ const shownConnectors = computed(() => {
     unique.length > 1
       ? unique.filter(
           (c) =>
-            c.id !== 'injected' &&
-            c.id !== 'safe' &&
-            c.type !== 'inAppWallet',
+            c.id !== 'injected' && c.id !== 'safe' && c.type !== 'inAppWallet',
         )
       : unique.filter((c) => c.type !== 'inAppWallet')
 

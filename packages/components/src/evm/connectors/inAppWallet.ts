@@ -41,11 +41,8 @@ inAppWallet.type = 'inAppWallet' as const
 export function inAppWallet(parameters: InAppWalletParameters = {}) {
   const key = parameters.storageKey ?? STORAGE_KEY
 
-  type Provider = ReturnType<typeof custom> extends (
-    ...args: infer A
-  ) => infer R
-    ? R
-    : never
+  type Provider =
+    ReturnType<typeof custom> extends (...args: infer A) => infer R ? R : never
 
   return createConnector<Provider>((config) => {
     let account: PrivateKeyAccount | null = null
@@ -72,7 +69,7 @@ export function inAppWallet(parameters: InAppWalletParameters = {}) {
 
     return {
       id: 'inAppWallet',
-      name: 'Seed Phrase',
+      name: 'In App',
       type: inAppWallet.type,
 
       async connect({ chainId } = {}) {
@@ -155,7 +152,8 @@ export function inAppWallet(parameters: InAppWalletParameters = {}) {
               data: tx.data as Hex | undefined,
               value: tx.value ? hexToBigInt(tx.value as Hex) : undefined,
               gas: tx.gas ? hexToBigInt(tx.gas as Hex) : undefined,
-              nonce: tx.nonce != null ? hexToNumber(tx.nonce as Hex) : undefined,
+              nonce:
+                tx.nonce != null ? hexToNumber(tx.nonce as Hex) : undefined,
             })
           }
 
@@ -174,8 +172,14 @@ export function inAppWallet(parameters: InAppWalletParameters = {}) {
 
           // Everything else — forward to RPC
           const publicClient = createPublicClient({ chain, transport })
-          return (publicClient as unknown as { request: (args: { method: string; params?: unknown[] }) => Promise<unknown> })
-            .request({ method, params: params as unknown[] })
+          return (
+            publicClient as unknown as {
+              request: (args: {
+                method: string
+                params?: unknown[]
+              }) => Promise<unknown>
+            }
+          ).request({ method, params: params as unknown[] })
         }
 
         return custom({ request })({ retryCount: 0 })
