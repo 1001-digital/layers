@@ -1,5 +1,5 @@
 <template>
-  <div class="seed-wallet-setup">
+  <div class="in-app-wallet-setup">
     <!-- Step: Choose -->
     <div
       v-if="step === 'choose'"
@@ -117,7 +117,7 @@ import Icon from '../../base/components/Icon.vue'
 import Alert from '../../base/components/Alert.vue'
 import Loading from '../../base/components/Loading.vue'
 import EvmSeedPhraseInput from './EvmSeedPhraseInput.vue'
-import { prepareSeedWallet } from '../connectors/seedWallet'
+import { prepareInAppWallet } from '../connectors/inAppWallet'
 
 const emit = defineEmits<{
   connected: []
@@ -126,8 +126,8 @@ const emit = defineEmits<{
 
 const connectors = useConnectors()
 const { mutateAsync: connectAsync } = useConnect()
-const seedConnector = computed(() =>
-  connectors.value.find((c) => c.type === 'seedWallet'),
+const inAppConnector = computed(() =>
+  connectors.value.find((c) => c.type === 'inAppWallet'),
 )
 
 type Step = 'choose' | 'generate' | 'restore' | 'connecting'
@@ -151,8 +151,8 @@ async function startGenerate() {
 }
 
 async function connectWithMnemonic(mnemonic: string) {
-  await prepareSeedWallet(mnemonic)
-  await connectAsync({ connector: seedConnector.value! })
+  await prepareInAppWallet(mnemonic)
+  await connectAsync({ connector: inAppConnector.value! })
 }
 
 async function confirmGenerated() {
@@ -161,7 +161,7 @@ async function confirmGenerated() {
     await connectWithMnemonic(generatedMnemonic.value)
     emit('connected')
   } catch (e) {
-    console.error('Failed to connect seed wallet:', e)
+    console.error('Failed to connect in-app wallet:', e)
     step.value = 'generate'
   }
 }
@@ -173,14 +173,14 @@ async function restoreWallet() {
     await connectWithMnemonic(restorePhrase.value)
     emit('connected')
   } catch (e) {
-    console.error('Failed to restore seed wallet:', e)
+    console.error('Failed to restore in-app wallet:', e)
     step.value = 'restore'
   }
 }
 </script>
 
 <style scoped>
-.seed-wallet-setup {
+.in-app-wallet-setup {
   display: grid;
   gap: var(--spacer);
 }

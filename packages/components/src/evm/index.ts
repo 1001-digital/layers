@@ -35,7 +35,7 @@ export { useWalletExplorer } from './composables/walletExplorer'
 export type { ExplorerWallet } from './composables/walletExplorer'
 
 // Connectors
-export { seedWallet, prepareSeedWallet } from './connectors/seedWallet'
+export { inAppWallet, prepareInAppWallet } from './connectors/inAppWallet'
 
 // Components
 export { default as EvmAccount } from './components/EvmAccount.vue'
@@ -49,4 +49,4 @@ export { default as EvmWalletConnectQR } from './components/EvmWalletConnectQR.v
 export { default as EvmWalletConnectWallets } from './components/EvmWalletConnectWallets.vue'
 export { default as EvmTransactionFlow } from './components/EvmTransactionFlow.vue'
 export { default as EvmSeedPhraseInput } from './components/EvmSeedPhraseInput.vue'
-export { default as EvmSeedWalletSetup } from './components/EvmSeedWalletSetup.vue'
+export { default as EvmInAppWalletSetup } from './components/EvmInAppWalletSetup.vue'

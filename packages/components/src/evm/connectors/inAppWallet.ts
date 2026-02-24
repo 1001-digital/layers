@@ -13,13 +13,13 @@ import {
 } from 'viem'
 import { privateKeyToAccount, type PrivateKeyAccount } from 'viem/accounts'
 
-const STORAGE_KEY = 'evm:seed-wallet-pk'
+const STORAGE_KEY = 'evm:in-app-wallet-pk'
 
 /**
  * Derive a private key from a BIP39 mnemonic and store it in localStorage.
  * Call this before `connectAsync({ connector })`.
  */
-export async function prepareSeedWallet(mnemonic: string): Promise<Address> {
+export async function prepareInAppWallet(mnemonic: string): Promise<Address> {
   const { mnemonicToAccount } = await import('viem/accounts')
   const { bytesToHex } = await import('viem')
 
@@ -32,13 +32,13 @@ export async function prepareSeedWallet(mnemonic: string): Promise<Address> {
   return hdAccount.address
 }
 
-export type SeedWalletParameters = {
+export type InAppWalletParameters = {
   storageKey?: string
 }
 
-seedWallet.type = 'seedWallet' as const
+inAppWallet.type = 'inAppWallet' as const
 
-export function seedWallet(parameters: SeedWalletParameters = {}) {
+export function inAppWallet(parameters: InAppWalletParameters = {}) {
   const key = parameters.storageKey ?? STORAGE_KEY
 
   type Provider = ReturnType<typeof custom> extends (
@@ -71,13 +71,13 @@ export function seedWallet(parameters: SeedWalletParameters = {}) {
     }
 
     return {
-      id: 'seedWallet',
+      id: 'inAppWallet',
       name: 'Seed Phrase',
-      type: seedWallet.type,
+      type: inAppWallet.type,
 
       async connect({ chainId } = {}) {
         const acct = account ?? loadAccount()
-        if (!acct) throw new Error('No seed wallet key found in storage')
+        if (!acct) throw new Error('No in-app wallet key found in storage')
 
         if (chainId) currentChainId = chainId
 

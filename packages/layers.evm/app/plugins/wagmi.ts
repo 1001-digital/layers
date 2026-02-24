@@ -20,7 +20,7 @@ import type { Chain, Transport } from 'viem'
 import {
   EvmConfigKey,
   resolveChain,
-  seedWallet,
+  inAppWallet,
   type EvmConfig,
 } from '@1001-digital/components'
 
@@ -86,7 +86,7 @@ export default defineNuxtPlugin({
         }),
       )
 
-    if (appConfig.evm?.seedWallet?.enabled) connectors.push(seedWallet())
+    if (appConfig.evm?.inAppWallet?.enabled) connectors.push(inAppWallet())
 
     const wagmiConfig: Config = createConfig({
       chains,

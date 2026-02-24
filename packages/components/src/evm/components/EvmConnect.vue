@@ -20,10 +20,10 @@
     v-model:open="chooseModalOpen"
     @closed="onModalClosed"
   >
-    <EvmSeedWalletSetup
-      v-if="showSeedSetup"
-      @connected="onSeedConnected"
-      @back="showSeedSetup = false"
+    <EvmInAppWalletSetup
+      v-if="showInAppSetup"
+      @connected="onInAppConnected"
+      @back="showInAppSetup = false"
     />
     <Alert
       v-else-if="errorMessage"
@@ -83,8 +83,8 @@
         <span>Safe</span>
       </Button>
       <Button
-        v-if="seedConnector"
-        @click="showSeedSetup = true"
+        v-if="inAppConnector"
+        @click="showInAppSetup = true"
         class="choose-connector"
       >
         <div class="default-wallet-icon">
@@ -121,7 +121,7 @@ import Loading from '../../base/components/Loading.vue'
 import EvmAccount from './EvmAccount.vue'
 import EvmMetaMaskQR from './EvmMetaMaskQR.vue'
 import EvmWalletConnectWallets from './EvmWalletConnectWallets.vue'
-import EvmSeedWalletSetup from './EvmSeedWalletSetup.vue'
+import EvmInAppWalletSetup from './EvmInAppWalletSetup.vue'
 import { useBaseURL } from '../composables/base'
 
 const ICONS: Record<string, string> = {
@@ -153,10 +153,10 @@ const connectors = useConnectors()
 const { mutateAsync: connectAsync } = useConnect()
 const { address, isConnected } = useConnection()
 
-const seedConnector = computed(() =>
-  connectors.value.find((c) => c.type === 'seedWallet'),
+const inAppConnector = computed(() =>
+  connectors.value.find((c) => c.type === 'inAppWallet'),
 )
-const showSeedSetup = ref(false)
+const showInAppSetup = ref(false)
 
 const showConnect = computed(() => !isConnected.value)
 const shownConnectors = computed(() => {
@@ -172,9 +172,9 @@ const shownConnectors = computed(() => {
           (c) =>
             c.id !== 'injected' &&
             c.id !== 'safe' &&
-            c.type !== 'seedWallet',
+            c.type !== 'inAppWallet',
         )
-      : unique.filter((c) => c.type !== 'seedWallet')
+      : unique.filter((c) => c.type !== 'inAppWallet')
 
   return filtered.sort((a, b) => {
     const priorityA = PRIORITY[a.name] ?? 5
@@ -273,9 +273,9 @@ const login = async (connector: Connector) => {
   }
 }
 
-const onSeedConnected = () => {
+const onInAppConnected = () => {
   chooseModalOpen.value = false
-  showSeedSetup.value = false
+  showInAppSetup.value = false
 }
 
 const onModalClosed = () => {
@@ -285,7 +285,7 @@ const onModalClosed = () => {
   metaMaskUri.value = ''
   walletConnectUri.value = ''
   safeDeepLink.value = false
-  showSeedSetup.value = false
+  showInAppSetup.value = false
 }
 
 const check = () =>
