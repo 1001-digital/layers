@@ -317,6 +317,7 @@ onMounted(() => check())
     width: 100%;
     inline-size: auto;
     justify-content: flex-start;
+    padding-inline-start: var(--ui-padding-inline);
 
     img,
     .default-wallet-icon {
