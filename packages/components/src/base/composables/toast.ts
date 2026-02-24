@@ -3,6 +3,7 @@ import { ref } from 'vue'
 export interface ToastAction {
   label: string
   onClick: () => void
+  persistent?: boolean
 }
 
 export type ToastVariant = 'info' | 'success' | 'error'

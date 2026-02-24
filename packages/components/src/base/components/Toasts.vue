@@ -42,7 +42,7 @@
           :model-value="toast.progress === true ? null : toast.progress"
         />
         <ToastAction
-          v-if="toast.action"
+          v-if="toast.action && !toast.action.persistent"
           :alt-text="toast.action.label"
           :as="Actions"
           class="left"
@@ -54,6 +54,17 @@
             {{ toast.action.label }}
           </Button>
         </ToastAction>
+        <Actions
+          v-if="toast.action?.persistent"
+          class="left"
+        >
+          <Button
+            class="small tertiary"
+            @click="toast.action!.onClick()"
+          >
+            {{ toast.action.label }}
+          </Button>
+        </Actions>
       </section>
     </ToastRoot>
 

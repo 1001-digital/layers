@@ -261,6 +261,7 @@ const initializeRequest = async (request = cachedRequest.value) => {
     action: {
       label: 'View on Block Explorer',
       onClick: () => window.open(link, '_blank'),
+      persistent: true,
     },
   })
 
