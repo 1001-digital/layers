@@ -20,6 +20,7 @@ import type { Chain, Transport } from 'viem'
 import {
   EvmConfigKey,
   resolveChain,
+  seedWallet,
   type EvmConfig,
 } from '@1001-digital/components'
 
@@ -85,6 +86,8 @@ export default defineNuxtPlugin({
         }),
       )
 
+    if (appConfig.evm?.seedWallet?.enabled) connectors.push(seedWallet())
+
     const wagmiConfig: Config = createConfig({
       chains,
       batch: {
@@ -122,9 +125,6 @@ export default defineNuxtPlugin({
       arweaveGateway: appConfig.evm?.arweaveGateway,
       baseURL: nuxtApp.$config.app.baseURL,
       walletConnectProjectId: runtimeConfig.walletConnectProjectId || undefined,
-      seedWallet: {
-        enabled: !!appConfig.evm?.seedWallet?.enabled,
-      },
     }
 
     nuxtApp.vueApp

@@ -83,7 +83,7 @@
         <span>Safe</span>
       </Button>
       <Button
-        v-if="seedWalletEnabled"
+        v-if="seedConnector"
         @click="showSeedSetup = true"
         class="choose-connector"
       >
@@ -107,7 +107,12 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
 import type { Connector } from '@wagmi/vue'
-import { useConnect, useConnectors, useChainId } from '@wagmi/vue'
+import {
+  useConnection,
+  useConnect,
+  useConnectors,
+  useChainId,
+} from '@wagmi/vue'
 import Button from '../../base/components/Button.vue'
 import Dialog from '../../base/components/Dialog.vue'
 import Icon from '../../base/components/Icon.vue'
@@ -118,8 +123,6 @@ import EvmMetaMaskQR from './EvmMetaMaskQR.vue'
 import EvmWalletConnectWallets from './EvmWalletConnectWallets.vue'
 import EvmSeedWalletSetup from './EvmSeedWalletSetup.vue'
 import { useBaseURL } from '../composables/base'
-import { useWallet } from '../composables/wallet'
-import { useEvmConfig } from '../config'
 
 const ICONS: Record<string, string> = {
   'Base Account': 'coinbase.svg',
@@ -144,15 +147,17 @@ const emit = defineEmits<{
   disconnected: []
 }>()
 const base = useBaseURL()
-const evmConfig = useEvmConfig()
 
 const chainId = useChainId()
 const connectors = useConnectors()
 const { mutateAsync: connectAsync } = useConnect()
-const { address, isConnected } = useWallet()
+const { address, isConnected } = useConnection()
 
-const seedWalletEnabled = computed(() => !!evmConfig.seedWallet?.enabled)
+const seedConnector = computed(() =>
+  connectors.value.find((c) => c.type === 'seedWallet'),
+)
 const showSeedSetup = ref(false)
+
 const showConnect = computed(() => !isConnected.value)
 const shownConnectors = computed(() => {
   const unique = Array.from(
@@ -163,8 +168,13 @@ const shownConnectors = computed(() => {
 
   const filtered =
     unique.length > 1
-      ? unique.filter((c) => c.id !== 'injected' && c.id !== 'safe')
-      : unique
+      ? unique.filter(
+          (c) =>
+            c.id !== 'injected' &&
+            c.id !== 'safe' &&
+            c.type !== 'seedWallet',
+        )
+      : unique.filter((c) => c.type !== 'seedWallet')
 
   return filtered.sort((a, b) => {
     const priorityA = PRIORITY[a.name] ?? 5
@@ -266,7 +276,6 @@ const login = async (connector: Connector) => {
 const onSeedConnected = () => {
   chooseModalOpen.value = false
   showSeedSetup.value = false
-  check()
 }
 
 const onModalClosed = () => {
@@ -279,17 +288,13 @@ const onModalClosed = () => {
   showSeedSetup.value = false
 }
 
-const check = () => {
-  const addr = address.value
-  if (addr) {
-    emit('connected', { address: addr })
-  } else {
-    emit('disconnected')
-  }
-}
-watch(isConnected, (connected) => {
+const check = () =>
+  isConnected.value
+    ? emit('connected', { address: address.value })
+    : emit('disconnected')
+watch(isConnected, () => {
   check()
-  if (!connected) onModalClosed()
+  if (!isConnected.value) onModalClosed()
 })
 onMounted(() => check())
 </script>
@@ -303,7 +308,6 @@ onMounted(() => check())
     width: 100%;
     inline-size: auto;
     justify-content: flex-start;
-    padding-inline-start: var(--ui-padding-inline);
 
     img,
     .default-wallet-icon {

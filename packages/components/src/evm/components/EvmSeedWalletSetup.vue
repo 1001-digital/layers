@@ -110,20 +110,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useConnect, useConnectors } from '@wagmi/vue'
 import Button from '../../base/components/Button.vue'
 import Icon from '../../base/components/Icon.vue'
 import Alert from '../../base/components/Alert.vue'
 import Loading from '../../base/components/Loading.vue'
 import EvmSeedPhraseInput from './EvmSeedPhraseInput.vue'
-import { useSeedWallet } from '../composables/seedWallet'
+import { prepareSeedWallet } from '../connectors/seedWallet'
 
 const emit = defineEmits<{
   connected: []
   back: []
 }>()
 
-const { connectWithMnemonic } = useSeedWallet()
+const connectors = useConnectors()
+const { mutateAsync: connectAsync } = useConnect()
+const seedConnector = computed(() =>
+  connectors.value.find((c) => c.type === 'seedWallet'),
+)
 
 type Step = 'choose' | 'generate' | 'restore' | 'connecting'
 const step = ref<Step>('choose')
@@ -143,6 +148,11 @@ async function startGenerate() {
   generatedWords.value = generatedMnemonic.value.split(' ')
   backupConfirmed.value = false
   step.value = 'generate'
+}
+
+async function connectWithMnemonic(mnemonic: string) {
+  await prepareSeedWallet(mnemonic)
+  await connectAsync({ connector: seedConnector.value! })
 }
 
 async function confirmGenerated() {

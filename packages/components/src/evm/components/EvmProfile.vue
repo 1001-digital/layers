@@ -74,11 +74,11 @@
 
 <script setup lang="ts">
 import { ref, computed, nextTick } from 'vue'
+import { useConnection, useDisconnect } from '@wagmi/vue'
 import { useClipboard } from '@vueuse/core'
 import { useConfirm } from '../../base/composables/confirm'
 import { useEnsProfile } from '../composables/ens'
 import { useResolveUri } from '../composables/uri'
-import { useWallet } from '../composables/wallet'
 import { shortAddress } from '../utils/addresses'
 import Button from '../../base/components/Button.vue'
 import Dialog from '../../base/components/Dialog.vue'
@@ -94,7 +94,8 @@ const emit = defineEmits<{
   disconnected: []
 }>()
 
-const { address, disconnect: disconnectAll } = useWallet()
+const { address } = useConnection()
+const { mutate: disconnectWallet } = useDisconnect()
 const { confirm } = useConfirm()
 const { data: ensData } = useEnsProfile(address)
 
@@ -128,7 +129,7 @@ const disconnect = async () => {
 
   dialogOpen.value = false
   await nextTick()
-  disconnectAll()
+  disconnectWallet()
   emit('disconnected')
 }
 </script>
