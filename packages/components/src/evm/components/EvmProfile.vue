@@ -46,6 +46,8 @@
     </div>
 
     <div class="profile-actions">
+      <slot name="actions" />
+
       <EvmSwitchNetwork>
         <template #default="{ currentChain }">
           <Icon type="wallet" />
