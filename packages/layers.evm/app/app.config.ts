@@ -13,6 +13,9 @@ export default defineAppConfig({
     },
     ipfsGateway: 'https://ipfs.io/ipfs/',
     arweaveGateway: 'https://arweave.net/',
+    seedWallet: {
+      enabled: false,
+    },
   },
 })
 
@@ -39,6 +42,11 @@ declare module '@nuxt/schema' {
       ipfsGateway?: string
       /** Arweave gateway URL (must end with /) */
       arweaveGateway?: string
+      /** Seed wallet configuration */
+      seedWallet?: {
+        /** Enable the integrated seed wallet option */
+        enabled?: boolean
+      }
     }
   }
 }

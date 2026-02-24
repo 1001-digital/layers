@@ -85,6 +85,7 @@ import Dialog from '../../base/components/Dialog.vue'
 import Icon from '../../base/components/Icon.vue'
 import EvmAvatar from './EvmAvatar.vue'
 import EvmSwitchNetwork from './EvmSwitchNetwork.vue'
+import { useSeedWallet } from '../composables/seedWallet'
 
 defineProps<{
   className?: string
@@ -94,8 +95,14 @@ const emit = defineEmits<{
   disconnected: []
 }>()
 
-const { address } = useConnection()
+const { address: wagmiAddress } = useConnection()
 const { mutate: disconnectWallet } = useDisconnect()
+const {
+  address: seedAddress,
+  disconnect: disconnectSeed,
+} = useSeedWallet()
+
+const address = computed(() => wagmiAddress.value ?? seedAddress.value)
 const { confirm } = useConfirm()
 const { data: ensData } = useEnsProfile(address)
 
@@ -130,6 +137,7 @@ const disconnect = async () => {
   dialogOpen.value = false
   await nextTick()
   disconnectWallet()
+  disconnectSeed()
   emit('disconnected')
 }
 </script>

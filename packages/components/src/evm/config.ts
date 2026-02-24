@@ -17,6 +17,7 @@ export interface EvmConfig {
   arweaveGateway?: string
   baseURL?: string
   walletConnectProjectId?: string
+  seedWallet?: { enabled?: boolean }
 }
 
 export const EvmConfigKey: InjectionKey<EvmConfig> = Symbol('EvmConfig')

@@ -122,6 +122,9 @@ export default defineNuxtPlugin({
       arweaveGateway: appConfig.evm?.arweaveGateway,
       baseURL: nuxtApp.$config.app.baseURL,
       walletConnectProjectId: runtimeConfig.walletConnectProjectId || undefined,
+      seedWallet: {
+        enabled: !!appConfig.evm?.seedWallet?.enabled,
+      },
     }
 
     nuxtApp.vueApp

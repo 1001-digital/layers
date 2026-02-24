@@ -9,9 +9,9 @@
   <slot
     v-else
     name="connected"
-    :address="address"
+    :address="effectiveAddress"
   >
-    <EvmAccount :address="address" />
+    <EvmAccount :address="effectiveAddress" />
   </slot>
 
   <Dialog
@@ -20,8 +20,13 @@
     v-model:open="chooseModalOpen"
     @closed="onModalClosed"
   >
+    <EvmSeedWalletSetup
+      v-if="showSeedSetup"
+      @connected="onSeedConnected"
+      @back="showSeedSetup = false"
+    />
     <Alert
-      v-if="errorMessage"
+      v-else-if="errorMessage"
       type="error"
     >
       {{ errorMessage }}
@@ -78,6 +83,16 @@
         <span>Safe</span>
       </Button>
       <Button
+        v-if="seedWalletEnabled"
+        @click="showSeedSetup = true"
+        class="choose-connector"
+      >
+        <div class="default-wallet-icon">
+          <Icon type="key" />
+        </div>
+        <span>Seed Phrase</span>
+      </Button>
+      <Button
         to="https://ethereum.org/wallets/"
         target="_blank"
         class="link muted small"
@@ -106,7 +121,10 @@ import Loading from '../../base/components/Loading.vue'
 import EvmAccount from './EvmAccount.vue'
 import EvmMetaMaskQR from './EvmMetaMaskQR.vue'
 import EvmWalletConnectWallets from './EvmWalletConnectWallets.vue'
+import EvmSeedWalletSetup from './EvmSeedWalletSetup.vue'
 import { useBaseURL } from '../composables/base'
+import { useEvmConfig } from '../config'
+import { useSeedWallet } from '../composables/seedWallet'
 
 const ICONS: Record<string, string> = {
   'Base Account': 'coinbase.svg',
@@ -131,13 +149,24 @@ const emit = defineEmits<{
   disconnected: []
 }>()
 const base = useBaseURL()
+const evmConfig = useEvmConfig()
 
 const chainId = useChainId()
 const connectors = useConnectors()
 const { mutateAsync: connectAsync } = useConnect()
 const { address, isConnected } = useConnection()
 
-const showConnect = computed(() => !isConnected.value)
+const {
+  address: seedAddress,
+  isConnected: isSeedConnected,
+} = useSeedWallet()
+
+const seedWalletEnabled = computed(() => !!evmConfig.seedWallet?.enabled)
+const showSeedSetup = ref(false)
+const effectiveAddress = computed(() => address.value ?? seedAddress.value)
+const showConnect = computed(
+  () => !isConnected.value && !isSeedConnected.value,
+)
 const shownConnectors = computed(() => {
   const unique = Array.from(
     new Map(
@@ -247,6 +276,12 @@ const login = async (connector: Connector) => {
   }
 }
 
+const onSeedConnected = () => {
+  chooseModalOpen.value = false
+  showSeedSetup.value = false
+  check()
+}
+
 const onModalClosed = () => {
   errorMessage.value = ''
   isConnecting.value = false
@@ -254,16 +289,22 @@ const onModalClosed = () => {
   metaMaskUri.value = ''
   walletConnectUri.value = ''
   safeDeepLink.value = false
+  showSeedSetup.value = false
 }
 
-const check = () =>
-  isConnected.value
-    ? emit('connected', { address: address.value })
-    : emit('disconnected')
+const check = () => {
+  const addr = effectiveAddress.value
+  if (addr) {
+    emit('connected', { address: addr })
+  } else {
+    emit('disconnected')
+  }
+}
 watch(isConnected, () => {
   check()
   if (!isConnected.value) onModalClosed()
 })
+watch(isSeedConnected, () => check())
 onMounted(() => check())
 </script>
 

@@ -33,6 +33,7 @@ export { useGasPrice } from './composables/gasPrice'
 export { usePriceFeed } from './composables/priceFeed'
 export { useWalletExplorer } from './composables/walletExplorer'
 export type { ExplorerWallet } from './composables/walletExplorer'
+export { useSeedWallet } from './composables/seedWallet'
 
 // Components
 export { default as EvmAccount } from './components/EvmAccount.vue'
@@ -45,3 +46,5 @@ export { default as EvmMetaMaskQR } from './components/EvmMetaMaskQR.vue'
 export { default as EvmWalletConnectQR } from './components/EvmWalletConnectQR.vue'
 export { default as EvmWalletConnectWallets } from './components/EvmWalletConnectWallets.vue'
 export { default as EvmTransactionFlow } from './components/EvmTransactionFlow.vue'
+export { default as EvmSeedPhraseInput } from './components/EvmSeedPhraseInput.vue'
+export { default as EvmSeedWalletSetup } from './components/EvmSeedWalletSetup.vue'
