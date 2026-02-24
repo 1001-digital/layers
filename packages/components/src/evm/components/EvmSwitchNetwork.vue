@@ -1,52 +1,54 @@
 <template>
-  <Button
-    @click="dialogOpen = true"
-    :class="className"
-  >
-    <slot :current-chain="currentChain">
-      {{ currentChain?.name || 'Unknown Network' }}
-    </slot>
-  </Button>
-
-  <Dialog
-    title="Switch Network"
-    v-model:open="dialogOpen"
-    @closed="onClosed"
-    compat
-  >
-    <Alert
-      v-if="errorMessage"
-      type="error"
+  <template v-if="chains.length > 1">
+    <Button
+      @click="dialogOpen = true"
+      :class="className"
     >
-      {{ errorMessage }}
-    </Alert>
+      <slot :current-chain="currentChain">
+        {{ currentChain?.name || 'Unknown Network' }}
+      </slot>
+    </Button>
 
-    <Loading
-      v-if="switching"
-      spinner
-      stacked
-      :txt="`Switching to ${switchingTo}...`"
-    />
-
-    <div
-      v-if="!switching"
-      class="chain-list"
+    <Dialog
+      title="Switch Network"
+      v-model:open="dialogOpen"
+      @closed="onClosed"
+      compat
     >
-      <Button
-        v-for="chain in chains"
-        :key="chain.id"
-        :disabled="chain.id === currentChainId || undefined"
-        :class="['chain-item', { active: chain.id === currentChainId }]"
-        @click="() => switchTo(chain)"
+      <Alert
+        v-if="errorMessage"
+        type="error"
       >
-        <span>{{ chain.name }}</span>
-        <Icon
-          v-if="chain.id === currentChainId"
-          type="check"
-        />
-      </Button>
-    </div>
-  </Dialog>
+        {{ errorMessage }}
+      </Alert>
+
+      <Loading
+        v-if="switching"
+        spinner
+        stacked
+        :txt="`Switching to ${switchingTo}...`"
+      />
+
+      <div
+        v-if="!switching"
+        class="chain-list"
+      >
+        <Button
+          v-for="chain in chains"
+          :key="chain.id"
+          :disabled="chain.id === currentChainId || undefined"
+          :class="['chain-item', { active: chain.id === currentChainId }]"
+          @click="() => switchTo(chain)"
+        >
+          <span>{{ chain.name }}</span>
+          <Icon
+            v-if="chain.id === currentChainId"
+            type="check"
+          />
+        </Button>
+      </div>
+    </Dialog>
+  </template>
 </template>
 
 <script setup lang="ts">
