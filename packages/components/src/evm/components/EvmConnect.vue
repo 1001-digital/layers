@@ -57,10 +57,8 @@
         class="choose-connector"
       >
         <img
-          v-if="ICONS[connector.name]"
-          :src="
-            connector.icon || `${base}icons/wallets/${ICONS[connector.name]}`
-          "
+          v-if="ICONS[connector.name] || connector.icon"
+          :src="ICONS[connector.name] || connector.icon"
           :alt="connector.name"
         />
         <div
@@ -77,7 +75,7 @@
         class="choose-connector"
       >
         <img
-          :src="`${base}icons/wallets/safe.png`"
+          :src="safeIcon"
           alt="Safe"
         />
         <span>Safe</span>
@@ -88,7 +86,7 @@
         class="choose-connector"
       >
         <img
-          :src="`${base}icons/wallets/in-app.svg`"
+          :src="inAppIcon"
           alt="Seed Phrase"
         />
         <span>In App</span>
@@ -123,17 +121,25 @@ import EvmAccount from './EvmAccount.vue'
 import EvmMetaMaskQR from './EvmMetaMaskQR.vue'
 import EvmWalletConnectWallets from './EvmWalletConnectWallets.vue'
 import EvmInAppWalletSetup from './EvmInAppWalletSetup.vue'
-import { useBaseURL } from '../composables/base'
+
+import coinbaseIcon from '../assets/wallets/coinbase.svg'
+import metamaskIcon from '../assets/wallets/metamask.svg'
+import phantomIcon from '../assets/wallets/phantom.svg'
+import rabbyIcon from '../assets/wallets/rabby.svg'
+import rainbowIcon from '../assets/wallets/rainbow.svg'
+import safeIcon from '../assets/wallets/safe.png'
+import inAppIcon from '../assets/wallets/in-app.svg'
+import walletconnectIcon from '../assets/wallets/walletconnect.svg'
 
 const ICONS: Record<string, string> = {
-  'Base Account': 'coinbase.svg',
-  MetaMask: 'metamask.svg',
-  Phantom: 'phantom.svg',
-  'Rabby Wallet': 'rabby.svg',
-  Rainbow: 'rainbow.svg',
-  Safe: 'safe.png',
-  'In App': 'in-app.svg',
-  WalletConnect: 'walletconnect.svg',
+  'Base Account': coinbaseIcon,
+  MetaMask: metamaskIcon,
+  Phantom: phantomIcon,
+  'Rabby Wallet': rabbyIcon,
+  Rainbow: rainbowIcon,
+  Safe: safeIcon,
+  'In App': inAppIcon,
+  WalletConnect: walletconnectIcon,
 }
 
 const PRIORITY: Record<string, number> = {
@@ -148,8 +154,6 @@ const emit = defineEmits<{
   connected: [{ address: `0x${string}` | undefined }]
   disconnected: []
 }>()
-const base = useBaseURL()
-
 const chainId = useChainId()
 const connectors = useConnectors()
 const { mutateAsync: connectAsync } = useConnect()

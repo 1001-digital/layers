@@ -44,13 +44,9 @@
         </div>
       </div>
 
-      <label class="confirm-backup">
-        <input
-          v-model="backupConfirmed"
-          type="checkbox"
-        />
-        <span>I've saved my seed phrase</span>
-      </label>
+      <FormCheckbox v-model="backupConfirmed">
+        I've saved my seed phrase
+      </FormCheckbox>
 
       <Button
         :disabled="!backupConfirmed"
@@ -72,7 +68,7 @@
       v-else-if="step === 'restore'"
       class="setup-step"
     >
-      <p class="muted">Enter your 12-word seed phrase to restore your wallet.</p>
+      <p class="muted font-sm">Enter your 12-word seed phrase to restore your wallet.</p>
 
       <EvmSeedPhraseInput
         v-model="restorePhrase"
@@ -115,6 +111,7 @@ import { useConnect, useConnectors } from '@wagmi/vue'
 import Button from '../../base/components/Button.vue'
 import Icon from '../../base/components/Icon.vue'
 import Alert from '../../base/components/Alert.vue'
+import FormCheckbox from '../../base/components/FormCheckbox.vue'
 import Loading from '../../base/components/Loading.vue'
 import EvmSeedPhraseInput from './EvmSeedPhraseInput.vue'
 import { prepareInAppWallet } from '../connectors/inAppWallet'
@@ -233,26 +230,9 @@ async function restoreWallet() {
   }
 }
 
-.confirm-backup {
-  display: flex;
-  align-items: center;
-  gap: var(--spacer-sm);
-  cursor: pointer;
-  font-size: var(--font-sm);
-  user-select: none;
-
-  input[type='checkbox'] {
-    width: auto;
-  }
-}
-
 .link.muted {
   justify-self: center;
   font-size: var(--font-xs);
 }
 
-p.muted {
-  font-size: var(--font-sm);
-  color: var(--muted);
-}
 </style>
