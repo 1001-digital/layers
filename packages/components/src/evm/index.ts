@@ -34,6 +34,7 @@ export { usePriceFeed } from './composables/priceFeed'
 export { useWalletExplorer } from './composables/walletExplorer'
 export type { ExplorerWallet } from './composables/walletExplorer'
 export { useSeedWallet } from './composables/seedWallet'
+export { useWallet } from './composables/wallet'
 
 // Components
 export { default as EvmAccount } from './components/EvmAccount.vue'

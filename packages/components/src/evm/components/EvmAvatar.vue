@@ -22,9 +22,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { Address } from 'viem'
-import { useConnection } from '@wagmi/vue'
 import { useEnsWithAvatar } from '../composables/ens'
 import { useResolveUri } from '../composables/uri'
+import { useWallet } from '../composables/wallet'
 import Opepicon from '../../base/components/Opepicon.vue'
 
 const props = defineProps<{
@@ -33,7 +33,7 @@ const props = defineProps<{
 }>()
 const address = computed(() => props.address)
 
-const { address: currentAddress } = useConnection()
+const { address: currentAddress } = useWallet()
 
 const isCurrent = computed<boolean>(
   () => currentAddress.value?.toLowerCase() === address.value?.toLowerCase(),

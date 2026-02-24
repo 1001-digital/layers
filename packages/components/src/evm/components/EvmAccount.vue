@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { Address } from 'viem'
-import { useConnection } from '@wagmi/vue'
+import { useWallet } from '../composables/wallet'
 import { shortAddress } from '../utils/addresses'
 
 const props = defineProps<{
@@ -18,7 +18,7 @@ const props = defineProps<{
 }>()
 const address = computed(() => props.address)
 
-const { address: currentAddress } = useConnection()
+const { address: currentAddress } = useWallet()
 
 const isCurrent = computed<boolean>(
   () => currentAddress.value?.toLowerCase() === address.value?.toLowerCase(),

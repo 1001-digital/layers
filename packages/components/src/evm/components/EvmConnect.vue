@@ -9,9 +9,9 @@
   <slot
     v-else
     name="connected"
-    :address="effectiveAddress"
+    :address="address"
   >
-    <EvmAccount :address="effectiveAddress" />
+    <EvmAccount :address="address" />
   </slot>
 
   <Dialog
@@ -107,12 +107,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
 import type { Connector } from '@wagmi/vue'
-import {
-  useConnection,
-  useConnect,
-  useConnectors,
-  useChainId,
-} from '@wagmi/vue'
+import { useConnect, useConnectors, useChainId } from '@wagmi/vue'
 import Button from '../../base/components/Button.vue'
 import Dialog from '../../base/components/Dialog.vue'
 import Icon from '../../base/components/Icon.vue'
@@ -123,8 +118,8 @@ import EvmMetaMaskQR from './EvmMetaMaskQR.vue'
 import EvmWalletConnectWallets from './EvmWalletConnectWallets.vue'
 import EvmSeedWalletSetup from './EvmSeedWalletSetup.vue'
 import { useBaseURL } from '../composables/base'
+import { useWallet } from '../composables/wallet'
 import { useEvmConfig } from '../config'
-import { useSeedWallet } from '../composables/seedWallet'
 
 const ICONS: Record<string, string> = {
   'Base Account': 'coinbase.svg',
@@ -154,19 +149,11 @@ const evmConfig = useEvmConfig()
 const chainId = useChainId()
 const connectors = useConnectors()
 const { mutateAsync: connectAsync } = useConnect()
-const { address, isConnected } = useConnection()
-
-const {
-  address: seedAddress,
-  isConnected: isSeedConnected,
-} = useSeedWallet()
+const { address, isConnected } = useWallet()
 
 const seedWalletEnabled = computed(() => !!evmConfig.seedWallet?.enabled)
 const showSeedSetup = ref(false)
-const effectiveAddress = computed(() => address.value ?? seedAddress.value)
-const showConnect = computed(
-  () => !isConnected.value && !isSeedConnected.value,
-)
+const showConnect = computed(() => !isConnected.value)
 const shownConnectors = computed(() => {
   const unique = Array.from(
     new Map(
@@ -293,18 +280,17 @@ const onModalClosed = () => {
 }
 
 const check = () => {
-  const addr = effectiveAddress.value
+  const addr = address.value
   if (addr) {
     emit('connected', { address: addr })
   } else {
     emit('disconnected')
   }
 }
-watch(isConnected, () => {
+watch(isConnected, (connected) => {
   check()
-  if (!isConnected.value) onModalClosed()
+  if (!connected) onModalClosed()
 })
-watch(isSeedConnected, () => check())
 onMounted(() => check())
 </script>
 
