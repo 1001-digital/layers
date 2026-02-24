@@ -12,5 +12,8 @@ export default defineAppConfig({
         blockExplorer: 'https://optimistic.etherscan.io',
       },
     },
+    inAppWallet: {
+      enabled: true,
+    },
   },
 })
