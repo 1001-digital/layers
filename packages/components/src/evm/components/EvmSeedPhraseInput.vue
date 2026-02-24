@@ -67,7 +67,7 @@ watch(
     const incoming = val.trim().split(/\s+/)
     if (incoming.length === 12) {
       for (let i = 0; i < 12; i++) {
-        words.value[i] = incoming[i]
+        words.value[i] = incoming[i]!
       }
     }
   },
@@ -119,7 +119,7 @@ function onPaste(event: ClipboardEvent, index: number) {
   if (pasted.length > 1) {
     event.preventDefault()
     for (let i = 0; i < pasted.length && index + i < 12; i++) {
-      words.value[index + i] = pasted[i].toLowerCase()
+      words.value[index + i] = pasted[i]!.toLowerCase()
     }
     const nextIndex = Math.min(index + pasted.length, 11)
     focusInput(nextIndex)
@@ -129,12 +129,12 @@ function onPaste(event: ClipboardEvent, index: number) {
 function onInput(index: number) {
   // Auto-advance if the word contains a space (mobile autocomplete)
   const val = words.value[index]
-  if (val.includes(' ')) {
+  if (val?.includes(' ')) {
     const parts = val.trim().split(/\s+/)
-    words.value[index] = parts[0]
+    words.value[index] = parts[0]!
     if (parts.length > 1 && index < 11) {
       for (let i = 1; i < parts.length && index + i < 12; i++) {
-        words.value[index + i] = parts[i]
+        words.value[index + i] = parts[i]!
       }
       focusInput(Math.min(index + parts.length, 11))
     }

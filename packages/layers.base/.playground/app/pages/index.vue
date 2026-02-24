@@ -1590,7 +1590,8 @@ const pinOtp = ref<string[]>([])
 
 // Calendar demo data
 const calendarDate = ref<DateValue>()
-const calendarDates = ref<DateValue | DateValue[] | undefined>([])
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Reka UI Calendar emits structural types incompatible with DateValue classes
+const calendarDates = ref<any>([])
 const calendarBounded = ref<DateValue>()
 const calendarMin = new CalendarDate(2026, 2, 10)
 const calendarMax = new CalendarDate(2026, 2, 28)

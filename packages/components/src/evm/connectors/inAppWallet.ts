@@ -44,6 +44,7 @@ export function inAppWallet(parameters: InAppWalletParameters = {}) {
   type Provider =
     ReturnType<typeof custom> extends (...args: infer A) => infer R ? R : never
 
+  // @ts-expect-error wagmi 0.4.x withCapabilities conditional return type
   return createConnector<Provider>((config) => {
     let account: PrivateKeyAccount | null = null
     let currentChainId: number = config.chains[0].id
