@@ -3,8 +3,6 @@
     :duration="duration"
     :swipe-direction="swipeDirection"
   >
-    <slot />
-
     <ToastRoot
       v-for="toast in toasts"
       :key="toast.id"
@@ -73,6 +71,7 @@
       :class="[position]"
     />
   </ToastProvider>
+
 </template>
 
 <script setup lang="ts">

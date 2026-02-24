@@ -1,8 +1,6 @@
 <template>
-  <Toasts>
-    <ConfirmDialog />
-    <slot />
-  </Toasts>
+  <Toasts />
+  <ConfirmDialog />
 </template>
 
 <script setup lang="ts">
