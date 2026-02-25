@@ -33,7 +33,7 @@
         class="link muted small back-link"
         @click="resetConnection"
       >
-        <Icon type="arrow-left" />
+        <Icon type="chevron-left" />
         <span>Back</span>
       </Button>
     </template>

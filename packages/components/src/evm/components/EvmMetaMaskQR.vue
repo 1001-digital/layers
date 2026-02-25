@@ -8,7 +8,7 @@
     class="link muted small back-link"
     @click="$emit('back')"
   >
-    <Icon type="arrow-left" />
+    <Icon type="chevron-left" />
     <span>Back</span>
   </Button>
 </template>

@@ -19,7 +19,7 @@
         class="link muted small"
         @click="$emit('back')"
       >
-        <Icon type="arrow-left" />
+        <Icon type="chevron-left" />
         <span>Back</span>
       </Button>
     </div>
@@ -58,7 +58,7 @@
         class="link muted small"
         @click="step = 'choose'"
       >
-        <Icon type="arrow-left" />
+        <Icon type="chevron-left" />
         <span>Back</span>
       </Button>
     </div>
@@ -86,7 +86,7 @@
         class="link muted small"
         @click="step = 'choose'"
       >
-        <Icon type="arrow-left" />
+        <Icon type="chevron-left" />
         <span>Back</span>
       </Button>
     </div>
