@@ -300,6 +300,7 @@ const onInAppConnected = () => {
 }
 
 const onModalClosed = () => {
+  chooseModalOpen.value = false
   resetConnection()
   showInAppSetup.value = false
 }
