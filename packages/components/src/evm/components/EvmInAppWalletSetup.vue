@@ -8,11 +8,11 @@
       <p class="muted font-sm">{{ note }}</p>
 
       <div class="setup-options">
-        <Button @click="startGenerate">
+        <Button class="block" @click="startGenerate">
           <Icon type="plus" />
           <span>Create New Wallet</span>
         </Button>
-        <Button @click="step = 'restore'">
+        <Button class="block" @click="step = 'restore'">
           <Icon type="key" />
           <span>Use Existing Recovery Key</span>
         </Button>
@@ -47,11 +47,14 @@
         </div>
       </div>
 
-      <FormCheckbox v-model="backupConfirmed">
-        I've saved my seed phrase
-      </FormCheckbox>
+      <div>
+        <FormCheckbox v-model="backupConfirmed">
+          I've saved my seed phrase
+        </FormCheckbox>
+      </div>
 
       <Button
+        class="block"
         :disabled="!backupConfirmed"
         @click="confirmGenerated"
       >
@@ -82,6 +85,7 @@
       />
 
       <Button
+        class="block"
         :disabled="!restoreValid"
         @click="restoreWallet"
       >
@@ -200,10 +204,6 @@ async function restoreWallet() {
   display: grid;
   gap: var(--spacer);
 
-  & :deep(.button),
-  & :deep(button) {
-    width: 100%;
-  }
 }
 
 .setup-options {
@@ -217,19 +217,13 @@ async function restoreWallet() {
   gap: var(--spacer-sm);
 }
 
-@media (min-width: 600px) {
-  .generated-words {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
 .generated-word {
   display: flex;
   align-items: center;
-  gap: var(--spacer-xs);
+  gap: var(--spacer-sm);
   border: var(--border);
   border-radius: var(--border-radius);
-  padding: var(--spacer-xs) var(--spacer-sm);
+  padding: var(--spacer-sm);
 
   .word-number {
     font-size: var(--font-xs);

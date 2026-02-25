@@ -37,7 +37,7 @@
           v-for="chain in chains"
           :key="chain.id"
           :disabled="chain.id === currentChainId || undefined"
-          :class="['chain-item', { active: chain.id === currentChainId }]"
+          :class="['block', 'chain-item', { active: chain.id === currentChainId }]"
           @click="() => switchTo(chain)"
         >
           <span>{{ chain.name }}</span>
@@ -122,8 +122,6 @@ const onClosed = () => {
 }
 
 .chain-item {
-  width: 100%;
-  inline-size: auto;
   justify-content: space-between;
 
   &.active {

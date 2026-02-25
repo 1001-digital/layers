@@ -157,11 +157,6 @@ onMounted(() => {
   gap: var(--spacer-sm);
 }
 
-@media (min-width: 600px) {
-  .seed-phrase-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
 
 .seed-word {
   display: flex;

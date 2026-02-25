@@ -62,7 +62,7 @@
         v-for="connector in shownConnectors"
         :key="connector.uid"
         @click="() => login(connector)"
-        class="choose-connector"
+        class="block choose-connector"
       >
         <img
           v-if="ICONS[connector.name] || connector.icon"
@@ -80,7 +80,7 @@
       <Button
         v-if="wcConnector"
         @click="loginWithSafe"
-        class="choose-connector"
+        class="block choose-connector"
       >
         <img
           :src="safeIcon"
@@ -91,7 +91,7 @@
       <Button
         v-if="inAppConnector"
         @click="showInAppSetup = true"
-        class="choose-connector"
+        class="block choose-connector"
       >
         <img
           :src="inAppIcon"
@@ -321,8 +321,6 @@ onMounted(() => check())
   gap: var(--spacer);
 
   button.choose-connector {
-    width: 100%;
-    inline-size: auto;
     justify-content: flex-start;
     padding-inline-start: var(--ui-padding-inline);
 

@@ -48,7 +48,7 @@
     <div class="profile-actions">
       <slot name="actions" />
 
-      <EvmSwitchNetwork>
+      <EvmSwitchNetwork class-name="block">
         <template #default="{ currentChain }">
           <Icon type="wallet" />
           <span>Switch Network ({{ currentChain?.name || 'Unknown' }})</span>
@@ -57,6 +57,7 @@
 
       <Button
         v-if="ensName"
+        class="block"
         :to="`https://app.ens.domains/${ensName}`"
         target="_blank"
       >
@@ -65,7 +66,7 @@
       </Button>
 
       <Button
-        class="danger"
+        class="block danger"
         @click="disconnect"
       >
         <span>Disconnect</span>
@@ -181,9 +182,5 @@ const disconnect = async () => {
   gap: var(--spacer);
   padding-block-start: var(--spacer);
 
-  & :deep(.button),
-  & :deep(button) {
-    width: 100%;
-  }
 }
 </style>
