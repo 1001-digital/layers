@@ -62,33 +62,39 @@ function useEnsBase(
   const data: Ref<EnsProfile | null | undefined> = ref(
     ensCache.get(cacheKey.value) ?? undefined,
   )
+  const pending = ref(false)
 
   watchEffect(async () => {
     const id = toValue(identifier)
     if (!id) {
       data.value = null
+      pending.value = false
       return
     }
 
     const cached = ensCache.get(cacheKey.value)
     if (cached) {
       data.value = cached
+      pending.value = false
       return
     }
 
     const strategies: EnsMode[] =
       mode.value === 'indexer' ? ['indexer', 'chain'] : ['chain', 'indexer']
 
+    pending.value = true
     try {
       data.value = await ensCache.fetch(cacheKey.value, () =>
         resolve(id, strategies, indexerUrls.value, config, chainKeys),
       )
     } catch {
       data.value = null
+    } finally {
+      pending.value = false
     }
   })
 
-  return { data }
+  return { data, pending }
 }
 
 export const useEns = (
