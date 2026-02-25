@@ -58,7 +58,7 @@
     />
 
     <Button
-      class="link muted small back-link"
+      class="link muted small"
       @click="$emit('back')"
     >
       <Icon type="chevron-left" />
@@ -187,10 +187,8 @@ onMounted(() => {
   }
 }
 
-/* Back link */
-.back-link {
+.link.muted {
   justify-self: center;
-  font-size: var(--font-xs);
 }
 
 /* Empty state */

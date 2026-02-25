@@ -5,7 +5,7 @@
     </template>
   </EvmConnectorQR>
   <Button
-    class="link muted small back-link"
+    class="link muted small"
     @click="$emit('back')"
   >
     <Icon type="chevron-left" />
@@ -28,8 +28,7 @@ defineEmits<{
 </script>
 
 <style scoped>
-.back-link {
+.link.muted {
   justify-self: center;
-  font-size: var(--font-xs);
 }
 </style>

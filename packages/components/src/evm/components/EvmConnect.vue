@@ -30,7 +30,7 @@
         {{ errorMessage }}
       </Alert>
       <Button
-        class="link muted small back-link"
+        class="link muted small"
         @click="resetConnection"
       >
         <Icon type="chevron-left" />
@@ -349,10 +349,5 @@ onMounted(() => check())
 
 .link.muted {
   justify-self: center;
-  font-size: var(--font-xs);
-}
-
-.back-link {
-  margin-top: calc(-1 * var(--spacer-sm));
 }
 </style>

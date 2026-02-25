@@ -232,7 +232,6 @@ async function restoreWallet() {
 
 .link.muted {
   justify-self: center;
-  font-size: var(--font-xs);
 }
 
 </style>
