@@ -10,7 +10,11 @@
         <label :for="`seed-word-${i}`">{{ i + 1 }}</label>
         <input
           :id="`seed-word-${i}`"
-          :ref="(el) => { if (el) inputRefs[i] = el as HTMLInputElement }"
+          :ref="
+            (el) => {
+              if (el) inputRefs[i] = el as HTMLInputElement
+            }
+          "
           v-model="words[i]"
           type="text"
           autocomplete="off"
@@ -55,9 +59,7 @@ const isValid = computed(() =>
 )
 
 const phrase = computed(() =>
-  words.value
-    .map((w) => w.trim().toLowerCase())
-    .join(' '),
+  words.value.map((w) => w.trim().toLowerCase()).join(' '),
 )
 
 watch(
@@ -164,10 +166,10 @@ onMounted(() => {
 .seed-word {
   display: flex;
   align-items: center;
-  gap: var(--spacer-xs);
+  gap: var(--spacer-sm);
   border: var(--border);
   border-radius: var(--border-radius);
-  padding: var(--spacer-xs) var(--spacer-sm);
+  padding: var(--spacer-sm);
   transition: border-color var(--speed);
 
   &:focus-within {
