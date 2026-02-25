@@ -31,10 +31,10 @@
       v-else-if="step === 'generate'"
       class="setup-step"
     >
-      <Alert type="info">
+      <p class="muted font-sm">
         Write down these 12 words in order. You will need them to restore your
-        wallet. They will not be shown again.
-      </Alert>
+        account. They will not be shown again.
+      </p>
 
       <div class="generated-words">
         <div
