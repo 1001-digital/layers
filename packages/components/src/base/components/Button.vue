@@ -165,6 +165,10 @@ const linkProps = computed(() => {
       inline-size: min-content;
     }
 
+    &.block {
+      inline-size: 100%;
+    }
+
     &.invisible {
       position: absolute;
       inset-inline-start: -200vw;
