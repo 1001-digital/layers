@@ -271,6 +271,20 @@ onBeforeUnmount(() => {
     }
   }
 
+  /* Stacked compat dialog z-index layering */
+  .overlay ~ .dialog.compat {
+    z-index: calc(var(--z-index-dialog) + 2);
+  }
+  .overlay ~ .dialog.compat.open + .overlay {
+    z-index: calc(var(--z-index-dialog) + 1);
+  }
+  .overlay ~ .overlay ~ .dialog.compat {
+    z-index: calc(var(--z-index-dialog) + 4);
+  }
+  .overlay ~ .overlay ~ .dialog.compat.open + .overlay {
+    z-index: calc(var(--z-index-dialog) + 3);
+  }
+
   html:has(dialog[open]),
   body:has(dialog[open]),
   html:has(.dialog.open),
