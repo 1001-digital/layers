@@ -8,11 +8,17 @@
       <p class="muted font-sm">{{ note }}</p>
 
       <div class="setup-options">
-        <Button class="block" @click="startGenerate">
+        <Button
+          class="block"
+          @click="startGenerate"
+        >
           <Icon type="plus" />
           <span>Create New Wallet</span>
         </Button>
-        <Button class="block" @click="step = 'restore'">
+        <Button
+          class="block"
+          @click="step = 'restore'"
+        >
           <Icon type="key" />
           <span>Use Existing Recovery Key</span>
         </Button>
@@ -32,8 +38,9 @@
       class="setup-step"
     >
       <p class="muted font-sm">
-        Write down these 12 words in order. You will need them to restore your
-        account. They will not be shown again.
+        Write down these 12 words in order. Think of them as your secure
+        password so keep them safe - you will need them to restore your account.
+        They will not be shown again.
       </p>
 
       <div class="generated-words">
@@ -203,7 +210,6 @@ async function restoreWallet() {
 .setup-step {
   display: grid;
   gap: var(--spacer);
-
 }
 
 .setup-options {
@@ -230,6 +236,7 @@ async function restoreWallet() {
     color: var(--muted);
     min-width: 1.5em;
     text-align: right;
+    user-select: none;
   }
 
   .word-text {
