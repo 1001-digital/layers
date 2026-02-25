@@ -1,5 +1,5 @@
 <template>
-  <Teleport to="body">
+  <Teleport :to="teleportTarget || 'body'">
     <Transition
       :css="false"
       @enter="onEnter"
@@ -45,8 +45,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeUnmount } from 'vue'
+import { ref, computed, inject, onBeforeUnmount } from 'vue'
 import Icon from './Icon.vue'
+
+const teleportTarget = inject<HTMLElement | null>('teleport-target', null)
 
 const dialog = ref<HTMLDialogElement | null>(null)
 const props = withDefaults(
