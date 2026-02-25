@@ -58,12 +58,11 @@
     />
 
     <Button
-      to="https://ethereum.org/wallets/"
-      target="_blank"
-      class="link muted small help-link"
+      class="link muted small back-link"
+      @click="$emit('back')"
     >
-      <Icon type="help" />
-      <span>New to wallets?</span>
+      <Icon type="arrow-left" />
+      <span>Back</span>
     </Button>
   </div>
 </template>
@@ -82,6 +81,10 @@ import {
 
 const props = defineProps<{
   uri: string
+}>()
+
+defineEmits<{
+  back: []
 }>()
 
 const explorer = useWalletExplorer()
@@ -184,8 +187,8 @@ onMounted(() => {
   }
 }
 
-/* Help link */
-.help-link {
+/* Back link */
+.back-link {
   justify-self: center;
   font-size: var(--font-xs);
 }

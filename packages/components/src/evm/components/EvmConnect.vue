@@ -25,19 +25,27 @@
       @connected="onInAppConnected"
       @back="showInAppSetup = false"
     />
-    <Alert
-      v-else-if="errorMessage"
-      type="error"
-    >
-      {{ errorMessage }}
-    </Alert>
+    <template v-else-if="errorMessage">
+      <Alert type="error">
+        {{ errorMessage }}
+      </Alert>
+      <Button
+        class="link muted small back-link"
+        @click="resetConnection"
+      >
+        <Icon type="arrow-left" />
+        <span>Back</span>
+      </Button>
+    </template>
     <EvmMetaMaskQR
       v-else-if="metaMaskUri"
       :uri="metaMaskUri"
+      @back="resetConnection"
     />
     <EvmWalletConnectWallets
       v-else-if="walletConnectUri"
       :uri="walletConnectUri"
+      @back="resetConnection"
     />
     <template v-else-if="isConnecting">
       <Loading
@@ -277,18 +285,22 @@ const login = async (connector: Connector) => {
   }
 }
 
-const onInAppConnected = () => {
-  chooseModalOpen.value = false
-  showInAppSetup.value = false
-}
-
-const onModalClosed = () => {
+const resetConnection = () => {
   errorMessage.value = ''
   isConnecting.value = false
   connectingWallet.value = ''
   metaMaskUri.value = ''
   walletConnectUri.value = ''
   safeDeepLink.value = false
+}
+
+const onInAppConnected = () => {
+  chooseModalOpen.value = false
+  showInAppSetup.value = false
+}
+
+const onModalClosed = () => {
+  resetConnection()
   showInAppSetup.value = false
 }
 
@@ -338,5 +350,9 @@ onMounted(() => check())
 .link.muted {
   justify-self: center;
   font-size: var(--font-xs);
+}
+
+.back-link {
+  margin-top: calc(-1 * var(--spacer-sm));
 }
 </style>
