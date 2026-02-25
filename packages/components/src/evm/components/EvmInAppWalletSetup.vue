@@ -5,6 +5,8 @@
       v-if="step === 'choose'"
       class="setup-step"
     >
+      <p class="muted font-sm">{{ note }}</p>
+
       <div class="setup-options">
         <Button @click="startGenerate">
           <Icon type="plus" />
@@ -12,7 +14,7 @@
         </Button>
         <Button @click="step = 'restore'">
           <Icon type="key" />
-          <span>I Have a Seed Phrase</span>
+          <span>Use Existing Recovery Key</span>
         </Button>
       </div>
       <Button
@@ -30,7 +32,8 @@
       class="setup-step"
     >
       <Alert type="info">
-        Write down these 12 words in order. You will need them to restore your wallet. They will not be shown again.
+        Write down these 12 words in order. You will need them to restore your
+        wallet. They will not be shown again.
       </Alert>
 
       <div class="generated-words">
@@ -68,7 +71,9 @@
       v-else-if="step === 'restore'"
       class="setup-step"
     >
-      <p class="muted font-sm">Enter your 12-word seed phrase to restore your wallet.</p>
+      <p class="muted font-sm">
+        Enter your 12-word seed phrase to restore your wallet.
+      </p>
 
       <EvmSeedPhraseInput
         v-model="restorePhrase"
@@ -115,6 +120,15 @@ import FormCheckbox from '../../base/components/FormCheckbox.vue'
 import Loading from '../../base/components/Loading.vue'
 import EvmSeedPhraseInput from './EvmSeedPhraseInput.vue'
 import { prepareInAppWallet } from '../connectors/inAppWallet'
+
+const props = withDefaults(
+  defineProps<{
+    note?: string
+  }>(),
+  {
+    note: 'Create a browser-based wallet stored locally on this device. Only you have access to your keys.',
+  },
+)
 
 const emit = defineEmits<{
   connected: []
@@ -185,16 +199,16 @@ async function restoreWallet() {
 .setup-step {
   display: grid;
   gap: var(--spacer);
+
+  & :deep(.button),
+  & :deep(button) {
+    width: 100%;
+  }
 }
 
 .setup-options {
   display: grid;
   gap: var(--spacer);
-
-  :deep(button),
-  :deep(.button) {
-    width: 100%;
-  }
 }
 
 .generated-words {
@@ -233,5 +247,4 @@ async function restoreWallet() {
 .link.muted {
   justify-self: center;
 }
-
 </style>
