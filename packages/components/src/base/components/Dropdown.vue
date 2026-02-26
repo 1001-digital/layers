@@ -8,7 +8,7 @@
       <slot name="trigger" />
     </DropdownMenuTrigger>
 
-    <DropdownMenuPortal>
+    <DropdownMenuPortal :to="teleportTarget">
       <DropdownMenuContent
         class="dropdown"
         :class="props.class"
@@ -33,6 +33,7 @@
 </template>
 
 <script setup lang="ts">
+import { inject } from 'vue'
 import {
   DropdownMenuArrow,
   DropdownMenuContent,
@@ -40,6 +41,8 @@ import {
   DropdownMenuRoot,
   DropdownMenuTrigger,
 } from 'reka-ui'
+
+const teleportTarget = inject<HTMLElement | null>('teleport-target', null)
 
 const props = withDefaults(
   defineProps<{

@@ -5,7 +5,7 @@
         <slot name="trigger" />
       </TooltipTrigger>
 
-      <TooltipPortal>
+      <TooltipPortal :to="teleportTarget">
         <TooltipContent
           class="tooltip"
           :class="props.class"
@@ -28,6 +28,7 @@
 </template>
 
 <script setup lang="ts">
+import { inject } from 'vue'
 import {
   TooltipArrow,
   TooltipContent,
@@ -36,6 +37,8 @@ import {
   TooltipRoot,
   TooltipTrigger,
 } from 'reka-ui'
+
+const teleportTarget = inject<HTMLElement | null>('teleport-target', null)
 
 const props = withDefaults(
   defineProps<{

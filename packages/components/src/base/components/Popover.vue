@@ -7,7 +7,7 @@
       <slot name="trigger" />
     </PopoverTrigger>
 
-    <PopoverPortal>
+    <PopoverPortal :to="teleportTarget">
       <PopoverContent
         class="popover"
         :class="props.class"
@@ -46,6 +46,7 @@
 </template>
 
 <script setup lang="ts">
+import { inject } from 'vue'
 import Button from './Button.vue'
 import Icon from './Icon.vue'
 import {
@@ -56,6 +57,8 @@ import {
   PopoverRoot,
   PopoverTrigger,
 } from 'reka-ui'
+
+const teleportTarget = inject<HTMLElement | null>('teleport-target', null)
 
 const props = withDefaults(
   defineProps<{
