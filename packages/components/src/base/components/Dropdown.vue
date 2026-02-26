@@ -8,7 +8,7 @@
       <slot name="trigger" />
     </DropdownMenuTrigger>
 
-    <DropdownMenuPortal :to="teleportTarget">
+    <DropdownMenuPortal v-bind="teleportTarget ? { to: teleportTarget } : {}">
       <DropdownMenuContent
         class="dropdown"
         :class="props.class"

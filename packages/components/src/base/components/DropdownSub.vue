@@ -11,7 +11,7 @@
       />
     </DropdownMenuSubTrigger>
 
-    <DropdownMenuPortal>
+    <DropdownMenuPortal v-bind="teleportTarget ? { to: teleportTarget } : {}">
       <DropdownMenuSubContent
         class="dropdown"
         :class="props.class"
@@ -28,6 +28,7 @@
 </template>
 
 <script setup lang="ts">
+import { inject } from 'vue'
 import {
   DropdownMenuPortal,
   DropdownMenuSub,
@@ -35,6 +36,8 @@ import {
   DropdownMenuSubTrigger,
 } from 'reka-ui'
 import Icon from './Icon.vue'
+
+const teleportTarget = inject<HTMLElement | null>('teleport-target', null)
 
 const props = withDefaults(
   defineProps<{

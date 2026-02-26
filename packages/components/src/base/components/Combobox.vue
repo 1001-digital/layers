@@ -21,7 +21,7 @@
       </ComboboxTrigger>
     </ComboboxAnchor>
 
-    <ComboboxPortal>
+    <ComboboxPortal v-bind="teleportTarget ? { to: teleportTarget } : {}">
       <ComboboxContent
         position="popper"
         :side-offset="4"
@@ -49,6 +49,7 @@
 </template>
 
 <script setup lang="ts">
+import { inject } from 'vue'
 import {
   ComboboxAnchor,
   ComboboxContent,
@@ -62,6 +63,8 @@ import {
   ComboboxViewport,
 } from 'reka-ui'
 import Icon from './Icon.vue'
+
+const teleportTarget = inject<HTMLElement | null>('teleport-target', null)
 
 const model = defineModel<string | string[]>()
 const open = defineModel<boolean>('open', { default: false })

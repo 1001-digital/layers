@@ -7,7 +7,7 @@
       <slot name="trigger" />
     </PopoverTrigger>
 
-    <PopoverPortal :to="teleportTarget">
+    <PopoverPortal v-bind="teleportTarget ? { to: teleportTarget } : {}">
       <PopoverContent
         class="popover"
         :class="props.class"

@@ -12,7 +12,7 @@
       </SelectIcon>
     </SelectTrigger>
 
-    <SelectPortal>
+    <SelectPortal v-bind="teleportTarget ? { to: teleportTarget } : {}">
       <SelectContent
         position="popper"
         :side-offset="4"
@@ -37,6 +37,7 @@
 </template>
 
 <script setup lang="ts">
+import { inject } from 'vue'
 import {
   SelectContent,
   SelectIcon,
@@ -50,6 +51,8 @@ import {
   SelectViewport,
 } from 'reka-ui'
 import Icon from './Icon.vue'
+
+const teleportTarget = inject<HTMLElement | null>('teleport-target', null)
 
 const model = defineModel<string | string[]>()
 

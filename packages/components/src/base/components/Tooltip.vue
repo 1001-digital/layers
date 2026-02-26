@@ -5,7 +5,7 @@
         <slot name="trigger" />
       </TooltipTrigger>
 
-      <TooltipPortal :to="teleportTarget">
+      <TooltipPortal v-bind="teleportTarget ? { to: teleportTarget } : {}">
         <TooltipContent
           class="tooltip"
           :class="props.class"
