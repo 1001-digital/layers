@@ -1,131 +1,106 @@
 <template>
-  <Button
-    v-if="showConnect"
-    @click="chooseModalOpen = true"
-    :class="className"
-  >
-    <slot>Connect Wallet</slot>
-  </Button>
-  <slot
-    v-else
-    name="connected"
-    :address="address"
-  >
-    <EvmAccount :address="address" />
-  </slot>
-
-  <Dialog
-    v-if="showConnect"
-    title="Connect Wallet"
-    v-model:open="chooseModalOpen"
-    @closed="onModalClosed"
-  >
-    <EvmInAppWalletSetup
-      v-if="showInAppSetup"
-      @connected="onInAppConnected"
-      @back="showInAppSetup = false"
-    />
-    <template v-else-if="errorMessage">
-      <Alert type="error">
-        {{ errorMessage }}
-      </Alert>
-      <Button
-        class="link muted small"
-        @click="resetConnection"
-      >
-        <Icon type="chevron-left" />
-        <span>Back</span>
-      </Button>
-    </template>
-    <EvmMetaMaskQR
-      v-else-if="metaMaskUri"
-      :uri="metaMaskUri"
-      @back="resetConnection"
-    />
-    <EvmWalletConnectWallets
-      v-else-if="walletConnectUri"
-      :uri="walletConnectUri"
-      @back="resetConnection"
-    />
-    <template v-else-if="isConnecting">
-      <Loading
-        :txt="`Waiting for ${connectingWallet} confirmation...`"
-        spinner
-        stacked
-      />
-    </template>
-    <div
-      v-else
-      class="wallet-options"
+  <EvmInAppWalletSetup
+    v-if="showInAppSetup"
+    @connected="onInAppConnected"
+    @back="showInAppSetup = false"
+  />
+  <template v-else-if="errorMessage">
+    <Alert type="error">
+      {{ errorMessage }}
+    </Alert>
+    <Button
+      class="link muted small"
+      @click="resetConnection"
     >
-      <Button
-        v-for="connector in shownConnectors"
-        :key="connector.uid"
-        @click="() => login(connector)"
-        class="block choose-connector"
+      <Icon type="chevron-left" />
+      <span>Back</span>
+    </Button>
+  </template>
+  <EvmMetaMaskQR
+    v-else-if="metaMaskUri"
+    :uri="metaMaskUri"
+    @back="resetConnection"
+  />
+  <EvmWalletConnectWallets
+    v-else-if="walletConnectUri"
+    :uri="walletConnectUri"
+    @back="resetConnection"
+  />
+  <template v-else-if="isConnecting">
+    <Loading
+      :txt="`Waiting for ${connectingWallet} confirmation...`"
+      spinner
+      stacked
+    />
+  </template>
+  <div
+    v-else
+    class="wallet-options"
+  >
+    <Button
+      v-for="connector in shownConnectors"
+      :key="connector.uid"
+      @click="() => login(connector)"
+      class="block choose-connector"
+    >
+      <img
+        v-if="ICONS[connector.name] || connector.icon"
+        :src="ICONS[connector.name] || connector.icon"
+        :alt="connector.name"
+      />
+      <div
+        v-else
+        class="default-wallet-icon"
       >
-        <img
-          v-if="ICONS[connector.name] || connector.icon"
-          :src="ICONS[connector.name] || connector.icon"
-          :alt="connector.name"
-        />
-        <div
-          v-else
-          class="default-wallet-icon"
-        >
-          <Icon type="wallet" />
-        </div>
-        <span>{{ connector.name }}</span>
-      </Button>
-      <Button
-        v-if="wcConnector"
-        @click="loginWithSafe"
-        class="block choose-connector"
-      >
-        <img
-          :src="safeIcon"
-          alt="Safe"
-        />
-        <span>Safe</span>
-      </Button>
-      <Button
-        v-if="inAppConnector"
-        @click="showInAppSetup = true"
-        class="block choose-connector"
-      >
-        <img
-          :src="inAppIcon"
-          alt="Seed Phrase"
-        />
-        <span>In App</span>
-      </Button>
-      <Button
-        to="https://ethereum.org/wallets/"
-        target="_blank"
-        class="link muted small"
-      >
-        <Icon type="help" />
-        <span>New to wallets?</span>
-      </Button>
-    </div>
-  </Dialog>
+        <Icon type="wallet" />
+      </div>
+      <span>{{ connector.name }}</span>
+    </Button>
+    <Button
+      v-if="wcConnector"
+      @click="loginWithSafe"
+      class="block choose-connector"
+    >
+      <img
+        :src="safeIcon"
+        alt="Safe"
+      />
+      <span>Safe</span>
+    </Button>
+    <Button
+      v-if="inAppConnector"
+      @click="showInAppSetup = true"
+      class="block choose-connector"
+    >
+      <img
+        :src="inAppIcon"
+        alt="Seed Phrase"
+      />
+      <span>In App</span>
+    </Button>
+    <Button
+      to="https://ethereum.org/wallets/"
+      target="_blank"
+      class="link muted small"
+    >
+      <Icon type="help" />
+      <span>New to wallets?</span>
+    </Button>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import type { Connector } from '@wagmi/vue'
 import {
-  useConnection,
   useConnect,
   useConnectors,
   useChainId,
 } from '@wagmi/vue'
 import Button from '../../base/components/Button.vue'
-import Dialog from '../../base/components/Dialog.vue'
 import Icon from '../../base/components/Icon.vue'
 import Alert from '../../base/components/Alert.vue'
 import Loading from '../../base/components/Loading.vue'
-import EvmAccount from './EvmAccount.vue'
 import EvmMetaMaskQR from './EvmMetaMaskQR.vue'
 import EvmWalletConnectWallets from './EvmWalletConnectWallets.vue'
 import EvmInAppWalletSetup from './EvmInAppWalletSetup.vue'
@@ -155,24 +130,19 @@ const PRIORITY: Record<string, number> = {
   'Base Account': 10,
 }
 
-defineProps<{
-  className?: string
-}>()
 const emit = defineEmits<{
-  connected: [{ address: `0x${string}` | undefined }]
-  disconnected: []
+  connected: []
 }>()
+
 const chainId = useChainId()
 const connectors = useConnectors()
 const { mutateAsync: connectAsync } = useConnect()
-const { address, isConnected } = useConnection()
 
 const inAppConnector = computed(() =>
   connectors.value.find((c) => c.type === 'inAppWallet'),
 )
 const showInAppSetup = ref(false)
 
-const showConnect = computed(() => !isConnected.value)
 const shownConnectors = computed(() => {
   const unique = Array.from(
     new Map(
@@ -199,7 +169,6 @@ const wcConnector = computed(() =>
   connectors.value.find((c) => c.id === 'walletConnect'),
 )
 
-const chooseModalOpen = ref(false)
 const errorMessage = ref('')
 const isConnecting = ref(false)
 const connectingWallet = ref('')
@@ -250,11 +219,8 @@ const login = async (connector: Connector) => {
     await connectAsync({ connector, chainId: chainId.value })
 
     setTimeout(() => {
-      chooseModalOpen.value = false
-      isConnecting.value = false
-      metaMaskUri.value = ''
-      walletConnectUri.value = ''
-      safeDeepLink.value = false
+      resetConnection()
+      emit('connected')
     }, 100)
   } catch (error: unknown) {
     isConnecting.value = false
@@ -262,18 +228,15 @@ const login = async (connector: Connector) => {
     walletConnectUri.value = ''
     safeDeepLink.value = false
 
-    // Only show errors if our dialog is still open
-    if (chooseModalOpen.value) {
-      const errorMsg = error instanceof Error ? error.message : ''
-      if (
-        errorMsg.includes('User rejected') ||
-        errorMsg.includes('rejected') ||
-        errorMsg.includes('denied')
-      ) {
-        errorMessage.value = 'Connection cancelled. Please try again.'
-      } else {
-        errorMessage.value = 'Failed to connect. Please try again.'
-      }
+    const errorMsg = error instanceof Error ? error.message : ''
+    if (
+      errorMsg.includes('User rejected') ||
+      errorMsg.includes('rejected') ||
+      errorMsg.includes('denied')
+    ) {
+      errorMessage.value = 'Connection cancelled. Please try again.'
+    } else {
+      errorMessage.value = 'Failed to connect. Please try again.'
     }
     console.error('Wallet connection error:', error)
   } finally {
@@ -295,25 +258,16 @@ const resetConnection = () => {
 }
 
 const onInAppConnected = () => {
-  chooseModalOpen.value = false
   showInAppSetup.value = false
+  emit('connected')
 }
 
-const onModalClosed = () => {
-  chooseModalOpen.value = false
+const reset = () => {
   resetConnection()
   showInAppSetup.value = false
 }
 
-const check = () =>
-  isConnected.value
-    ? emit('connected', { address: address.value })
-    : emit('disconnected')
-watch(isConnected, () => {
-  check()
-  if (!isConnected.value) onModalClosed()
-})
-onMounted(() => check())
+defineExpose({ reset })
 </script>
 
 <style scoped>

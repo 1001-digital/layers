@@ -16,6 +16,7 @@ const wagmiVue = dirname(require.resolve('@wagmi/vue/package.json'))
 const clientOnlyComponents = [
   'EvmAccount',
   'EvmConnect',
+  'EvmConnectDialog',
   'EvmConnectorQR',
   'EvmMetaMaskQR',
   'EvmInAppWalletSetup',

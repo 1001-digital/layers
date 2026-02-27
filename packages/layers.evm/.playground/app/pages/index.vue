@@ -4,14 +4,14 @@
 
     <Card>
       <h2>Wallet Connection</h2>
-      <EvmConnect>
+      <EvmConnectDialog>
         <template #connected="{ address }">
           <p>
             Connected:
             <EvmAccount :address="address" />
           </p>
         </template>
-      </EvmConnect>
+      </EvmConnectDialog>
     </Card>
 
     <SignedIn />
