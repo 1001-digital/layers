@@ -1,43 +1,42 @@
 <template>
-  <template v-if="!isConnected">
-    <EvmInAppWalletSetup
-      v-if="showInAppSetup"
-      @connected="onInAppConnected"
-      @back="showInAppSetup = false"
-    />
-    <template v-else-if="errorMessage">
-      <Alert type="error">
-        {{ errorMessage }}
-      </Alert>
-      <Button
-        class="link muted small"
-        @click="resetConnection"
-      >
-        <Icon type="chevron-left" />
-        <span>Back</span>
-      </Button>
-    </template>
-    <EvmMetaMaskQR
-      v-else-if="metaMaskUri"
-      :uri="metaMaskUri"
-      @back="resetConnection"
-    />
-    <EvmWalletConnectWallets
-      v-else-if="walletConnectUri"
-      :uri="walletConnectUri"
-      @back="resetConnection"
-    />
-    <template v-else-if="isConnecting">
-      <Loading
-        :txt="`Waiting for ${connectingWallet} confirmation...`"
-        spinner
-        stacked
-      />
-    </template>
-    <div
-      v-else
-      class="wallet-options"
+  <EvmInAppWalletSetup
+    v-if="showInAppSetup"
+    @connected="onInAppConnected"
+    @back="showInAppSetup = false"
+  />
+  <template v-else-if="errorMessage">
+    <Alert type="error">
+      {{ errorMessage }}
+    </Alert>
+    <Button
+      class="link muted small"
+      @click="resetConnection"
     >
+      <Icon type="chevron-left" />
+      <span>Back</span>
+    </Button>
+  </template>
+  <EvmMetaMaskQR
+    v-else-if="metaMaskUri"
+    :uri="metaMaskUri"
+    @back="resetConnection"
+  />
+  <EvmWalletConnectWallets
+    v-else-if="walletConnectUri"
+    :uri="walletConnectUri"
+    @back="resetConnection"
+  />
+  <template v-else-if="isConnecting">
+    <Loading
+      :txt="`Waiting for ${connectingWallet} confirmation...`"
+      spinner
+      stacked
+    />
+  </template>
+  <div
+    v-else
+    class="wallet-options"
+  >
     <Button
       v-for="connector in shownConnectors"
       :key="connector.uid"
@@ -87,19 +86,13 @@
       <Icon type="help" />
       <span>New to wallets?</span>
     </Button>
-    </div>
-  </template>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import type { Connector } from '@wagmi/vue'
-import {
-  useConnection,
-  useConnect,
-  useConnectors,
-  useChainId,
-} from '@wagmi/vue'
+import { useConnect, useConnectors, useChainId } from '@wagmi/vue'
 import Button from '../../base/components/Button.vue'
 import Icon from '../../base/components/Icon.vue'
 import Alert from '../../base/components/Alert.vue'
@@ -140,7 +133,6 @@ const emit = defineEmits<{
 const chainId = useChainId()
 const connectors = useConnectors()
 const { mutateAsync: connectAsync } = useConnect()
-const { isConnected } = useConnection()
 
 const inAppConnector = computed(() =>
   connectors.value.find((c) => c.type === 'inAppWallet'),

@@ -7,7 +7,7 @@
     <slot>Connect Wallet</slot>
   </Button>
   <slot
-    v-else
+    v-else-if="isConnected"
     name="connected"
     :address="address"
   >
