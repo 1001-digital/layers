@@ -18,6 +18,8 @@ export type { EnsProfile } from './utils/ens'
 export { stringifyJSON, parseJSON, formatPrice } from './utils/price'
 export { resolveUri } from './utils/uri'
 export type { ResolveUriOptions } from './utils/uri'
+export { createSiweMessage } from './utils/siwe'
+export type { SiweMessageParams } from './utils/siwe'
 
 // Composables
 export { useBaseURL } from './composables/base'
@@ -33,6 +35,8 @@ export { useGasPrice } from './composables/gasPrice'
 export { usePriceFeed } from './composables/priceFeed'
 export { useWalletExplorer } from './composables/walletExplorer'
 export type { ExplorerWallet } from './composables/walletExplorer'
+export { useSiwe } from './composables/siwe'
+export type { SiweSession, UseSiweOptions } from './composables/siwe'
 
 // Connectors
 export { inAppWallet, prepareInAppWallet } from './connectors/inAppWallet'
@@ -52,3 +56,5 @@ export { default as EvmWalletConnectWallets } from './components/EvmWalletConnec
 export { default as EvmTransactionFlow } from './components/EvmTransactionFlow.vue'
 export { default as EvmSeedPhraseInput } from './components/EvmSeedPhraseInput.vue'
 export { default as EvmInAppWalletSetup } from './components/EvmInAppWalletSetup.vue'
+export { default as EvmSiwe } from './components/EvmSiwe.vue'
+export { default as EvmSiweDialog } from './components/EvmSiweDialog.vue'
