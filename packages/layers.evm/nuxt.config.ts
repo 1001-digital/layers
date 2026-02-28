@@ -23,6 +23,8 @@ const clientOnlyComponents = [
   'EvmInAppWalletSetup',
   'EvmTransactionFlow',
   'EvmWalletConnectQR',
+  'EvmSiwe',
+  'EvmSiweDialog',
 ]
 
 // https://nuxt.com/docs/api/configuration/nuxt-config

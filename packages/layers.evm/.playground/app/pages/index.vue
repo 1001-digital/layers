@@ -20,6 +20,7 @@
       <h2>Pages</h2>
       <NuxtLink to="/connect">Inline Connect</NuxtLink>
       <NuxtLink to="/transaction-flow">Transaction Flow States</NuxtLink>
+      <NuxtLink to="/siwe">Sign-In with Ethereum (SIWE)</NuxtLink>
     </Card>
   </div>
 </template>
