@@ -214,10 +214,9 @@ const login = async (connector: Connector) => {
   try {
     await connectAsync({ connector, chainId: chainId.value })
 
-    setTimeout(() => {
-      resetConnection()
-      emit('connected')
-    }, 100)
+    emit('connected')
+
+    resetConnection()
   } catch (error: unknown) {
     isConnecting.value = false
     metaMaskUri.value = ''
