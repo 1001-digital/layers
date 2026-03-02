@@ -69,7 +69,7 @@
     </Button>
     <Button
       v-if="inAppConnector"
-      @click="showInAppSetup = true"
+      @click="() => { emit('connecting'); showInAppSetup = true }"
       class="block choose-connector"
     >
       <img
@@ -127,6 +127,7 @@ const PRIORITY: Record<string, number> = {
 }
 
 const emit = defineEmits<{
+  connecting: []
   connected: []
 }>()
 
@@ -179,6 +180,7 @@ const loginWithSafe = () => {
 }
 
 const login = async (connector: Connector) => {
+  emit('connecting')
   errorMessage.value = ''
   isConnecting.value = true
   connectingWallet.value = safeDeepLink.value ? 'Safe' : connector.name
