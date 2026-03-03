@@ -4,7 +4,7 @@ const componentsDir = fileURLToPath(
   new URL('../components/src/base/components', import.meta.url),
 )
 
-const clientOnlyComponents = ['Combobox', 'ConfirmDialog', 'Dialog', 'Globals', 'Toasts', 'Popover', 'Dropdown', 'FormDatePicker']
+const clientOnlyComponents = ['Combobox', 'ConfirmDialog', 'Dialog', 'Toasts', 'Popover', 'Dropdown', 'FormDatePicker']
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -17,7 +17,7 @@ export default defineNuxtConfig({
       dirs.push({
         path: componentsDir,
         pathPrefix: false,
-        ignore: ['Icon.vue'],
+        ignore: ['Icon.vue', 'Globals.vue'],
       })
     },
     'components:extend': (components) => {
