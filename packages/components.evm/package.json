@@ -20,7 +20,7 @@
     "vue": "^3.5.0"
   },
   "dependencies": {
-    "@1001-digital/dweb-fetch": "workspace:^",
+    "@1001-digital/dweb-fetch": "^0.1.5",
     "@1001-digital/wagmi-in-app-wallet": "^0.1.0",
     "@types/qrcode": "^1.5.6",
     "qrcode": "^1.5.4"
