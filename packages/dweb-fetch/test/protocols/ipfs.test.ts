@@ -61,6 +61,7 @@ describe('createIpfsHandler', () => {
     await handler.fetch('ipfs://bafyABC')
 
     expect(mockCreateVerifiedFetch).toHaveBeenCalledWith({
+      gateways: [],
       routers: ['https://my-router.io'],
     })
   })

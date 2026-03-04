@@ -40,23 +40,20 @@ async function initVerifiedFetch(
 ): Promise<typeof fetch> {
   const { createVerifiedFetch } = await import('@helia/verified-fetch')
 
-  const ipfsConfig = config.ipfs
-  const gatewayOpts: Record<string, unknown> = {}
+  const gateways = config.ipfs?.gateways
+  const routers = config.ipfs?.routers
 
-  if (ipfsConfig?.gateways?.length) {
-    gatewayOpts.gateways = ipfsConfig.gateways
+  let verifiedFetch
+  if (gateways?.length) {
+    verifiedFetch = await createVerifiedFetch({
+      gateways,
+      ...(routers?.length ? { routers } : {}),
+    })
+  } else if (routers?.length) {
+    verifiedFetch = await createVerifiedFetch({ gateways: [], routers })
+  } else {
+    verifiedFetch = await createVerifiedFetch()
   }
-  if (ipfsConfig?.routers?.length) {
-    gatewayOpts.routers = ipfsConfig.routers
-  }
-
-  const hasCustomConfig = Object.keys(gatewayOpts).length > 0
-
-  const verifiedFetch = hasCustomConfig
-    ? await createVerifiedFetch(
-        gatewayOpts as { gateways?: string[]; routers?: string[] },
-      )
-    : await createVerifiedFetch()
 
   return verifiedFetch as unknown as typeof fetch
 }
