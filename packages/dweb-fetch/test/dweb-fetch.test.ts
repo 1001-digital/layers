@@ -54,7 +54,7 @@ describe('createDwebFetch', () => {
     })
 
     it('routes ar:// to Arweave handler', async () => {
-      mockWayfinderRequest.mockResolvedValue(new Response('arweave data'))
+      mockGlobalFetch.mockResolvedValue(new Response('arweave data', { status: 200 }))
 
       const dweb = createDwebFetch()
       const response = await dweb.fetch('ar://txId123')
@@ -157,18 +157,11 @@ describe('createDwebFetch', () => {
       )
     })
 
-    it('resolves ar:// using wayfinder', async () => {
-      mockWayfinderResolveUrl.mockResolvedValue(
-        new URL('https://arweave.net/txId123'),
-      )
-
+    it('resolves ar:// using static gateway', async () => {
       const dweb = createDwebFetch()
       const result = await dweb.resolveUrl('ar://txId123')
 
       expect(result).toBe('https://arweave.net/txId123')
-      expect(mockWayfinderResolveUrl).toHaveBeenCalledWith({
-        wayfinderUrl: 'ar://txId123',
-      })
     })
 
     it('returns https:// URLs as-is', async () => {

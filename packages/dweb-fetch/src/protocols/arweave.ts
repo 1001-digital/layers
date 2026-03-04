@@ -1,4 +1,4 @@
-import type { DwebFetchConfig, DwebFetchOptions, ProtocolHandler } from '../types'
+import type { ArweaveConfig, DwebFetchConfig, DwebFetchOptions, ProtocolHandler } from '../types'
 import { DwebFetchError } from '../errors'
 
 const DEFAULT_ARWEAVE_GATEWAYS = [
@@ -60,34 +60,74 @@ async function initBackend(
   config: DwebFetchConfig,
 ): Promise<ArweaveBackend> {
   const arConfig = config.arweave
-  const useStatic =
-    arConfig?.gateways?.length || arConfig?.useNetworkDiscovery === false
+  const gateways = arConfig?.gateways?.length
+    ? arConfig.gateways
+    : DEFAULT_ARWEAVE_GATEWAYS
 
-  if (useStatic) {
-    const gateways = arConfig?.gateways?.length
-      ? arConfig.gateways
-      : DEFAULT_ARWEAVE_GATEWAYS
-    return createStaticBackend(gateways)
+  const staticBackend = createStaticBackend(gateways)
+
+  if (arConfig?.useNetworkDiscovery === false) {
+    return staticBackend
   }
 
-  try {
-    const { createWayfinderClient } = await import('@ar.io/wayfinder-core')
-    const wayfinder = createWayfinderClient()
+  return createCompositeBackend(staticBackend, arConfig)
+}
 
-    return {
-      async request(url: string): Promise<Response> {
-        return wayfinder.request(url)
-      },
+function createCompositeBackend(
+  staticBackend: ArweaveBackend,
+  arConfig?: ArweaveConfig,
+): ArweaveBackend {
+  let wayfinderBackend: ArweaveBackend | null = null
 
-      async resolveUrl(url: string): Promise<string> {
-        const resolved = await wayfinder.resolveUrl({
-          wayfinderUrl: url as `ar://${string}`,
-        })
-        return resolved.toString()
-      },
+  async function getWayfinderBackend(): Promise<ArweaveBackend | null> {
+    if (wayfinderBackend) return wayfinderBackend
+    try {
+      const { createWayfinderClient, createRoutingStrategy } =
+        await import('@ar.io/wayfinder-core')
+      const options = arConfig?.routingStrategy
+        ? { routingStrategy: createRoutingStrategy({ strategy: arConfig.routingStrategy }) }
+        : {}
+      const wayfinder = createWayfinderClient(options)
+      wayfinderBackend = {
+        async request(url: string): Promise<Response> {
+          return wayfinder.request(url)
+        },
+        async resolveUrl(url: string): Promise<string> {
+          const resolved = await wayfinder.resolveUrl({
+            wayfinderUrl: url as `ar://${string}`,
+          })
+          return resolved.toString()
+        },
+      }
+      return wayfinderBackend
+    } catch {
+      return null
     }
-  } catch {
-    return createStaticBackend(DEFAULT_ARWEAVE_GATEWAYS)
+  }
+
+  return {
+    async request(url: string, options?: DwebFetchOptions): Promise<Response> {
+      let staticError: unknown
+      try {
+        return await staticBackend.request(url, options)
+      } catch (error) {
+        staticError = error
+      }
+
+      const fallback = await getWayfinderBackend()
+      if (fallback) return fallback.request(url, options)
+      throw staticError
+    },
+
+    async resolveUrl(url: string): Promise<string> {
+      try {
+        return await staticBackend.resolveUrl(url)
+      } catch (error) {
+        const fallback = await getWayfinderBackend()
+        if (fallback) return fallback.resolveUrl(url)
+        throw error
+      }
+    },
   }
 }
 

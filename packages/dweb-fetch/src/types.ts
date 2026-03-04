@@ -8,8 +8,15 @@ export interface IpfsConfig {
   routers?: string[]
 }
 
+export type ArweaveRoutingStrategy =
+  | 'random'
+  | 'fastest'
+  | 'round-robin'
+  | 'static'
+
 export interface ArweaveConfig {
   gateways?: string[]
+  routingStrategy?: ArweaveRoutingStrategy
   useNetworkDiscovery?: boolean
 }
 
