@@ -8,6 +8,7 @@ Monorepo containing Nuxt layers, a shared component library, and a shared CSS fr
 - `layers.prose` — Nuxt layer for content-driven sites (extends base)
 - `layers.evm` — Nuxt layer for Ethereum dAPPs (extends base)
 - `components` — Shared Vue component library (`@1001-digital/components`)
+- `components.evm` — EVM/wallet components and composables (`@1001-digital/components.evm`)
 - `styles` — Shared CSS framework and design tokens (`@1001-digital/styles`)
 
 ## Setup

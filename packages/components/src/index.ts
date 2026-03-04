@@ -81,6 +81,3 @@ export type { DateValue } from '@internationalized/date'
 export { IconAliasesKey, defaultIconAliases } from './base/icons'
 export type { IconAliases } from './base/icons'
 export { LinkComponentKey } from './base/link'
-
-// EVM
-export * from './evm/index'

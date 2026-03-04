@@ -124,11 +124,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useConnect, useConnectors } from '@wagmi/vue'
-import Button from '../../base/components/Button.vue'
-import Icon from '../../base/components/Icon.vue'
-import Alert from '../../base/components/Alert.vue'
-import FormCheckbox from '../../base/components/FormCheckbox.vue'
-import Loading from '../../base/components/Loading.vue'
+import { Button, Icon, Alert, FormCheckbox, Loading } from '@1001-digital/components'
 import EvmSeedPhraseInput from './EvmSeedPhraseInput.vue'
 import { prepareInAppWallet } from '../connectors/inAppWallet'
 

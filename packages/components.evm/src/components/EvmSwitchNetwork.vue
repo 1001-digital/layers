@@ -55,11 +55,7 @@
 import { ref, computed } from 'vue'
 import type { Chain } from 'viem'
 import { useConfig, useConnection, useSwitchChain } from '@wagmi/vue'
-import Button from '../../base/components/Button.vue'
-import Dialog from '../../base/components/Dialog.vue'
-import Icon from '../../base/components/Icon.vue'
-import Alert from '../../base/components/Alert.vue'
-import Loading from '../../base/components/Loading.vue'
+import { Button, Dialog, Icon, Alert, Loading } from '@1001-digital/components'
 
 defineProps<{
   className?: string

@@ -1,1 +1,1 @@
-export { useGasPrice } from '@1001-digital/components'
+export { useGasPrice } from '@1001-digital/components.evm'

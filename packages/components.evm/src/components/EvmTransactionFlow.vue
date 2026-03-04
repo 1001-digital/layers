@@ -78,13 +78,8 @@ import { ref, computed, watch, onBeforeUnmount } from 'vue'
 import { waitForTransactionReceipt, watchChainId } from '@wagmi/core'
 import { useConfig, useConnection, type Config } from '@wagmi/vue'
 import type { TransactionReceipt, Hash } from 'viem'
-import Dialog from '../../base/components/Dialog.vue'
-import Loading from '../../base/components/Loading.vue'
-import Alert from '../../base/components/Alert.vue'
-import Button from '../../base/components/Button.vue'
+import { Dialog, Loading, Alert, Button, useToast, delay } from '@1001-digital/components'
 import { useEnsureChainIdCheck, useBlockExplorer } from '../composables/chainId'
-import { useToast } from '../../base/composables/toast'
-import { delay } from '../../base/utils/time'
 
 interface TextConfig {
   title?: Record<string, string>

@@ -5,7 +5,7 @@ import { dirname } from 'node:path'
 const require = createRequire(import.meta.url)
 
 const componentsDir = fileURLToPath(
-  new URL('../components/src/evm/components', import.meta.url),
+  new URL('../components.evm/src/components', import.meta.url),
 )
 
 // Force all @wagmi/vue imports to resolve to a single copy.

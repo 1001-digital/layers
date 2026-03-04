@@ -3,4 +3,4 @@ export {
   useMainChainId,
   useBlockExplorer,
   useEnsureChainIdCheck,
-} from '@1001-digital/components'
+} from '@1001-digital/components.evm'

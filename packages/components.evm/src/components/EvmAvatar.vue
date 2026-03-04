@@ -25,7 +25,7 @@ import type { Address } from 'viem'
 import { useConnection } from '@wagmi/vue'
 import { useEnsWithAvatar } from '../composables/ens'
 import { useResolveUri } from '../composables/uri'
-import Opepicon from '../../base/components/Opepicon.vue'
+import { Opepicon } from '@1001-digital/components'
 
 const props = defineProps<{
   address?: Address

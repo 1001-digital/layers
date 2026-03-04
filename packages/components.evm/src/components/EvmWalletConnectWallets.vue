@@ -69,10 +69,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import Button from '../../base/components/Button.vue'
-import FormItem from '../../base/components/FormItem.vue'
-import Icon from '../../base/components/Icon.vue'
-import Loading from '../../base/components/Loading.vue'
+import { Button, FormItem, Icon, Loading } from '@1001-digital/components'
 import EvmConnectorQR from './EvmConnectorQR.vue'
 import {
   useWalletExplorer,

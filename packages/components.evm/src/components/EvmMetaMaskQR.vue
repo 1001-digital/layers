@@ -15,8 +15,7 @@
 
 <script setup lang="ts">
 import EvmConnectorQR from './EvmConnectorQR.vue'
-import Button from '../../base/components/Button.vue'
-import Icon from '../../base/components/Icon.vue'
+import { Button, Icon } from '@1001-digital/components'
 
 defineProps<{
   uri: string

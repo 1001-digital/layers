@@ -30,8 +30,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
 import { useConnection } from '@wagmi/vue'
-import Button from '../../base/components/Button.vue'
-import Dialog from '../../base/components/Dialog.vue'
+import { Button, Dialog } from '@1001-digital/components'
 import EvmAccount from './EvmAccount.vue'
 import EvmConnect from './EvmConnect.vue'
 

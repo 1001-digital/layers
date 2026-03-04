@@ -2,4 +2,4 @@ export {
   useEns,
   useEnsWithAvatar,
   useEnsProfile,
-} from '@1001-digital/components'
+} from '@1001-digital/components.evm'

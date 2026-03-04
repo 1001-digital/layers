@@ -42,8 +42,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import Button from '../../base/components/Button.vue'
-import Dialog from '../../base/components/Dialog.vue'
+import { Button, Dialog } from '@1001-digital/components'
 import EvmSiwe from './EvmSiwe.vue'
 import { useSiwe } from '../composables/siwe'
 

@@ -1,1 +1,1 @@
-export { useBaseURL } from '@1001-digital/components'
+export { useBaseURL } from '@1001-digital/components.evm'

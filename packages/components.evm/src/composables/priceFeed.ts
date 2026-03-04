@@ -2,7 +2,7 @@ import { reactive, computed } from 'vue'
 import { readContract } from '@wagmi/core'
 import { useConfig } from '@wagmi/vue'
 import { parseJSON, stringifyJSON, formatPrice } from '../utils/price'
-import { nowInSeconds } from '../../base/utils/time'
+import { nowInSeconds } from '@1001-digital/components'
 
 const CHAINLINK_ETH_USD_ABI = [
   {

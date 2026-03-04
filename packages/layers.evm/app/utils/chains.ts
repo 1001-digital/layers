@@ -1,1 +1,1 @@
-export { resolveChain } from '@1001-digital/components'
+export { resolveChain } from '@1001-digital/components.evm'

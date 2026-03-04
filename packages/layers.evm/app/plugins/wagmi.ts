@@ -22,7 +22,7 @@ import {
   resolveChain,
   inAppWallet,
   type EvmConfig,
-} from '@1001-digital/components'
+} from '@1001-digital/components.evm'
 
 export default defineNuxtPlugin({
   name: 'wagmi',
