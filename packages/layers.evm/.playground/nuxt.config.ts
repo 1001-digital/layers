@@ -6,7 +6,7 @@ const componentsDir = fileURLToPath(
 )
 
 export default defineNuxtConfig({
-  extends: ['@1001-digital/layers.base', '..'],
+  extends: ['..'],
   modules: ['@nuxt/eslint'],
   eslint: {
     config: {
