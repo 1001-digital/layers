@@ -33,7 +33,7 @@ const dwebFetch = createDwebFetch({
   arweave: {
     // Custom static gateways (tried first by default)
     gateways: ['https://arweave.net', 'https://ar-io.dev'],
-    // Routing strategy for network discovery fallback: 'random' | 'fastest' | 'round-robin' | 'static'
+    // Routing strategy for network discovery fallback: 'random' | 'fastest' | 'balanced' | 'preferred'
     routingStrategy: 'fastest',
     // Disable network discovery fallback entirely
     useNetworkDiscovery: false,
