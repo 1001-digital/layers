@@ -31,9 +31,11 @@ const dwebFetch = createDwebFetch({
     routers: ['https://my-router.io'],
   },
   arweave: {
-    // Use static gateways instead of network discovery
+    // Custom static gateways (tried first by default)
     gateways: ['https://arweave.net', 'https://ar-io.dev'],
-    // Or disable network discovery to use default static gateways
+    // Routing strategy for network discovery fallback: 'random' | 'fastest' | 'round-robin' | 'static'
+    routingStrategy: 'fastest',
+    // Disable network discovery fallback entirely
     useNetworkDiscovery: false,
   },
 })
@@ -42,7 +44,7 @@ const dwebFetch = createDwebFetch({
 ## Protocol Backends
 
 - **IPFS/IPNS** — `@helia/verified-fetch` for content-verified retrieval
-- **Arweave** — `@ar.io/wayfinder-core` with network gateway discovery, falls back to static gateway list
+- **Arweave** — Static gateways first, falls back to `@ar.io/wayfinder-core` network discovery
 - **HTTP/HTTPS** — Native `fetch` passthrough
 
 All backends are lazily initialized on first use.
