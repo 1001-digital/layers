@@ -16,8 +16,8 @@ export {
 } from './utils/ens'
 export type { EnsProfile } from './utils/ens'
 export { stringifyJSON, parseJSON, formatPrice } from './utils/price'
-export { resolveUri } from './utils/uri'
-export type { ResolveUriOptions } from './utils/uri'
+export { createDwebFetch } from '@1001-digital/dweb-fetch'
+export type { DwebClient, DwebFetchConfig } from '@1001-digital/dweb-fetch'
 export { createSiweMessage } from './utils/siwe'
 export type { SiweMessageParams } from './utils/siwe'
 
@@ -30,7 +30,7 @@ export {
   useEnsureChainIdCheck,
 } from './composables/chainId'
 export { useEns, useEnsWithAvatar, useEnsProfile } from './composables/ens'
-export { useResolveUri } from './composables/uri'
+export { useDwebClient, useResolvedUrl } from './composables/uri'
 export { useGasPrice } from './composables/gasPrice'
 export { usePriceFeed } from './composables/priceFeed'
 export { useWalletExplorer } from './composables/walletExplorer'

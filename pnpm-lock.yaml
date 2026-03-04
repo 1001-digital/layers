@@ -48,6 +48,9 @@ importers:
       '@1001-digital/components':
         specifier: workspace:^
         version: link:../components
+      '@1001-digital/dweb-fetch':
+        specifier: workspace:^
+        version: link:../dweb-fetch
       '@1001-digital/wagmi-in-app-wallet':
         specifier: ^0.1.0
         version: 0.1.0(@wagmi/core@3.4.0(@tanstack/query-core@5.90.20)(@types/react@19.2.7)(ox@0.11.3(typescript@5.9.3)(zod@3.25.76))(react@19.2.4)(typescript@5.9.3)(viem@2.45.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)))(viem@2.45.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))

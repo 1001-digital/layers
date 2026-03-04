@@ -24,7 +24,7 @@ import { computed } from 'vue'
 import type { Address } from 'viem'
 import { useConnection } from '@wagmi/vue'
 import { useEnsWithAvatar } from '../composables/ens'
-import { useResolveUri } from '../composables/uri'
+import { useResolvedUrl } from '../composables/uri'
 import { Opepicon } from '@1001-digital/components'
 
 const props = defineProps<{
@@ -40,10 +40,9 @@ const isCurrent = computed<boolean>(
 )
 
 const { data: ensData } = useEnsWithAvatar(address)
-const resolve = useResolveUri()
 
 const ens = computed(() => ensData.value?.ens || null)
-const src = computed(() => resolve(ensData.value?.data?.avatar))
+const src = useResolvedUrl(() => ensData.value?.data?.avatar)
 </script>
 
 <style scoped>
