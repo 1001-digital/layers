@@ -45,7 +45,8 @@ All components are client-only.
 - `useEns()` / `useEnsWithAvatar()` / `useEnsProfile()` - ENS resolution
 - `useGasPrice()` - Current gas prices
 - `usePriceFeed()` - ETH price feed
-- `useResolveUri()` - IPFS/Arweave/data URI resolution
+- `useDwebClient()` - Decentralized web fetch client (IPFS, IPNS, Arweave)
+- `useResolvedUrl()` - Reactive URI resolution
 - `useWalletExplorer()` - Wallet connection explorer with search
 - `useBaseURL()` - Base URL helper
 

@@ -30,7 +30,8 @@ Ethereum wallet components (require `@wagmi/vue` and `viem`):
 - `useChainConfig()`, `useMainChainId()`, `useBlockExplorer()` — Chain utilities
 - `useEns()`, `useEnsWithAvatar()`, `useEnsProfile()` — ENS resolution
 - `useGasPrice()`, `usePriceFeed()` — Price feeds
-- `useResolveUri()` — URI resolution (IPFS, Arweave)
+- `useDwebClient()` — Decentralized web fetch client (IPFS, IPNS, Arweave)
+- `useResolvedUrl()` — Reactive URI resolution
 - `useSiwe()` — Sign-In with Ethereum
 - `useWalletExplorer()` — Wallet explorer
 - `useBaseURL()` — Base URL helper
