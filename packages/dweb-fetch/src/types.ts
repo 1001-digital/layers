@@ -11,8 +11,8 @@ export interface IpfsConfig {
 export type ArweaveRoutingStrategy =
   | 'random'
   | 'fastest'
-  | 'round-robin'
-  | 'static'
+  | 'balanced'
+  | 'preferred'
 
 export interface ArweaveConfig {
   gateways?: string[]
