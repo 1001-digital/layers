@@ -19,7 +19,7 @@ Decentralized web fetch library (`@1001-digital/dweb-fetch`) — fetch content f
 
 ## Key patterns
 
-- No build step — exports raw TS from `src/`
+- Vite build step — outputs JS + `.d.ts` to `dist/`, source TS published alongside for editor navigation
 - Lazy backend init — `createDwebFetch()` is synchronous; backends initialize on first `fetch()` call
 - Dynamic imports — `@helia/verified-fetch` and `@ar.io/wayfinder-core` imported at runtime for tree-shaking
 - Cached promise pattern for concurrent-safe lazy init
