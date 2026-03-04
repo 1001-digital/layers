@@ -12,5 +12,9 @@ export function createHttpsHandler(): ProtocolHandler {
         signal: options?.signal,
       })
     },
+
+    async resolveUrl(url: string): Promise<string> {
+      return url
+    },
   }
 }

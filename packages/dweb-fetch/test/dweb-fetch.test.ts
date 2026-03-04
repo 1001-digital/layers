@@ -9,9 +9,11 @@ vi.mock('@helia/verified-fetch', () => ({
 }))
 
 const mockWayfinderRequest = vi.fn()
+const mockWayfinderResolveUrl = vi.fn()
 vi.mock('@ar.io/wayfinder-core', () => ({
   createWayfinderClient: vi.fn().mockReturnValue({
     request: (...args: unknown[]) => mockWayfinderRequest(...args),
+    resolveUrl: (...args: unknown[]) => mockWayfinderResolveUrl(...args),
   }),
 }))
 
@@ -21,84 +23,173 @@ describe('createDwebFetch', () => {
   beforeEach(() => {
     mockVerifiedFetch.mockReset()
     mockWayfinderRequest.mockReset()
+    mockWayfinderResolveUrl.mockReset()
     mockGlobalFetch.mockReset()
     vi.stubGlobal('fetch', mockGlobalFetch)
   })
 
-  it('returns a function', () => {
-    const dwebFetch = createDwebFetch()
-    expect(typeof dwebFetch).toBe('function')
+  it('returns an object with fetch and resolveUrl', () => {
+    const dweb = createDwebFetch()
+    expect(typeof dweb.fetch).toBe('function')
+    expect(typeof dweb.resolveUrl).toBe('function')
   })
 
-  it('routes ipfs:// to IPFS handler', async () => {
-    mockVerifiedFetch.mockResolvedValue(new Response('ipfs data'))
+  describe('fetch', () => {
+    it('routes ipfs:// to IPFS handler', async () => {
+      mockVerifiedFetch.mockResolvedValue(new Response('ipfs data'))
 
-    const dwebFetch = createDwebFetch()
-    const response = await dwebFetch('ipfs://bafyABC')
+      const dweb = createDwebFetch()
+      const response = await dweb.fetch('ipfs://bafyABC')
 
-    expect(await response.text()).toBe('ipfs data')
+      expect(await response.text()).toBe('ipfs data')
+    })
+
+    it('routes ipns:// to IPFS handler', async () => {
+      mockVerifiedFetch.mockResolvedValue(new Response('ipns data'))
+
+      const dweb = createDwebFetch()
+      const response = await dweb.fetch('ipns://example.eth')
+
+      expect(await response.text()).toBe('ipns data')
+    })
+
+    it('routes ar:// to Arweave handler', async () => {
+      mockWayfinderRequest.mockResolvedValue(new Response('arweave data'))
+
+      const dweb = createDwebFetch()
+      const response = await dweb.fetch('ar://txId123')
+
+      expect(await response.text()).toBe('arweave data')
+    })
+
+    it('routes https:// to HTTPS handler', async () => {
+      mockGlobalFetch.mockResolvedValue(new Response('https data'))
+
+      const dweb = createDwebFetch()
+      const response = await dweb.fetch('https://example.com')
+
+      expect(await response.text()).toBe('https data')
+    })
+
+    it('routes http:// to HTTPS handler', async () => {
+      mockGlobalFetch.mockResolvedValue(new Response('http data'))
+
+      const dweb = createDwebFetch()
+      const response = await dweb.fetch('http://example.com')
+
+      expect(await response.text()).toBe('http data')
+    })
+
+    it('routes raw IPFS hashes to IPFS handler', async () => {
+      mockVerifiedFetch.mockResolvedValue(new Response('raw hash data'))
+
+      const dweb = createDwebFetch()
+      const response = await dweb.fetch(
+        'QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG',
+      )
+
+      expect(await response.text()).toBe('raw hash data')
+      expect(mockVerifiedFetch).toHaveBeenCalledWith(
+        'ipfs://QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG',
+        expect.any(Object),
+      )
+    })
+
+    it('throws DwebUnsupportedProtocolError for unknown schemes', async () => {
+      const dweb = createDwebFetch()
+
+      await expect(dweb.fetch('ftp://example.com')).rejects.toThrow(
+        DwebUnsupportedProtocolError,
+      )
+    })
+
+    it('throws DwebUnsupportedProtocolError for schemeless URLs', async () => {
+      const dweb = createDwebFetch()
+
+      await expect(dweb.fetch('just-a-string')).rejects.toThrow(
+        DwebUnsupportedProtocolError,
+      )
+    })
+
+    it('includes the scheme in the error', async () => {
+      const dweb = createDwebFetch()
+
+      try {
+        await dweb.fetch('ftp://example.com')
+      } catch (error) {
+        expect(error).toBeInstanceOf(DwebUnsupportedProtocolError)
+        expect((error as DwebUnsupportedProtocolError).scheme).toBe('ftp')
+      }
+    })
   })
 
-  it('routes ipns:// to IPFS handler', async () => {
-    mockVerifiedFetch.mockResolvedValue(new Response('ipns data'))
+  describe('resolveUrl', () => {
+    it('returns empty string for empty input', async () => {
+      const dweb = createDwebFetch()
+      expect(await dweb.resolveUrl('')).toBe('')
+    })
 
-    const dwebFetch = createDwebFetch()
-    const response = await dwebFetch('ipns://example.eth')
+    it('returns data: URIs as-is', async () => {
+      const dweb = createDwebFetch()
+      const dataUri = 'data:image/png;base64,abc123'
+      expect(await dweb.resolveUrl(dataUri)).toBe(dataUri)
+    })
 
-    expect(await response.text()).toBe('ipns data')
-  })
+    it('resolves ipfs:// to gateway URL', async () => {
+      const dweb = createDwebFetch()
+      const result = await dweb.resolveUrl('ipfs://bafyABC/image.png')
+      expect(result).toBe('https://ipfs.io/ipfs/bafyABC/image.png')
+    })
 
-  it('routes ar:// to Arweave handler', async () => {
-    mockWayfinderRequest.mockResolvedValue(new Response('arweave data'))
+    it('resolves ipns:// to gateway URL', async () => {
+      const dweb = createDwebFetch()
+      const result = await dweb.resolveUrl('ipns://example.eth')
+      expect(result).toBe('https://ipfs.io/ipns/example.eth')
+    })
 
-    const dwebFetch = createDwebFetch()
-    const response = await dwebFetch('ar://txId123')
+    it('resolves raw IPFS hashes to gateway URL', async () => {
+      const dweb = createDwebFetch()
+      const result = await dweb.resolveUrl(
+        'QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG',
+      )
+      expect(result).toBe(
+        'https://ipfs.io/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG',
+      )
+    })
 
-    expect(await response.text()).toBe('arweave data')
-  })
+    it('resolves ar:// using wayfinder', async () => {
+      mockWayfinderResolveUrl.mockResolvedValue(
+        new URL('https://arweave.net/txId123'),
+      )
 
-  it('routes https:// to HTTPS handler', async () => {
-    mockGlobalFetch.mockResolvedValue(new Response('https data'))
+      const dweb = createDwebFetch()
+      const result = await dweb.resolveUrl('ar://txId123')
 
-    const dwebFetch = createDwebFetch()
-    const response = await dwebFetch('https://example.com')
+      expect(result).toBe('https://arweave.net/txId123')
+      expect(mockWayfinderResolveUrl).toHaveBeenCalledWith({
+        wayfinderUrl: 'ar://txId123',
+      })
+    })
 
-    expect(await response.text()).toBe('https data')
-  })
+    it('returns https:// URLs as-is', async () => {
+      const dweb = createDwebFetch()
+      const result = await dweb.resolveUrl('https://example.com/image.png')
+      expect(result).toBe('https://example.com/image.png')
+    })
 
-  it('routes http:// to HTTPS handler', async () => {
-    mockGlobalFetch.mockResolvedValue(new Response('http data'))
+    it('uses custom IPFS gateway when configured', async () => {
+      const dweb = createDwebFetch({
+        ipfs: { gateways: ['https://my-gateway.io'] },
+      })
+      const result = await dweb.resolveUrl('ipfs://bafyABC')
+      expect(result).toBe('https://my-gateway.io/ipfs/bafyABC')
+    })
 
-    const dwebFetch = createDwebFetch()
-    const response = await dwebFetch('http://example.com')
-
-    expect(await response.text()).toBe('http data')
-  })
-
-  it('throws DwebUnsupportedProtocolError for unknown schemes', async () => {
-    const dwebFetch = createDwebFetch()
-
-    await expect(dwebFetch('ftp://example.com')).rejects.toThrow(
-      DwebUnsupportedProtocolError,
-    )
-  })
-
-  it('throws DwebUnsupportedProtocolError for schemeless URLs', async () => {
-    const dwebFetch = createDwebFetch()
-
-    await expect(dwebFetch('just-a-string')).rejects.toThrow(
-      DwebUnsupportedProtocolError,
-    )
-  })
-
-  it('includes the scheme in the error', async () => {
-    const dwebFetch = createDwebFetch()
-
-    try {
-      await dwebFetch('ftp://example.com')
-    } catch (error) {
-      expect(error).toBeInstanceOf(DwebUnsupportedProtocolError)
-      expect((error as DwebUnsupportedProtocolError).scheme).toBe('ftp')
-    }
+    it('throws for unsupported schemes', async () => {
+      const dweb = createDwebFetch()
+      await expect(dweb.resolveUrl('ftp://example.com')).rejects.toThrow(
+        DwebUnsupportedProtocolError,
+      )
+    })
   })
 })

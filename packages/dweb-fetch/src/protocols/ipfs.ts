@@ -1,8 +1,12 @@
 import type { DwebFetchConfig, DwebFetchOptions, ProtocolHandler } from '../types'
 import { DwebFetchError } from '../errors'
 
+const DEFAULT_IPFS_GATEWAY = 'https://ipfs.io'
+
 export function createIpfsHandler(config: DwebFetchConfig): ProtocolHandler {
   let verifiedFetchPromise: Promise<typeof fetch> | null = null
+
+  const gateway = config.ipfs?.gateways?.[0] ?? DEFAULT_IPFS_GATEWAY
 
   async function getVerifiedFetch(): Promise<typeof fetch> {
     if (!verifiedFetchPromise) {
@@ -27,6 +31,19 @@ export function createIpfsHandler(config: DwebFetchConfig): ProtocolHandler {
           cause: error,
         })
       }
+    },
+
+    async resolveUrl(url: string): Promise<string> {
+      const base = gateway.replace(/\/+$/, '')
+
+      if (url.startsWith('ipfs://')) {
+        return `${base}/ipfs/${url.slice(7)}`
+      }
+      if (url.startsWith('ipns://')) {
+        return `${base}/ipns/${url.slice(7)}`
+      }
+
+      return `${base}/ipfs/${url}`
     },
 
     async destroy() {

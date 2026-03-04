@@ -25,8 +25,14 @@ export type DwebFetch = (
   options?: DwebFetchOptions,
 ) => Promise<Response>
 
+export interface DwebClient {
+  fetch: DwebFetch
+  resolveUrl: (url: string) => Promise<string>
+}
+
 export interface ProtocolHandler {
   fetch: (url: string, options?: DwebFetchOptions) => Promise<Response>
+  resolveUrl: (url: string) => Promise<string>
   destroy?: () => Promise<void>
 }
 

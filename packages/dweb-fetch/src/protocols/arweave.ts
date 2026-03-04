@@ -7,27 +7,28 @@ const DEFAULT_ARWEAVE_GATEWAYS = [
   'https://permagate.io',
 ]
 
-interface ArweaveClient {
+interface ArweaveBackend {
   request: (url: string, options?: DwebFetchOptions) => Promise<Response>
+  resolveUrl: (url: string) => Promise<string>
 }
 
 export function createArweaveHandler(
   config: DwebFetchConfig,
 ): ProtocolHandler {
-  let wayfinderPromise: Promise<ArweaveClient> | null = null
+  let backendPromise: Promise<ArweaveBackend> | null = null
 
-  async function getWayfinder(): Promise<ArweaveClient> {
-    if (!wayfinderPromise) {
-      wayfinderPromise = initWayfinder(config)
+  async function getBackend(): Promise<ArweaveBackend> {
+    if (!backendPromise) {
+      backendPromise = initBackend(config)
     }
-    return wayfinderPromise
+    return backendPromise
   }
 
   return {
     async fetch(url: string, options?: DwebFetchOptions): Promise<Response> {
       try {
-        const client = await getWayfinder()
-        return await client.request(url, options)
+        const backend = await getBackend()
+        return await backend.request(url, options)
       } catch (error) {
         if (error instanceof DwebFetchError) throw error
         throw new DwebFetchError(`Arweave fetch failed for ${url}`, {
@@ -36,15 +37,28 @@ export function createArweaveHandler(
       }
     },
 
+    async resolveUrl(url: string): Promise<string> {
+      try {
+        const backend = await getBackend()
+        return await backend.resolveUrl(url)
+      } catch (error) {
+        if (error instanceof DwebFetchError) throw error
+        throw new DwebFetchError(
+          `Arweave URL resolution failed for ${url}`,
+          { cause: error },
+        )
+      }
+    },
+
     async destroy() {
-      wayfinderPromise = null
+      backendPromise = null
     },
   }
 }
 
-async function initWayfinder(
+async function initBackend(
   config: DwebFetchConfig,
-): Promise<ArweaveClient> {
+): Promise<ArweaveBackend> {
   const arConfig = config.arweave
   const useStatic =
     arConfig?.gateways?.length || arConfig?.useNetworkDiscovery === false
@@ -53,7 +67,7 @@ async function initWayfinder(
     const gateways = arConfig?.gateways?.length
       ? arConfig.gateways
       : DEFAULT_ARWEAVE_GATEWAYS
-    return createStaticArweaveClient(gateways)
+    return createStaticBackend(gateways)
   }
 
   try {
@@ -61,19 +75,25 @@ async function initWayfinder(
     const wayfinder = createWayfinderClient()
 
     return {
-      async request(
-        url: string,
-        _options?: DwebFetchOptions,
-      ): Promise<Response> {
+      async request(url: string): Promise<Response> {
         return wayfinder.request(url)
+      },
+
+      async resolveUrl(url: string): Promise<string> {
+        const resolved = await wayfinder.resolveUrl({
+          wayfinderUrl: url as `ar://${string}`,
+        })
+        return resolved.toString()
       },
     }
   } catch {
-    return createStaticArweaveClient(DEFAULT_ARWEAVE_GATEWAYS)
+    return createStaticBackend(DEFAULT_ARWEAVE_GATEWAYS)
   }
 }
 
-function createStaticArweaveClient(gateways: string[]): ArweaveClient {
+function createStaticBackend(gateways: string[]): ArweaveBackend {
+  const primaryGateway = gateways[0].replace(/\/+$/, '')
+
   return {
     async request(
       url: string,
@@ -84,10 +104,8 @@ function createStaticArweaveClient(gateways: string[]): ArweaveClient {
 
       for (const gateway of gateways) {
         try {
-          const gatewayUrl = gateway.endsWith('/')
-            ? `${gateway}${path}`
-            : `${gateway}/${path}`
-          const response = await globalThis.fetch(gatewayUrl, {
+          const base = gateway.replace(/\/+$/, '')
+          const response = await globalThis.fetch(`${base}/${path}`, {
             signal: options?.signal,
             headers: options?.headers
               ? new Headers(options.headers)
@@ -105,6 +123,11 @@ function createStaticArweaveClient(gateways: string[]): ArweaveClient {
       throw new DwebFetchError(`All Arweave gateways failed for ${url}`, {
         cause: lastError as Error,
       })
+    },
+
+    async resolveUrl(url: string): Promise<string> {
+      const path = url.replace(/^ar:\/\//, '')
+      return `${primaryGateway}/${path}`
     },
   }
 }

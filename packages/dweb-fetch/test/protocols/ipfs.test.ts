@@ -113,4 +113,38 @@ describe('createIpfsHandler', () => {
     expect(call[1].signal).toBe(controller.signal)
     expect(call[1].headers).toBeInstanceOf(Headers)
   })
+
+  describe('resolveUrl', () => {
+    it('resolves ipfs:// to default gateway URL', async () => {
+      const handler = createIpfsHandler({})
+      const result = await handler.resolveUrl('ipfs://bafyABC/file.json')
+      expect(result).toBe('https://ipfs.io/ipfs/bafyABC/file.json')
+    })
+
+    it('resolves ipns:// to gateway URL', async () => {
+      const handler = createIpfsHandler({})
+      const result = await handler.resolveUrl('ipns://example.eth')
+      expect(result).toBe('https://ipfs.io/ipns/example.eth')
+    })
+
+    it('uses first configured gateway', async () => {
+      const handler = createIpfsHandler({
+        ipfs: { gateways: ['https://my-gw.io', 'https://other-gw.io'] },
+      })
+      const result = await handler.resolveUrl('ipfs://bafyABC')
+      expect(result).toBe('https://my-gw.io/ipfs/bafyABC')
+    })
+
+    it('handles raw CID as ipfs path', async () => {
+      const handler = createIpfsHandler({})
+      const result = await handler.resolveUrl('bafyABC')
+      expect(result).toBe('https://ipfs.io/ipfs/bafyABC')
+    })
+
+    it('does not initialize verified-fetch backend', async () => {
+      const handler = createIpfsHandler({})
+      await handler.resolveUrl('ipfs://bafyABC')
+      expect(mockCreateVerifiedFetch).not.toHaveBeenCalled()
+    })
+  })
 })

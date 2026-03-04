@@ -1,11 +1,18 @@
-import type { DwebFetch, DwebFetchConfig, DwebFetchOptions, ProtocolHandler } from './types'
+import type {
+  DwebClient,
+  DwebFetchConfig,
+  DwebFetchOptions,
+  ProtocolHandler,
+} from './types'
 import { DwebUnsupportedProtocolError } from './errors'
 import { extractScheme } from './utils/parse-url'
 import { createIpfsHandler } from './protocols/ipfs'
 import { createArweaveHandler } from './protocols/arweave'
 import { createHttpsHandler } from './protocols/https'
 
-export function createDwebFetch(config: DwebFetchConfig = {}): DwebFetch {
+const RAW_IPFS_HASH = /^(Qm[1-9A-HJ-NP-Za-km-z]{44}|baf[a-z2-7]{56})/
+
+export function createDwebFetch(config: DwebFetchConfig = {}): DwebClient {
   const ipfsHandler = createIpfsHandler(config)
   const arweaveHandler = createArweaveHandler(config)
   const httpsHandler = createHttpsHandler()
@@ -18,10 +25,7 @@ export function createDwebFetch(config: DwebFetchConfig = {}): DwebFetch {
     https: httpsHandler,
   }
 
-  const dwebFetch: DwebFetch = async (
-    url: string,
-    options?: DwebFetchOptions,
-  ): Promise<Response> => {
+  function getHandler(url: string): ProtocolHandler {
     const scheme = extractScheme(url)
     if (!scheme) {
       throw new DwebUnsupportedProtocolError(url.split(':')[0] || 'unknown')
@@ -32,13 +36,35 @@ export function createDwebFetch(config: DwebFetchConfig = {}): DwebFetch {
       throw new DwebUnsupportedProtocolError(scheme)
     }
 
-    return handler.fetch(url, options)
+    return handler
   }
 
-  return dwebFetch
+  return {
+    async fetch(
+      url: string,
+      options?: DwebFetchOptions,
+    ): Promise<Response> {
+      if (RAW_IPFS_HASH.test(url)) {
+        return ipfsHandler.fetch(`ipfs://${url}`, options)
+      }
+
+      return getHandler(url).fetch(url, options)
+    },
+
+    async resolveUrl(url: string): Promise<string> {
+      if (!url) return ''
+      if (url.startsWith('data:')) return url
+      if (RAW_IPFS_HASH.test(url)) {
+        return ipfsHandler.resolveUrl(`ipfs://${url}`)
+      }
+
+      return getHandler(url).resolveUrl(url)
+    },
+  }
 }
 
 export type {
+  DwebClient,
   DwebFetch,
   DwebFetchConfig,
   DwebFetchOptions,

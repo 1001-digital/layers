@@ -44,4 +44,10 @@ describe('createHttpsHandler', () => {
     expect(call[1].signal).toBe(controller.signal)
     expect(call[1].headers).toBeInstanceOf(Headers)
   })
+
+  it('resolveUrl returns URL as-is', async () => {
+    const handler = createHttpsHandler()
+    const result = await handler.resolveUrl('https://example.com/image.png')
+    expect(result).toBe('https://example.com/image.png')
+  })
 })
