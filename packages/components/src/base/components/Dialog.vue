@@ -147,11 +147,19 @@ onBeforeUnmount(() => {
     border: var(--border);
     border-radius: var(--border-radius);
     padding: 0;
-    block-size: fit-content;
     max-block-size: 80dvh;
     display: grid;
     grid-template-rows: auto 1fr auto;
     overflow: hidden;
+
+    /* iOS Safari: override UA inset:0 which stretches the dialog */
+    &:modal {
+      inset: unset;
+      inset-block-start: 50%;
+      inset-inline-start: 50%;
+      translate: -50% -50%;
+      margin: 0;
+    }
 
     /* Entry/exit animations */
     opacity: 1;
