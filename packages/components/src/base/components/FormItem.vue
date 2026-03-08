@@ -20,6 +20,7 @@
 @layer components {
   .form-item {
     border-radius: var(--border-radius);
+    overflow: hidden;
     display: flex;
     align-items: center;
     background: var(--background);
