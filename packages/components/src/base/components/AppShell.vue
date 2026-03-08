@@ -48,5 +48,13 @@ const sidebarOpen = defineModel<boolean>('sidebarOpen', { default: false })
     flex: 1;
     min-inline-size: 0;
   }
+
+  .app-shell:has(.bottom-nav) .app-shell-main {
+    padding-block-end: var(--bottom-nav-height);
+
+    @media (min-width: 1024px) {
+      padding-block-end: 0;
+    }
+  }
 }
 </style>
