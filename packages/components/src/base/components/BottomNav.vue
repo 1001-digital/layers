@@ -21,10 +21,6 @@
     align-items: center;
     justify-content: center;
     padding-block-end: env(safe-area-inset-bottom);
-
-    @media (min-width: 1024px) {
-      display: none;
-    }
   }
 
   .bottom-nav-items {
