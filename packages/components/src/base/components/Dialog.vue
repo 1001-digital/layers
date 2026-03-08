@@ -16,24 +16,26 @@
         @cancel.stop.prevent="closable && (open = false)"
         @click="onDialogClick"
       >
-        <h1 v-if="title">{{ title }}</h1>
-        <button
-          v-if="closable"
-          class="close"
-          :title="`Close ${title || 'Dialog'}`"
-          @pointerdown="open = false"
-          @click="open = false"
-        >
-          <Icon type="close" />
-        </button>
+        <div class="dialog-content">
+          <h1 v-if="title">{{ title }}</h1>
+          <button
+            v-if="closable"
+            class="close"
+            :title="`Close ${title || 'Dialog'}`"
+            @pointerdown="open = false"
+            @click="open = false"
+          >
+            <Icon type="close" />
+          </button>
 
-        <section>
-          <slot />
-        </section>
+          <section>
+            <slot />
+          </section>
 
-        <footer v-if="$slots.footer">
-          <slot name="footer" />
-        </footer>
+          <footer v-if="$slots.footer">
+            <slot name="footer" />
+          </footer>
+        </div>
       </component>
     </Transition>
 
@@ -147,21 +149,67 @@ onBeforeUnmount(() => {
     border: var(--border);
     border-radius: var(--border-radius);
     padding: 0;
-    max-block-size: 80dvh;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
     overflow: hidden;
 
-    /* iOS Safari: override UA inset:0 which stretches the dialog */
-    &:modal {
-      max-height: 80dvh;
-      inset-block-start: 50%;
-      inset-block-end: auto;
-      inset-inline-start: 50%;
-      inset-inline-end: auto;
-      translate: -50% -50%;
-      margin: 0;
-      height: fit-content;
+    > .dialog-content {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      max-block-size: 80dvh;
+
+      > h1:first-child,
+      > .close {
+        display: flex;
+        align-items: center;
+        block-size: calc(var(--spacer) * 2);
+        box-shadow: var(--border-shadow);
+        padding-inline-start: var(--spacer);
+        font-family: var(--font-family);
+        font-size: var(--ui-font-size);
+        text-transform: var(--ui-text-transform);
+        margin: 0;
+      }
+
+      > h1:first-child {
+        padding-right: calc(var(--spacer) * 3);
+      }
+
+      > .close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        inline-size: calc(var(--spacer) * 2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border-radius: 0;
+        border-start-end-radius: var(--border-radius);
+
+        &:is(:hover, :active, :focus, .active) {
+          outline: none;
+        }
+      }
+
+      > section {
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        padding: var(--spacer);
+        display: grid;
+        gap: var(--spacer);
+      }
+
+      > footer {
+        display: flex;
+        gap: var(--spacer);
+        justify-content: safe flex-end;
+        padding: var(--spacer);
+        border-block-start: var(--border);
+        overflow-x: auto;
+
+        &:empty {
+          display: none;
+        }
+      }
     }
 
     /* Entry/exit animations */
@@ -223,61 +271,6 @@ onBeforeUnmount(() => {
 
     &:focus {
       outline: none;
-    }
-
-    > h1:first-child,
-    > .close {
-      display: flex;
-      align-items: center;
-      block-size: calc(var(--spacer) * 2);
-      box-shadow: var(--border-shadow);
-      padding-inline-start: var(--spacer);
-      font-family: var(--font-family);
-      font-size: var(--ui-font-size);
-      text-transform: var(--ui-text-transform);
-      margin: 0;
-    }
-
-    > h1:first-child {
-      padding-right: calc(var(--spacer) * 3);
-    }
-
-    > .close {
-      position: absolute;
-      top: 0;
-      right: 0;
-      inline-size: calc(var(--spacer) * 2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      border-radius: 0;
-      border-start-end-radius: var(--border-radius);
-
-      &:is(:hover, :active, :focus, .active) {
-        outline: none;
-      }
-    }
-
-    > section {
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      padding: var(--spacer);
-      display: grid;
-      gap: var(--spacer);
-    }
-
-    > footer {
-      display: flex;
-      gap: var(--spacer);
-      justify-content: safe flex-end;
-      padding: var(--spacer);
-      border-block-start: var(--border);
-      overflow-x: auto;
-
-      &:empty {
-        display: none;
-      }
     }
 
     &.large {
