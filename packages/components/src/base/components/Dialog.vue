@@ -149,7 +149,6 @@ onBeforeUnmount(() => {
     padding: 0;
     block-size: fit-content;
     max-block-size: 80dvh;
-    container-type: inline-size;
     display: grid;
     grid-template-rows: auto 1fr auto;
     overflow: hidden;
