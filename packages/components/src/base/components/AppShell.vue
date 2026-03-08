@@ -58,13 +58,5 @@ const sidebarOpen = defineModel<boolean>('sidebarOpen', { default: false })
     overscroll-behavior-y: contain;
     padding-block-start: env(safe-area-inset-top);
   }
-
-  .app-shell:has(.bottom-nav) .app-shell-main {
-    padding-block-end: var(--bottom-nav-height);
-
-    @media (min-width: 1024px) {
-      padding-block-end: 0;
-    }
-  }
 }
 </style>
