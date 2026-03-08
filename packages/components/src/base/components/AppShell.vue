@@ -41,12 +41,15 @@ const sidebarOpen = defineModel<boolean>('sidebarOpen', { default: false })
 @layer components {
   .app-shell {
     display: flex;
-    min-block-size: var(--100vh);
+    block-size: var(--100vh);
+    overflow: hidden;
   }
 
   .app-shell-main {
     flex: 1;
     min-inline-size: 0;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
   }
 
   .app-shell:has(.bottom-nav) .app-shell-main {

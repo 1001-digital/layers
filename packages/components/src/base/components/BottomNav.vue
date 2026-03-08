@@ -1,6 +1,8 @@
 <template>
   <nav class="bottom-nav">
-    <slot />
+    <div class="bottom-nav-items">
+      <slot />
+    </div>
   </nav>
 </template>
 
@@ -17,12 +19,20 @@
     border-block-start: var(--border);
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     padding-block-end: env(safe-area-inset-bottom);
 
     @media (min-width: 1024px) {
       display: none;
     }
+  }
+
+  .bottom-nav-items {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    inline-size: 100%;
+    max-inline-size: var(--bottom-nav-max-inline-size);
 
     > a,
     > button {

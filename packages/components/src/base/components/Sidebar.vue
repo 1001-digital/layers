@@ -82,6 +82,7 @@ onMounted(() => {
     if (isLargeScreen.value) return
 
     const touch = e.touches[0]
+    if (!touch) return
     startX = touch.clientX
     startY = touch.clientY
     tracking = false
@@ -103,6 +104,7 @@ onMounted(() => {
     if (!tracking || isLargeScreen.value) return
 
     const touch = e.touches[0]
+    if (!touch) return
     const dx = touch.clientX - startX
     const dy = touch.clientY - startY
 
