@@ -154,12 +154,13 @@ onBeforeUnmount(() => {
 
     /* iOS Safari: override UA inset:0 which stretches the dialog */
     &:modal {
-      inset: unset;
       inset-block-start: 50%;
+      inset-block-end: auto;
       inset-inline-start: 50%;
+      inset-inline-end: auto;
       translate: -50% -50%;
       margin: 0;
-      block-size: fit-content;
+      height: fit-content;
     }
 
     /* Entry/exit animations */
