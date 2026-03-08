@@ -65,24 +65,14 @@
       border-end-end-radius: var(--border-radius);
     }
 
-    &:has(> .prefix) {
+    &:has(> .prefix) :deep(> :last-child) {
       border-start-start-radius: 0;
       border-end-start-radius: 0;
-
-      & :deep(> :last-child) {
-        border-start-start-radius: 0;
-        border-end-start-radius: 0;
-      }
     }
 
-    &:has(> .suffix) {
+    &:has(> .suffix) :deep(> :first-child) {
       border-start-end-radius: 0;
       border-end-end-radius: 0;
-
-      & :deep(> :first-child) {
-        border-start-end-radius: 0;
-        border-end-end-radius: 0;
-      }
     }
   }
 }
