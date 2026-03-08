@@ -1,0 +1,5 @@
+:root {
+  --bottom-nav-height: calc(3.5rem + env(safe-area-inset-bottom));
+  --bottom-nav-background: var(--background-semi);
+  --bottom-nav-z-index: var(--z-index-overlay);
+}
