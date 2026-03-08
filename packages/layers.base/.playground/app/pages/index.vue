@@ -24,6 +24,7 @@
         <a href="#progress">Progress</a>
         <a href="#calendar">Calendar</a>
         <a href="#date-picker">Date Picker</a>
+        <NuxtLink to="/layout">Layout</NuxtLink>
       </nav>
     </header>
 
