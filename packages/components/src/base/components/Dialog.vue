@@ -154,6 +154,7 @@ onBeforeUnmount(() => {
 
     /* iOS Safari: override UA inset:0 which stretches the dialog */
     &:modal {
+      max-height: 80dvh;
       inset-block-start: 50%;
       inset-block-end: auto;
       inset-inline-start: 50%;

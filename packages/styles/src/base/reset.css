@@ -47,6 +47,11 @@ html {
   scrollbar-gutter: stable;
 }
 
+dialog {
+  max-width: none;
+  max-height: none;
+}
+
 /*
  * Base box model
  */
