@@ -39,9 +39,15 @@ const sidebarOpen = defineModel<boolean>('sidebarOpen', { default: false })
 
 <style>
 @layer components {
+  html:has(.app-shell) {
+    scrollbar-gutter: auto;
+    overflow: hidden;
+    height: 100dvh;
+  }
+
   .app-shell {
     display: flex;
-    block-size: var(--100vh);
+    block-size: 100dvh;
     overflow: hidden;
   }
 
