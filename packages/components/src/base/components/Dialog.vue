@@ -147,7 +147,6 @@ onBeforeUnmount(() => {
     border: var(--border);
     border-radius: var(--border-radius);
     padding: 0;
-    block-size: fit-content;
     max-block-size: 80dvh;
     container-type: inline-size;
     display: grid;
