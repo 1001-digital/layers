@@ -14,8 +14,12 @@
   flex-wrap: wrap;
   gap: var(--spacer-sm);
 
-  &:not(.left) {
+  &:not(.left):not(.center) {
     justify-content: flex-end;
+  }
+
+  &.center {
+    justify-content: center;
   }
 
   &:empty {
