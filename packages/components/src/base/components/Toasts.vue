@@ -129,7 +129,7 @@ const onClose = (id: string) => {
     max-inline-size: calc(100vw - var(--spacer) * 2);
     padding: 0;
     border: var(--border);
-    border-radius: var(--border-radius);
+    border-radius: var(--toast-border-radius);
     overflow: hidden;
     font-family: var(--font-family);
     font-size: var(--ui-font-size);
@@ -248,7 +248,7 @@ const onClose = (id: string) => {
       right: 0;
       box-shadow: var(--border-shadow) !important;
       border-radius: 0 !important;
-      border-start-end-radius: var(--border-radius) !important;
+      border-start-end-radius: var(--toast-border-radius) !important;
     }
 
     .actions {

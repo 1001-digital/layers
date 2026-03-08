@@ -1,6 +1,7 @@
 :root {
   --border-width: 1px;
   --border-radius: var(--size-2);
+  --border-radius-lg: var(--size-3);
 
   /* Border colors */
   --border-color: var(--gray-z-2);

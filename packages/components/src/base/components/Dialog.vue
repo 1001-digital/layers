@@ -147,7 +147,7 @@ onBeforeUnmount(() => {
     background: var(--background);
     color: var(--color);
     border: var(--border);
-    border-radius: var(--border-radius);
+    border-radius: var(--dialog-border-radius);
     padding: 0;
     overflow: hidden;
 
@@ -183,7 +183,7 @@ onBeforeUnmount(() => {
         justify-content: center;
         padding: 0;
         border-radius: 0;
-        border-start-end-radius: var(--border-radius);
+        border-start-end-radius: var(--dialog-border-radius);
 
         &:is(:hover, :active, :focus, .active) {
           outline: none;

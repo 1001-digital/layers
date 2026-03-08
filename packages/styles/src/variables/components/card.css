@@ -1,5 +1,5 @@
 :root {
-  --card-border-radius: var(--border-radius);
+  --card-border-radius: var(--border-radius-lg);
   --card-border: var(--border);
   --card-background: var(--gray-z-0);
   --card-background-highlight: var(--gray-z-1);
