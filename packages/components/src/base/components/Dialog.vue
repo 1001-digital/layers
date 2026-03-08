@@ -159,6 +159,7 @@ onBeforeUnmount(() => {
       inset-inline-start: 50%;
       translate: -50% -50%;
       margin: 0;
+      block-size: fit-content;
     }
 
     /* Entry/exit animations */
