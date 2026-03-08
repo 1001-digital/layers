@@ -66,10 +66,7 @@
       </section>
     </ToastRoot>
 
-    <ToastViewport
-      class="toast-viewport"
-      :class="[position]"
-    />
+    <ToastViewport class="toast-viewport" />
   </ToastProvider>
 
 </template>
@@ -94,12 +91,10 @@ withDefaults(
   defineProps<{
     duration?: number
     swipeDirection?: 'right' | 'left' | 'up' | 'down'
-    position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left'
   }>(),
   {
     duration: 5_000,
     swipeDirection: 'right',
-    position: 'bottom-right',
   },
 )
 
@@ -114,6 +109,7 @@ const onClose = (id: string) => {
 @layer components {
   :deep(.toast-viewport) {
     position: fixed;
+    inset: var(--toast-inset);
     z-index: var(--z-index-toast);
     display: flex;
     flex-direction: column;
@@ -123,26 +119,6 @@ const onClose = (id: string) => {
     list-style: none;
     max-width: 100vw;
     outline: none;
-
-    &.bottom-right {
-      bottom: 0;
-      right: 0;
-    }
-
-    &.bottom-left {
-      bottom: 0;
-      left: 0;
-    }
-
-    &.top-right {
-      top: 0;
-      right: 0;
-    }
-
-    &.top-left {
-      top: 0;
-      left: 0;
-    }
   }
 
   :deep(.toast) {
