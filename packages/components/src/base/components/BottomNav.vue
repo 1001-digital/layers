@@ -22,16 +22,6 @@
     justify-content: center;
     padding-block-end: env(safe-area-inset-bottom);
 
-    /* Extend background below viewport for iOS standalone PWA home indicator */
-    &::after {
-      content: '';
-      position: absolute;
-      inset-inline: 0;
-      inset-block-start: 100%;
-      block-size: var(--spacer-lg);
-      background: inherit;
-    }
-
     @media (min-width: 1024px) {
       display: none;
     }
