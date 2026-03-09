@@ -13,12 +13,12 @@
     "typecheck": "nuxi typecheck .playground"
   },
   "devDependencies": {
-    "@nuxt/eslint": "latest",
+    "@nuxt/eslint": "1.15.2",
     "@types/node": "^24.10.4",
     "eslint": "^9.39.2",
-    "nuxt": "^4.3.0",
+    "nuxt": "^4.3.1",
     "typescript": "^5.9.3",
-    "vue": "latest"
+    "vue": "3.5.30"
   },
   "dependencies": {
     "@1001-digital/layers.base": "workspace:^"

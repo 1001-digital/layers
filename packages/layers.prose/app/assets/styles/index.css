@@ -3,4 +3,4 @@
  * Extends @base/ layer with prose/typography styling
  */
 
-@import './layers/prose.css' layer(components);
+@import '@1001-digital/styles/prose.css' layer(components);
