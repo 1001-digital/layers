@@ -5,7 +5,7 @@ Monorepo containing Nuxt layers, a shared component library, and a shared CSS fr
 ## Packages
 
 - `layers.base` — Base Nuxt layer for modern web applications
-- `layers.prose` — Nuxt layer for content-driven sites (extends base)
+- `layers.prose` — Thin convenience layer that extends base + imports prose CSS
 - `layers.evm` — Nuxt layer for Ethereum dAPPs (extends base)
 - `components` — Shared Vue component library (`@1001-digital/components`)
 - `components.evm` — EVM/wallet components and composables (`@1001-digital/components.evm`)

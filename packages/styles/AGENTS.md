@@ -13,6 +13,7 @@ Shared CSS framework and design tokens (`@1001-digital/styles`).
 ```
 src/
 ├── index.css              # Main entry point
+├── prose.css              # Prose/typography (opt-in: @1001-digital/styles/prose.css)
 ├── base/                  # Element defaults
 │   ├── reset.css          # CSS reset (modern-normalize)
 │   ├── base.css           # Base element styles

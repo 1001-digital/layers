@@ -20,6 +20,7 @@ Accessible components built on [Reka UI](https://reka-ui.com/llms.txt):
 - Feedback: Alert, Dialog, ConfirmDialog, Toasts, Loading, Progress
 - Forms: Form, FormGroup, FormItem, FormLabel, FormInputGroup, FormCheckbox, FormRadioGroup, FormSelect, FormSlider, FormSwitch, FormTextarea, FormDateField, FormDatePicker
 - Overlays: Popover, Dropdown (with Group, Item, Label, Sub, Separator, CheckboxItem, RadioGroup, RadioItem), Tooltip, Combobox
+- Content: Prose
 - Misc: Button, Icon, Tag, Tags, Opepicon, PinInput, Calendar, Globals
 
 ## Composables
