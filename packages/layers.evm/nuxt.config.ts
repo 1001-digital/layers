@@ -8,10 +8,12 @@ const componentsDir = fileURLToPath(
   new URL('../components.evm/src/components', import.meta.url),
 )
 
-// Force all @wagmi/vue imports to resolve to a single copy.
-// pnpm creates separate instances per dependency set, each with its own
-// Symbol-based configKey — breaking Vue's provide/inject across packages.
+// Force certain imports to resolve to a single copy.
+// pnpm creates separate instances per dependency set — breaking
+// Vue's provide/inject (wagmi) and causing CJS/ESM interop
+// failures when Vite serves the consuming app's copy raw.
 const wagmiVue = dirname(require.resolve('@wagmi/vue/package.json'))
+const eventemitter3 = dirname(require.resolve('eventemitter3/package.json'))
 
 const clientOnlyComponents = [
   'EvmAccount',
@@ -71,6 +73,7 @@ export default defineNuxtConfig({
     resolve: {
       alias: {
         '@wagmi/vue': wagmiVue,
+        'eventemitter3': eventemitter3,
       },
     },
     optimizeDeps: {
