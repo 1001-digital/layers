@@ -16,14 +16,11 @@
 <script setup lang="ts">
 import EvmConnectorQR from './EvmConnectorQR.vue'
 import { Button, Icon } from '@1001-digital/components'
+import type { EvmMetaMaskQRProps, EvmMetaMaskQREmits } from '../types'
 
-defineProps<{
-  uri: string
-}>()
+defineProps<EvmMetaMaskQRProps>()
 
-defineEmits<{
-  back: []
-}>()
+defineEmits<EvmMetaMaskQREmits>()
 </script>
 
 <style scoped>

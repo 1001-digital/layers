@@ -97,6 +97,7 @@ import { Button, Icon, Alert, Loading } from '@1001-digital/components'
 import EvmMetaMaskQR from './EvmMetaMaskQR.vue'
 import EvmWalletConnectWallets from './EvmWalletConnectWallets.vue'
 import EvmInAppWalletSetup from './EvmInAppWalletSetup.vue'
+import type { EvmConnectEmits } from '../types'
 
 import coinbaseIcon from '../assets/wallets/coinbase.svg'
 import metamaskIcon from '../assets/wallets/metamask.svg'
@@ -123,10 +124,7 @@ const PRIORITY: Record<string, number> = {
   'Base Account': 10,
 }
 
-const emit = defineEmits<{
-  connecting: []
-  connected: []
-}>()
+const emit = defineEmits<EvmConnectEmits>()
 
 const chainId = useChainId()
 const connectors = useConnectors()

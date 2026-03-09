@@ -33,17 +33,11 @@
 <script setup lang="ts">
 import { ref, watch, computed, onMounted } from 'vue'
 import { english } from 'viem/accounts'
+import type { EvmSeedPhraseInputProps, EvmSeedPhraseInputEmits } from '../types'
 
-const props = defineProps<{
-  modelValue?: string
-  disabled?: boolean
-}>()
+const props = defineProps<EvmSeedPhraseInputProps>()
 
-const emit = defineEmits<{
-  'update:modelValue': [value: string]
-  valid: [isValid: boolean]
-  submit: []
-}>()
+const emit = defineEmits<EvmSeedPhraseInputEmits>()
 
 const wordSet = new Set(english)
 

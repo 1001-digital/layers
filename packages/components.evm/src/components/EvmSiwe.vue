@@ -51,24 +51,13 @@ import type { Config } from '@wagmi/vue'
 import { Button, Alert, Loading } from '@1001-digital/components'
 import { createSiweMessage } from '../utils/siwe'
 import { useSiwe } from '../composables/siwe'
+import type { EvmSiweProps, EvmSiweEmits } from '../types'
 
 type Step = 'idle' | 'signing' | 'verifying' | 'complete' | 'error'
 
-const props = defineProps<{
-  getNonce: () => Promise<string>
-  verify: (message: string, signature: string) => Promise<boolean>
-  domain?: string
-  statement?: string
-  uri?: string
-  resources?: string[]
-  requestId?: string
-  expirationTime?: string
-}>()
+const props = defineProps<EvmSiweProps>()
 
-const emit = defineEmits<{
-  authenticated: [{ address: `0x${string}`; chainId: number }]
-  error: [error: string]
-}>()
+const emit = defineEmits<EvmSiweEmits>()
 
 function isUserRejection(e: unknown): boolean {
   const re = /reject|denied|cancel/i

@@ -56,15 +56,11 @@ import { ref, computed } from 'vue'
 import type { Chain } from 'viem'
 import { useConfig, useConnection, useSwitchChain } from '@wagmi/vue'
 import { Button, Dialog, Icon, Alert, Loading } from '@1001-digital/components'
+import type { EvmSwitchNetworkProps, EvmSwitchNetworkEmits } from '../types'
 
-defineProps<{
-  className?: string
-}>()
+defineProps<EvmSwitchNetworkProps>()
 
-const emit = defineEmits<{
-  switched: [{ chainId: number; name: string }]
-  error: [{ message: string }]
-}>()
+const emit = defineEmits<EvmSwitchNetworkEmits>()
 
 const config = useConfig()
 const { chainId: currentChainId } = useConnection()

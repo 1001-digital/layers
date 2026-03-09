@@ -21,10 +21,9 @@ import { ref, watch, onMounted } from 'vue'
 import QRCode from 'qrcode'
 import { useClipboard } from '@vueuse/core'
 import { Button, Icon } from '@1001-digital/components'
+import type { EvmConnectorQRProps } from '../types'
 
-const props = defineProps<{
-  uri: string
-}>()
+const props = defineProps<EvmConnectorQRProps>()
 
 const qrCanvas = ref<HTMLCanvasElement | null>(null)
 const { copy, copied: isCopied } = useClipboard()

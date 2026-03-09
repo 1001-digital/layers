@@ -2,6 +2,36 @@
 export { EvmConfigKey, defaultEvmConfig, useEvmConfig } from './config'
 export type { EvmConfig, EvmChainConfig } from './config'
 
+// Component types
+export type {
+  EvmAccountProps,
+  EvmAvatarProps,
+  EvmConnectEmits,
+  EvmConnectDialogProps,
+  EvmConnectDialogEmits,
+  EvmProfileProps,
+  EvmProfileEmits,
+  EvmSwitchNetworkProps,
+  EvmSwitchNetworkEmits,
+  EvmConnectorQRProps,
+  EvmMetaMaskQRProps,
+  EvmMetaMaskQREmits,
+  EvmWalletConnectQRProps,
+  EvmWalletConnectWalletsProps,
+  EvmWalletConnectWalletsEmits,
+  TransactionFlowText,
+  EvmTransactionFlowProps,
+  EvmTransactionFlowEmits,
+  EvmSeedPhraseInputProps,
+  EvmSeedPhraseInputEmits,
+  EvmInAppWalletSetupProps,
+  EvmInAppWalletSetupEmits,
+  EvmSiweProps,
+  EvmSiweEmits,
+  EvmSiweDialogProps,
+  EvmSiweDialogEmits,
+} from './types'
+
 // Utils
 export { createCache } from './utils/cache'
 export { shortAddress } from './utils/addresses'

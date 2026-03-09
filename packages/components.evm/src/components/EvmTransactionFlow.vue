@@ -80,12 +80,7 @@ import { useConfig, useConnection, type Config } from '@wagmi/vue'
 import type { TransactionReceipt, Hash } from 'viem'
 import { Dialog, Loading, Alert, Button, useToast, delay } from '@1001-digital/components'
 import { useEnsureChainIdCheck, useBlockExplorer } from '../composables/chainId'
-
-interface TextConfig {
-  title?: Record<string, string>
-  lead?: Record<string, string>
-  action?: Record<string, string>
-}
+import type { TransactionFlowText, EvmTransactionFlowProps, EvmTransactionFlowEmits } from '../types'
 
 type Step =
   | 'idle'
@@ -116,19 +111,10 @@ const defaultText = {
     confirm: 'Execute',
     error: 'Try Again',
   },
-} satisfies TextConfig
+} satisfies TransactionFlowText
 
 const props = withDefaults(
-  defineProps<{
-    chain?: string
-    text?: TextConfig
-    request?: () => Promise<Hash>
-    delayAfter?: number
-    delayAutoclose?: number
-    skipConfirmation?: boolean
-    autoCloseSuccess?: boolean
-    dismissable?: boolean
-  }>(),
+  defineProps<EvmTransactionFlowProps>(),
   {
     delayAfter: 2000,
     delayAutoclose: 2000,
@@ -156,12 +142,9 @@ const { connector } = useConnection()
 const blockExplorer = useBlockExplorer(props.chain)
 const toast = useToast()
 
-const emit = defineEmits<{
-  complete: [receipt: TransactionReceipt]
-  cancel: []
-}>()
+const emit = defineEmits<EvmTransactionFlowEmits>()
 
-const text = computed<Required<TextConfig>>(() => ({
+const text = computed<Required<TransactionFlowText>>(() => ({
   title: { ...defaultText.title, ...props.text?.title },
   lead: { ...defaultText.lead, ...props.text?.lead },
   action: { ...defaultText.action, ...props.text?.action },

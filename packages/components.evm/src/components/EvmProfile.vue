@@ -85,14 +85,11 @@ import { useResolvedUrl } from '../composables/uri'
 import { shortAddress } from '../utils/addresses'
 import EvmAvatar from './EvmAvatar.vue'
 import EvmSwitchNetwork from './EvmSwitchNetwork.vue'
+import type { EvmProfileProps, EvmProfileEmits } from '../types'
 
-defineProps<{
-  className?: string
-}>()
+defineProps<EvmProfileProps>()
 
-const emit = defineEmits<{
-  disconnected: []
-}>()
+const emit = defineEmits<EvmProfileEmits>()
 
 const { address } = useConnection()
 const { mutate: disconnectWallet } = useDisconnect()

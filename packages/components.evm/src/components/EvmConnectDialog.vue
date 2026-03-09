@@ -33,15 +33,11 @@ import { useConnection } from '@wagmi/vue'
 import { Button, Dialog } from '@1001-digital/components'
 import EvmAccount from './EvmAccount.vue'
 import EvmConnect from './EvmConnect.vue'
+import type { EvmConnectDialogProps, EvmConnectDialogEmits } from '../types'
 
-defineProps<{
-  className?: string
-}>()
+defineProps<EvmConnectDialogProps>()
 
-const emit = defineEmits<{
-  connected: [{ address: `0x${string}` | undefined }]
-  disconnected: []
-}>()
+const emit = defineEmits<EvmConnectDialogEmits>()
 
 const { address, isConnected } = useConnection()
 

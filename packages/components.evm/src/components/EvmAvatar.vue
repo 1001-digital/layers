@@ -21,16 +21,13 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { Address } from 'viem'
 import { useConnection } from '@wagmi/vue'
 import { useEnsWithAvatar } from '../composables/ens'
 import { useResolvedUrl } from '../composables/uri'
 import { Opepicon } from '@1001-digital/components'
+import type { EvmAvatarProps } from '../types'
 
-const props = defineProps<{
-  address?: Address
-  large?: boolean
-}>()
+const props = defineProps<EvmAvatarProps>()
 const address = computed(() => props.address)
 
 const { address: currentAddress } = useConnection()

@@ -75,14 +75,11 @@ import {
   useWalletExplorer,
   type ExplorerWallet,
 } from '../composables/walletExplorer'
+import type { EvmWalletConnectWalletsProps, EvmWalletConnectWalletsEmits } from '../types'
 
-const props = defineProps<{
-  uri: string
-}>()
+const props = defineProps<EvmWalletConnectWalletsProps>()
 
-defineEmits<{
-  back: []
-}>()
+defineEmits<EvmWalletConnectWalletsEmits>()
 
 const explorer = useWalletExplorer()
 const searchQuery = ref('')

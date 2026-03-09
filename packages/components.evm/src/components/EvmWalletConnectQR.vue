@@ -6,8 +6,7 @@
 
 <script setup lang="ts">
 import EvmConnectorQR from './EvmConnectorQR.vue'
+import type { EvmWalletConnectQRProps } from '../types'
 
-defineProps<{
-  uri: string
-}>()
+defineProps<EvmWalletConnectQRProps>()
 </script>

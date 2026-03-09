@@ -127,20 +127,16 @@ import { useConnect, useConnectors } from '@wagmi/vue'
 import { Button, Icon, Alert, FormCheckbox, Loading } from '@1001-digital/components'
 import EvmSeedPhraseInput from './EvmSeedPhraseInput.vue'
 import { prepareInAppWallet } from '../connectors/inAppWallet'
+import type { EvmInAppWalletSetupProps, EvmInAppWalletSetupEmits } from '../types'
 
 const props = withDefaults(
-  defineProps<{
-    note?: string
-  }>(),
+  defineProps<EvmInAppWalletSetupProps>(),
   {
     note: 'Create a browser-based wallet stored locally on this device. Only you have access to your keys.',
   },
 )
 
-const emit = defineEmits<{
-  connected: []
-  back: []
-}>()
+const emit = defineEmits<EvmInAppWalletSetupEmits>()
 
 const connectors = useConnectors()
 const { mutateAsync: connectAsync } = useConnect()

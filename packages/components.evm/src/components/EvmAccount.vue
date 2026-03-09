@@ -9,13 +9,11 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { Address } from 'viem'
 import { useConnection } from '@wagmi/vue'
 import { shortAddress } from '../utils/addresses'
+import type { EvmAccountProps } from '../types'
 
-const props = defineProps<{
-  address?: Address
-}>()
+const props = defineProps<EvmAccountProps>()
 const address = computed(() => props.address)
 
 const { address: currentAddress } = useConnection()

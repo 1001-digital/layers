@@ -45,24 +45,11 @@ import { ref, watch } from 'vue'
 import { Button, Dialog } from '@1001-digital/components'
 import EvmSiwe from './EvmSiwe.vue'
 import { useSiwe } from '../composables/siwe'
+import type { EvmSiweDialogProps, EvmSiweDialogEmits } from '../types'
 
-const props = defineProps<{
-  className?: string
-  getNonce: () => Promise<string>
-  verify: (message: string, signature: string) => Promise<boolean>
-  domain?: string
-  statement?: string
-  uri?: string
-  resources?: string[]
-  requestId?: string
-  expirationTime?: string
-}>()
+const props = defineProps<EvmSiweDialogProps>()
 
-const emit = defineEmits<{
-  authenticated: [{ address: `0x${string}`; chainId: number }]
-  signedOut: []
-  error: [error: string]
-}>()
+const emit = defineEmits<EvmSiweDialogEmits>()
 
 const { isAuthenticated, session, signOut } = useSiwe()
 
