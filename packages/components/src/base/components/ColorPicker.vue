@@ -192,6 +192,7 @@ function handleHexUpdate(hex: string) {
     transition:
       box-shadow var(--speed),
       background var(--speed);
+    max-width: var(--color-picker-trigger-max-width);
 
     &:is(:hover, :focus) {
       box-shadow: var(--border-shadow-highlight);
@@ -281,10 +282,26 @@ function handleHexUpdate(hex: string) {
 
   .color-picker-alpha-track {
     background-image:
-      linear-gradient(45deg, var(--color-picker-checkerboard) 25%, transparent 25%),
-      linear-gradient(-45deg, var(--color-picker-checkerboard) 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, var(--color-picker-checkerboard) 75%),
-      linear-gradient(-45deg, transparent 75%, var(--color-picker-checkerboard) 75%);
+      linear-gradient(
+        45deg,
+        var(--color-picker-checkerboard) 25%,
+        transparent 25%
+      ),
+      linear-gradient(
+        -45deg,
+        var(--color-picker-checkerboard) 25%,
+        transparent 25%
+      ),
+      linear-gradient(
+        45deg,
+        transparent 75%,
+        var(--color-picker-checkerboard) 75%
+      ),
+      linear-gradient(
+        -45deg,
+        transparent 75%,
+        var(--color-picker-checkerboard) 75%
+      );
     background-size: 8px 8px;
     background-position:
       0 0,

@@ -519,7 +519,10 @@
       </Card>
 
       <!-- Color Picker -->
-      <Card id="color-picker" class="color-picker-demos">
+      <Card
+        id="color-picker"
+        class="color-picker-demos"
+      >
         <h3>Color Picker</h3>
 
         <div class="component-demo">
@@ -529,9 +532,10 @@
         </div>
 
         <div class="component-demo">
-          <h4>With Alpha</h4>
+          <h4>With Alpha and center aligned</h4>
           <ColorPicker
             v-model="pickerColorAlpha"
+            align="center"
             alpha
           />
           <code>Value: {{ pickerColorAlpha }}</code>
@@ -572,9 +576,7 @@
         <div class="component-demo">
           <h4>Basic</h4>
           <div class="demo-row">
-            <Button @click="onConfirmBasic">
-              Delete Item
-            </Button>
+            <Button @click="onConfirmBasic"> Delete Item </Button>
             <code>Last result: {{ confirmResult }}</code>
           </div>
         </div>
@@ -582,9 +584,7 @@
         <div class="component-demo">
           <h4>Custom Text</h4>
           <div class="demo-row">
-            <Button @click="onConfirmCustom">
-              Publish Changes
-            </Button>
+            <Button @click="onConfirmCustom"> Publish Changes </Button>
           </div>
         </div>
       </Card>
@@ -867,7 +867,12 @@
               />
             </FormItem>
           </FormLabel>
-          <code>Selected: {{ comboboxFruits?.length ? comboboxFruits.join(', ') : 'None' }}</code>
+          <code
+            >Selected:
+            {{
+              comboboxFruits?.length ? comboboxFruits.join(', ') : 'None'
+            }}</code
+          >
         </div>
 
         <div class="component-demo">
@@ -1324,7 +1329,14 @@
             v-model="calendarDates"
             multiple
           />
-          <code>Selected: {{ Array.isArray(calendarDates) ? calendarDates.map(d => d.toString()).join(', ') : calendarDates?.toString() || 'None' }}</code>
+          <code
+            >Selected:
+            {{
+              Array.isArray(calendarDates)
+                ? calendarDates.map((d) => d.toString()).join(', ')
+                : calendarDates?.toString() || 'None'
+            }}</code
+          >
         </div>
 
         <div class="component-demo">

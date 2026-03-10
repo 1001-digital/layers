@@ -5,6 +5,7 @@
   --color-picker-track-size: var(--slider-track-size);
   --color-picker-track-radius: var(--slider-track-radius);
   --color-picker-checkerboard: var(--gray-z-3);
+  --color-picker-trigger-max-width: 10rem;
 }
 
 .color-picker-popover {
