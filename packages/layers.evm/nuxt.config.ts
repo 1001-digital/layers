@@ -1,6 +1,7 @@
 import { fileURLToPath } from 'node:url'
 import { createRequire } from 'node:module'
 import { dirname } from 'node:path'
+import { clientOnlyComponents } from '@1001-digital/components.evm'
 
 const require = createRequire(import.meta.url)
 
@@ -14,20 +15,6 @@ const componentsDir = fileURLToPath(
 // failures when Vite serves the consuming app's copy raw.
 const wagmiVue = dirname(require.resolve('@wagmi/vue/package.json'))
 const eventemitter3 = dirname(require.resolve('eventemitter3/package.json'))
-
-const clientOnlyComponents = [
-  'EvmAccount',
-  'EvmConnect',
-  'EvmConnectDialog',
-  'EvmConnectionStatus',
-  'EvmConnectorQR',
-  'EvmMetaMaskQR',
-  'EvmInAppWalletSetup',
-  'EvmTransactionFlow',
-  'EvmWalletConnectQR',
-  'EvmSiwe',
-  'EvmSiweDialog',
-]
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
