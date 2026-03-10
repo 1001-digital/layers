@@ -7,9 +7,6 @@ const componentsDir = fileURLToPath(
 const evmComponentsDir = fileURLToPath(
   new URL('../../components.evm/src', import.meta.url),
 )
-const stylesDir = fileURLToPath(
-  new URL('../../styles/src', import.meta.url),
-)
 
 export default defineNuxtConfig({
   extends: ['..'],
@@ -25,7 +22,6 @@ export default defineNuxtConfig({
       server.watcher.add(layerDir)
       server.watcher.add(componentsDir)
       server.watcher.add(evmComponentsDir)
-      server.watcher.add(stylesDir)
     },
   },
 })
