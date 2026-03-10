@@ -7,4 +7,5 @@ export const clientOnlyComponents = [
   'Popover',
   'Dropdown',
   'FormDatePicker',
+  'ColorPicker',
 ]

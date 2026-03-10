@@ -4,6 +4,7 @@
     :side="side"
     :align="align"
     :side-offset="sideOffset"
+    class="color-picker-popover"
   >
     <template #trigger>
       <button
@@ -60,21 +61,23 @@
         class="color-picker-slider"
         @update:color="handleColorUpdate"
       >
-        <ColorSliderTrack class="color-picker-slider-track color-picker-alpha-track">
+        <ColorSliderTrack
+          class="color-picker-slider-track color-picker-alpha-track"
+        >
           <div class="color-picker-slider-track-fill" />
         </ColorSliderTrack>
         <ColorSliderThumb class="color-picker-thumb" />
       </ColorSliderRoot>
 
       <!-- Color Fields -->
-      <div class="color-picker-fields">
+      <FormInputGroup>
         <ColorFieldRoot
           :model-value="hexColor"
-          class="color-picker-field color-picker-field-hex"
+          as-child
           @update:model-value="handleHexUpdate"
         >
           <ColorFieldInput
-            class="color-picker-input"
+            class="color-picker-input-hex"
             placeholder="#000000"
           />
         </ColorFieldRoot>
@@ -82,39 +85,30 @@
           :model-value="colorObj"
           channel="hue"
           color-space="hsl"
-          class="color-picker-field"
+          as-child
           @update:color="handleColorUpdate"
         >
-          <ColorFieldInput
-            class="color-picker-input"
-            placeholder="H"
-          />
+          <ColorFieldInput placeholder="H" />
         </ColorFieldRoot>
         <ColorFieldRoot
           :model-value="colorObj"
           channel="saturation"
           color-space="hsl"
-          class="color-picker-field"
+          as-child
           @update:color="handleColorUpdate"
         >
-          <ColorFieldInput
-            class="color-picker-input"
-            placeholder="S"
-          />
+          <ColorFieldInput placeholder="S" />
         </ColorFieldRoot>
         <ColorFieldRoot
           :model-value="colorObj"
           channel="lightness"
           color-space="hsl"
-          class="color-picker-field"
+          as-child
           @update:color="handleColorUpdate"
         >
-          <ColorFieldInput
-            class="color-picker-input"
-            placeholder="L"
-          />
+          <ColorFieldInput placeholder="L" />
         </ColorFieldRoot>
-      </div>
+      </FormInputGroup>
     </div>
   </Popover>
 </template>
@@ -135,6 +129,7 @@ import {
   colorToString,
   normalizeColor,
 } from 'reka-ui'
+import FormInputGroup from './FormInputGroup.vue'
 import Popover from './Popover.vue'
 
 const props = withDefaults(
@@ -161,12 +156,15 @@ watch(hexColor, (val) => {
   model.value = val
 })
 
-watch(() => model.value, (val) => {
-  const normalized = normalizeColor(val)
-  if (colorToString(normalized, 'hex') !== hexColor.value) {
-    colorObj.value = normalized
-  }
-})
+watch(
+  () => model.value,
+  (val) => {
+    const normalized = normalizeColor(val)
+    if (colorToString(normalized, 'hex') !== hexColor.value) {
+      colorObj.value = normalized
+    }
+  },
+)
 
 function handleColorUpdate(newColor: Color) {
   colorObj.value = newColor
@@ -185,10 +183,10 @@ function handleHexUpdate(hex: string) {
     align-items: center;
     gap: var(--size-2);
     padding: var(--ui-padding-block) var(--ui-padding-inline);
-    background: var(--input-background);
-    border-radius: var(--input-border-radius);
+    background: var(--button-background);
+    border-radius: var(--button-border-radius);
     box-shadow: var(--border-shadow);
-    font-family: var(--font-family-mono, monospace);
+    font-family: var(--font-family);
     font-size: var(--ui-font-size);
     cursor: pointer;
     transition:
@@ -208,7 +206,7 @@ function handleHexUpdate(hex: string) {
   .color-picker-swatch {
     inline-size: var(--size-4);
     block-size: var(--size-4);
-    border-radius: var(--border-radius-sm, 4px);
+    border-radius: var(--border-radius);
     background-color: var(--reka-color-swatch-color);
     box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.15);
     flex-shrink: 0;
@@ -226,7 +224,7 @@ function handleHexUpdate(hex: string) {
   .color-picker-area-surface {
     position: relative;
     inline-size: 100%;
-    block-size: 10rem;
+    block-size: var(--color-picker-area-height);
     border-radius: var(--border-radius);
     overflow: hidden;
 
@@ -239,12 +237,12 @@ function handleHexUpdate(hex: string) {
   .color-picker-thumb {
     all: unset;
     display: block;
-    inline-size: var(--slider-thumb-size);
-    block-size: var(--slider-thumb-size);
+    inline-size: var(--color-picker-thumb-size);
+    block-size: var(--color-picker-thumb-size);
     border-radius: 50%;
-    background: white;
+    background: var(--color-picker-thumb-background);
     box-shadow:
-      0 0 0 2px white,
+      0 0 0 2px var(--color-picker-thumb-background),
       0 1px 4px rgb(0 0 0 / 0.3);
     cursor: pointer;
     transition: transform var(--speed);
@@ -264,74 +262,40 @@ function handleHexUpdate(hex: string) {
     display: flex;
     align-items: center;
     inline-size: 100%;
-    block-size: var(--slider-thumb-size);
+    block-size: var(--color-picker-thumb-size);
   }
 
   .color-picker-slider-track {
     position: relative;
     flex-grow: 1;
-    block-size: var(--slider-track-size);
-    border-radius: var(--slider-track-radius);
+    block-size: var(--color-picker-track-size);
+    border-radius: var(--color-picker-track-radius);
     overflow: hidden;
   }
 
   .color-picker-slider-track-fill {
     position: absolute;
     inset: 0;
-    border-radius: var(--slider-track-radius);
+    border-radius: var(--color-picker-track-radius);
   }
 
   .color-picker-alpha-track {
     background-image:
-      linear-gradient(45deg, var(--gray-3) 25%, transparent 25%),
-      linear-gradient(-45deg, var(--gray-3) 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, var(--gray-3) 75%),
-      linear-gradient(-45deg, transparent 75%, var(--gray-3) 75%);
+      linear-gradient(45deg, var(--color-picker-checkerboard) 25%, transparent 25%),
+      linear-gradient(-45deg, var(--color-picker-checkerboard) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--color-picker-checkerboard) 75%),
+      linear-gradient(-45deg, transparent 75%, var(--color-picker-checkerboard) 75%);
     background-size: 8px 8px;
-    background-position: 0 0, 0 4px, 4px -4px, -4px 0;
+    background-position:
+      0 0,
+      0 4px,
+      4px -4px,
+      -4px 0;
   }
 
-  .color-picker-fields {
-    display: flex;
-    gap: var(--size-1);
-  }
-
-  .color-picker-field {
-    flex: 1;
-  }
-
-  .color-picker-field-hex {
-    flex: 2;
-  }
-
-  .color-picker-input {
-    all: unset;
-    display: block;
-    box-sizing: border-box;
-    inline-size: 100%;
-    padding: var(--ui-padding-block) var(--size-1);
-    background: var(--input-background);
-    border-radius: var(--input-border-radius);
-    box-shadow: var(--border-shadow);
-    font-family: var(--font-family-mono, monospace);
-    font-size: var(--font-xs);
+  .color-picker :deep(input) {
     text-align: center;
-    transition:
-      box-shadow var(--speed),
-      background var(--speed);
-
-    &::placeholder {
-      color: var(--color-muted);
-    }
-
-    &:is(:hover, :focus) {
-      box-shadow: var(--border-shadow-highlight);
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--primary);
-      outline-offset: -2px;
-    }
+    font-size: var(--font-xs);
   }
 }
 </style>

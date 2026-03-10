@@ -519,7 +519,7 @@
       </Card>
 
       <!-- Color Picker -->
-      <Card id="color-picker">
+      <Card id="color-picker" class="color-picker-demos">
         <h3>Color Picker</h3>
 
         <div class="component-demo">
@@ -1863,5 +1863,9 @@ section > h2 {
 .card-grid h4 {
   font-size: var(--font-base);
   color: var(--color);
+}
+
+:deep(.color-picker-demos) input {
+  max-width: 24rem;
 }
 </style>

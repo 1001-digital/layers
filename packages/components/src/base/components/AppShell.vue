@@ -39,23 +39,22 @@ const sidebarOpen = defineModel<boolean>('sidebarOpen', { default: false })
 
 <style>
 @layer components {
-  html:has(.app-shell) {
-    scrollbar-gutter: auto;
-    overflow: hidden;
-    height: 100dvh;
-  }
-
   .app-shell {
     display: flex;
-    block-size: 100dvh;
-    overflow: hidden;
+    min-block-size: 100dvh;
+  }
+
+  html:has(.app-shell nav.bottom-nav) > body {
+    border-inline-end: var(--border);
+
+    .app-shell nav.bottom-nav {
+      border-inline-end: var(--border);
+    }
   }
 
   .app-shell-main {
     flex: 1;
     min-inline-size: 0;
-    overflow-y: auto;
-    overscroll-behavior-y: contain;
     padding-block-start: env(safe-area-inset-top);
 
     &:has(+ nav.bottom-nav) {
