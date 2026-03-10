@@ -12,6 +12,7 @@
         <a href="#cards">Cards</a>
         <a href="#tags">Tags</a>
         <a href="#forms">Forms</a>
+        <a href="#color-picker">Color Picker</a>
         <a href="#actions">Actions</a>
         <a href="#confirm">Confirm</a>
         <a href="#dialogs">Dialogs</a>
@@ -514,6 +515,32 @@
             :model-value="[40]"
             disabled
           />
+        </div>
+      </Card>
+
+      <!-- Color Picker -->
+      <Card id="color-picker">
+        <h3>Color Picker</h3>
+
+        <div class="component-demo">
+          <h4>Default</h4>
+          <ColorPicker v-model="pickerColor" />
+          <code>Value: {{ pickerColor }}</code>
+        </div>
+
+        <div class="component-demo">
+          <h4>With Alpha</h4>
+          <ColorPicker
+            v-model="pickerColorAlpha"
+            alpha
+          />
+          <code>Value: {{ pickerColorAlpha }}</code>
+        </div>
+
+        <div class="component-demo">
+          <h4>Custom Default Color</h4>
+          <ColorPicker v-model="pickerColorCustom" />
+          <code>Value: {{ pickerColorCustom }}</code>
         </div>
       </Card>
 
@@ -1569,6 +1596,11 @@ const switchEnabled = ref(false)
 const sliderValue = ref([50])
 const sliderRange = ref([25, 75])
 const sliderSteps = ref([30])
+
+// ColorPicker demo data
+const pickerColor = ref('#56d799')
+const pickerColorAlpha = ref('#3b82f6')
+const pickerColorCustom = ref('#e11d48')
 
 // FormRadioGroup demo data
 const selectedOption = ref('a')
