@@ -86,13 +86,4 @@ export { IconAliasesKey, defaultIconAliases } from './base/icons'
 export type { IconAliases } from './base/icons'
 export { LinkComponentKey } from './base/link'
 
-// Components that require browser APIs and must be rendered client-only
-export const clientOnlyComponents = [
-  'Combobox',
-  'ConfirmDialog',
-  'Dialog',
-  'Toasts',
-  'Popover',
-  'Dropdown',
-  'FormDatePicker',
-]
+export { clientOnlyComponents } from './client-only'

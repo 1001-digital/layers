@@ -71,20 +71,7 @@ export type { SiweSession, UseSiweOptions } from './composables/siwe'
 // Connectors
 export { inAppWallet, prepareInAppWallet } from './connectors/inAppWallet'
 
-// Components that require browser APIs and must be rendered client-only
-export const clientOnlyComponents = [
-  'EvmAccount',
-  'EvmConnect',
-  'EvmConnectDialog',
-  'EvmConnectionStatus',
-  'EvmConnectorQR',
-  'EvmMetaMaskQR',
-  'EvmInAppWalletSetup',
-  'EvmTransactionFlow',
-  'EvmWalletConnectQR',
-  'EvmSiwe',
-  'EvmSiweDialog',
-]
+export { clientOnlyComponents } from './client-only'
 
 // Components
 export { default as EvmAccount } from './components/EvmAccount.vue'
