@@ -136,6 +136,11 @@ export interface EvmSiweEmits {
   error: [error: string]
 }
 
+// EvmSidebarProfile
+export interface EvmSidebarProfileEmits {
+  disconnected: []
+}
+
 // EvmSiweDialog
 export interface EvmSiweDialogProps extends EvmSiweProps {
   className?: string

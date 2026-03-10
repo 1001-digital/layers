@@ -11,6 +11,7 @@ export type {
   EvmConnectDialogEmits,
   EvmProfileProps,
   EvmProfileEmits,
+  EvmSidebarProfileEmits,
   EvmSwitchNetworkProps,
   EvmSwitchNetworkEmits,
   EvmConnectorQRProps,
@@ -80,6 +81,7 @@ export { default as EvmConnect } from './components/EvmConnect.vue'
 export { default as EvmConnectDialog } from './components/EvmConnectDialog.vue'
 export { default as EvmConnectionStatus } from './components/EvmConnectionStatus.vue'
 export { default as EvmProfile } from './components/EvmProfile.vue'
+export { default as EvmSidebarProfile } from './components/EvmSidebarProfile.vue'
 export { default as EvmSwitchNetwork } from './components/EvmSwitchNetwork.vue'
 export { default as EvmConnectorQR } from './components/EvmConnectorQR.vue'
 export { default as EvmMetaMaskQR } from './components/EvmMetaMaskQR.vue'
