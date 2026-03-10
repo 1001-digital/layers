@@ -7,7 +7,6 @@ A monorepo containing composable Nuxt layers, a shared component library, and a 
 | Package | Description |
 | --- | --- |
 | [@1001-digital/layers.base](./packages/layers.base) | Foundation layer with accessible UI components and design tokens |
-| [@1001-digital/layers.prose](./packages/layers.prose) | Typography and content styling for documentation and content-driven sites |
 | [@1001-digital/layers.evm](./packages/layers.evm) | Ethereum/Web3 integration for building decentralized applications |
 | [@1001-digital/components](./packages/components) | Shared Vue component library (Reka UI) |
 | [@1001-digital/styles](./packages/styles) | Shared CSS framework and design tokens |
@@ -16,7 +15,6 @@ A monorepo containing composable Nuxt layers, a shared component library, and a 
 
 ```
 evm ──extends──> base
-prose ─extends─> base
 ```
 
 Both layers consume shared packages:
@@ -30,8 +28,6 @@ layers.evm ──> @1001-digital/components
 
 ```bash
 pnpm add @1001-digital/layers.base
-# or
-pnpm add @1001-digital/layers.prose
 # or
 pnpm add @1001-digital/layers.evm
 ```
