@@ -17,7 +17,7 @@
   --button-primary-color-highlight: var(--gray-z-0);
 
   /* Tertiary Button Styles */
-  --button-tertiary-background: transparent;
+  --button-tertiary-background: var(--gray-z-1);
   --button-tertiary-border-color: var(--border-color);
   --button-tertiary-color: var(--muted);
   --button-tertiary-background-highlight: var(--gray-z-1);

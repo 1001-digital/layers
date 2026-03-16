@@ -9,6 +9,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  gap: var(--border-width);
 
   & :deep(input + .icon) {
     position: absolute;
@@ -42,7 +43,6 @@
     + input,
     + button,
     + a {
-      margin-inline-start: calc(-1 * var(--border-width));
       border-start-start-radius: 0 !important;
       border-end-start-radius: 0 !important;
     }

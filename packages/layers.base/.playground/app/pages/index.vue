@@ -227,6 +227,33 @@
             </Button>
           </div>
         </div>
+
+        <div class="component-demo">
+          <h4>Button FormInputGroup</h4>
+          <FormInputGroup>
+            <Button>Cancel</Button>
+            <Button class="tertiary">Save Draft</Button>
+            <Button class="primary">Publish</Button>
+          </FormInputGroup>
+        </div>
+
+        <div class="component-demo">
+          <h4>Button FormInputGroup with Icons</h4>
+          <FormInputGroup>
+            <Button>
+              <Icon name="add" />
+              <span>Add</span>
+            </Button>
+            <Button>
+              <Icon name="check" />
+              <span>Confirm</span>
+            </Button>
+            <Button class="danger">
+              <Icon name="close" />
+              <span>Remove</span>
+            </Button>
+          </FormInputGroup>
+        </div>
       </Card>
 
       <!-- Alert -->
