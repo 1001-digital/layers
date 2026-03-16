@@ -127,6 +127,9 @@ onMounted(() => {
       }
     }
 
+    // Prevent browser back/forward navigation gesture
+    e.preventDefault()
+
     const w = sidebarWidth.value
     if (!w) return
 
@@ -168,7 +171,7 @@ onMounted(() => {
   }
 
   document.addEventListener('touchstart', onTouchStart, { passive: true })
-  document.addEventListener('touchmove', onTouchMove, { passive: true })
+  document.addEventListener('touchmove', onTouchMove, { passive: false })
   document.addEventListener('touchend', onTouchEnd)
 
   cleanupSwipe = () => {
