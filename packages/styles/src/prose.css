@@ -121,8 +121,8 @@
   figure > img,
   p > img,
   > img {
-    border: var(--image-border);
-    border-radius: var(--image-border-radius);
+    border: var(--prose-image-border, none);
+    border-radius: var(--prose-image-border-radius, 0);
   }
 
   figure:has(img),

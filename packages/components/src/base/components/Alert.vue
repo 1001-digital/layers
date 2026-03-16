@@ -46,7 +46,7 @@ const dismiss = () => {
     gap: var(--spacer-sm);
     border: var(--border);
     border-color: var(--alert-border-color);
-    background-color: var(--alert-background-color);
+    background-color: var(--alert-background);
     color: var(--alert-color);
     font-family: var(--font-family);
     font-size: var(--ui-font-size);

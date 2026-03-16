@@ -1,4 +1,4 @@
 :root {
   --dialog-border-radius: var(--border-radius-lg);
-  --backdrop-background-color: transparent;
+  --backdrop-background: transparent;
 }

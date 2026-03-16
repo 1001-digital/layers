@@ -2,6 +2,9 @@
  * CSS Layers Order Definition
  * This establishes the cascade priority:
  * variables, reset < base < components < utilities
+ *
+ * The `components` layer is declared here for ordering but populated
+ * by Vue SFC <style> blocks (via @layer components { ... }).
  */
 @layer variables, reset, base, components, utilities;
 

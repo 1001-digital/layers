@@ -233,7 +233,7 @@ onBeforeUnmount(() => {
     }
 
     &::backdrop {
-      background-color: var(--backdrop-background-color);
+      background-color: var(--backdrop-background);
       backdrop-filter: var(--blur);
       transition:
         background-color var(--speed) ease,
@@ -257,7 +257,7 @@ onBeforeUnmount(() => {
         position: fixed;
         inset: 0;
         z-index: var(--z-index-overlay);
-        background-color: var(--backdrop-background-color);
+        background-color: var(--backdrop-background);
         backdrop-filter: var(--blur);
         transition:
           background-color var(--speed) ease,
