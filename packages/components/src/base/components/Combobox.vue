@@ -104,7 +104,7 @@ const resolveDisplayValue = (val: any) => {
 }
 </script>
 
-<style>
+<style scoped>
 @layer components {
   .combobox-root {
     inline-size: 100%;

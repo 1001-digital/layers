@@ -187,7 +187,7 @@ const open = defineModel<boolean>('open')
 const placeholderValue = ref(props.placeholder) as ReturnType<typeof ref<DateValue | undefined>>
 </script>
 
-<style>
+<style scoped>
 @layer components {
   .form-date-picker-anchor {
     display: inline-flex;

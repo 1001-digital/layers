@@ -25,7 +25,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, watch, watchEffect, onMounted, onBeforeUnmount } from 'vue'
+import {
+  ref,
+  reactive,
+  computed,
+  watch,
+  watchEffect,
+  onMounted,
+  onBeforeUnmount,
+} from 'vue'
 import { useMediaQuery, useScrollLock, useElementSize } from '@vueuse/core'
 
 const open = defineModel<boolean>('open', { default: false })
@@ -206,7 +214,7 @@ defineExpose({
 })
 </script>
 
-<style>
+<style scoped>
 @layer components {
   .sidebar {
     position: fixed;

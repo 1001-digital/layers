@@ -6,7 +6,7 @@
   </nav>
 </template>
 
-<style>
+<style scoped>
 @layer components {
   .bottom-nav {
     position: fixed;

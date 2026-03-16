@@ -20,9 +20,11 @@
       v-if="step === 'requesting'"
       spinner
       stacked
-      :txt="connector?.name
-        ? `Requesting signature from ${connector.name}...`
-        : text.lead[step] || ''"
+      :txt="
+        connector?.name
+          ? `Requesting signature from ${connector.name}...`
+          : text.lead[step] || ''
+      "
     />
 
     <p v-if="step !== 'requesting' && step !== 'error' && text.lead[step]">
@@ -78,9 +80,20 @@ import { ref, computed, watch, onBeforeUnmount } from 'vue'
 import { waitForTransactionReceipt, watchChainId } from '@wagmi/core'
 import { useConfig, useConnection, type Config } from '@wagmi/vue'
 import type { TransactionReceipt, Hash } from 'viem'
-import { Dialog, Loading, Alert, Button, useToast, delay } from '@1001-digital/components'
+import {
+  Dialog,
+  Loading,
+  Alert,
+  Button,
+  useToast,
+  delay,
+} from '@1001-digital/components'
 import { useEnsureChainIdCheck, useBlockExplorer } from '../composables/chainId'
-import type { TransactionFlowText, EvmTransactionFlowProps, EvmTransactionFlowEmits } from '../types'
+import type {
+  TransactionFlowText,
+  EvmTransactionFlowProps,
+  EvmTransactionFlowEmits,
+} from '../types'
 
 type Step =
   | 'idle'
@@ -113,16 +126,13 @@ const defaultText = {
   },
 } satisfies TransactionFlowText
 
-const props = withDefaults(
-  defineProps<EvmTransactionFlowProps>(),
-  {
-    delayAfter: 2000,
-    delayAutoclose: 2000,
-    skipConfirmation: false,
-    autoCloseSuccess: true,
-    dismissable: true,
-  },
-)
+const props = withDefaults(defineProps<EvmTransactionFlowProps>(), {
+  delayAfter: 2000,
+  delayAutoclose: 2000,
+  skipConfirmation: false,
+  autoCloseSuccess: true,
+  dismissable: true,
+})
 
 function isUserRejection(e: unknown): boolean {
   const re = /reject|denied|cancel/i
@@ -246,7 +256,9 @@ const initializeRequest = async (request = cachedRequest.value) => {
   const start = Date.now()
   progressTimer = setInterval(() => {
     const elapsed = (Date.now() - start) / 1000
-    toast.update(toastId, { progress: Math.round(90 * (1 - Math.exp(-elapsed / 15))) })
+    toast.update(toastId, {
+      progress: Math.round(90 * (1 - Math.exp(-elapsed / 15))),
+    })
   }, 500)
 
   try {
@@ -309,22 +321,24 @@ defineExpose({
 })
 </script>
 
-<style>
-.transaction-flow > section {
-  display: grid;
-  gap: var(--spacer);
+<style scoped>
+.transaction-flow {
+  &:deep(> section) {
+    display: grid;
+    gap: var(--spacer);
 
-  .text {
-    width: 100%;
-    height: min-content;
-  }
+    .text {
+      width: 100%;
+      height: min-content;
+    }
 
-  p {
-    white-space: pre-wrap;
-    width: 100%;
+    p {
+      white-space: pre-wrap;
+      width: 100%;
 
-    a {
-      text-decoration: underline;
+      a {
+        text-decoration: underline;
+      }
     }
   }
 }

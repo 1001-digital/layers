@@ -71,7 +71,7 @@ const props = withDefaults(
 const open = defineModel<boolean>('open', { required: true })
 </script>
 
-<style>
+<style scoped>
 @layer components {
   .dropdown {
     background: var(--dropdown-background);

@@ -64,7 +64,7 @@ const props = withDefaults(
 )
 </script>
 
-<style>
+<style scoped>
 @layer components {
   .tooltip {
     background: var(--tooltip-background);
