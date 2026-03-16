@@ -72,7 +72,7 @@ watch(isLargeScreen, (lg) => {
 })
 
 // Swipe gesture handling
-const EDGE_WIDTH = 30
+const EDGE_WIDTH = 100
 const SNAP_THRESHOLD = 0.3
 
 let cleanupSwipe: (() => void) | undefined
@@ -127,9 +127,6 @@ onMounted(() => {
       }
     }
 
-    // Prevent browser back/forward navigation gesture
-    e.preventDefault()
-
     const w = sidebarWidth.value
     if (!w) return
 
@@ -171,7 +168,7 @@ onMounted(() => {
   }
 
   document.addEventListener('touchstart', onTouchStart, { passive: true })
-  document.addEventListener('touchmove', onTouchMove, { passive: false })
+  document.addEventListener('touchmove', onTouchMove, { passive: true })
   document.addEventListener('touchend', onTouchEnd)
 
   cleanupSwipe = () => {
