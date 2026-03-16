@@ -18,11 +18,11 @@
   >
     <CalendarHeader class="calendar-header">
       <CalendarPrev class="calendar-nav">
-        <Icon type="chevron-left" />
+        <Icon name="chevron-left" />
       </CalendarPrev>
       <CalendarHeading class="calendar-heading" />
       <CalendarNext class="calendar-nav">
-        <Icon type="chevron-right" />
+        <Icon name="chevron-right" />
       </CalendarNext>
     </CalendarHeader>
 

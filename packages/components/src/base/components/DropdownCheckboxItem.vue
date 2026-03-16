@@ -7,7 +7,7 @@
     @select="(e: Event) => emit('select', e)"
   >
     <DropdownMenuItemIndicator class="dropdown-item-indicator">
-      <Icon type="check" />
+      <Icon name="check" />
     </DropdownMenuItemIndicator>
     <slot />
   </DropdownMenuCheckboxItem>

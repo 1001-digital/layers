@@ -7,7 +7,7 @@
       v-if="dismissable"
       @click="emit('dismiss')"
     >
-      <Icon type="close" />
+      <Icon name="close" />
     </Button>
   </span>
 </template>

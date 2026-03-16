@@ -9,7 +9,7 @@
     @click="copyUri"
     class="copy-uri tertiary small"
   >
-    <Icon :type="isCopied ? 'check' : 'copy'" />
+    <Icon :name="isCopied ? 'check' : 'copy'" />
     <span>
       {{ isCopied ? 'Copied' : 'Copy Link' }}
     </span>

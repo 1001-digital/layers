@@ -25,7 +25,7 @@
         :as="Button"
         aria-label="Close"
       >
-        <Icon type="close" />
+        <Icon name="close" />
       </ToastClose>
 
       <section v-if="toast.description || toast.action || toast.progress">

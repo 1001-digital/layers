@@ -69,7 +69,7 @@ export default defineNuxtConfig({
         '@1001-digital/layers.evm > eventemitter3',
         '@1001-digital/layers.evm > qrcode',
         '@1001-digital/layers.evm > @walletconnect/ethereum-provider',
-        '@1001-digital/layers.evm > @reown/appkit/core',
+
         '@1001-digital/layers.evm > @safe-global/safe-apps-sdk',
         '@1001-digital/layers.evm > @safe-global/safe-apps-provider',
       ],

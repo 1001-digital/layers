@@ -29,6 +29,9 @@ export function createCache<T>(ttl: number, max: number) {
       entries.delete(key)
       return undefined
     }
+    // Move to end for LRU ordering
+    entries.delete(key)
+    entries.set(key, entry)
     return entry.data
   }
 

@@ -47,6 +47,10 @@ export const useSiwe = () => {
 
     const nonce = await options.getNonce()
 
+    if (typeof window === 'undefined') {
+      throw new Error('SIWE sign-in requires a browser environment')
+    }
+
     const messageParams: SiweMessageParams = {
       domain: options.domain || window.location.host,
       address: currentAddress,

@@ -7,9 +7,9 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{ type: string }>()
+const props = defineProps<{ name: string }>()
 
-const iconName = computed(() => props.type)
+const iconName = computed(() => props.name)
 </script>
 
 <style scoped>

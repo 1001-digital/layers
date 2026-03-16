@@ -8,7 +8,7 @@
     <SelectTrigger class="form-select-trigger">
       <SelectValue :placeholder="placeholder" />
       <SelectIcon class="form-select-icon">
-        <Icon type="chevron-down" />
+        <Icon name="chevron-down" />
       </SelectIcon>
     </SelectTrigger>
 
@@ -27,7 +27,7 @@
           >
             <SelectItemText>{{ option[labelKey] }}</SelectItemText>
             <SelectItemIndicator class="form-select-indicator">
-              <Icon type="check" />
+              <Icon name="check" />
             </SelectItemIndicator>
           </SelectItem>
         </SelectViewport>

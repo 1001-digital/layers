@@ -25,7 +25,7 @@
             @pointerdown="open = false"
             @click="open = false"
           >
-            <Icon type="close" />
+            <Icon name="close" />
           </button>
 
           <section>

@@ -17,7 +17,7 @@
         :disabled="disabled"
       />
       <ComboboxTrigger class="combobox-trigger">
-        <Icon type="chevron-down" />
+        <Icon name="chevron-down" />
       </ComboboxTrigger>
     </ComboboxAnchor>
 
@@ -39,7 +39,7 @@
           >
             {{ option[labelKey] }}
             <ComboboxItemIndicator class="combobox-indicator">
-              <Icon type="check" />
+              <Icon name="check" />
             </ComboboxItemIndicator>
           </ComboboxItem>
         </ComboboxViewport>

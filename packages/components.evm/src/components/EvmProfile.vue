@@ -41,7 +41,7 @@
         @click="copyAddress"
       >
         <span>{{ shortAddr }}</span>
-        <Icon :type="copied ? 'check' : 'copy'" />
+        <Icon :name="copied ? 'check' : 'copy'" />
       </Button>
     </div>
 
@@ -50,7 +50,7 @@
 
       <EvmSwitchNetwork class-name="block">
         <template #default="{ currentChain }">
-          <Icon type="wallet" />
+          <Icon name="wallet" />
           <span>Switch Network ({{ currentChain?.name || 'Unknown' }})</span>
         </template>
       </EvmSwitchNetwork>
@@ -61,7 +61,7 @@
         :to="`https://app.ens.domains/${ensName}`"
         target="_blank"
       >
-        <Icon type="link" />
+        <Icon name="link" />
         <span>Manage ENS</span>
       </Button>
 

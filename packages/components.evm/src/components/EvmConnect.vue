@@ -12,7 +12,7 @@
       class="link muted small"
       @click="resetConnection"
     >
-      <Icon type="chevron-left" />
+      <Icon name="chevron-left" />
       <span>Back</span>
     </Button>
   </template>
@@ -52,7 +52,7 @@
         v-else
         class="default-wallet-icon"
       >
-        <Icon type="wallet" />
+        <Icon name="wallet" />
       </div>
       <span>{{ connector.name }}</span>
     </Button>
@@ -83,7 +83,7 @@
       target="_blank"
       class="link muted small"
     >
-      <Icon type="help" />
+      <Icon name="help" />
       <span>New to wallets?</span>
     </Button>
   </div>

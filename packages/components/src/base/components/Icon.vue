@@ -11,11 +11,11 @@ import { computed, inject } from 'vue'
 import { Icon as IconifyIcon } from '@iconify/vue'
 import { IconAliasesKey, defaultIconAliases } from '../icons'
 
-const props = defineProps<{ type: string }>()
+const props = defineProps<{ name: string }>()
 
 const aliases = inject(IconAliasesKey, defaultIconAliases)
 
-const resolvedIcon = computed(() => aliases[props.type] || props.type)
+const resolvedIcon = computed(() => aliases[props.name] || props.name)
 </script>
 
 <style scoped>

@@ -10,7 +10,7 @@
 
     <FormItem>
       <template #prefix>
-        <Icon type="lucide:search" />
+        <Icon name="lucide:search" />
       </template>
       <input
         v-model="searchQuery"
@@ -61,7 +61,7 @@
       class="link muted small"
       @click="$emit('back')"
     >
-      <Icon type="chevron-left" />
+      <Icon name="chevron-left" />
       <span>Back</span>
     </Button>
   </div>

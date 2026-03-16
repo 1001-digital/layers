@@ -8,7 +8,7 @@
       class="form-checkbox-button"
     >
       <CheckboxIndicator class="form-checkbox-indicator">
-        <Icon type="check" />
+        <Icon name="check" />
       </CheckboxIndicator>
     </CheckboxRoot>
     <span v-if="$slots.default"><slot /></span>

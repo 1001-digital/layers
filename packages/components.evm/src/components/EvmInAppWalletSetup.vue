@@ -12,14 +12,14 @@
           class="block"
           @click="startGenerate"
         >
-          <Icon type="plus" />
+          <Icon name="plus" />
           <span>Create New Wallet</span>
         </Button>
         <Button
           class="block"
           @click="step = 'restore'"
         >
-          <Icon type="key" />
+          <Icon name="key" />
           <span>Use Existing Recovery Key</span>
         </Button>
       </div>
@@ -27,7 +27,7 @@
         class="link muted small"
         @click="$emit('back')"
       >
-        <Icon type="chevron-left" />
+        <Icon name="chevron-left" />
         <span>Back</span>
       </Button>
     </div>
@@ -71,7 +71,7 @@
         class="link muted small"
         @click="step = 'choose'"
       >
-        <Icon type="chevron-left" />
+        <Icon name="chevron-left" />
         <span>Back</span>
       </Button>
     </div>
@@ -102,7 +102,7 @@
         class="link muted small"
         @click="step = 'choose'"
       >
-        <Icon type="chevron-left" />
+        <Icon name="chevron-left" />
         <span>Back</span>
       </Button>
     </div>

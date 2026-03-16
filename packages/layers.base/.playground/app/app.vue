@@ -17,7 +17,7 @@
 
     <div class="playground-topbar">
       <Button class="small tertiary sidebar-toggle" @click="sidebarOpen = !sidebarOpen">
-        <Icon type="menu" />
+        <Icon name="menu" />
       </Button>
     </div>
 
@@ -25,13 +25,13 @@
 
     <template #bottom-nav>
       <NuxtLink to="/">
-        <Icon type="home" />
+        <Icon name="home" />
       </NuxtLink>
       <NuxtLink to="/layout">
-        <Icon type="lucide:layout-dashboard" />
+        <Icon name="lucide:layout-dashboard" />
       </NuxtLink>
       <NuxtLink to="/other">
-        <Icon type="lucide:file-text" />
+        <Icon name="lucide:file-text" />
       </NuxtLink>
     </template>
   </AppShell>

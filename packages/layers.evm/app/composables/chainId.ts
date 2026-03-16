@@ -1,3 +1,4 @@
+// Re-exported to enable Nuxt auto-imports for layer consumers
 export {
   useChainConfig,
   useMainChainId,

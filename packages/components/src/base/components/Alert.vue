@@ -10,7 +10,7 @@
         @click="dismiss"
         class="close"
       >
-        <Icon type="close" />
+        <Icon name="close" />
       </button>
       <slot />
     </aside>

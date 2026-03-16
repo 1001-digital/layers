@@ -29,7 +29,7 @@
           class="popover-close tertiary"
           aria-label="Close"
         >
-          <Icon type="close" />
+          <Icon name="close" />
         </PopoverClose>
 
         <section>

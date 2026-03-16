@@ -46,7 +46,7 @@
       </DatePickerField>
 
       <DatePickerTrigger class="form-date-picker-trigger">
-        <Icon type="calendar" />
+        <Icon name="calendar" />
       </DatePickerTrigger>
     </DatePickerAnchor>
 
@@ -65,11 +65,11 @@
       >
         <DatePickerHeader class="form-date-picker-header">
           <DatePickerPrev class="form-date-picker-nav">
-            <Icon type="chevron-left" />
+            <Icon name="chevron-left" />
           </DatePickerPrev>
           <DatePickerHeading class="form-date-picker-heading" />
           <DatePickerNext class="form-date-picker-nav">
-            <Icon type="chevron-right" />
+            <Icon name="chevron-right" />
           </DatePickerNext>
         </DatePickerHeader>
 

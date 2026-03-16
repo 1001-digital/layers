@@ -170,7 +170,7 @@
             :key="type"
             class="icon-sample"
           >
-            <Icon :type="type" />
+            <Icon :name="type" />
             <code>{{ type }}</code>
           </div>
         </div>
@@ -204,25 +204,25 @@
           <h4>With Icons</h4>
           <div class="demo-row">
             <Button>
-              <Icon type="add" />
+              <Icon name="add" />
               <span>Add Item</span>
             </Button>
             <Button class="primary">
-              <Icon type="check" />
+              <Icon name="check" />
               <span>Confirm</span>
             </Button>
             <Button class="tertiary">
-              <Icon type="add" />
+              <Icon name="add" />
               <span>New</span>
             </Button>
             <Button>
-              <Icon type="edit" />
+              <Icon name="edit" />
             </Button>
             <Button class="small">
-              <Icon type="edit" />
+              <Icon name="edit" />
             </Button>
             <Button class="link">
-              <Icon type="link" />
+              <Icon name="link" />
               <span>Link</span>
             </Button>
           </div>
@@ -372,7 +372,7 @@
               placeholder="Search"
             />
             <template #suffix>
-              <Icon type="loader" />
+              <Icon name="loader" />
             </template>
           </FormItem>
         </div>
@@ -433,7 +433,7 @@
           <FormLabel label="With Prefix Icon">
             <FormItem>
               <template #prefix>
-                <Icon type="home" />
+                <Icon name="home" />
               </template>
               <FormSelect
                 v-model="selectedFruit"
@@ -912,7 +912,7 @@
               <template #trigger>
                 <Button>
                   <span>Actions</span>
-                  <Icon type="chevron-down" />
+                  <Icon name="chevron-down" />
                 </Button>
               </template>
               <DropdownItem>Cut</DropdownItem>
@@ -930,7 +930,7 @@
             <Dropdown v-model:open="showDropdownIcon">
               <template #trigger>
                 <Button>
-                  <Icon type="lucide:ellipsis-vertical" />
+                  <Icon name="lucide:ellipsis-vertical" />
                 </Button>
               </template>
               <DropdownItem>Edit</DropdownItem>
@@ -948,7 +948,7 @@
               <template #trigger>
                 <Button>
                   <span>Edit</span>
-                  <Icon type="chevron-down" />
+                  <Icon name="chevron-down" />
                 </Button>
               </template>
               <DropdownGroup>
@@ -974,7 +974,7 @@
               <template #trigger>
                 <Button>
                   <span>Format</span>
-                  <Icon type="chevron-down" />
+                  <Icon name="chevron-down" />
                 </Button>
               </template>
               <DropdownCheckboxItem v-model="dropdownBold"
@@ -1001,7 +1001,7 @@
               <template #trigger>
                 <Button>
                   <span>Size: {{ dropdownSize }}</span>
-                  <Icon type="chevron-down" />
+                  <Icon name="chevron-down" />
                 </Button>
               </template>
               <DropdownRadioGroup v-model="dropdownSize">
@@ -1021,7 +1021,7 @@
               <template #trigger>
                 <Button>
                   <span>Options</span>
-                  <Icon type="chevron-down" />
+                  <Icon name="chevron-down" />
                 </Button>
               </template>
               <DropdownItem>New File</DropdownItem>
@@ -1151,7 +1151,7 @@
             <Tooltip>
               <template #trigger>
                 <Button>
-                  <Icon type="lucide:plus" />
+                  <Icon name="lucide:plus" />
                 </Button>
               </template>
               Add item
@@ -1160,7 +1160,7 @@
             <Tooltip>
               <template #trigger>
                 <Button>
-                  <Icon type="edit" />
+                  <Icon name="edit" />
                 </Button>
               </template>
               Edit
@@ -1169,7 +1169,7 @@
             <Tooltip>
               <template #trigger>
                 <Button>
-                  <Icon type="close" />
+                  <Icon name="close" />
                 </Button>
               </template>
               Delete

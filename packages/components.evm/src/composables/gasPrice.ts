@@ -1,10 +1,10 @@
-import { ref, computed, watch, type Ref, type WatchStopHandle } from 'vue'
+import { ref, computed, watch, onScopeDispose, type Ref } from 'vue'
 import { formatEther, formatGwei } from 'viem'
 import { getGasPrice } from '@wagmi/core'
 import { useConfig, useBlockNumber } from '@wagmi/vue'
 
-let priceWatcher: WatchStopHandle | null = null
 const price: Ref<bigint> = ref(0n)
+let watcherCount = 0
 
 export const useGasPrice = () => {
   const config = useConfig()
@@ -14,10 +14,15 @@ export const useGasPrice = () => {
     price.value = await getGasPrice(config)
   }
 
-  if (!priceWatcher) {
-    updatePrice()
-    priceWatcher = watch(blockNumber, () => updatePrice())
-  }
+  if (watcherCount === 0) updatePrice()
+  watcherCount++
+
+  const stopWatcher = watch(blockNumber, () => updatePrice())
+
+  onScopeDispose(() => {
+    stopWatcher()
+    watcherCount--
+  })
 
   const unitPrice = computed(() => ({
     wei: price.value,

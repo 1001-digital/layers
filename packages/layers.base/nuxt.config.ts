@@ -40,7 +40,7 @@ export default defineNuxtConfig({
       close: 'lucide:x',
       copy: 'lucide:copy',
       edit: 'lucide:pencil',
-      help: 'lucide:circle-question-mark',
+      help: 'lucide:circle-help',
       home: 'lucide:house',
       link: 'lucide:link',
       loader: 'lucide:loader-2',

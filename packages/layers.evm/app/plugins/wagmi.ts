@@ -44,7 +44,7 @@ export default defineNuxtPlugin({
       a === defaultChain ? -1 : b === defaultChain ? 1 : 0,
     )
 
-    const chains: [Chain, ...Chain[]] = [] as unknown as [Chain, ...Chain[]]
+    const chains: Chain[] = []
     const transports: Record<number, Transport> = {}
 
     for (const [key, entry] of sortedEntries) {
@@ -89,7 +89,7 @@ export default defineNuxtPlugin({
     if (appConfig.evm?.inAppWallet?.enabled) connectors.push(inAppWallet())
 
     const wagmiConfig: Config = createConfig({
-      chains,
+      chains: chains as [Chain, ...Chain[]],
       batch: {
         multicall: true,
       },

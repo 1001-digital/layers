@@ -74,11 +74,12 @@ export const usePriceFeed = () => {
   const ethUSD = computed(() =>
     state.ethUSDRaw ? state.ethUSDRaw / BigInt(1e8) : 0n,
   )
-  const ethUSC = computed(() =>
+  // Chainlink returns 8 decimals; dividing by 1e6 keeps 2 decimal digits (cents)
+  const ethUSDCents = computed(() =>
     state.ethUSDRaw ? state.ethUSDRaw / BigInt(1e6) : 0n,
   )
   const ethUSDFormatted = computed(() =>
-    formatPrice(Number(ethUSC.value) / 100, 2),
+    formatPrice(Number(ethUSDCents.value) / 100, 2),
   )
 
   const weiToUSD = (wei: bigint) => {
@@ -108,7 +109,7 @@ export const usePriceFeed = () => {
   return {
     ethUSDRaw: computed(() => state.ethUSDRaw),
     ethUSD,
-    ethUSC,
+    ethUSDCents,
     ethUSDFormatted,
     weiToUSD,
     fetchPrice,
