@@ -2,6 +2,7 @@ import { VueQueryPlugin } from '@tanstack/vue-query'
 import {
   http,
   webSocket,
+  unstable_connector,
   cookieStorage,
   createConfig,
   createStorage,
@@ -53,9 +54,10 @@ export default defineNuxtPlugin({
       chains.push(chain)
 
       const rpcUrls = runtimeConfig.chains?.[key]?.rpcUrls?.split(/\s+/).filter(Boolean) || []
-      const transportList = rpcUrls.map((url: string) =>
+      const transportList: Transport[] = rpcUrls.map((url: string) =>
         url.startsWith('wss://') ? webSocket(url) : http(url),
       )
+      transportList.push(unstable_connector(injected))
       transportList.push(http())
 
       transports[chain.id] = fallback(transportList)
