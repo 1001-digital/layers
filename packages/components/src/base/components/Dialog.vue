@@ -161,6 +161,7 @@ onBeforeUnmount(() => {
         display: flex;
         align-items: center;
         block-size: calc(var(--spacer) * 2);
+        background: var(--dialog-header-background);
         box-shadow: var(--border-shadow);
         padding-inline-start: var(--spacer);
         font-family: var(--font-family);

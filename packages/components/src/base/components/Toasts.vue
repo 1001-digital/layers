@@ -171,6 +171,7 @@ const onClose = (id: string) => {
 
     /* Variants */
     &.info {
+      --toast-header-background: var(--toast-info-header-background);
       --border-color: var(--toast-info-border-color);
       color: var(--toast-info-color);
       background: var(--toast-info-background);
@@ -183,6 +184,7 @@ const onClose = (id: string) => {
     }
 
     &.success {
+      --toast-header-background: var(--toast-success-header-background);
       --border-color: var(--toast-success-border-color);
       color: var(--toast-success-color);
       background: var(--toast-success-background);
@@ -195,6 +197,7 @@ const onClose = (id: string) => {
     }
 
     &.error {
+      --toast-header-background: var(--toast-error-header-background);
       --border-color: var(--toast-error-border-color);
       color: var(--toast-error-color);
       background: var(--toast-error-background);
@@ -211,6 +214,7 @@ const onClose = (id: string) => {
       align-items: center;
       gap: var(--spacer-sm);
       block-size: calc(var(--spacer) * 2);
+      background: var(--toast-header-background);
       box-shadow: var(--border-shadow);
       padding-inline-start: var(--ui-padding-inline);
       padding-right: calc(var(--spacer) * 3);
@@ -246,6 +250,7 @@ const onClose = (id: string) => {
       position: absolute !important;
       top: 0;
       right: 0;
+      background: var(--toast-header-background) !important;
       box-shadow: var(--border-shadow) !important;
       border-radius: 0 !important;
       border-start-end-radius: var(--toast-border-radius) !important;

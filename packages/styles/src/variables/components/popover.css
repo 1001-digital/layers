@@ -2,6 +2,7 @@
   --popover-background: var(--background);
   --popover-border: var(--border);
   --popover-border-radius: var(--border-radius-lg);
+  --popover-header-background: var(--popover-background);
   --popover-padding: var(--spacer);
   --popover-arrow-fill: var(--background);
 }

@@ -13,12 +13,15 @@
   --toast-info-color: var(--color);
   --toast-info-background: var(--card-background);
   --toast-info-border-color: var(--border-color);
+  --toast-info-header-background: var(--toast-info-background);
 
   --toast-success-color: var(--color);
   --toast-success-background: var(--card-background);
   --toast-success-border-color: var(--success);
+  --toast-success-header-background: var(--toast-success-background);
 
   --toast-error-color: var(--color);
   --toast-error-background: var(--card-background);
   --toast-error-border-color: var(--error);
+  --toast-error-header-background: var(--toast-error-background);
 }
