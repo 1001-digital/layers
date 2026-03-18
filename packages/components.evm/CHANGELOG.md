@@ -1,5 +1,12 @@
 # @1001-digital/components.evm
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @1001-digital/components@2.0.3
+
 ## 2.1.0
 
 ### Minor Changes
