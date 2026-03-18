@@ -94,11 +94,14 @@ const props = withDefaults(
 )
 
 const resolveLabel = (v: any) => {
+  if (v == null) return ''
   const option = props.options.find((o) => o[props.valueKey] === v)
   return option ? String(option[props.labelKey]) : String(v)
 }
 
 const resolveDisplayValue = (val: any) => {
+  if (val == null) return ''
+  if (Array.isArray(val) && val.length === 0) return ''
   if (Array.isArray(val)) return val.map(resolveLabel).join(', ')
   return resolveLabel(val)
 }
