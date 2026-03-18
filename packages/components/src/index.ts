@@ -76,6 +76,7 @@ export {
   nowInSeconds,
   asUTCDate,
 } from './base/utils/time'
+export type { UTCDateTime } from './base/utils/time'
 
 // Date types
 export {

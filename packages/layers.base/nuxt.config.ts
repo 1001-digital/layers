@@ -1,5 +1,5 @@
 import { fileURLToPath } from 'node:url'
-import { clientOnlyComponents } from '@1001-digital/components/client-only.ts'
+import { clientOnlyComponents } from '@1001-digital/components/client-only'
 
 const componentsDir = fileURLToPath(
   new URL('../components/src/base/components', import.meta.url),

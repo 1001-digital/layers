@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'node:url'
 import { createRequire } from 'node:module'
 import { dirname } from 'node:path'
-import { clientOnlyComponents } from '@1001-digital/components.evm/client-only.ts'
+import { clientOnlyComponents } from '@1001-digital/components.evm/client-only'
 
 const require = createRequire(import.meta.url)
 
