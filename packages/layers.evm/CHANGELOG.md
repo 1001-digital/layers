@@ -1,5 +1,18 @@
 # @1001-digital/layers.evm
 
+## 2.2.0
+
+### Minor Changes
+
+- [`485b644`](https://github.com/1001-digital/layers/commit/485b644603a8c6d9106a44eeeb3143fbe5e0144c) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Refactor how indexers and rpcs are configured
+
+### Patch Changes
+
+- Updated dependencies [[`485b644`](https://github.com/1001-digital/layers/commit/485b644603a8c6d9106a44eeeb3143fbe5e0144c), [`6983bca`](https://github.com/1001-digital/layers/commit/6983bca6ed2dc03edb805f6fb291f628cfdd15f2)]:
+  - @1001-digital/components.evm@2.2.0
+  - @1001-digital/components@2.0.7
+  - @1001-digital/layers.base@2.0.5
+
 ## 2.1.4
 
 ### Patch Changes
