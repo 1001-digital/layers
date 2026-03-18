@@ -12,6 +12,9 @@
   "files": [
     "src"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "@1001-digital/components": "workspace:^",
     "@vueuse/core": ">=14.0.0",

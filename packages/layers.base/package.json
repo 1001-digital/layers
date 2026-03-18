@@ -7,6 +7,9 @@
     "app",
     "nuxt.config.ts"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "nuxi dev .playground",
     "dev:prepare": "nuxt prepare .playground",

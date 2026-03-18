@@ -13,6 +13,9 @@
   "files": [
     "src"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "@1001-digital/styles": "workspace:^",
     "vue": "^3.5.0"

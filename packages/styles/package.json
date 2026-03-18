@@ -11,6 +11,9 @@
   "files": [
     "src"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "modern-normalize": "^3.0.1"
   }
