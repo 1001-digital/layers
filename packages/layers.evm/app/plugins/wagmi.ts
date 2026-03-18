@@ -30,8 +30,8 @@ export default defineNuxtPlugin({
     const appConfig = useAppConfig()
     const runtimeConfig = nuxtApp.$config.public.evm as {
       walletConnectProjectId: string
-      chains: Record<string, { rpc1?: string; rpc2?: string; rpc3?: string }>
-      ens: { indexer1?: string; indexer2?: string; indexer3?: string }
+      chains: Record<string, { rpcUrls?: string }>
+      ens: { indexerUrls?: string }
     }
 
     const title = appConfig.evm?.title || 'EVM Layer'
@@ -51,11 +51,8 @@ export default defineNuxtPlugin({
       const chain = resolveChain(entry.id!)
       chains.push(chain)
 
-      const rpcs = runtimeConfig.chains?.[key]
-      const transportList = []
-      if (rpcs?.rpc1) transportList.push(http(rpcs.rpc1))
-      if (rpcs?.rpc2) transportList.push(http(rpcs.rpc2))
-      if (rpcs?.rpc3) transportList.push(http(rpcs.rpc3))
+      const rpcUrls = runtimeConfig.chains?.[key]?.rpcUrls?.split(/\s+/).filter(Boolean) || []
+      const transportList = rpcUrls.map((url: string) => http(url))
       transportList.push(http())
 
       transports[chain.id] = fallback(transportList)
@@ -102,11 +99,7 @@ export default defineNuxtPlugin({
     })
 
     // Build EvmConfig from Nuxt app/runtime config
-    const indexerUrls = [
-      runtimeConfig.ens?.indexer1,
-      runtimeConfig.ens?.indexer2,
-      runtimeConfig.ens?.indexer3,
-    ].filter(Boolean) as string[]
+    const indexerUrls = runtimeConfig.ens?.indexerUrls?.split(/\s+/).filter(Boolean) || []
 
     const evmConfig: EvmConfig = {
       title,
