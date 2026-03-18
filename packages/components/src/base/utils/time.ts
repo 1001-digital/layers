@@ -18,5 +18,5 @@ export const asUTCDate = (date: Date | null): UTCDateTime | null =>
         date.getHours(),
         date.getMinutes(),
         date.getSeconds(),
-      )
+      ) as UTCDateTime
     : null
