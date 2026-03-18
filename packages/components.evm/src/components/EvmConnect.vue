@@ -92,7 +92,8 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import type { Connector } from '@wagmi/vue'
-import { useConnect, useConnectors, useChainId, ConnectorAlreadyConnectedError } from '@wagmi/vue'
+import { useConnect, useConnectors, useChainId, ConnectorAlreadyConnectedError, ConnectorNotFoundError, ProviderNotFoundError } from '@wagmi/vue'
+import { UserRejectedRequestError } from 'viem'
 import { Button, Icon, Alert, Loading } from '@1001-digital/components'
 import EvmMetaMaskQR from './EvmMetaMaskQR.vue'
 import EvmWalletConnectWallets from './EvmWalletConnectWallets.vue'
@@ -226,13 +227,10 @@ const login = async (connector: Connector) => {
     walletConnectUri.value = ''
     safeDeepLink.value = false
 
-    const errorMsg = error instanceof Error ? error.message : ''
-    if (
-      errorMsg.includes('User rejected') ||
-      errorMsg.includes('rejected') ||
-      errorMsg.includes('denied')
-    ) {
+    if (error instanceof UserRejectedRequestError) {
       errorMessage.value = 'Connection cancelled. Please try again.'
+    } else if (error instanceof ConnectorNotFoundError || error instanceof ProviderNotFoundError) {
+      errorMessage.value = 'Wallet not found. Please make sure it\'s installed.'
     } else {
       errorMessage.value = 'Failed to connect. Please try again.'
     }
