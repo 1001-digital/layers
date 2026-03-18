@@ -1,5 +1,13 @@
 # @1001-digital/layers.base
 
+## 2.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`2fbe7c2`](https://github.com/1001-digital/layers/commit/2fbe7c2715914bd5351fb4be00407c5917c779fb)]:
+  - @1001-digital/components@2.0.6
+  - @1001-digital/styles@2.1.2
+
 ## 2.0.3
 
 ### Patch Changes
