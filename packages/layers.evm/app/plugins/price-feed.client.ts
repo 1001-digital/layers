@@ -6,8 +6,6 @@ export default defineNuxtPlugin({
 
     priceFeed.fetchPrice()
 
-    const interval = setInterval(() => priceFeed.fetchPrice(), 60 * 60 * 1000)
-
-    nuxtApp.hook('app:unmounted', () => clearInterval(interval))
+    setInterval(() => priceFeed.fetchPrice(), 60 * 60 * 1000)
   },
 })

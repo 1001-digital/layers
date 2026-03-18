@@ -7,7 +7,7 @@
       <slot name="trigger" />
       <Icon
         class="dropdown-sub-icon"
-        type="chevron-right"
+        name="chevron-right"
       />
     </DropdownMenuSubTrigger>
 

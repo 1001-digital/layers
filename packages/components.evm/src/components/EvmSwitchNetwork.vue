@@ -43,7 +43,7 @@
           <span>{{ chain.name }}</span>
           <Icon
             v-if="chain.id === currentChainId"
-            type="check"
+            name="check"
           />
         </Button>
       </div>
