@@ -61,6 +61,30 @@ pnpm dev          # Start playground dev server
 pnpm build        # Build playground
 ```
 
+## Releasing
+
+This project uses [Changesets](https://github.com/changesets/changesets) to manage versioning and publishing to npm.
+
+### Creating a changeset
+
+When you make a change that should result in a new package version, run:
+
+```bash
+pnpm changeset
+```
+
+This prompts you to select the affected packages, choose the semver bump type (patch/minor/major), and write a short summary. It creates a changeset file in `.changeset/` that you commit alongside your code.
+
+### Publishing
+
+When you push to `master`, a GitHub Action checks for pending changesets. If any exist, it opens (or updates) a **"Version Packages"** pull request that:
+
+- Bumps versions in `package.json`
+- Updates `CHANGELOG.md` for each package
+- Removes the consumed changeset files
+
+Merging that PR triggers the action again, which publishes the updated packages to npm.
+
 ## Code Style
 
 - TypeScript
