@@ -53,9 +53,9 @@ All components are client-only.
 ## Utilities
 
 ```ts
-shortAddress('0x1234...abcd')           // '0x123...bcd'
-formatETH(1000000000000000000n)          // '1'
-resolveChain(1)                          // mainnet Chain object
+shortAddress('0x1234...abcd') // '0x123...bcd'
+formatETH(1000000000000000000n) // '1'
+resolveChain(1) // mainnet Chain object
 ```
 
 ## Configuration

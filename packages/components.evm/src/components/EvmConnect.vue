@@ -69,7 +69,12 @@
     </Button>
     <Button
       v-if="inAppConnector"
-      @click="() => { emit('connecting'); showInAppSetup = true }"
+      @click="
+        () => {
+          emit('connecting')
+          showInAppSetup = true
+        }
+      "
       class="block choose-connector"
     >
       <img
@@ -92,7 +97,14 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import type { Connector } from '@wagmi/vue'
-import { useConnect, useConnectors, useChainId, ConnectorAlreadyConnectedError, ConnectorNotFoundError, ProviderNotFoundError } from '@wagmi/vue'
+import {
+  useConnect,
+  useConnectors,
+  useChainId,
+  ConnectorAlreadyConnectedError,
+  ConnectorNotFoundError,
+  ProviderNotFoundError,
+} from '@wagmi/vue'
 import { UserRejectedRequestError } from 'viem'
 import { Button, Icon, Alert, Loading } from '@1001-digital/components'
 import EvmMetaMaskQR from './EvmMetaMaskQR.vue'
@@ -229,8 +241,11 @@ const login = async (connector: Connector) => {
 
     if (error instanceof UserRejectedRequestError) {
       errorMessage.value = 'Connection cancelled. Please try again.'
-    } else if (error instanceof ConnectorNotFoundError || error instanceof ProviderNotFoundError) {
-      errorMessage.value = 'Wallet not found. Please make sure it\'s installed.'
+    } else if (
+      error instanceof ConnectorNotFoundError ||
+      error instanceof ProviderNotFoundError
+    ) {
+      errorMessage.value = "Wallet not found. Please make sure it's installed."
     } else {
       errorMessage.value = 'Failed to connect. Please try again.'
     }

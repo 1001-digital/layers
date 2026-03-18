@@ -58,7 +58,7 @@ export default defineNuxtConfig({
     resolve: {
       alias: {
         '@wagmi/vue': wagmiVue,
-        'eventemitter3': eventemitter3,
+        eventemitter3: eventemitter3,
       },
     },
     optimizeDeps: {

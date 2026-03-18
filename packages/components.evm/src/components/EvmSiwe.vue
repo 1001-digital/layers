@@ -3,9 +3,11 @@
     v-if="step === 'signing'"
     spinner
     stacked
-    :txt="connector?.name
-      ? `Requesting signature from ${connector.name}...`
-      : 'Requesting signature...'"
+    :txt="
+      connector?.name
+        ? `Requesting signature from ${connector.name}...`
+        : 'Requesting signature...'
+    "
   />
 
   <Loading
@@ -30,16 +32,15 @@
     <Button
       class="secondary"
       @click="signIn"
-    >Try Again</Button>
+      >Try Again</Button
+    >
   </template>
 
   <template v-else>
     <slot name="idle">
       <p v-if="props.statement">{{ props.statement }}</p>
     </slot>
-    <Button @click="signIn">
-      Sign In
-    </Button>
+    <Button @click="signIn"> Sign In </Button>
   </template>
 </template>
 
@@ -124,7 +125,8 @@ const signIn = async () => {
       errorMessage.value = 'Signature rejected by user.'
     } else {
       const err = e as { shortMessage?: string; message?: string }
-      errorMessage.value = err.shortMessage || err.message || 'Failed to sign message.'
+      errorMessage.value =
+        err.shortMessage || err.message || 'Failed to sign message.'
     }
     step.value = 'error'
     emit('error', errorMessage.value)

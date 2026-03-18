@@ -53,7 +53,8 @@ export default defineNuxtPlugin({
       const chain = resolveChain(entry.id!)
       chains.push(chain)
 
-      const rpcs = runtimeConfig.chains?.[key]?.rpcs?.split(/\s+/).filter(Boolean) || []
+      const rpcs =
+        runtimeConfig.chains?.[key]?.rpcs?.split(/\s+/).filter(Boolean) || []
       const transportList: Transport[] = rpcs.map((url: string) =>
         url.startsWith('wss://') ? webSocket(url) : http(url),
       )
@@ -104,7 +105,8 @@ export default defineNuxtPlugin({
     })
 
     // Build EvmConfig from Nuxt app/runtime config
-    const indexers = runtimeConfig.ens?.indexers?.split(/\s+/).filter(Boolean) || []
+    const indexers =
+      runtimeConfig.ens?.indexers?.split(/\s+/).filter(Boolean) || []
 
     const evmConfig: EvmConfig = {
       title,

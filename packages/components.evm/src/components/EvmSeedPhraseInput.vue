@@ -151,7 +151,6 @@ onMounted(() => {
   gap: var(--spacer-sm);
 }
 
-
 .seed-word {
   display: flex;
   align-items: center;

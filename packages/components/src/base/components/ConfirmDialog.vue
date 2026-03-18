@@ -8,7 +8,10 @@
     <p v-if="state?.description">{{ state.description }}</p>
 
     <template #footer>
-      <Button class="tertiary" @click="resolve(false)">
+      <Button
+        class="tertiary"
+        @click="resolve(false)"
+      >
         {{ state?.cancelText || 'Cancel' }}
       </Button>
       <Button @click="resolve(true)">

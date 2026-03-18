@@ -68,7 +68,6 @@
 
     <ToastViewport class="toast-viewport" />
   </ToastProvider>
-
 </template>
 
 <script setup lang="ts">

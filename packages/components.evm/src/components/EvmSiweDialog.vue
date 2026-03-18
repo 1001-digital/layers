@@ -15,7 +15,8 @@
     <Button
       @click="handleSignOut"
       :class="className"
-    >Sign Out</Button>
+      >Sign Out</Button
+    >
   </slot>
 
   <Dialog

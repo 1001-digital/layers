@@ -1,4 +1,11 @@
-import { ref, computed, watchEffect, toValue, type MaybeRefOrGetter, type Ref } from 'vue'
+import {
+  ref,
+  computed,
+  watchEffect,
+  toValue,
+  type MaybeRefOrGetter,
+  type Ref,
+} from 'vue'
 import { getPublicClient } from '@wagmi/core'
 import { useConfig, type Config } from '@wagmi/vue'
 import { useEvmConfig } from '../config'

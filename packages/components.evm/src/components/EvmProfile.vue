@@ -174,6 +174,5 @@ const disconnect = async () => {
   display: grid;
   gap: var(--spacer);
   padding-block-start: var(--spacer);
-
 }
 </style>

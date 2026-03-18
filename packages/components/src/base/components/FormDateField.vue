@@ -40,10 +40,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { DateValue } from '@internationalized/date'
-import {
-  DateFieldInput,
-  DateFieldRoot,
-} from 'reka-ui'
+import { DateFieldInput, DateFieldRoot } from 'reka-ui'
 
 const props = withDefaults(
   defineProps<{
@@ -66,7 +63,9 @@ const props = withDefaults(
 )
 
 const model = defineModel<DateValue | undefined>()
-const placeholderValue = ref(props.placeholder) as ReturnType<typeof ref<DateValue | undefined>>
+const placeholderValue = ref(props.placeholder) as ReturnType<
+  typeof ref<DateValue | undefined>
+>
 </script>
 
 <style scoped>

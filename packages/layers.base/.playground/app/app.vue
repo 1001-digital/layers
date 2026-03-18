@@ -8,15 +8,30 @@
         </header>
 
         <nav>
-          <NuxtLink to="/" @click="closeMobile">Components</NuxtLink>
-          <NuxtLink to="/layout" @click="closeMobile">Layout</NuxtLink>
-          <NuxtLink to="/other" @click="closeMobile">Other</NuxtLink>
+          <NuxtLink
+            to="/"
+            @click="closeMobile"
+            >Components</NuxtLink
+          >
+          <NuxtLink
+            to="/layout"
+            @click="closeMobile"
+            >Layout</NuxtLink
+          >
+          <NuxtLink
+            to="/other"
+            @click="closeMobile"
+            >Other</NuxtLink
+          >
         </nav>
       </div>
     </template>
 
     <div class="playground-topbar">
-      <Button class="small tertiary sidebar-toggle" @click="sidebarOpen = !sidebarOpen">
+      <Button
+        class="small tertiary sidebar-toggle"
+        @click="sidebarOpen = !sidebarOpen"
+      >
         <Icon name="menu" />
       </Button>
     </div>
@@ -80,7 +95,9 @@ const closeMobile = () => {
       padding: var(--spacer-sm) var(--spacer);
       color: var(--muted);
       border-radius: var(--border-radius);
-      transition: color var(--speed), background var(--speed);
+      transition:
+        color var(--speed),
+        background var(--speed);
 
       &:hover {
         color: var(--color);

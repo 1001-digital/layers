@@ -37,7 +37,11 @@
           v-for="chain in chains"
           :key="chain.id"
           :disabled="chain.id === currentChainId || undefined"
-          :class="['block', 'chain-item', { active: chain.id === currentChainId }]"
+          :class="[
+            'block',
+            'chain-item',
+            { active: chain.id === currentChainId },
+          ]"
           @click="() => switchTo(chain)"
         >
           <span>{{ chain.name }}</span>

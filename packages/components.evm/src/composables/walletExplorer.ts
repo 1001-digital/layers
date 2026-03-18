@@ -29,8 +29,8 @@ export function useWalletExplorer() {
 
   const recentWallets = computed(() =>
     recentIds.value
-      .map(id => wallets.value.find(w => w.id === id))
-      .filter((w): w is ExplorerWallet => !!w)
+      .map((id) => wallets.value.find((w) => w.id === id))
+      .filter((w): w is ExplorerWallet => !!w),
   )
 
   const hasMore = computed(() => wallets.value.length < totalCount.value)
@@ -62,7 +62,7 @@ export function useWalletExplorer() {
     const nextPage = page.value + 1
     try {
       const res = await fetch(
-        `${EXPLORER_API}/wallets?projectId=${projectId.value}&entries=${PAGE_SIZE}&page=${nextPage}&sdks=sign_v2`
+        `${EXPLORER_API}/wallets?projectId=${projectId.value}&entries=${PAGE_SIZE}&page=${nextPage}&sdks=sign_v2`,
       )
       const data = await res.json()
       const fetched = Object.values(data.listings || {}) as ExplorerWallet[]
@@ -84,7 +84,7 @@ export function useWalletExplorer() {
     searching.value = true
     try {
       const res = await fetch(
-        `${EXPLORER_API}/wallets?projectId=${projectId.value}&entries=${PAGE_SIZE}&page=1&search=${encodeURIComponent(query)}&sdks=sign_v2`
+        `${EXPLORER_API}/wallets?projectId=${projectId.value}&entries=${PAGE_SIZE}&page=1&search=${encodeURIComponent(query)}&sdks=sign_v2`,
       )
       const data = await res.json()
       searchResults.value = Object.values(data.listings || {})
@@ -104,7 +104,7 @@ export function useWalletExplorer() {
   }
 
   function addRecent(walletId: string) {
-    const ids = recentIds.value.filter(id => id !== walletId)
+    const ids = recentIds.value.filter((id) => id !== walletId)
     ids.unshift(walletId)
     recentIds.value = ids.slice(0, 3)
     try {

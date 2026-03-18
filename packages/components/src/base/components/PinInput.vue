@@ -98,7 +98,8 @@ defineEmits<{
     }
 
     &[data-complete] {
-      box-shadow: 0 0 0 var(--border-width) var(--pin-input-complete-border-color);
+      box-shadow: 0 0 0 var(--border-width)
+        var(--pin-input-complete-border-color);
     }
   }
 }

@@ -35,7 +35,10 @@
 
     <Card>
       <h2>Requesting</h2>
-      <p>Skips confirmation, shows the loading spinner while awaiting wallet signature.</p>
+      <p>
+        Skips confirmation, shows the loading spinner while awaiting wallet
+        signature.
+      </p>
 
       <EvmTransactionFlow
         skip-confirmation
@@ -93,8 +96,8 @@
     <Card>
       <h2>Waiting &amp; Complete (Toast)</h2>
       <p>
-        After signing, the dialog closes and a toast tracks the receipt.
-        This mock resolves instantly and shows the success toast.
+        After signing, the dialog closes and a toast tracks the receipt. This
+        mock resolves instantly and shows the success toast.
       </p>
 
       <EvmTransactionFlow
@@ -124,8 +127,8 @@
     <Card>
       <h2>Chain Switch</h2>
       <p>
-        Shown when the connected wallet is on a different chain.
-        Connect to a non-Sepolia network to see this state.
+        Shown when the connected wallet is on a different chain. Connect to a
+        non-Sepolia network to see this state.
       </p>
 
       <EvmTransactionFlow
@@ -162,7 +165,11 @@
 
         <template #actions="{ cancel, step }">
           <template v-if="step === 'confirm'">
-            <Button class="secondary" @click="cancel">Nevermind</Button>
+            <Button
+              class="secondary"
+              @click="cancel"
+              >Nevermind</Button
+            >
             <Button class="secondary">Save Draft</Button>
             <Button>Approve &amp; Send</Button>
           </template>

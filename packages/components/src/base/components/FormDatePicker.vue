@@ -184,7 +184,9 @@ const props = withDefaults(
 
 const model = defineModel<DateValue | undefined>()
 const open = defineModel<boolean>('open')
-const placeholderValue = ref(props.placeholder) as ReturnType<typeof ref<DateValue | undefined>>
+const placeholderValue = ref(props.placeholder) as ReturnType<
+  typeof ref<DateValue | undefined>
+>
 </script>
 
 <style scoped>

@@ -2,7 +2,10 @@
   <main class="layout-page">
     <header>
       <h1>Layout Components</h1>
-      <p>App shell, sidebar, and bottom navigation components for building responsive application layouts.</p>
+      <p>
+        App shell, sidebar, and bottom navigation components for building
+        responsive application layouts.
+      </p>
     </header>
 
     <!-- AppShell -->
@@ -12,20 +15,26 @@
       <Card>
         <h3>Overview</h3>
         <p>
-          The <code>&lt;AppShell&gt;</code> component provides the outer layout structure.
-          It uses flexbox to position the sidebar alongside the main content,
-          and provides a slot for a mobile bottom navigation.
+          The <code>&lt;AppShell&gt;</code> component provides the outer layout
+          structure. It uses flexbox to position the sidebar alongside the main
+          content, and provides a slot for a mobile bottom navigation.
         </p>
 
         <div class="component-demo">
           <h4>Slots</h4>
           <dl>
             <dt><code>#sidebar</code></dt>
-            <dd>Sidebar content. Renders a <code>&lt;Sidebar&gt;</code> internally.</dd>
+            <dd>
+              Sidebar content. Renders a
+              <code>&lt;Sidebar&gt;</code> internally.
+            </dd>
             <dt><code>#default</code></dt>
             <dd>Main page content.</dd>
             <dt><code>#bottom-nav</code></dt>
-            <dd>Bottom navigation items. Renders a <code>&lt;BottomNav&gt;</code> internally.</dd>
+            <dd>
+              Bottom navigation items. Renders a
+              <code>&lt;BottomNav&gt;</code> internally.
+            </dd>
           </dl>
         </div>
 
@@ -90,8 +99,9 @@
       <Card>
         <h3>Standalone Usage</h3>
         <p>
-          The sidebar can be used independently without AppShell.
-          It exposes <code>open()</code>, <code>close()</code>, and <code>toggle()</code> methods via template ref.
+          The sidebar can be used independently without AppShell. It exposes
+          <code>open()</code>, <code>close()</code>, and
+          <code>toggle()</code> methods via template ref.
         </p>
 
         <div class="component-demo">
@@ -118,7 +128,11 @@
       <Card>
         <h3>CSS Custom Properties</h3>
         <div class="token-list">
-          <div v-for="token in sidebarTokens" :key="token.name" class="token-item">
+          <div
+            v-for="token in sidebarTokens"
+            :key="token.name"
+            class="token-item"
+          >
             <code>{{ token.name }}</code>
             <span>{{ token.default }}</span>
           </div>
@@ -128,8 +142,9 @@
       <Card>
         <h3>Interactive Demo</h3>
         <p>
-          This playground is wrapped in an <code>&lt;AppShell&gt;</code>.
-          Try resizing your browser or use the hamburger menu on mobile to see the sidebar in action.
+          This playground is wrapped in an <code>&lt;AppShell&gt;</code>. Try
+          resizing your browser or use the hamburger menu on mobile to see the
+          sidebar in action.
         </p>
         <div class="demo-row">
           <Button @click="toggleSidebar">Toggle Sidebar</Button>
@@ -144,8 +159,9 @@
       <Card>
         <h3>Overview</h3>
         <p>
-          Fixed bottom navigation bar for mobile. Hidden on desktop (&ge; 1024px).
-          Includes safe area inset padding for notched devices and a backdrop blur effect.
+          Fixed bottom navigation bar for mobile. Hidden on desktop (&ge;
+          1024px). Includes safe area inset padding for notched devices and a
+          backdrop blur effect.
         </p>
 
         <div class="component-demo">
@@ -164,15 +180,20 @@
         </div>
 
         <p class="hint">
-          Resize to mobile to see the bottom navigation below.
-          Links and buttons inside get automatic active-state styling via <code>.router-link-active</code>.
+          Resize to mobile to see the bottom navigation below. Links and buttons
+          inside get automatic active-state styling via
+          <code>.router-link-active</code>.
         </p>
       </Card>
 
       <Card>
         <h3>CSS Custom Properties</h3>
         <div class="token-list">
-          <div v-for="token in bottomNavTokens" :key="token.name" class="token-item">
+          <div
+            v-for="token in bottomNavTokens"
+            :key="token.name"
+            class="token-item"
+          >
             <code>{{ token.name }}</code>
             <span>{{ token.default }}</span>
           </div>
@@ -192,7 +213,10 @@ const sidebarTokens = [
 ]
 
 const bottomNavTokens = [
-  { name: '--bottom-nav-height', default: 'calc(3.5rem + env(safe-area-inset-bottom))' },
+  {
+    name: '--bottom-nav-height',
+    default: 'calc(3.5rem + env(safe-area-inset-bottom))',
+  },
   { name: '--bottom-nav-background', default: 'var(--background-semi)' },
   { name: '--bottom-nav-z-index', default: 'var(--z-index-overlay)' },
 ]

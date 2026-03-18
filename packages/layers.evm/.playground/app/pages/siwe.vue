@@ -14,8 +14,8 @@
         <Card>
           <h2>Dialog</h2>
           <p>
-            Opens a dialog with the full SIWE sign-in flow.
-            Uses mock nonce &amp; verification.
+            Opens a dialog with the full SIWE sign-in flow. Uses mock nonce
+            &amp; verification.
           </p>
           <p class="connected">Connected: <EvmAccount :address="address" /></p>
 
@@ -33,7 +33,11 @@
                 <span class="authenticated">
                   Authenticated: {{ shortAddress(authAddr) }}
                 </span>
-                <Button class="secondary" @click="signOut">Sign Out</Button>
+                <Button
+                  class="secondary"
+                  @click="signOut"
+                  >Sign Out</Button
+                >
               </template>
             </EvmSiweDialog>
           </Actions>

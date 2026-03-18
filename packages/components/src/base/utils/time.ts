@@ -11,12 +11,12 @@ export const nowInSeconds = (): number => Math.floor(Date.now() / 1000)
 
 export const asUTCDate = (date: Date | null): UTCDateTime | null =>
   date
-    ? DateTime.utc(
+    ? (DateTime.utc(
         date.getFullYear(),
         date.getMonth() + 1,
         date.getDate(),
         date.getHours(),
         date.getMinutes(),
         date.getSeconds(),
-      ) as UTCDateTime
+      ) as UTCDateTime)
     : null
