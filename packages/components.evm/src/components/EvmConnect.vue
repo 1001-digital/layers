@@ -92,7 +92,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import type { Connector } from '@wagmi/vue'
-import { useConnect, useConnectors, useChainId } from '@wagmi/vue'
+import { useConnect, useConnectors, useChainId, ConnectorAlreadyConnectedError } from '@wagmi/vue'
 import { Button, Icon, Alert, Loading } from '@1001-digital/components'
 import EvmMetaMaskQR from './EvmMetaMaskQR.vue'
 import EvmWalletConnectWallets from './EvmWalletConnectWallets.vue'
@@ -215,6 +215,12 @@ const login = async (connector: Connector) => {
 
     resetConnection()
   } catch (error: unknown) {
+    if (error instanceof ConnectorAlreadyConnectedError) {
+      emit('connected')
+      resetConnection()
+      return
+    }
+
     isConnecting.value = false
     metaMaskUri.value = ''
     walletConnectUri.value = ''
