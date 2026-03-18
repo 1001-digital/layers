@@ -73,98 +73,100 @@ const open = defineModel<boolean>('open', { required: true })
 
 <style scoped>
 @layer components {
-  .dropdown {
-    background: var(--dropdown-background);
-    color: var(--color);
-    border: var(--dropdown-border);
-    border-radius: var(--dropdown-border-radius);
-    padding: 0;
-    font-family: var(--font-family);
-    font-size: var(--ui-font-size);
-    z-index: var(--z-index-ui);
-    min-inline-size: var(--reka-dropdown-menu-trigger-width);
-    max-block-size: var(--reka-dropdown-menu-content-available-height);
-    transform-origin: var(--reka-dropdown-menu-content-transform-origin);
+  :deep() {
+    .dropdown {
+      background: var(--dropdown-background);
+      color: var(--color);
+      border: var(--dropdown-border);
+      border-radius: var(--dropdown-border-radius);
+      padding: 0;
+      font-family: var(--font-family);
+      font-size: var(--ui-font-size);
+      z-index: var(--z-index-ui);
+      min-inline-size: var(--reka-dropdown-menu-trigger-width);
+      max-block-size: var(--reka-dropdown-menu-content-available-height);
+      transform-origin: var(--reka-dropdown-menu-content-transform-origin);
 
-    /* Entry/exit animations */
-    opacity: 1;
-    scale: 1;
-    transition:
-      opacity var(--speed) ease,
-      scale var(--speed) ease;
+      /* Entry/exit animations */
+      opacity: 1;
+      scale: 1;
+      transition:
+        opacity var(--speed) ease,
+        scale var(--speed) ease;
 
-    @starting-style {
-      opacity: 0;
-      scale: 0.95;
+      @starting-style {
+        opacity: 0;
+        scale: 0.95;
+      }
+
+      &[data-state='closed'] {
+        opacity: 0;
+        scale: 0.95;
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      .dropdown-arrow {
+        fill: var(--dropdown-arrow-fill);
+        stroke: var(--border-color);
+      }
     }
 
-    &[data-state='closed'] {
-      opacity: 0;
-      scale: 0.95;
+    .dropdown-items {
+      padding: var(--dropdown-padding);
+      overflow-y: auto;
+      overscroll-behavior: contain;
     }
 
-    &:focus {
+    .dropdown-item {
+      padding: var(--size-2) var(--size-3);
+      border-radius: calc(var(--dropdown-border-radius) / 2);
+      display: flex;
+      align-items: center;
+      gap: var(--size-2);
+      cursor: pointer;
       outline: none;
+      user-select: none;
+
+      &[data-highlighted] {
+        background: var(--button-background-highlight);
+      }
+
+      &[data-disabled] {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
     }
 
-    .dropdown-arrow {
-      fill: var(--dropdown-arrow-fill);
-      stroke: var(--border-color);
-    }
-  }
-
-  .dropdown-items {
-    padding: var(--dropdown-padding);
-    overflow-y: auto;
-    overscroll-behavior: contain;
-  }
-
-  .dropdown-item {
-    padding: var(--size-2) var(--size-3);
-    border-radius: calc(var(--dropdown-border-radius) / 2);
-    display: flex;
-    align-items: center;
-    gap: var(--size-2);
-    cursor: pointer;
-    outline: none;
-    user-select: none;
-
-    &[data-highlighted] {
-      background: var(--button-background-highlight);
+    .dropdown-label {
+      padding: var(--size-2) var(--size-3);
+      color: var(--muted);
+      font-weight: 500;
+      user-select: none;
     }
 
-    &[data-disabled] {
-      opacity: 0.5;
-      cursor: not-allowed;
+    .dropdown-separator {
+      block-size: 1px;
+      background: var(--border-color);
+      margin-block: var(--size-1);
     }
-  }
 
-  .dropdown-label {
-    padding: var(--size-2) var(--size-3);
-    color: var(--muted);
-    font-weight: 500;
-    user-select: none;
-  }
+    .dropdown-item-indicator {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-  .dropdown-separator {
-    block-size: 1px;
-    background: var(--border-color);
-    margin-block: var(--size-1);
-  }
+    .dropdown-sub-trigger {
+      justify-content: space-between;
+    }
 
-  .dropdown-item-indicator {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .dropdown-sub-trigger {
-    justify-content: space-between;
-  }
-
-  .dropdown-sub-icon {
-    color: var(--muted);
-    margin-inline-start: auto;
+    .dropdown-sub-icon {
+      color: var(--muted);
+      margin-inline-start: auto;
+    }
   }
 }
 </style>

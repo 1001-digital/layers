@@ -94,7 +94,7 @@ const props = withDefaults(
 )
 
 const resolveLabel = (v: any) => {
-  const option = props.options.find(o => o[props.valueKey] === v)
+  const option = props.options.find((o) => o[props.valueKey] === v)
   return option ? String(option[props.labelKey]) : String(v)
 }
 
@@ -105,11 +105,18 @@ const resolveDisplayValue = (val: any) => {
 </script>
 
 <style scoped>
+/* &:has(> .combobox-root) { */
+/* } */
+
 @layer components {
+  :global(.form-item:has(> .combobox-root)) {
+    inline-size: max-content !important;
+    max-inline-size: none;
+  }
+
   .combobox-root {
     inline-size: 100%;
   }
-
   .combobox-anchor {
     display: flex;
     align-items: center;
@@ -166,7 +173,7 @@ const resolveDisplayValue = (val: any) => {
     }
   }
 
-  .combobox-content {
+  :deep(.combobox-content) {
     background: var(--combobox-background);
     border: var(--combobox-border);
     border-radius: var(--combobox-border-radius);
@@ -198,11 +205,11 @@ const resolveDisplayValue = (val: any) => {
     }
   }
 
-  .combobox-viewport {
+  :deep(.combobox-viewport) {
     padding: var(--combobox-padding);
   }
 
-  .combobox-empty {
+  :deep(.combobox-empty) {
     padding: var(--size-2) var(--size-3);
     color: var(--muted);
     font-family: var(--font-family);
@@ -210,7 +217,7 @@ const resolveDisplayValue = (val: any) => {
     user-select: none;
   }
 
-  .combobox-item {
+  :deep(.combobox-item) {
     padding: var(--size-2) var(--size-3);
     border-radius: calc(var(--combobox-border-radius) / 2);
     display: flex;
@@ -237,7 +244,7 @@ const resolveDisplayValue = (val: any) => {
     }
   }
 
-  .combobox-indicator {
+  :deep(.combobox-indicator) {
     color: var(--accent);
   }
 }

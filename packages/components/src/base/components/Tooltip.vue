@@ -66,37 +66,39 @@ const props = withDefaults(
 
 <style scoped>
 @layer components {
-  .tooltip {
-    background: var(--tooltip-background);
-    color: var(--color);
-    border: var(--tooltip-border);
-    border-radius: var(--tooltip-border-radius);
-    padding: var(--tooltip-padding);
-    font-family: var(--font-family);
-    font-size: var(--ui-font-size);
-    z-index: var(--z-index-ui);
-    transform-origin: var(--reka-tooltip-content-transform-origin);
+  :deep() {
+    .tooltip {
+      background: var(--tooltip-background);
+      color: var(--color);
+      border: var(--tooltip-border);
+      border-radius: var(--tooltip-border-radius);
+      padding: var(--tooltip-padding);
+      font-family: var(--font-family);
+      font-size: var(--ui-font-size);
+      z-index: var(--z-index-ui);
+      transform-origin: var(--reka-tooltip-content-transform-origin);
 
-    /* Entry/exit animations */
-    opacity: 1;
-    scale: 1;
-    transition:
-      opacity var(--speed) ease,
-      scale var(--speed) ease;
+      /* Entry/exit animations */
+      opacity: 1;
+      scale: 1;
+      transition:
+        opacity var(--speed) ease,
+        scale var(--speed) ease;
 
-    @starting-style {
-      opacity: 0;
-      scale: 0.95;
-    }
+      @starting-style {
+        opacity: 0;
+        scale: 0.95;
+      }
 
-    &[data-state='closed'] {
-      opacity: 0;
-      scale: 0.95;
-    }
+      &[data-state='closed'] {
+        opacity: 0;
+        scale: 0.95;
+      }
 
-    .tooltip-arrow {
-      fill: var(--tooltip-arrow-fill);
-      stroke: var(--border-color);
+      .tooltip-arrow {
+        fill: var(--tooltip-arrow-fill);
+        stroke: var(--border-color);
+      }
     }
   }
 }
