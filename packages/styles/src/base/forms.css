@@ -59,6 +59,11 @@ input:not(.unstyled),
 textarea:not(.unstyled),
 select:not(.unstyled) {
   inline-size: 100%;
+  background: var(--input-background);
+
+  &:not(select):is(:hover, :active, :focus, .active) {
+    background: var(--input-background-highlight);
+  }
 }
 
 input:not(.unstyled),
@@ -67,7 +72,7 @@ textarea:not(.unstyled) {
 }
 
 select:not(.unstyled) {
-  --select-bg: var(--button-background);
+  --select-bg: var(--input-background);
   appearance: none;
   line-height: 1;
   transition-property: box-shadow, background-color, color;
@@ -86,7 +91,7 @@ select:not(.unstyled) {
   ) !important;
 
   &:is(:hover, :active, :focus, .active) {
-    --select-bg: var(--button-background-highlight);
+    --select-bg: var(--input-background-highlight);
   }
 
   &.small {
