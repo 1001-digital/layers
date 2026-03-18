@@ -32,8 +32,8 @@ export default defineNuxtPlugin({
     const appConfig = useAppConfig()
     const runtimeConfig = nuxtApp.$config.public.evm as {
       walletConnectProjectId: string
-      chains: Record<string, { rpcUrls?: string }>
-      ens: { indexerUrls?: string }
+      chains: Record<string, { rpcs?: string }>
+      ens: { indexers?: string }
     }
 
     const title = appConfig.evm?.title || 'EVM Layer'
@@ -53,8 +53,8 @@ export default defineNuxtPlugin({
       const chain = resolveChain(entry.id!)
       chains.push(chain)
 
-      const rpcUrls = runtimeConfig.chains?.[key]?.rpcUrls?.split(/\s+/).filter(Boolean) || []
-      const transportList: Transport[] = rpcUrls.map((url: string) =>
+      const rpcs = runtimeConfig.chains?.[key]?.rpcs?.split(/\s+/).filter(Boolean) || []
+      const transportList: Transport[] = rpcs.map((url: string) =>
         url.startsWith('wss://') ? webSocket(url) : http(url),
       )
       transportList.push(unstable_connector(injected))
@@ -104,7 +104,7 @@ export default defineNuxtPlugin({
     })
 
     // Build EvmConfig from Nuxt app/runtime config
-    const indexerUrls = runtimeConfig.ens?.indexerUrls?.split(/\s+/).filter(Boolean) || []
+    const indexers = runtimeConfig.ens?.indexers?.split(/\s+/).filter(Boolean) || []
 
     const evmConfig: EvmConfig = {
       title,
@@ -117,7 +117,7 @@ export default defineNuxtPlugin({
       ),
       ens: {
         mode: appConfig.evm?.ens?.mode || 'indexer',
-        indexerUrls,
+        indexers,
       },
       ipfsGateway: appConfig.evm?.ipfsGateway,
       arweaveGateway: appConfig.evm?.arweaveGateway,

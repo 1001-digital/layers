@@ -20,15 +20,15 @@ interface UseEnsOptions {
 async function resolve(
   identifier: string,
   strategies: EnsMode[],
-  indexerUrls: string[],
+  indexers: string[],
   wagmi: Config,
   chainKeys: string[],
 ): Promise<EnsProfile> {
   for (const strategy of strategies) {
     try {
       if (strategy === 'indexer') {
-        if (!indexerUrls.length) continue
-        return await fetchEnsFromIndexer(identifier, indexerUrls)
+        if (!indexers.length) continue
+        return await fetchEnsFromIndexer(identifier, indexers)
       }
 
       if (strategy === 'chain') {
@@ -56,7 +56,7 @@ function useEnsBase(
   const mode = computed<EnsMode>(
     () => toValue(options.mode) || evmConfig.ens?.mode || 'indexer',
   )
-  const indexerUrls = computed(() => evmConfig.ens?.indexerUrls || [])
+  const indexers = computed(() => evmConfig.ens?.indexers || [])
   const cacheKey = computed(() => `ens-${tier}-${toValue(identifier)}`)
 
   const data: Ref<EnsProfile | null | undefined> = ref(
@@ -85,7 +85,7 @@ function useEnsBase(
     pending.value = true
     try {
       data.value = await ensCache.fetch(cacheKey.value, () =>
-        resolve(id, strategies, indexerUrls.value, config, chainKeys),
+        resolve(id, strategies, indexers.value, config, chainKeys),
       )
     } catch {
       data.value = null

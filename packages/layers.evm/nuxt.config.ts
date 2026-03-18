@@ -45,10 +45,10 @@ export default defineNuxtConfig({
       evm: {
         walletConnectProjectId: '',
         chains: {
-          mainnet: { rpcUrls: '' },
+          mainnet: { rpcs: '' },
         },
         ens: {
-          indexerUrls: '',
+          indexers: '',
         },
       },
     },

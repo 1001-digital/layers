@@ -11,7 +11,7 @@ export interface EvmConfig {
   chains: Record<string, EvmChainConfig>
   ens?: {
     mode?: 'indexer' | 'chain'
-    indexerUrls?: string[]
+    indexers?: string[]
   }
   ipfsGateway?: string
   arweaveGateway?: string
