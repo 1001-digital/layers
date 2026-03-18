@@ -131,7 +131,7 @@ const onClose = (id: string) => {
     border: var(--border);
     border-radius: var(--toast-border-radius);
     overflow: hidden;
-    font-family: var(--font-family);
+    font-family: var(--ui-font-family);
     font-size: var(--ui-font-size);
 
     /* Entry animation */
@@ -218,7 +218,7 @@ const onClose = (id: string) => {
       box-shadow: var(--border-shadow);
       padding-inline-start: var(--ui-padding-inline);
       padding-right: calc(var(--spacer) * 3);
-      font-family: var(--font-family);
+      font-family: var(--ui-font-family);
       font-size: var(--ui-font-size);
       font-weight: normal;
       text-transform: var(--ui-text-transform);

@@ -70,7 +70,7 @@ defineEmits<{
     box-shadow: var(--border-shadow);
     background: var(--pin-input-background);
     color: var(--pin-input-color);
-    font-family: var(--font-family);
+    font-family: var(--ui-font-family);
     font-size: var(--pin-input-font-size);
     font-weight: var(--pin-input-font-weight);
     text-transform: var(--ui-text-transform);

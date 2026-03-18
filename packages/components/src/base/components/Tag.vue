@@ -29,7 +29,7 @@ const emit = defineEmits<{
 .tag {
   border-radius: var(--tag-border-radius);
   box-shadow: var(--border-shadow);
-  font-family: var(--font-family);
+  font-family: var(--ui-font-family);
   font-size: var(--font-sm);
   font-weight: var(--ui-font-weight);
   text-transform: var(--ui-text-transform);

@@ -73,7 +73,7 @@ const props = withDefaults(
       border: var(--tooltip-border);
       border-radius: var(--tooltip-border-radius);
       padding: var(--tooltip-padding);
-      font-family: var(--font-family);
+      font-family: var(--ui-font-family);
       font-size: var(--ui-font-size);
       z-index: var(--z-index-ui);
       transform-origin: var(--reka-tooltip-content-transform-origin);

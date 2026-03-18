@@ -144,7 +144,7 @@ const resolveDisplayValue = (val: any) => {
     all: unset;
     flex: 1;
     padding: var(--size-2) var(--size-3);
-    font-family: var(--font-family);
+    font-family: var(--ui-font-family);
     font-size: var(--ui-font-size);
     color: var(--color);
     min-inline-size: 0;
@@ -215,7 +215,7 @@ const resolveDisplayValue = (val: any) => {
   :deep(.combobox-empty) {
     padding: var(--size-2) var(--size-3);
     color: var(--muted);
-    font-family: var(--font-family);
+    font-family: var(--ui-font-family);
     font-size: var(--ui-font-size);
     user-select: none;
   }
@@ -230,7 +230,7 @@ const resolveDisplayValue = (val: any) => {
     cursor: pointer;
     outline: none;
     user-select: none;
-    font-family: var(--font-family);
+    font-family: var(--ui-font-family);
     font-size: var(--ui-font-size);
 
     &[data-highlighted] {

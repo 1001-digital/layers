@@ -9,7 +9,7 @@ input:not(.unstyled),
 textarea:not(.unstyled),
 select:not(.unstyled) {
   /* UI font styles */
-  font-family: var(--font-family);
+  font-family: var(--ui-font-family);
   font-size: var(--ui-font-size);
   font-weight: var(--ui-font-weight);
   text-transform: var(--ui-text-transform);
@@ -114,7 +114,7 @@ form {
 form label,
 label.form-label {
   /* UI font styles */
-  font-family: var(--font-family);
+  font-family: var(--ui-font-family);
   font-size: var(--ui-font-size);
   font-weight: var(--ui-font-weight);
   text-transform: var(--ui-text-transform);

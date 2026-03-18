@@ -129,7 +129,7 @@ const placeholderValue = ref(props.placeholder) as ReturnType<typeof ref<DateVal
   }
 
   .calendar-heading {
-    font-family: var(--font-family);
+    font-family: var(--ui-font-family);
     font-size: var(--ui-font-size);
     text-transform: var(--ui-text-transform);
     font-weight: 500;
@@ -169,7 +169,7 @@ const placeholderValue = ref(props.placeholder) as ReturnType<typeof ref<DateVal
   }
 
   .calendar-head-cell {
-    font-family: var(--font-family);
+    font-family: var(--ui-font-family);
     font-size: var(--font-xs);
     text-transform: var(--ui-text-transform);
     color: var(--muted);

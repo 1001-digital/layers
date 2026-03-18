@@ -13,7 +13,7 @@ defineProps<{
 
 <style scoped>
 .form-label {
-  font-family: var(--font-family);
+  font-family: var(--ui-font-family);
   font-size: var(--ui-font-size);
   font-weight: var(--ui-font-weight);
   text-transform: var(--ui-text-transform);

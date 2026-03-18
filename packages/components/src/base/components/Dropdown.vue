@@ -80,7 +80,7 @@ const open = defineModel<boolean>('open', { required: true })
       border: var(--dropdown-border);
       border-radius: var(--dropdown-border-radius);
       padding: 0;
-      font-family: var(--font-family);
+      font-family: var(--ui-font-family);
       font-size: var(--ui-font-size);
       z-index: var(--z-index-ui);
       min-inline-size: var(--reka-dropdown-menu-trigger-width);

@@ -186,7 +186,7 @@ function handleHexUpdate(hex: string) {
     background: var(--button-background);
     border-radius: var(--button-border-radius);
     box-shadow: var(--border-shadow);
-    font-family: var(--font-family);
+    font-family: var(--ui-font-family);
     font-size: var(--ui-font-size);
     cursor: pointer;
     transition:

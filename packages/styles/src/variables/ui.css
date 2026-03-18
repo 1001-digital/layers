@@ -1,5 +1,6 @@
 :root {
   /* UI typography */
+  --ui-font-family: var(--font-family);
   --ui-font-size: 13px;
   --ui-font-weight: 400;
   --ui-text-transform: uppercase;

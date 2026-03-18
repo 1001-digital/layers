@@ -105,7 +105,7 @@ const onInteractOutside = (e: Event) => {
     border: var(--popover-border);
     border-radius: var(--popover-border-radius);
     padding: 0;
-    font-family: var(--font-family);
+    font-family: var(--ui-font-family);
     font-size: var(--ui-font-size);
     z-index: var(--z-index-ui);
     min-inline-size: max(
@@ -154,7 +154,7 @@ const onInteractOutside = (e: Event) => {
       box-shadow: var(--border-shadow);
       padding-inline-start: var(--popover-padding);
       padding-right: calc(var(--spacer) * 3);
-      font-family: var(--font-family);
+      font-family: var(--ui-font-family);
       font-size: var(--ui-font-size);
       text-transform: var(--ui-text-transform);
       margin: 0;

@@ -164,7 +164,7 @@ onBeforeUnmount(() => {
         background: var(--dialog-header-background);
         box-shadow: var(--border-shadow);
         padding-inline-start: var(--spacer);
-        font-family: var(--font-family);
+        font-family: var(--ui-font-family);
         font-size: var(--ui-font-size);
         text-transform: var(--ui-text-transform);
         margin: 0;
