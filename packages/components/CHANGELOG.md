@@ -1,5 +1,11 @@
 # @1001-digital/components
 
+## 2.0.7
+
+### Patch Changes
+
+- [`6983bca`](https://github.com/1001-digital/layers/commit/6983bca6ed2dc03edb805f6fb291f628cfdd15f2) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Cast date as valid datetime
+
 ## 2.0.6
 
 ### Patch Changes
