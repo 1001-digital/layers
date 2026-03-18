@@ -2,6 +2,8 @@
   --toast-width: 22rem;
   --toast-padding: var(--spacer-sm);
   --toast-gap: var(--spacer-sm);
+  --toast-border-radius: var(--border-radius-lg);
+
   /* top-left: 0 auto auto 0 */
   /* top-right: 0 0 auto auto */
   /* bottom-left: auto auto 0 0 */
