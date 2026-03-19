@@ -1,5 +1,13 @@
 # @1001-digital/components.evm
 
+## 2.4.0
+
+### Minor Changes
+
+- [`be17369`](https://github.com/1001-digital/layers/commit/be1736985cfa29cc28619923f7ad790fdb934a4b) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Add auto-imports for evm utils / composables
+
+- [`3c9e791`](https://github.com/1001-digital/layers/commit/3c9e791bfaedc0ac87dfd8ef419526f591ef0ca9) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Refactor SIWE composable
+
 ## 2.3.0
 
 ### Minor Changes
