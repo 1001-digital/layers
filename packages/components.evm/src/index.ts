@@ -67,7 +67,12 @@ export { usePriceFeed } from './composables/priceFeed'
 export { useWalletExplorer } from './composables/walletExplorer'
 export type { ExplorerWallet } from './composables/walletExplorer'
 export { useSiwe } from './composables/siwe'
-export type { SiweSession, UseSiweOptions } from './composables/siwe'
+export type {
+  SiweSession,
+  SiweStep,
+  SiweSignInOptions,
+  SiweSignInResult,
+} from './composables/siwe'
 
 // Connectors
 export { inAppWallet, prepareInAppWallet } from './connectors/inAppWallet'

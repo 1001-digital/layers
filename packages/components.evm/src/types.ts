@@ -122,7 +122,7 @@ export interface EvmInAppWalletSetupEmits {
 // EvmSiwe
 export interface EvmSiweProps {
   getNonce: () => Promise<string>
-  verify: (message: string, signature: string) => Promise<boolean>
+  verify: (message: string, signature: string) => Promise<boolean | void>
   domain?: string
   statement?: string
   uri?: string
