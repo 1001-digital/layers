@@ -155,7 +155,7 @@ onBeforeUnmount(() => {
     > .dialog-content {
       display: grid;
       grid-template-rows: auto 1fr auto;
-      max-block-size: 80dvh;
+      max-block-size: calc(100dvh - 2 * var(--spacer));
 
       > h1:first-child,
       > .close {
