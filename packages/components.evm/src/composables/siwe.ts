@@ -44,6 +44,13 @@ function isUserRejection(e: unknown): boolean {
   return false
 }
 
+/**
+ * SIWE (Sign-In with Ethereum) composable.
+ *
+ * Session state (`isAuthenticated`, `session`) is shared globally (module-level singleton).
+ * UI state (`step`, `errorMessage`, `statusText`) is local to each `useSiwe()` call,
+ * so multiple components can drive their own sign-in UI independently.
+ */
 export const useSiwe = () => {
   const config = useConfig()
   const { address, chainId, connector } = useConnection()
@@ -93,18 +100,18 @@ export const useSiwe = () => {
 
     errorMessage.value = ''
 
+    if (import.meta.server) {
+      errorMessage.value = 'SIWE sign-in requires a browser environment.'
+      step.value = 'error'
+      return
+    }
+
     // Get nonce
     let nonce: string
     try {
       nonce = await options.getNonce()
     } catch {
       errorMessage.value = 'Failed to get authentication nonce.'
-      step.value = 'error'
-      return
-    }
-
-    if (typeof window === 'undefined') {
-      errorMessage.value = 'SIWE sign-in requires a browser environment.'
       step.value = 'error'
       return
     }
