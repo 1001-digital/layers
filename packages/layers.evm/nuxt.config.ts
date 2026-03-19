@@ -13,7 +13,9 @@ const componentsDir = fileURLToPath(
 // pnpm creates separate instances per dependency set — breaking
 // Vue's provide/inject (wagmi, EvmConfigKey) and causing CJS/ESM
 // interop failures when Vite serves the consuming app's copy raw.
-const componentsEvm = dirname(require.resolve('@1001-digital/components.evm/package.json'))
+const componentsEvm = dirname(
+  require.resolve('@1001-digital/components.evm/package.json'),
+)
 const wagmiVue = dirname(require.resolve('@wagmi/vue/package.json'))
 const eventemitter3 = dirname(require.resolve('eventemitter3/package.json'))
 
