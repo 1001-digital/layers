@@ -21,7 +21,6 @@
     "typecheck": "nuxi typecheck .playground"
   },
   "devDependencies": {
-    "@1001-digital/layers.base": "workspace:^",
     "@nuxt/eslint": "1.15.2",
     "@types/node": "^24.10.4",
     "eslint": "^9.39.2",
@@ -29,10 +28,8 @@
     "typescript": "^5.9.3",
     "vue": "3.5.30"
   },
-  "peerDependencies": {
-    "@1001-digital/layers.base": "workspace:^"
-  },
   "dependencies": {
+    "@1001-digital/layers.base": "workspace:^",
     "@1001-digital/components": "workspace:^",
     "@1001-digital/components.evm": "workspace:^",
     "@base-org/account": "^2.5.2",

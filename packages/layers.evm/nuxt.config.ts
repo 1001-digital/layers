@@ -1,13 +1,13 @@
-import { fileURLToPath } from 'node:url'
 import { createRequire } from 'node:module'
-import { dirname } from 'node:path'
+import { dirname, join } from 'node:path'
 import { clientOnlyComponents } from '@1001-digital/components.evm/client-only'
 
 const require = createRequire(import.meta.url)
 
-const componentsDir = fileURLToPath(
-  new URL('../components.evm/src/components', import.meta.url),
+const componentsEvm = dirname(
+  require.resolve('@1001-digital/components.evm/package.json'),
 )
+const componentsDir = join(componentsEvm, 'src', 'components')
 
 // Force certain imports to resolve to a single copy.
 // pnpm creates separate instances per dependency set — breaking
