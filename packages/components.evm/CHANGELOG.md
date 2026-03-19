@@ -1,5 +1,20 @@
 # @1001-digital/components.evm
 
+## 2.3.0
+
+### Minor Changes
+
+- [`4c6225e`](https://github.com/1001-digital/layers/commit/4c6225e3d0a7c9b90c393caacb4c8ba0efb4661f) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Refactor faulty string matching
+
+- [`e940bde`](https://github.com/1001-digital/layers/commit/e940bde5a01a0ff58b08f5e6f10b52450c32dd9e) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Explicit import resolving for evm components
+
+- [`4086f5a`](https://github.com/1001-digital/layers/commit/4086f5a394a1eefc8c32fcb9f7643347c4f0f0d2) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Handle wallets that are already connected
+
+### Patch Changes
+
+- Updated dependencies [[`e72c6e5`](https://github.com/1001-digital/layers/commit/e72c6e576eb4a973c0cb6c7c7c52c3e8e84e7ee2), [`3b2a682`](https://github.com/1001-digital/layers/commit/3b2a682afb88f99c28d00c7a1a1d42b7a0be4d72)]:
+  - @1001-digital/components@2.0.8
+
 ## 2.2.0
 
 ### Minor Changes

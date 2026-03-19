@@ -1,5 +1,13 @@
 # @1001-digital/components
 
+## 2.0.8
+
+### Patch Changes
+
+- [`e72c6e5`](https://github.com/1001-digital/layers/commit/e72c6e576eb4a973c0cb6c7c7c52c3e8e84e7ee2) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Fix default max dialog height
+
+- [`3b2a682`](https://github.com/1001-digital/layers/commit/3b2a682afb88f99c28d00c7a1a1d42b7a0be4d72) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Fix escape keydown catch on some browsers
+
 ## 2.0.7
 
 ### Patch Changes
