@@ -8,6 +8,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./client-only": "./src/client-only.ts",
+    "./package.json": "./package.json",
     "./*": "./src/*"
   },
   "files": [

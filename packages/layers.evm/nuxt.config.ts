@@ -11,8 +11,9 @@ const componentsDir = fileURLToPath(
 
 // Force certain imports to resolve to a single copy.
 // pnpm creates separate instances per dependency set — breaking
-// Vue's provide/inject (wagmi) and causing CJS/ESM interop
-// failures when Vite serves the consuming app's copy raw.
+// Vue's provide/inject (wagmi, EvmConfigKey) and causing CJS/ESM
+// interop failures when Vite serves the consuming app's copy raw.
+const componentsEvm = dirname(require.resolve('@1001-digital/components.evm/package.json'))
 const wagmiVue = dirname(require.resolve('@wagmi/vue/package.json'))
 const eventemitter3 = dirname(require.resolve('eventemitter3/package.json'))
 
@@ -57,6 +58,7 @@ export default defineNuxtConfig({
   vite: {
     resolve: {
       alias: {
+        '@1001-digital/components.evm': componentsEvm,
         '@wagmi/vue': wagmiVue,
         eventemitter3: eventemitter3,
       },
