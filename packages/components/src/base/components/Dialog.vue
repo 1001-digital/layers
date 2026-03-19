@@ -14,6 +14,7 @@
         :class="classes"
         tabindex="-1"
         @cancel.stop.prevent="closable && (open = false)"
+        @keydown.escape.stop.prevent="closable && (open = false)"
         @click="onDialogClick"
       >
         <div class="dialog-content">
