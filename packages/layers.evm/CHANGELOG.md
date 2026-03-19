@@ -1,5 +1,15 @@
 # @1001-digital/layers.evm
 
+## 2.5.0
+
+### Minor Changes
+
+- [`b53939d`](https://github.com/1001-digital/layers/commit/b53939d62f8d0153083d639e3b35b4dac1adea3f) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Fix resolving relative modules
+
+### Patch Changes
+
+- [`45724a3`](https://github.com/1001-digital/layers/commit/45724a356cc7bebe0bfd4a80f6ee1114bc52347d) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Fix import map
+
 ## 2.4.0
 
 ### Minor Changes
