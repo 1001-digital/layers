@@ -1,0 +1,114 @@
+<template>
+  <TagsInputRoot
+    v-model="model"
+    :disabled="disabled"
+    :name="name"
+    :required="required"
+    :delimiter="delimiter"
+    :duplicate="duplicate"
+    :max="max"
+    :add-on-blur="addOnBlur"
+    :add-on-paste="addOnPaste"
+    :add-on-tab="addOnTab"
+    class="tags-input"
+  >
+    <TagsInputItem
+      v-for="item in model"
+      :key="item"
+      :value="item"
+      as-child
+    >
+      <Tag dismissable>
+        <TagsInputItemText />
+        <template #dismiss>
+          <TagsInputItemDelete as-child>
+            <Button>
+              <Icon name="close" />
+            </Button>
+          </TagsInputItemDelete>
+        </template>
+      </Tag>
+    </TagsInputItem>
+    <TagsInputInput
+      :placeholder="placeholder"
+    />
+  </TagsInputRoot>
+</template>
+
+<script setup lang="ts">
+import {
+  TagsInputInput,
+  TagsInputItem,
+  TagsInputItemDelete,
+  TagsInputItemText,
+  TagsInputRoot,
+} from 'reka-ui'
+import Button from './Button.vue'
+import Icon from './Icon.vue'
+import Tag from './Tag.vue'
+
+const model = defineModel<string[]>({ default: () => [] })
+
+withDefaults(
+  defineProps<{
+    disabled?: boolean
+    name?: string
+    required?: boolean
+    placeholder?: string
+    delimiter?: string
+    duplicate?: boolean
+    max?: number
+    addOnBlur?: boolean
+    addOnPaste?: boolean
+    addOnTab?: boolean
+  }>(),
+  {
+    delimiter: ',',
+    max: 0,
+  },
+)
+</script>
+
+<style scoped>
+@layer components {
+  .tags-input {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--tags-input-gap);
+    padding: var(--ui-padding-block);
+    min-height: calc(var(--form-item-height) + 2 * var(--ui-padding-block));
+    border-radius: var(--border-radius);
+    background: var(--input-background);
+    box-shadow: var(--border-shadow);
+    transition: box-shadow var(--speed);
+
+    &:focus-within {
+      box-shadow: var(--border-shadow-highlight);
+    }
+
+    &[data-disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    > input {
+      all: unset;
+      flex: 1;
+      height: 100%;
+      height: calc(100% + 2 * var(--ui-padding-block));
+      margin-block: calc(-1 * var(--ui-padding-block));
+      min-inline-size: 5rem;
+      padding: 0 var(--ui-padding-inline);
+      font-family: var(--ui-font-family);
+      font-size: var(--ui-font-size);
+      color: var(--color);
+
+      &::placeholder {
+        color: var(--muted);
+      }
+    }
+  }
+
+}
+</style>

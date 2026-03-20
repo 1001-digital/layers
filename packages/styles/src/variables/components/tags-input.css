@@ -1,0 +1,4 @@
+:root {
+  --tags-input-gap: var(--spacer-sm);
+  --tags-input-padding: var(--spacer-sm);
+}
