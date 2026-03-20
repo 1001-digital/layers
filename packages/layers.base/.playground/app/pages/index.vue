@@ -11,6 +11,7 @@
         <a href="#alerts">Alerts</a>
         <a href="#cards">Cards</a>
         <a href="#tags">Tags</a>
+        <a href="#tags-input">Tags Input</a>
         <a href="#forms">Forms</a>
         <a href="#color-picker">Color Picker</a>
         <a href="#actions">Actions</a>
@@ -345,6 +346,44 @@
       </Card>
 
       <!-- Forms -->
+      <Card id="tags-input">
+        <h3>Tags Input</h3>
+
+        <div class="component-demo">
+          <h4>Default</h4>
+          <TagsInput
+            v-model="tagsValue"
+            placeholder="Add a tag..."
+          />
+          <code>Tags: {{ tagsValue }}</code>
+        </div>
+
+        <div class="component-demo">
+          <h4>With Initial Values</h4>
+          <TagsInput
+            v-model="tagsPreset"
+            placeholder="Add more..."
+          />
+        </div>
+
+        <div class="component-demo">
+          <h4>Max 3 Tags</h4>
+          <TagsInput
+            v-model="tagsMax"
+            placeholder="Max 3 tags..."
+            :max="3"
+          />
+        </div>
+
+        <div class="component-demo">
+          <h4>Disabled</h4>
+          <TagsInput
+            :model-value="['Read', 'Only']"
+            disabled
+          />
+        </div>
+      </Card>
+
       <Card id="forms">
         <h3>Form Components</h3>
 
@@ -1627,6 +1666,11 @@ const acceptTerms = ref(false)
 
 // FormTextarea demo data
 const textareaValue = ref('')
+
+// TagsInput demo data
+const tagsValue = ref<string[]>([])
+const tagsPreset = ref(['Vue', 'Nuxt', 'Reka UI'])
+const tagsMax = ref<string[]>([])
 
 // FormSwitch demo data
 const switchEnabled = ref(false)
