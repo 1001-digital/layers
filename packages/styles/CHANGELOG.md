@@ -1,5 +1,11 @@
 # @1001-digital/styles
 
+## 2.2.0
+
+### Minor Changes
+
+- [#14](https://github.com/1001-digital/layers/pull/14) [`0efc23b`](https://github.com/1001-digital/layers/commit/0efc23bf22cbe7c5cf6bacc7176b5fcb1d6c0d3d) Thanks [@yougogirldoteth](https://github.com/yougogirldoteth)! - Introduced TagsInput component
+
 ## 2.1.2
 
 ### Patch Changes
