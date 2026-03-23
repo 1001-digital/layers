@@ -1,5 +1,11 @@
 # @1001-digital/styles
 
+## 2.3.0
+
+### Minor Changes
+
+- [#16](https://github.com/1001-digital/layers/pull/16) [`0a40ad6`](https://github.com/1001-digital/layers/commit/0a40ad6d3b80dee3bd32a9ce24db411bb9eb18dd) Thanks [@yougogirldoteth](https://github.com/yougogirldoteth)! - Add small variant to Tag and TagsInput components
+
 ## 2.2.0
 
 ### Minor Changes
