@@ -10,7 +10,7 @@
     :add-on-blur="addOnBlur"
     :add-on-paste="addOnPaste"
     :add-on-tab="addOnTab"
-    class="tags-input"
+    :class="['tags-input', { small }]"
   >
     <TagsInputItem
       v-for="item in model"
@@ -18,11 +18,11 @@
       :value="item"
       as-child
     >
-      <Tag dismissable>
+      <Tag dismissable :small="small">
         <TagsInputItemText />
         <template #dismiss>
           <TagsInputItemDelete as-child>
-            <Button>
+            <Button :class="{ small }">
               <Icon name="close" />
             </Button>
           </TagsInputItemDelete>
@@ -61,6 +61,7 @@ withDefaults(
     addOnBlur?: boolean
     addOnPaste?: boolean
     addOnTab?: boolean
+    small?: boolean
   }>(),
   {
     delimiter: ',',
@@ -106,6 +107,19 @@ withDefaults(
 
       &::placeholder {
         color: var(--muted);
+      }
+    }
+
+    &.small {
+      gap: calc(var(--tags-input-gap) / 2);
+      padding: calc(var(--ui-padding-block) / 2);
+      min-height: calc(var(--form-item-height-sm) + var(--ui-padding-block));
+
+      > input {
+        height: 100%;
+        height: calc(100% + var(--ui-padding-block));
+        margin-block: calc(var(--ui-padding-block) / -2);
+        font-size: var(--font-xs);
       }
     }
   }
