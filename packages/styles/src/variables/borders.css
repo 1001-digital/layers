@@ -1,5 +1,6 @@
 :root {
   --border-width: 1px;
+  --border-radius-sm: var(--size-1);
   --border-radius: var(--size-2);
   --border-radius-lg: var(--size-3);
 
