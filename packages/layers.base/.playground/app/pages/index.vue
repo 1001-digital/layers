@@ -316,6 +316,15 @@
         </div>
 
         <div class="component-demo">
+          <h4>Small Tags</h4>
+          <Tags>
+            <Tag small>Small 1</Tag>
+            <Tag small>Small 2</Tag>
+            <Tag small>Small 3</Tag>
+          </Tags>
+        </div>
+
+        <div class="component-demo">
           <h4>Dismissable Tags</h4>
           <Tags>
             <Tag
@@ -342,6 +351,20 @@
           >
             Reset Tags
           </Button>
+        </div>
+
+        <div class="component-demo">
+          <h4>Small Dismissable Tags</h4>
+          <Tags>
+            <Tag
+              v-for="tag in ['Small Dismiss 1', 'Small Dismiss 2', 'Small Dismiss 3']"
+              :key="tag"
+              small
+              dismissable
+            >
+              {{ tag }}
+            </Tag>
+          </Tags>
         </div>
       </Card>
 
@@ -372,6 +395,15 @@
             v-model="tagsMax"
             placeholder="Max 3 tags..."
             :max="3"
+          />
+        </div>
+
+        <div class="component-demo">
+          <h4>Small</h4>
+          <TagsInput
+            v-model="smallTagsValue"
+            placeholder="Small tags..."
+            small
           />
         </div>
 
@@ -1669,6 +1701,7 @@ const textareaValue = ref('')
 
 // TagsInput demo data
 const tagsValue = ref<string[]>([])
+const smallTagsValue = ref<string[]>([])
 const tagsPreset = ref(['Vue', 'Nuxt', 'Reka UI'])
 const tagsMax = ref<string[]>([])
 

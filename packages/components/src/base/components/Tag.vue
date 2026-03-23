@@ -1,5 +1,5 @@
 <template>
-  <span class="tag">
+  <span :class="['tag', { small }]">
     <span>
       <slot />
     </span>
@@ -7,7 +7,7 @@
       v-if="dismissable"
       name="dismiss"
     >
-      <Button @click="emit('dismiss')">
+      <Button :class="{ small }" @click="emit('dismiss')">
         <Icon name="close" />
       </Button>
     </slot>
@@ -20,6 +20,7 @@ import Icon from './Icon.vue'
 
 defineProps<{
   dismissable?: boolean
+  small?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -51,6 +52,19 @@ const emit = defineEmits<{
 
       &:is(:hover, :active, :focus, .active) {
         background: var(--gray-z-1);
+      }
+    }
+  }
+
+  &.small {
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-xs);
+
+    &:deep(> span) {
+      padding: calc(var(--ui-padding-block) / 2) var(--spacer-sm);
+
+      + button {
+        border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
       }
     }
   }
