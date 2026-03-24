@@ -40,7 +40,6 @@ import { refDebounced } from '@vueuse/core'
 import { isAddress, type Address } from 'viem'
 import { CopyText, FormItem } from '@1001-digital/components'
 import { useEns } from '../composables/ens'
-import { shortAddress } from '../utils/addresses'
 import type { EvmAddressInputProps } from '../types'
 
 defineOptions({ inheritAttrs: false })
