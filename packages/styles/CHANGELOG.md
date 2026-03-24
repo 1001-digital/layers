@@ -1,5 +1,11 @@
 # @1001-digital/styles
 
+## 2.3.1
+
+### Patch Changes
+
+- [`0a9103e`](https://github.com/1001-digital/layers/commit/0a9103e382e268a44a25851649a7e90b80373d86) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Fix scroll container on body. Enable ENS resolution
+
 ## 2.3.0
 
 ### Minor Changes
