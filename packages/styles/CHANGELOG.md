@@ -1,5 +1,11 @@
 # @1001-digital/styles
 
+## 2.3.2
+
+### Patch Changes
+
+- [`53200b8`](https://github.com/1001-digital/layers/commit/53200b80d333c2326ccad67255c8691e4d08b01f) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Add `--dialog-close-color` CSS variable for customizing the Dialog close button color
+
 ## 2.3.1
 
 ### Patch Changes

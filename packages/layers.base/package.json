@@ -1,7 +1,7 @@
 {
   "name": "@1001-digital/layers.base",
   "type": "module",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "main": "./nuxt.config.ts",
   "files": [
     "app",
