@@ -176,6 +176,7 @@ onBeforeUnmount(() => {
       }
 
       > .close {
+        color: var(--dialog-close-color);
         position: absolute;
         top: 0;
         right: 0;
