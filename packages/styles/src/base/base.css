@@ -26,9 +26,6 @@ html {
 body {
   /* Font size separate from root em */
   font-size: var(--font-base);
-
-  /* Prevent horizontal overflow */
-  overflow-x: hidden;
 }
 
 /*
