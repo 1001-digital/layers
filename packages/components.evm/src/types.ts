@@ -1,5 +1,10 @@
 import type { Address, Hash, TransactionReceipt } from 'viem'
 
+// EvmAddressInput
+export interface EvmAddressInputProps {
+  placeholder?: string
+}
+
 // EvmAccount
 export interface EvmAccountProps {
   address?: Address

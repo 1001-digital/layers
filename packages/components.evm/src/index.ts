@@ -4,6 +4,7 @@ export type { EvmConfig, EvmChainConfig } from './config'
 
 // Component types
 export type {
+  EvmAddressInputProps,
   EvmAccountProps,
   EvmAvatarProps,
   EvmConnectEmits,
@@ -80,6 +81,7 @@ export { inAppWallet, prepareInAppWallet } from './connectors/inAppWallet'
 export { clientOnlyComponents } from './client-only'
 
 // Components
+export { default as EvmAddressInput } from './components/EvmAddressInput.vue'
 export { default as EvmAccount } from './components/EvmAccount.vue'
 export { default as EvmAvatar } from './components/EvmAvatar.vue'
 export { default as EvmConnect } from './components/EvmConnect.vue'

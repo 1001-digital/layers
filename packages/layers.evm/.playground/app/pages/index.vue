@@ -17,6 +17,13 @@
     <SignedIn />
 
     <Card>
+      <h2>Address Input</h2>
+      <FormLabel label="Recipient">
+        <EvmAddressInput v-model="address" />
+      </FormLabel>
+    </Card>
+
+    <Card>
       <h2>Pages</h2>
       <NuxtLink to="/connect">Inline Connect</NuxtLink>
       <NuxtLink to="/transaction-flow">Transaction Flow States</NuxtLink>
@@ -25,7 +32,9 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const address = ref('')
+</script>
 
 <style scoped>
 .playground {
