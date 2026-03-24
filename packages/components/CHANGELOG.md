@@ -1,5 +1,18 @@
 # @1001-digital/components
 
+## 2.3.0
+
+### Minor Changes
+
+- [`b985ba1`](https://github.com/1001-digital/layers/commit/b985ba17f1bcddef6431606c3a2cfd74969f35fc) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Add `CopyText` component for click-to-copy with "Copied..." feedback and `EvmAddressInput` form input with ENS resolution
+
+### Patch Changes
+
+- [`53200b8`](https://github.com/1001-digital/layers/commit/53200b80d333c2326ccad67255c8691e4d08b01f) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Add `--dialog-close-color` CSS variable for customizing the Dialog close button color
+
+- Updated dependencies [[`53200b8`](https://github.com/1001-digital/layers/commit/53200b80d333c2326ccad67255c8691e4d08b01f)]:
+  - @1001-digital/styles@2.3.2
+
 ## 2.2.1
 
 ### Patch Changes
