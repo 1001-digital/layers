@@ -3,6 +3,7 @@ import type { Address, Hash, TransactionReceipt } from 'viem'
 // EvmAccount
 export interface EvmAccountProps {
   address?: Address
+  resolveEns?: boolean
 }
 
 // EvmAvatar
