@@ -1,5 +1,12 @@
 # @1001-digital/components
 
+## 2.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`0a9103e`](https://github.com/1001-digital/layers/commit/0a9103e382e268a44a25851649a7e90b80373d86)]:
+  - @1001-digital/styles@2.3.1
+
 ## 2.2.0
 
 ### Minor Changes

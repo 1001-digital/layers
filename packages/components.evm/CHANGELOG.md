@@ -1,5 +1,14 @@
 # @1001-digital/components.evm
 
+## 2.4.3
+
+### Patch Changes
+
+- [`0a9103e`](https://github.com/1001-digital/layers/commit/0a9103e382e268a44a25851649a7e90b80373d86) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Fix scroll container on body. Enable ENS resolution
+
+- Updated dependencies []:
+  - @1001-digital/components@2.2.1
+
 ## 2.4.2
 
 ### Patch Changes
