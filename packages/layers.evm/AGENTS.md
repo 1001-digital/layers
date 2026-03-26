@@ -1,112 +1,163 @@
 # AGENTS.md
 
-Nuxt layer for building dAPPs (Ethereum-powered applications). Extends `@1001-digital/layers.base`.
+Nuxt layer for building Ethereum dAPPs. Extends `@1001-digital/layers.base`.
 
-## Setup commands
+## What this layer provides
 
-- Install deps: `pnpm install`
-- Start dev server: `pnpm dev`
-- Prepare types: `pnpm dev:prepare`
+When a Nuxt app extends `@1001-digital/layers.evm`, it gets everything from `layers.base` plus:
 
-## Dependencies
+- **18 auto-imported EVM components** (wallet connection, ENS, transaction flow, SIWE)
+- **Auto-imported composables** for chain config, ENS, gas, price feeds, SIWE, dweb
+- **Auto-imported utils** for addresses, chains, ETH formatting, caching, SIWE messages
+- **Wagmi plugin** that configures wallet connectors, chains, transports, and TanStack Query
+- **EvmConfig injection** providing chain/ENS/gateway config to all components
 
-- `@wagmi/vue` (^0.5.0) - Wallet connection, contract reads/writes, account state
-- `viem` - Type-safe Ethereum utilities, ABI encoding, transaction simulation
-- `@tanstack/vue-query` - Caching and synchronization of blockchain data
-- `@metamask/sdk` - MetaMask headless connector
-- `@walletconnect/ethereum-provider` - WalletConnect provider
-- `@base-org/account` - Base Account (Coinbase) connector
-- `@safe-global/safe-apps-sdk` - Safe apps integration
+## Setup
 
-## Wagmi Configuration
+```bash
+pnpm install
+pnpm dev           # Start playground dev server
+pnpm dev:prepare   # Generate Nuxt types
+```
 
-Uses modern wagmi 0.5.x patterns:
+### Environment variables
 
-- `useConnection` (not deprecated `useAccount`)
-- `useConnectionEffect` (not deprecated `useAccountEffect`)
-- `useSwitchConnection` (not deprecated `useSwitchAccount`)
+```bash
+NUXT_PUBLIC_EVM_WALLET_CONNECT_PROJECT_ID=""
+NUXT_PUBLIC_EVM_CHAINS_MAINNET_RPCS="url1 url2 url3"    # Space-separated
+NUXT_PUBLIC_EVM_CHAINS_SEPOLIA_RPCS="url1 url2"
+NUXT_PUBLIC_EVM_ENS_INDEXERS="url1 url2"                 # Space-separated
+NUXT_SSR=false                                           # Optional: disable SSR
+```
 
-Configured chains: resolved dynamically from `app.config.ts` via `evm.chains` map (supports mainnet, sepolia, holesky, optimism, arbitrum, base, polygon, localhost out of the box)
+## Key dependencies
 
-Connectors: injected, safe, baseAccount, metaMask, walletConnect, inAppWallet
+- `@wagmi/vue` (^0.5.0) + `@wagmi/vue/nuxt` module
+- `viem` (~2.47.1) — type-safe Ethereum utilities
+- `@tanstack/vue-query` — blockchain data caching
+- Connectors: `@metamask/sdk`, `@walletconnect/ethereum-provider`, `@base-org/account`, `@safe-global/safe-apps-sdk`
 
-## Components
+## Wagmi 0.5.x API
 
-All components are client-only (set via Nuxt config hook, not file suffix).
+Uses modern wagmi patterns — **do not use deprecated names**:
 
-- `EvmConnect` - Wallet connection UI with connector list, QR codes, in-app wallet
-- `EvmConnectDialog` - Button that opens EvmConnect in a dialog
-- `EvmConnectionStatus` - Renderless provider for connection state (`status`, `address`, `connector`)
-- `EvmAccount` - Address display with ENS shortening
-- `EvmAvatar` - ENS avatar with Opepicon fallback
-- `EvmProfile` - Full profile dialog with ENS data, network switcher, disconnect
-- `EvmSwitchNetwork` - Chain switching dialog (only renders if >1 chain configured)
-- `EvmTransactionFlow` - Multi-step transaction execution with signing and receipt tracking
-- `EvmConnectorQR` - Base QR code renderer
-- `EvmWalletConnectQR` - WalletConnect QR wrapper
-- `EvmMetaMaskQR` - MetaMask QR wrapper
-- `EvmWalletConnectWallets` - Searchable wallet explorer for WalletConnect
-- `EvmSiwe` - Sign-In with Ethereum (EIP-4361)
-- `EvmSiweDialog` - SIWE dialog wrapper
-- `EvmInAppWalletSetup` - Mnemonic-based browser wallet setup
-- `EvmSeedPhraseInput` - 12-word seed phrase input with BIP39 validation
+| Use | Not (deprecated) |
+|-----|-------------------|
+| `useConnection` | `useAccount` |
+| `useConnectionEffect` | `useAccountEffect` |
+| `useSwitchConnection` | `useSwitchAccount` |
 
-## Composables
-
-- `useChainConfig(key?)` - Get `{ id, blockExplorer }` for a named chain (defaults to `defaultChain`)
-- `useMainChainId()` - Get main chain ID from app config
-- `useBlockExplorer(key?)` - Get block explorer URL for a named chain
-- `useEnsureChainIdCheck()` - Validate/switch chain before transactions
-- `useBaseURL()` - Get base URL with trailing slash
-- `useEns(identifier)` - Resolve address or ENS name (cached, supports indexer/chain modes)
-- `useEnsWithAvatar(identifier)` - ENS resolution including avatar
-- `useEnsProfile(identifier)` - Full ENS profile (avatar, header, description, links)
-- `useGasPrice()` - Live gas price tracking (`wei`, `gwei`, `eth`)
-- `usePriceFeed()` - ETH/USD price from Chainlink oracle (hourly refresh)
-- `useSiwe()` - SIWE session state (`isAuthenticated`, `session`, `signIn`, `signOut`)
-- `useResolvedUrl(uri)` - Resolve IPFS/Arweave/HTTP URIs
-- `useWalletExplorer()` - WalletConnect wallet discovery with search and pagination
-
-## Utilities
-
-- `shortAddress(address, length)` - Truncate address for display
-- `formatETH(value, maxDecimals)` - Format ETH values
-- `resolveChain(id)` - Resolve chain ID to viem Chain object
-- `createCache(ttl, max)` - Generic cache with LRU eviction
-- `createSiweMessage(params)` - Create EIP-4361 message string
-- `formatPrice(num, digits)` - Format USD price
+Configured connectors: `injected`, `safe`, `baseAccount`, `metaMask` (headless), `walletConnect` (if project ID set), `inAppWallet` (if enabled in config).
 
 ## Configuration
 
-Static chain config lives in `app.config.ts` (safe to commit):
+### Static config (`app.config.ts`)
 
 ```ts
 evm: {
   title: 'My dApp',
-  defaultChain: 'mainnet',
+  defaultChain: 'mainnet',            // Key into chains map; wagmi uses it as chains[0]
   chains: {
     mainnet: { id: 1, blockExplorer: 'https://etherscan.io' },
+    sepolia: { id: 11155111, blockExplorer: 'https://sepolia.etherscan.io' },
   },
-  ens: { mode: 'indexer' },
+  ens: { mode: 'indexer' },           // 'indexer' (ponder-ens API) or 'chain' (on-chain)
+  ipfsGateway: 'https://ipfs.io/ipfs/',
+  arweaveGateway: 'https://arweave.net/',
   inAppWallet: { enabled: false },
 }
 ```
 
-Sensitive RPC URLs live in `runtimeConfig.public.evm` (env-driven):
+Supported chain IDs: resolved via `resolveChain(id)` from viem — supports mainnet, sepolia, holesky, optimism, arbitrum, base, polygon, localhost, and any viem-supported chain.
 
-```bash
-NUXT_PUBLIC_EVM_WALLET_CONNECT_PROJECT_ID=""
-NUXT_PUBLIC_EVM_CHAINS_MAINNET_RPCS="url1 url2 url3"
-NUXT_PUBLIC_EVM_ENS_INDEXERS="url1 url2"
-```
+### Runtime config (env-driven)
 
-## Key directories
+RPC URLs and sensitive values go in `runtimeConfig.public.evm`. Transports are built from space-separated RPC URLs with automatic fallback: custom RPCs → injected connector → default HTTP.
 
-Components, composables, and utilities live in `@1001-digital/components.evm` and are re-exported by this layer.
+## Components (all client-only)
+
+All EVM components are marked client-only via Nuxt config hook. Client-only list: `EvmAccount`, `EvmAddressInput`, `EvmConnect`, `EvmConnectDialog`, `EvmConnectionStatus`, `EvmConnectorQR`, `EvmMetaMaskQR`, `EvmInAppWalletSetup`, `EvmTransactionFlow`, `EvmWalletConnectQR`, `EvmSiwe`, `EvmSiweDialog`, `EvmSidebarProfile`.
+
+### Wallet connection
+
+- `EvmConnect` — full wallet connection UI with connector list, QR codes, in-app wallet setup
+- `EvmConnectDialog` — wraps EvmConnect in a dialog; emits `connected`, `disconnected`
+- `EvmConnectionStatus` — renderless provider exposing `status`, `address`, `connector` via slot props
+
+### Profile & display
+
+- `EvmAccount` — address display with optional ENS resolution
+- `EvmAvatar` — ENS avatar with Opepicon fallback
+- `EvmProfile` — full profile dialog (ENS data, network switcher, disconnect)
+- `EvmSidebarProfile` — compact profile for sidebar layouts
+
+### Network
+
+- `EvmSwitchNetwork` — chain switching dialog (only renders if >1 chain configured)
+
+### Transactions
+
+- `EvmTransactionFlow` — multi-step flow: request → sign → confirm → receipt; props: `chain`, `text`, `request`, `delayAfter`, `skipConfirmation`, `autoCloseSuccess`, `dismissable`; emits `complete(receipt)`, `cancel`
+
+### QR & wallet discovery
+
+- `EvmConnectorQR` — base QR renderer
+- `EvmMetaMaskQR` — MetaMask deep-link QR
+- `EvmWalletConnectQR` — WalletConnect pairing QR
+- `EvmWalletConnectWallets` — searchable wallet explorer
+
+### Authentication
+
+- `EvmSiwe` — Sign-In with Ethereum (EIP-4361); requires `getNonce` and `verify` callbacks
+- `EvmSiweDialog` — wraps EvmSiwe in a dialog
+- `EvmAddressInput` — address input with ENS resolution
+
+### In-app wallet
+
+- `EvmInAppWalletSetup` — mnemonic-based browser wallet creation
+- `EvmSeedPhraseInput` — 12-word seed phrase input with BIP39 validation
+
+## Composables
+
+- `useEvmConfig()` — injected EVM configuration
+- `useChainConfig(key?)` — `{ id, blockExplorer }` for a named chain
+- `useMainChainId()` — main chain ID from config
+- `useBlockExplorer(key?)` — block explorer URL
+- `useEnsureChainIdCheck()` — validate/switch chain before transactions
+- `useBaseURL()` — base URL with trailing slash
+- `useEns(identifier)` — resolve address or ENS name (cached, indexer/chain modes)
+- `useEnsWithAvatar(identifier)` — ENS + avatar
+- `useEnsProfile(identifier)` — full ENS profile (avatar, header, description, links)
+- `useGasPrice()` — live gas price (`wei`, `gwei`, `eth`)
+- `usePriceFeed()` — ETH/USD from Chainlink oracle (hourly refresh)
+- `useSiwe()` — SIWE session state (`isAuthenticated`, `session`, `signIn`, `signOut`)
+- `useDwebClient()` — IPFS/Arweave fetch client
+- `useResolvedUrl(uri)` — resolve IPFS/Arweave/HTTP URIs reactively
+- `useWalletExplorer()` — WalletConnect wallet discovery with search/pagination
+
+## Utilities
+
+- `shortAddress(address, length)` — truncate address for display
+- `formatETH(value, maxDecimals)` — format ETH values
+- `resolveChain(id)` — chain ID to viem Chain object
+- `createCache(ttl, max)` — LRU cache with TTL
+- `createSiweMessage(params)` — create EIP-4361 message
+- `formatPrice(num, digits)` — format USD price
+- `getEvmConfig()` — get EvmConfig (non-composable, for utils)
+- `inAppWallet()`, `prepareInAppWallet()` — in-app wallet connector factory
+
+## Vite configuration
+
+The `nuxt.config.ts` applies critical Vite aliases to prevent duplicate `@wagmi/vue` and `eventemitter3` instances (pnpm hoisting creates separate copies that break Vue provide/inject). It also pre-bundles heavy deps (`@metamask/sdk`, `@walletconnect/ethereum-provider`, `@safe-global/safe-apps-sdk`) for faster dev startup.
+
+## Directory structure
 
 ```
 app/
-├── composables/         # Re-exports from components.evm
-├── plugins/             # Wagmi + price feed setup
-└── utils/               # Re-exports from components.evm
+├── app.config.ts             # EVM defaults + AppConfigInput type augmentation
+├── composables/              # Re-exports from @1001-digital/components.evm
+├── plugins/
+│   └── wagmi.ts              # Creates wagmiConfig, installs WagmiPlugin + VueQueryPlugin
+└── utils/                    # Re-exports from @1001-digital/components.evm
+nuxt.config.ts                # Extends layers.base, wagmi module, vite aliases
 ```

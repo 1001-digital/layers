@@ -1,45 +1,119 @@
 # AGENTS.md
 
-EVM component library (`@1001-digital/components.evm`) — Ethereum wallet components and composables.
+EVM component library (`@1001-digital/components.evm`) — Ethereum wallet components, composables, and utilities. Not a Nuxt layer — used by `layers.evm` which auto-imports everything.
 
-Peer-depends on `@1001-digital/components` for base UI components.
+## Peer dependencies
 
-## Code style
+- `vue` (^3.5.0)
+- `@1001-digital/components` (workspace)
+- `@wagmi/vue` (>=0.5.0), `@wagmi/core` (>=3.0.0), `viem` (>=2.0.0)
+- `@vueuse/core` (>=14.0.0)
 
-- TypeScript
-- Single quotes, no semicolons
+## Key dependencies
 
-## Structure
+- `@1001-digital/dweb-fetch` — IPFS/Arweave fetch
+- `@1001-digital/wagmi-in-app-wallet` — browser-based wallet connector
+- `qrcode` — QR code generation
 
-- `src/` — Components, composables, utils, and connectors
-- `src/index.ts` — Main entry point (barrel exports)
+## Exports
 
-## Components
+Entry point: `src/index.ts` (barrel export). Also exports:
+- `./client-only` — array of client-only components
+- `./package.json` — package metadata (used by layers.evm for path resolution)
+- `./*` — direct access to source files
 
-Ethereum wallet components (require `@wagmi/vue` and `viem`):
+## Client-only components
 
-- EvmConnect, EvmConnectDialog, EvmAccount, EvmConnectionStatus
-- EvmProfile, EvmAvatar, EvmSiwe, EvmSiweDialog
-- EvmTransactionFlow, EvmSwitchNetwork
-- EvmConnectorQR, EvmWalletConnectQR, EvmWalletConnectWallets, EvmMetaMaskQR
-- EvmInAppWalletSetup, EvmSeedPhraseInput
+Must be rendered client-side: `EvmAccount`, `EvmAddressInput`, `EvmConnect`, `EvmConnectDialog`, `EvmConnectionStatus`, `EvmConnectorQR`, `EvmMetaMaskQR`, `EvmInAppWalletSetup`, `EvmTransactionFlow`, `EvmWalletConnectQR`, `EvmSiwe`, `EvmSiweDialog`, `EvmSidebarProfile`.
+
+## Components (18)
+
+- `EvmConnect` — wallet connection UI (connector list, QR, in-app wallet)
+- `EvmConnectDialog` — EvmConnect in a dialog; emits `connected({ address })`, `disconnected`
+- `EvmConnectionStatus` — renderless provider: `status`, `address`, `connector` via slot props
+- `EvmAccount` — address display with optional ENS (`address?`, `resolveEns?`)
+- `EvmAvatar` — ENS avatar with Opepicon fallback (`address?`, `large?`)
+- `EvmProfile` — profile dialog: ENS data, network switcher, disconnect
+- `EvmSidebarProfile` — compact sidebar profile
+- `EvmSwitchNetwork` — chain switcher (hidden if only 1 chain)
+- `EvmTransactionFlow` — request → sign → confirm → receipt; emits `complete(receipt)`, `cancel`
+- `EvmConnectorQR` — base QR renderer
+- `EvmMetaMaskQR` — MetaMask deep-link QR
+- `EvmWalletConnectQR` — WalletConnect pairing QR
+- `EvmWalletConnectWallets` — searchable wallet explorer
+- `EvmSiwe` — Sign-In with Ethereum; requires `getNonce()` and `verify()` callbacks
+- `EvmSiweDialog` — SIWE dialog wrapper
+- `EvmAddressInput` — address/ENS input field
+- `EvmInAppWalletSetup` — mnemonic wallet creation flow
+- `EvmSeedPhraseInput` — 12-word seed phrase input with BIP39 validation
+
+All props/emits interfaces are typed in `src/types.ts`.
+
+## Configuration
+
+`EvmConfig` interface (injected via `EvmConfigKey`):
+
+```ts
+interface EvmConfig {
+  title?: string
+  defaultChain?: string
+  chains: Record<string, { id: number; blockExplorer?: string }>
+  ens?: { mode?: 'indexer' | 'chain'; indexers?: string[] }
+  ipfsGateway?: string
+  arweaveGateway?: string
+  baseURL?: string
+  walletConnectProjectId?: string
+}
+```
+
+`useEvmConfig()` retrieves the injected config (falls back to `defaultEvmConfig`).
 
 ## Composables
 
-- `useEvmConfig()` — EVM configuration
-- `useChainConfig()`, `useMainChainId()`, `useBlockExplorer()` — Chain utilities
-- `useEns()`, `useEnsWithAvatar()`, `useEnsProfile()` — ENS resolution
-- `useGasPrice()`, `usePriceFeed()` — Price feeds
-- `useDwebClient()` — Decentralized web fetch client (IPFS, IPNS, Arweave)
-- `useResolvedUrl()` — Reactive URI resolution
-- `useSiwe()` — Sign-In with Ethereum
-- `useWalletExplorer()` — Wallet explorer
-- `useBaseURL()` — Base URL helper
+- `useChainConfig(key?)` — `{ id, blockExplorer }` for named chain
+- `useMainChainId()` — main chain ID
+- `useBlockExplorer(key?)` — block explorer URL
+- `useEnsureChainIdCheck()` — validate/switch chain
+- `useBaseURL()` — base URL with trailing slash
+- `useEns(identifier)` — resolve address ↔ ENS name (cached, dual-mode indexer/chain)
+- `useEnsWithAvatar(identifier)` — ENS + avatar
+- `useEnsProfile(identifier)` — full profile (avatar, header, description, links)
+- `useGasPrice()` — live gas price (`wei`, `gwei`, `eth`)
+- `usePriceFeed()` — ETH/USD from Chainlink (hourly)
+- `useSiwe()` — SIWE session (`isAuthenticated`, `session`, `signIn`, `signOut`)
+- `useDwebClient()` — IPFS/Arweave fetch client
+- `useResolvedUrl(uri)` — reactive URI resolution
+- `useWalletExplorer()` — WalletConnect wallet discovery
 
 ## Utilities
 
-- `shortAddress()` — Truncate address for display
-- `formatETH()` — Format ETH values
-- `resolveChain()` — Resolve chain ID to viem Chain object
-- `createCache()` — Cache factory
-- ENS utilities, SIWE message creation, price formatting
+- `shortAddress(address, length)` — truncate address
+- `formatETH(value, maxDecimals)` — format ETH
+- `resolveChain(id)` — chain ID → viem Chain
+- `createCache(ttl, max)` — LRU cache with TTL
+- `createSiweMessage(params)` — EIP-4361 message
+- `formatPrice(num, digits)` — format USD price
+- `stringifyJSON`, `parseJSON` — safe JSON helpers
+- `ensCache`, `fetchEnsFromIndexer`, `fetchEnsFromChain` — ENS resolution internals
+- `createDwebFetch` — re-exported from `@1001-digital/dweb-fetch`
+
+## Connectors
+
+- `inAppWallet()` — wagmi connector for browser-based wallet
+- `prepareInAppWallet()` — prepare wallet from mnemonic
+
+## Directory structure
+
+```
+src/
+├── index.ts                  # Barrel export
+├── client-only.ts            # Client-only component list
+├── config.ts                 # EvmConfig interface, injection key, useEvmConfig
+├── types.ts                  # All component Props/Emits interfaces
+├── components/               # 18 Vue SFC components
+├── composables/              # 8 composable files
+├── utils/                    # 8 utility files
+├── connectors/
+│   └── inAppWallet.ts        # Browser wallet connector
+└── assets/wallets/           # SVG icons for wallet connectors
+```
