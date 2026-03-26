@@ -1,5 +1,11 @@
 # @1001-digital/components
 
+## 2.4.0
+
+### Minor Changes
+
+- [`23fb107`](https://github.com/1001-digital/layers/commit/23fb107ae9647332ac5ebf85ad4053051c878b86) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Update opepicons to v1 (SVG-based rendering)
+
 ## 2.3.0
 
 ### Minor Changes
