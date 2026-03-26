@@ -1,15 +1,14 @@
 <template>
-  <img
-    v-if="dataUrl"
-    :src="dataUrl"
-    :alt="seed"
+  <span
+    v-if="svg"
     class="opepicon"
+    v-html="svg"
   />
 </template>
 
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue'
-import { createIcon } from '@visualizevalue/opepicons'
+import { renderSVG } from '@visualizevalue/opepicons'
 
 const props = withDefaults(
   defineProps<{
@@ -21,15 +20,14 @@ const props = withDefaults(
   },
 )
 
-const dataUrl = ref<string | null>(null)
+const svg = ref<string | null>(null)
 watchEffect(() => {
   if (!props.seed) {
-    dataUrl.value = null
+    svg.value = null
     return
   }
 
-  const canvas = createIcon({ seed: props.seed, size: props.size })
-  dataUrl.value = canvas.toDataURL()
+  svg.value = renderSVG({ seed: props.seed, size: props.size })
 })
 </script>
 
@@ -39,7 +37,13 @@ watchEffect(() => {
     width: var(--size-5);
     height: var(--size-5);
     border-radius: 50%;
-    object-fit: cover;
+    overflow: hidden;
+    display: inline-flex;
+  }
+
+  .opepicon :deep(svg) {
+    width: 100%;
+    height: 100%;
   }
 }
 </style>
