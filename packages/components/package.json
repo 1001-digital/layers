@@ -9,6 +9,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./client-only": "./src/client-only.ts",
+    "./base/icons": "./src/base/icons.ts",
+    "./base/link": "./src/base/link.ts",
     "./*": "./src/*"
   },
   "files": [
