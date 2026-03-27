@@ -1,5 +1,14 @@
 # @1001-digital/layers.base
 
+## 2.0.12
+
+### Patch Changes
+
+- [`e7e9466`](https://github.com/1001-digital/layers/commit/e7e94667cb9b7318a77fc849ecb83e6dd5d227d9) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Fix provide/inject module identity by importing LinkComponentKey and IconAliasesKey from deep subpaths, and add explicit package exports for `./base/icons` and `./base/link` so TypeScript resolves them correctly
+
+- Updated dependencies [[`e7e9466`](https://github.com/1001-digital/layers/commit/e7e94667cb9b7318a77fc849ecb83e6dd5d227d9)]:
+  - @1001-digital/components@2.4.1
+
 ## 2.0.11
 
 ### Patch Changes
