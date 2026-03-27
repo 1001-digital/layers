@@ -1,5 +1,11 @@
 # @1001-digital/components
 
+## 2.4.2
+
+### Patch Changes
+
+- [`d69112e`](https://github.com/1001-digital/layers/commit/d69112e461addd13a8a7bebcec7c62fbf42770dc) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Open combobox by default on focus
+
 ## 2.4.1
 
 ### Patch Changes
