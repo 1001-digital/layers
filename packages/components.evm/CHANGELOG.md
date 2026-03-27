@@ -1,5 +1,14 @@
 # @1001-digital/components.evm
 
+## 2.5.2
+
+### Patch Changes
+
+- [`5081b62`](https://github.com/1001-digital/layers/commit/5081b62e54af4f9db24e0a44e0f6b6ba0b427cf4) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Fix uncaught error when ENS avatar uses an unsupported URI scheme (e.g. eip155://) by catching the resolution failure and falling back to the identicon
+
+- Updated dependencies [[`e7e9466`](https://github.com/1001-digital/layers/commit/e7e94667cb9b7318a77fc849ecb83e6dd5d227d9)]:
+  - @1001-digital/components@2.4.1
+
 ## 2.5.1
 
 ### Patch Changes
