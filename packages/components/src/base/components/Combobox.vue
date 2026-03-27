@@ -15,6 +15,7 @@
         :placeholder="placeholder"
         :display-value="resolveDisplayValue"
         :disabled="disabled"
+        @focus="open = true"
       />
       <ComboboxTrigger class="combobox-trigger">
         <Icon name="chevron-down" />
