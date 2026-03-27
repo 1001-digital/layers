@@ -32,7 +32,11 @@ export function useResolvedUrl(
         resolved.value = ''
         return
       }
-      resolved.value = await dweb.resolveUrl(val)
+      try {
+        resolved.value = await dweb.resolveUrl(val)
+      } catch {
+        resolved.value = ''
+      }
     },
     { immediate: true },
   )
