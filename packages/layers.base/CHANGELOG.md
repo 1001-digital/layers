@@ -1,5 +1,11 @@
 # @1001-digital/layers.base
 
+## 2.0.14
+
+### Patch Changes
+
+- [`ed9d490`](https://github.com/1001-digital/layers/commit/ed9d49087739e188aee4d1bc719ffaf698ff98f3) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Enforce correct loading of css layers.
+
 ## 2.0.13
 
 ### Patch Changes
