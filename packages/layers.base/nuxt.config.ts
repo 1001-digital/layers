@@ -49,6 +49,17 @@ export default defineNuxtConfig({
     },
   },
 
+  app: {
+    head: {
+      style: [
+        {
+          textContent:
+            '@layer variables, reset, base, components, utilities;',
+        },
+      ],
+    },
+  },
+
   css: ['@1001-digital/styles'],
 
   compatibilityDate: '2026-01-28',
