@@ -45,14 +45,19 @@ const src = useResolvedUrl(() => ensData.value?.data?.avatar)
 <style scoped>
 .evm-avatar {
   width: var(--size-5);
+  min-width: var(--size-5);
   height: var(--size-5);
+  min-height: var(--size-5);
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   background-color: var(--background);
   object-fit: cover;
 
   &.large {
     width: var(--size-9);
+    min-width: var(--size-9);
     height: var(--size-9);
+    min-height: var(--size-9);
   }
 }
 </style>
