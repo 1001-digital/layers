@@ -1,5 +1,11 @@
 # @1001-digital/components
 
+## 2.4.4
+
+### Patch Changes
+
+- [`f2fae71`](https://github.com/1001-digital/layers/commit/f2fae717e64cfe460c5a6b79376b31047a25258c) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Add Embed component
+
 ## 2.4.3
 
 ### Patch Changes
