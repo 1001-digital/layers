@@ -8,4 +8,5 @@ export const clientOnlyComponents = [
   'Dropdown',
   'FormDatePicker',
   'ColorPicker',
+  'Embed',
 ]
