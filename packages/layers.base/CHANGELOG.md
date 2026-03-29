@@ -1,5 +1,12 @@
 # @1001-digital/layers.base
 
+## 2.0.15
+
+### Patch Changes
+
+- Updated dependencies [[`aac9359`](https://github.com/1001-digital/layers/commit/aac93597b81a992f5ff03c99d1ac23c295636cd7)]:
+  - @1001-digital/components@2.4.3
+
 ## 2.0.14
 
 ### Patch Changes
