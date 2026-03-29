@@ -1,5 +1,12 @@
 # @1001-digital/components.evm
 
+## 2.5.4
+
+### Patch Changes
+
+- Updated dependencies [[`aac9359`](https://github.com/1001-digital/layers/commit/aac93597b81a992f5ff03c99d1ac23c295636cd7)]:
+  - @1001-digital/components@2.4.3
+
 ## 2.5.3
 
 ### Patch Changes
