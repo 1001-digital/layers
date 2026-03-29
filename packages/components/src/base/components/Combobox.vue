@@ -144,9 +144,11 @@ const resolveDisplayValue = (val: any) => {
   .combobox-input {
     all: unset;
     flex: 1;
-    padding: var(--size-2) var(--size-3);
+    height: 32px;
+    padding-inline: var(--size-3);
     font-family: var(--ui-font-family);
     font-size: var(--ui-font-size);
+    line-height: var(--ui-line-height);
     color: var(--color);
     min-inline-size: 0;
 
