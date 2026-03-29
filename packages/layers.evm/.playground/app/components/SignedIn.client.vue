@@ -104,6 +104,23 @@
         </div>
       </template>
     </EvmTransactionFlow>
+    <EvmTransactionFlow
+      :chain="10"
+      :request="sendOptimismTransaction"
+      :text="{
+        title: { confirm: 'Confirm on Optimism' },
+        lead: {
+          confirm: 'This transaction targets Optimism (chain ID 10).',
+        },
+        action: { confirm: 'Send' },
+      }"
+    >
+      <template #start="{ start }">
+        <Actions>
+          <Button @click="start">Open Numeric Chain</Button>
+        </Actions>
+      </template>
+    </EvmTransactionFlow>
   </Card>
 </template>
 

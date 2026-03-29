@@ -6,7 +6,14 @@ interface ChainConfig {
   blockExplorer: string
 }
 
-export const useChainConfig = (key?: string): ChainConfig => {
+export const useChainConfig = (key?: string | number): ChainConfig => {
+  if (typeof key === 'number') {
+    return {
+      id: key,
+      blockExplorer: 'https://etherscan.io',
+    }
+  }
+
   const evmConfig = useEvmConfig()
   const resolvedKey = key || evmConfig.defaultChain || 'mainnet'
   const chain = evmConfig.chains[resolvedKey]
@@ -19,10 +26,10 @@ export const useChainConfig = (key?: string): ChainConfig => {
 
 export const useMainChainId = () => useChainConfig().id
 
-export const useBlockExplorer = (key?: string) =>
+export const useBlockExplorer = (key?: string | number) =>
   useChainConfig(key).blockExplorer
 
-export const useEnsureChainIdCheck = (key?: string) => {
+export const useEnsureChainIdCheck = (key?: string | number) => {
   const chainId = useChainConfig(key).id
   const { mutateAsync: switchChain } = useSwitchChain()
   const { chainId: currentChainId } = useConnection()

@@ -88,7 +88,7 @@ export interface TransactionFlowText {
 }
 
 export interface EvmTransactionFlowProps {
-  chain?: string
+  chain?: string | number
   text?: TransactionFlowText
   request?: () => Promise<Hash>
   delayAfter?: number
