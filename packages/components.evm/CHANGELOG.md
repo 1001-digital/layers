@@ -1,5 +1,11 @@
 # @1001-digital/components.evm
 
+## 2.6.0
+
+### Minor Changes
+
+- [`23d5c51`](https://github.com/1001-digital/layers/commit/23d5c51dfe74a99d73c39b961833f9794b69ee8b) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Fix chain config
+
 ## 2.5.4
 
 ### Patch Changes
