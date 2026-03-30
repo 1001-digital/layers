@@ -21,12 +21,18 @@ const address = computed(() => props.address)
 const { address: currentAddress } = useConnection()
 
 const isCurrent = computed<boolean>(
-  () => currentAddress.value?.toLowerCase() === address.value?.toLowerCase(),
+  () =>
+    !!address.value &&
+    currentAddress.value?.toLowerCase() === address.value?.toLowerCase(),
 )
 
-const ensIdentifier = computed(() => props.resolveEns ? props.address : undefined)
+const ensIdentifier = computed(() =>
+  props.resolveEns ? props.address : undefined,
+)
 const { data: ensData } = useEns(ensIdentifier)
 const ens = computed(() => ensData.value?.ens ?? undefined)
 
-const display = computed<string>(() => ens.value || shortAddress(address.value!))
+const display = computed<string>(
+  () => ens.value || (address.value ? shortAddress(address.value) : ''),
+)
 </script>
