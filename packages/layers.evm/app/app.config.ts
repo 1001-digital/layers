@@ -29,6 +29,8 @@ declare module '@nuxt/schema' {
     evm?: {
       /** App title */
       title?: string
+      /** App logo URL shown during wallet connection */
+      appLogoUrl?: string
       /** Key into `chains` that serves as the app's primary chain */
       defaultChain?: string
       /** Named chain definitions */

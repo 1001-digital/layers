@@ -7,6 +7,7 @@ export interface EvmChainConfig {
 
 export interface EvmConfig {
   title?: string
+  appLogoUrl?: string
   defaultChain?: string
   chains: Record<string, EvmChainConfig>
   ens?: {

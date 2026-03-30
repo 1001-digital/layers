@@ -37,6 +37,7 @@ export default defineNuxtPlugin({
     }
 
     const title = appConfig.evm?.title || 'EVM Layer'
+    const appLogoUrl = appConfig.evm?.appLogoUrl
     const chainEntries = appConfig.evm?.chains || {}
 
     // Build chains and transports from config
@@ -70,12 +71,13 @@ export default defineNuxtPlugin({
       safe(),
       baseAccount({
         appName: title,
+        appLogoUrl,
       }),
       metaMask({
         headless: true,
         dappMetadata: {
           name: title,
-          iconUrl: '',
+          iconUrl: appLogoUrl || '',
           url: '',
         },
       }),
@@ -110,6 +112,7 @@ export default defineNuxtPlugin({
 
     const evmConfig: EvmConfig = {
       title,
+      appLogoUrl,
       defaultChain: appConfig.evm?.defaultChain || 'mainnet',
       chains: Object.fromEntries(
         Object.entries(chainEntries).map(([key, entry]) => [
