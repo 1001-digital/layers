@@ -1,5 +1,27 @@
 # @1001-digital/layers.evm
 
+## 2.6.0
+
+### Minor Changes
+
+- [`7229122`](https://github.com/1001-digital/layers/commit/7229122fc8cc6902bdde337f03cab752cb8e2e8f) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Implement new metamask/connect-evm library
+
+- [`007a1b2`](https://github.com/1001-digital/layers/commit/007a1b2cd50567b29dd2e4c49cad86ff433cb779) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Extract WAGMI plugin registration vs config into separate concerns
+
+- [`3e4d23e`](https://github.com/1001-digital/layers/commit/3e4d23e59fe8785a31dd820a7b1180df03d20120) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Update viem and wagmi to their latest versions.
+
+### Patch Changes
+
+- [`db17ba9`](https://github.com/1001-digital/layers/commit/db17ba9a7b3049af31ca5b630a9050ef1096ba12) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Implement automatic manifest.json generation for safe app browser integration
+  Configure safe to allow safe.global to connect via an iframe
+
+- [`e40fe80`](https://github.com/1001-digital/layers/commit/e40fe80e84d59c41bc11862bee790eda20a3e97f) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Upgrade @base-org/account and @walletconnnect/ethereum-provider packages
+
+- Updated dependencies [[`6950d1a`](https://github.com/1001-digital/layers/commit/6950d1a8475092b71e6297ae7b7e4b03e1a3b1e8), [`3e4d23e`](https://github.com/1001-digital/layers/commit/3e4d23e59fe8785a31dd820a7b1180df03d20120)]:
+  - @1001-digital/components.evm@2.7.0
+  - @1001-digital/components@2.4.5
+  - @1001-digital/layers.base@2.0.17
+
 ## 2.5.11
 
 ### Patch Changes
