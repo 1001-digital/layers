@@ -1,5 +1,11 @@
 # @1001-digital/styles
 
+## 2.3.3
+
+### Patch Changes
+
+- [`6950d1a`](https://github.com/1001-digital/layers/commit/6950d1a8475092b71e6297ae7b7e4b03e1a3b1e8) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Fix cross-browser issues, harden components, and ensure correct chain during SIWE signature
+
 ## 2.3.2
 
 ### Patch Changes
