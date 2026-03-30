@@ -77,8 +77,7 @@ export function createWagmiConfig(options: CreateOptions): {
     const chain = resolveChain(entry.id)
     chains.push(chain)
 
-    const rpcs =
-      runtimeChains[key]?.rpcs?.split(/\s+/).filter(Boolean) || []
+    const rpcs = runtimeChains[key]?.rpcs?.split(/\s+/).filter(Boolean) || []
     const transportList: Transport[] = rpcs.map((url: string) =>
       url.startsWith('wss://') ? webSocket(url) : http(url),
     )
@@ -91,7 +90,9 @@ export function createWagmiConfig(options: CreateOptions): {
   // Connectors
   const connectors: CreateConnectorFn[] = [
     injected(),
-    safe(),
+    safe({
+      allowedDomains: [/app.safe.global$/],
+    }),
     baseAccount({
       appName: title,
       appLogoUrl,

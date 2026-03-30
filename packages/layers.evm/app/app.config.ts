@@ -50,6 +50,13 @@ declare module '@nuxt/schema' {
         /** Enable the integrated in-app wallet option */
         enabled?: boolean
       }
+      /** Safe App manifest overrides (served at /manifest.json) */
+      safe?: {
+        /** App description for Safe UI */
+        description?: string
+        /** Relative icon path (defaults to appLogoUrl) */
+        iconPath?: string
+      }
     }
   }
 }
