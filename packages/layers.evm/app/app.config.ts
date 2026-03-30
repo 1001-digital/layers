@@ -1,6 +1,7 @@
 export default defineAppConfig({
   evm: {
     title: 'EVM Layer',
+    appLogoUrl: '',
     defaultChain: 'mainnet',
     chains: {
       mainnet: {

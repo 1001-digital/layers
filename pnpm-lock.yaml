@@ -162,6 +162,9 @@ importers:
       '@types/node':
         specifier: ^24.10.4
         version: 24.10.9
+      '@wagmi/core':
+        specifier: 3.4.1
+        version: 3.4.1(@tanstack/query-core@5.95.2)(@types/react@19.2.7)(ox@0.14.7(typescript@5.9.3)(zod@3.25.76))(react@19.2.4)(typescript@5.9.3)(viem@2.47.6(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
       eslint:
         specifier: ^9.39.2
         version: 9.39.2(jiti@2.6.1)
