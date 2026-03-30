@@ -8,7 +8,7 @@ let watcherCount = 0
 
 export const useGasPrice = () => {
   const config = useConfig()
-  const { data: blockNumber } = useBlockNumber()
+  const { data: blockNumber } = useBlockNumber({ watch: true })
 
   const updatePrice = async () => {
     price.value = await getGasPrice(config)
