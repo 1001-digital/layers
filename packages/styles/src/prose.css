@@ -173,7 +173,7 @@
 
   /* Footnotes */
   sup a,
-  .data-footnote-backref {
+  [data-footnote-backref] {
     color: var(--gray-z-7, var(--muted));
     padding: 0 0 0 var(--size-0);
 
@@ -182,7 +182,7 @@
     }
   }
 
-  .data-footnote-backref {
+  [data-footnote-backref] {
     font-size: var(--font-sm);
   }
 
@@ -201,7 +201,7 @@
     border: var(--border);
     border-radius: var(--border-radius);
     font-size: 0.8em;
-    overflow: scroll;
+    overflow: auto;
 
     > code {
       border: 0;
