@@ -33,9 +33,7 @@ export const useCountDown = (
       days.value ? `${days.value}d` : null,
       hours.value ? `${hours.value}h` : null,
       minutes.value ? `${minutes.value}m` : null,
-      duration.value < showSecondsWithin && seconds.value
-        ? `${seconds.value}s`
-        : null,
+      duration.value < showSecondsWithin ? `${seconds.value}s` : null,
     ]
       .filter((s) => !!s)
       .join(' '),
