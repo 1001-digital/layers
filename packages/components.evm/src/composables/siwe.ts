@@ -1,6 +1,6 @@
 import { ref, readonly, computed } from 'vue'
 import { signMessage } from '@wagmi/core'
-import { useConfig, useConnection } from '@wagmi/vue'
+import { useConfig, useConnection, useSwitchChain } from '@wagmi/vue'
 import type { Config } from '@wagmi/vue'
 import { createSiweMessage, type SiweMessageParams } from '../utils/siwe'
 
@@ -54,6 +54,7 @@ function isUserRejection(e: unknown): boolean {
 export const useSiwe = () => {
   const config = useConfig()
   const { address, chainId, connector } = useConnection()
+  const { mutateAsync: switchChain } = useSwitchChain()
 
   const step = ref<SiweStep>('idle')
   const errorMessage = ref('')
@@ -112,6 +113,18 @@ export const useSiwe = () => {
       nonce = await options.getNonce()
     } catch {
       errorMessage.value = 'Failed to get authentication nonce.'
+      step.value = 'error'
+      return
+    }
+
+    // Ensure the connector is on the correct chain
+    try {
+      const connectorChainId = await connector.value?.getChainId()
+      if (connectorChainId && connectorChainId !== currentChainId) {
+        await switchChain({ chainId: currentChainId })
+      }
+    } catch {
+      errorMessage.value = 'Failed to switch to the required network.'
       step.value = 'error'
       return
     }
