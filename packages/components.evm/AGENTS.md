@@ -18,6 +18,7 @@ EVM component library (`@1001-digital/components.evm`) — Ethereum wallet compo
 ## Exports
 
 Entry point: `src/index.ts` (barrel export). Also exports:
+
 - `./client-only` — array of client-only components
 - `./package.json` — package metadata (used by layers.evm for path resolution)
 - `./*` — direct access to source files

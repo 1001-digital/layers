@@ -41,9 +41,9 @@ NUXT_SSR=false                                           # Optional: disable SSR
 
 Uses modern wagmi patterns — **do not use deprecated names**:
 
-| Use | Not (deprecated) |
-|-----|-------------------|
-| `useConnection` | `useAccount` |
+| Use                   | Not (deprecated)   |
+| --------------------- | ------------------ |
+| `useConnection`       | `useAccount`       |
 | `useConnectionEffect` | `useAccountEffect` |
 | `useSwitchConnection` | `useSwitchAccount` |
 

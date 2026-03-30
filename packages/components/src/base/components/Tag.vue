@@ -7,7 +7,10 @@
       v-if="dismissable"
       name="dismiss"
     >
-      <Button :class="{ small }" @click="emit('dismiss')">
+      <Button
+        :class="{ small }"
+        @click="emit('dismiss')"
+      >
         <Icon name="close" />
       </Button>
     </slot>

@@ -18,6 +18,7 @@ Shared Vue 3 component library (`@1001-digital/components`). Not a Nuxt layer �
 ## Exports
 
 Entry point: `src/index.ts` (barrel export). Also exports:
+
 - `./client-only` — array of components requiring browser APIs
 - `./*` — direct access to any source file
 
@@ -28,6 +29,7 @@ These need browser APIs and must be rendered client-side: `Combobox`, `ConfirmDi
 ## Components (50+)
 
 ### Layout
+
 - `AppShell` — app layout scaffold
 - `Sidebar` — collapsible sidebar navigation
 - `BottomNav` — mobile bottom navigation
@@ -35,6 +37,7 @@ These need browser APIs and must be rendered client-side: `Combobox`, `ConfirmDi
 - `Actions` — action button group
 
 ### Forms
+
 - `Form` — form wrapper
 - `FormGroup` — groups form items with shared label
 - `FormItem` — individual form field with label/error support
@@ -45,6 +48,7 @@ These need browser APIs and must be rendered client-side: `Combobox`, `ConfirmDi
 - `FormDatePicker` — date picker with calendar
 
 ### Feedback
+
 - `Alert` — alert banner
 - `Dialog` — modal dialog (Reka UI)
 - `ConfirmDialog` — confirmation modal (used by `useConfirm()`)
@@ -53,12 +57,14 @@ These need browser APIs and must be rendered client-side: `Combobox`, `ConfirmDi
 - `Progress` — progress bar
 
 ### Overlays
+
 - `Popover` — positioned popover
 - `Dropdown` — dropdown menu with subcomponents: `DropdownGroup`, `DropdownItem`, `DropdownLabel`, `DropdownSub`, `DropdownSeparator`, `DropdownCheckboxItem`, `DropdownRadioGroup`, `DropdownRadioItem`
 - `Tooltip` — hover tooltip
 - `Combobox` — searchable select
 
 ### Content & misc
+
 - `Button` — styled button
 - `Icon` — icon renderer (uses `IconAliasesKey` injection)
 - `Tag`, `Tags` — tag display

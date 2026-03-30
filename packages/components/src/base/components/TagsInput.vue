@@ -18,7 +18,10 @@
       :value="item"
       as-child
     >
-      <Tag dismissable :small="small">
+      <Tag
+        dismissable
+        :small="small"
+      >
         <TagsInputItemText />
         <template #dismiss>
           <TagsInputItemDelete as-child>
@@ -29,9 +32,7 @@
         </template>
       </Tag>
     </TagsInputItem>
-    <TagsInputInput
-      :placeholder="placeholder"
-    />
+    <TagsInputInput :placeholder="placeholder" />
   </TagsInputRoot>
 </template>
 
@@ -123,6 +124,5 @@ withDefaults(
       }
     }
   }
-
 }
 </style>

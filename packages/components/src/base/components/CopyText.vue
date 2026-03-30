@@ -20,7 +20,9 @@ const props = defineProps<{
 
 const copied = ref(false)
 const { start: resetCopied } = useTimeoutFn(
-  () => { copied.value = false },
+  () => {
+    copied.value = false
+  },
   2000,
   { immediate: false },
 )

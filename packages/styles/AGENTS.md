@@ -19,17 +19,17 @@ The `components` layer is declared for ordering but populated by Vue SFC `<style
 
 All tokens are CSS custom properties (`--var-name`). Organized by concern:
 
-| File | Tokens |
-|------|--------|
-| `colors.css` | oklch color palette, `light-dark()` theme-aware |
-| `fonts.css` | font families, sizes, weights, line heights |
-| `sizes.css` | spacing/sizing scale |
-| `borders.css` | border widths, radii, styles |
-| `effects.css` | shadows, backdrop filters |
-| `timing.css` | transition durations, easing functions |
-| `ui.css` | common UI tokens (focus rings, etc.) |
-| `layout.css` | layout tokens (max-widths, gaps) |
-| `z-index.css` | z-index scale |
+| File          | Tokens                                          |
+| ------------- | ----------------------------------------------- |
+| `colors.css`  | oklch color palette, `light-dark()` theme-aware |
+| `fonts.css`   | font families, sizes, weights, line heights     |
+| `sizes.css`   | spacing/sizing scale                            |
+| `borders.css` | border widths, radii, styles                    |
+| `effects.css` | shadows, backdrop filters                       |
+| `timing.css`  | transition durations, easing functions          |
+| `ui.css`      | common UI tokens (focus rings, etc.)            |
+| `layout.css`  | layout tokens (max-widths, gaps)                |
+| `z-index.css` | z-index scale                                   |
 
 ### Component tokens
 

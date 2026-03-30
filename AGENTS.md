@@ -4,13 +4,13 @@ Monorepo containing Nuxt layers, a shared component library, and a shared CSS fr
 
 ## Packages
 
-| Package | npm | Purpose |
-|---------|-----|---------|
-| `layers.base` | `@1001-digital/layers.base` | Base Nuxt layer — accessible components, design tokens, Nuxt auto-imports |
-| `layers.evm` | `@1001-digital/layers.evm` | EVM Nuxt layer — wallet connection, ENS, SIWE, multi-chain (extends base) |
-| `components` | `@1001-digital/components` | Vue component library — Reka UI wrappers, composables, utilities |
-| `components.evm` | `@1001-digital/components.evm` | EVM component library — wallet UI, ENS, transaction flow |
-| `styles` | `@1001-digital/styles` | CSS framework — design tokens, layers, oklch colors |
+| Package          | npm                            | Purpose                                                                   |
+| ---------------- | ------------------------------ | ------------------------------------------------------------------------- |
+| `layers.base`    | `@1001-digital/layers.base`    | Base Nuxt layer — accessible components, design tokens, Nuxt auto-imports |
+| `layers.evm`     | `@1001-digital/layers.evm`     | EVM Nuxt layer — wallet connection, ENS, SIWE, multi-chain (extends base) |
+| `components`     | `@1001-digital/components`     | Vue component library — Reka UI wrappers, composables, utilities          |
+| `components.evm` | `@1001-digital/components.evm` | EVM component library — wallet UI, ENS, transaction flow                  |
+| `styles`         | `@1001-digital/styles`         | CSS framework — design tokens, layers, oklch colors                       |
 
 ## Architecture
 

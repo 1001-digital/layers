@@ -357,7 +357,11 @@
           <h4>Small Dismissable Tags</h4>
           <Tags>
             <Tag
-              v-for="tag in ['Small Dismiss 1', 'Small Dismiss 2', 'Small Dismiss 3']"
+              v-for="tag in [
+                'Small Dismiss 1',
+                'Small Dismiss 2',
+                'Small Dismiss 3',
+              ]"
               :key="tag"
               small
               dismissable

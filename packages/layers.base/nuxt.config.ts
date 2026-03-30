@@ -53,8 +53,7 @@ export default defineNuxtConfig({
     head: {
       style: [
         {
-          textContent:
-            '@layer variables, reset, base, components, utilities;',
+          textContent: '@layer variables, reset, base, components, utilities;',
         },
       ],
     },

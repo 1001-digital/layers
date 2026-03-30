@@ -29,7 +29,9 @@ const props = defineProps<{
 
 const dismissKey = computed(() => `alert:${props.dismiss}`)
 
-const dismissed = useLocalStorage(dismissKey.value, false)
+const dismissed = props.dismiss
+  ? useLocalStorage(dismissKey, false)
+  : ref(false)
 const dismissable = computed(() => !!props.dismiss)
 
 const dismiss = () => {
