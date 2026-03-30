@@ -140,6 +140,7 @@ function isUserRejection(e: unknown): boolean {
   while (current) {
     if ((current as { code?: number }).code === 4001) return true
     if (re.test((current as { details?: string }).details || '')) return true
+    if (re.test((current as { message?: string }).message || '')) return true
     current = current.cause as Record<string, unknown> | undefined
   }
   return false
