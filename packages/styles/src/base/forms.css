@@ -27,7 +27,7 @@ select:not(.unstyled) {
   display: flex;
   block-size: var(--form-item-height);
 
-  &:-internal-autofill-selected {
+  &:-webkit-autofill {
     background: inherit;
     background-image: none !important;
   }
