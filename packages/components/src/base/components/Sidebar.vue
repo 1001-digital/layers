@@ -159,7 +159,7 @@ onMounted(() => {
     if (props.side === 'left') {
       open.value = swiping.translateX > -w + threshold
     } else {
-      open.value = swiping.translateX < threshold
+      open.value = swiping.translateX < w - threshold
     }
 
     swiping.active = false
