@@ -109,9 +109,22 @@ const onEnter = (el: Element, done: () => void) => {
 }
 
 const onLeave = (el: Element, done: () => void) => {
+  let called = false
+  const finish = () => {
+    if (called) return
+    called = true
+    done()
+  }
+
   el.addEventListener('transitionend', (e) => {
-    if ((e as TransitionEvent).propertyName === 'opacity') done()
+    if ((e as TransitionEvent).propertyName === 'opacity') finish()
   })
+
+  // Fallback in case transitionend never fires
+  const speed = getComputedStyle(el).getPropertyValue('--speed')
+  const ms = speed ? parseFloat(speed) * (speed.includes('ms') ? 1 : 1000) : 0
+  setTimeout(finish, ms + 50)
+
   if (props.compat) {
     el.classList.remove('open')
   } else {
