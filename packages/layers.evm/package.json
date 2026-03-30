@@ -33,13 +33,13 @@
     "@1001-digital/layers.base": "workspace:^",
     "@1001-digital/components": "workspace:^",
     "@1001-digital/components.evm": "workspace:^",
-    "@base-org/account": "^2.5.2",
+    "@base-org/account": "^2.5.3",
     "@metamask/connect-evm": "~0.9.0",
     "@safe-global/safe-apps-provider": "~0.18.6",
     "@safe-global/safe-apps-sdk": "^9.1.0",
     "@tanstack/vue-query": "5.95.2",
     "@wagmi/vue": "0.5.1",
-    "@walletconnect/ethereum-provider": "~2.23.7",
+    "@walletconnect/ethereum-provider": "~2.23.9",
     "viem": "2.47.6"
   }
 }
