@@ -63,7 +63,7 @@ export default defineNuxtConfig({
     },
     optimizeDeps: {
       include: [
-        '@1001-digital/layers.evm > @metamask/sdk',
+        '@1001-digital/layers.evm > @metamask/connect-evm',
         '@1001-digital/layers.evm > eventemitter3',
         '@1001-digital/layers.evm > qrcode',
         '@1001-digital/layers.evm > @walletconnect/ethereum-provider',

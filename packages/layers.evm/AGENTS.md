@@ -35,7 +35,7 @@ NUXT_SSR=false                                           # Optional: disable SSR
 - `@wagmi/vue` (^0.5.0) + `@wagmi/vue/nuxt` module
 - `viem` (~2.47.1) — type-safe Ethereum utilities
 - `@tanstack/vue-query` — blockchain data caching
-- Connectors: `@metamask/sdk`, `@walletconnect/ethereum-provider`, `@base-org/account`, `@safe-global/safe-apps-sdk`
+- Connectors: `@metamask/connect-evm`, `@walletconnect/ethereum-provider`, `@base-org/account`, `@safe-global/safe-apps-sdk`
 
 ## Wagmi 0.5.x API
 
@@ -148,7 +148,7 @@ All EVM components are marked client-only via Nuxt config hook. Client-only list
 
 ## Vite configuration
 
-The `nuxt.config.ts` applies critical Vite aliases to prevent duplicate `@wagmi/vue` and `eventemitter3` instances (pnpm hoisting creates separate copies that break Vue provide/inject). It also pre-bundles heavy deps (`@metamask/sdk`, `@walletconnect/ethereum-provider`, `@safe-global/safe-apps-sdk`) for faster dev startup.
+The `nuxt.config.ts` applies critical Vite aliases to prevent duplicate `@wagmi/vue` and `eventemitter3` instances (pnpm hoisting creates separate copies that break Vue provide/inject). It also pre-bundles heavy deps (`@metamask/connect-evm`, `@walletconnect/ethereum-provider`, `@safe-global/safe-apps-sdk`) for faster dev startup.
 
 ## Directory structure
 

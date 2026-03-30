@@ -98,7 +98,7 @@ export function createWagmiConfig(options: CreateOptions): {
     }),
     metaMask({
       headless: true,
-      dappMetadata: {
+      dapp: {
         name: title,
         iconUrl: appLogoUrl || '',
         url: '',
