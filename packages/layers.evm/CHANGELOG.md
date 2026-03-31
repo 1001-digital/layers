@@ -1,5 +1,11 @@
 # @1001-digital/layers.evm
 
+## 2.6.1
+
+### Patch Changes
+
+- [`282c26c`](https://github.com/1001-digital/layers/commit/282c26c225bd7ea8b5491ce22e72c1e3bb1d0cdb) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Fix dapp url
+
 ## 2.6.0
 
 ### Minor Changes
