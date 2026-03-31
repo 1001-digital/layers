@@ -102,7 +102,7 @@ export function createWagmiConfig(options: CreateOptions): {
       dapp: {
         name: title,
         iconUrl: appLogoUrl || '',
-        url: '',
+        url: baseURL || '',
       },
     }),
   ]
