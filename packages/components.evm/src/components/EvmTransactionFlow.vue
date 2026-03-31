@@ -1,78 +1,68 @@
 <template>
+  <slot name="before" />
+
+  <Loading
+    v-if="step === 'requesting'"
+    spinner
+    stacked
+    :txt="
+      connector?.name
+        ? `Requesting signature from ${connector.name}...`
+        : text.lead[step] || ''
+    "
+  />
+
+  <p v-if="step !== 'requesting' && step !== 'error' && text.lead[step]">
+    {{ text.lead[step] }}
+  </p>
+
+  <Alert
+    v-if="error"
+    type="error"
+  >
+    <p v-if="text.lead[step]">{{ text.lead[step] }}</p>
+    <p>{{ error }}</p>
+  </Alert>
+
   <slot
-    :start="start"
-    :step="step"
-    :open="open"
-    name="start"
+    :name="step"
+    :cancel="cancel"
   ></slot>
 
-  <Dialog
-    v-model:open="open"
-    :closable="canDismiss"
-    :click-outside="canDismiss"
-    :title="text.title[step]"
-    class="transaction-flow"
-    compat
+  <slot
+    name="footer"
+    :step="step"
+    :cancel="cancel"
+    :execute="() => initializeRequest()"
+    :tx-link="txLink"
   >
-    <slot name="before" />
-
-    <Loading
-      v-if="step === 'requesting'"
-      spinner
-      stacked
-      :txt="
-        connector?.name
-          ? `Requesting signature from ${connector.name}...`
-          : text.lead[step] || ''
-      "
-    />
-
-    <p v-if="step !== 'requesting' && step !== 'error' && text.lead[step]">
-      {{ text.lead[step] }}
-    </p>
-
-    <Alert
-      v-if="error"
-      type="error"
-    >
-      <p v-if="text.lead[step]">{{ text.lead[step] }}</p>
-      <p>{{ error }}</p>
-    </Alert>
-
-    <slot
-      :name="step"
-      :cancel="cancel"
-    ></slot>
-
-    <template #footer>
-      <template v-if="step === 'chain'">
-        <Button
-          @click="cancel"
-          class="secondary"
-          >Cancel</Button
-        >
-      </template>
-
-      <template v-if="step === 'confirm' || step === 'error'">
-        <Button
-          @click="cancel"
-          class="secondary"
-          >Cancel</Button
-        >
-        <Button @click="() => initializeRequest()">
-          {{ text.action[step] || 'Execute' }}
-        </Button>
-      </template>
-
-      <slot
-        name="actions"
-        :step="step"
-        :cancel="cancel"
-        :execute="() => initializeRequest()"
-        :tx-link="txLink"
-      />
+    <template v-if="step === 'chain'">
+      <Button
+        @click="cancel"
+        class="secondary"
+        >Cancel</Button
+      >
     </template>
-  </Dialog>
+
+    <template v-if="step === 'confirm' || step === 'error'">
+      <Button
+        @click="cancel"
+        class="secondary"
+        >Cancel</Button
+      >
+      <Button @click="() => initializeRequest()">
+        {{ text.action[step] || 'Execute' }}
+      </Button>
+    </template>
+  </slot>
+
+  <slot
+    name="actions"
+    :step="step"
+    :cancel="cancel"
+    :execute="() => initializeRequest()"
+    :tx-link="txLink"
+  />
 </template>
 
 <script setup lang="ts">
@@ -81,7 +71,6 @@ import { waitForTransactionReceipt, watchChainId } from '@wagmi/core'
 import { useConfig, useConnection, type Config } from '@wagmi/vue'
 import type { TransactionReceipt, Hash } from 'viem'
 import {
-  Dialog,
   Loading,
   Alert,
   Button,
@@ -163,14 +152,8 @@ const text = computed<Required<TransactionFlowText>>(() => ({
 
 const step = ref<Step>('idle')
 
-const open = computed({
-  get: () => step.value !== 'idle',
-  set: (v) => {
-    if (!v) {
-      step.value = 'idle'
-      error.value = ''
-    }
-  },
+watch(step, (v) => {
+  emit('update:step', v)
 })
 
 watchChainId(wagmiConfig as Config, {
@@ -317,30 +300,21 @@ const cancel = () => {
   emit('cancel')
 }
 
+const reset = () => {
+  step.value = 'idle'
+  error.value = ''
+  tx.value = null
+  receipt.value = null
+}
+
 defineExpose({
   initializeRequest,
+  start,
+  cancel,
+  reset,
+  step,
+  text,
+  canDismiss,
+  txLink,
 })
 </script>
-
-<style scoped>
-.transaction-flow {
-  &:deep(> section) {
-    display: grid;
-    gap: var(--spacer);
-
-    .text {
-      width: 100%;
-      height: min-content;
-    }
-
-    p {
-      white-space: pre-wrap;
-      width: 100%;
-
-      a {
-        text-decoration: underline;
-      }
-    }
-  }
-}
-</style>
