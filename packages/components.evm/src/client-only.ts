@@ -9,6 +9,7 @@ export const clientOnlyComponents = [
   'EvmMetaMaskQR',
   'EvmInAppWalletSetup',
   'EvmTransactionFlow',
+  'EvmTransactionFlowDialog',
   'EvmWalletConnectQR',
   'EvmSiwe',
   'EvmSiweDialog',

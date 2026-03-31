@@ -24,6 +24,8 @@ export type {
   TransactionFlowText,
   EvmTransactionFlowProps,
   EvmTransactionFlowEmits,
+  EvmTransactionFlowDialogProps,
+  EvmTransactionFlowDialogEmits,
   EvmSeedPhraseInputProps,
   EvmSeedPhraseInputEmits,
   EvmInAppWalletSetupProps,
@@ -95,6 +97,7 @@ export { default as EvmMetaMaskQR } from './components/EvmMetaMaskQR.vue'
 export { default as EvmWalletConnectQR } from './components/EvmWalletConnectQR.vue'
 export { default as EvmWalletConnectWallets } from './components/EvmWalletConnectWallets.vue'
 export { default as EvmTransactionFlow } from './components/EvmTransactionFlow.vue'
+export { default as EvmTransactionFlowDialog } from './components/EvmTransactionFlowDialog.vue'
 export { default as EvmSeedPhraseInput } from './components/EvmSeedPhraseInput.vue'
 export { default as EvmInAppWalletSetup } from './components/EvmInAppWalletSetup.vue'
 export { default as EvmSiwe } from './components/EvmSiwe.vue'

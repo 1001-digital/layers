@@ -101,6 +101,15 @@ export interface EvmTransactionFlowProps {
 export interface EvmTransactionFlowEmits {
   complete: [receipt: TransactionReceipt]
   cancel: []
+  'update:step': [step: string]
+}
+
+// EvmTransactionFlowDialog
+export interface EvmTransactionFlowDialogProps extends EvmTransactionFlowProps {}
+
+export interface EvmTransactionFlowDialogEmits {
+  complete: [receipt: TransactionReceipt]
+  cancel: []
 }
 
 // EvmSeedPhraseInput
