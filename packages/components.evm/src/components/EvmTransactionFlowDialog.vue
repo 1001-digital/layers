@@ -25,6 +25,7 @@
       :skip-confirmation="skipConfirmation"
       :auto-close-success="autoCloseSuccess"
       :dismissable="dismissable"
+      :keep-open="keepOpen"
       @complete="onComplete"
       @cancel="onCancel"
       @update:step="onStepChange"
@@ -123,6 +124,7 @@ const props = withDefaults(defineProps<EvmTransactionFlowDialogProps>(), {
   skipConfirmation: false,
   autoCloseSuccess: true,
   dismissable: true,
+  keepOpen: false,
 })
 
 const emit = defineEmits<EvmTransactionFlowDialogEmits>()

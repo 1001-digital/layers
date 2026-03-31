@@ -2,17 +2,17 @@
   <slot name="before" />
 
   <Loading
-    v-if="step === 'requesting'"
+    v-if="step === 'requesting' || step === 'waiting'"
     spinner
     stacked
     :txt="
-      connector?.name
+      step === 'requesting' && connector?.name
         ? `Requesting signature from ${connector.name}...`
         : text.lead[step] || ''
     "
   />
 
-  <p v-if="step !== 'requesting' && step !== 'error' && text.lead[step]">
+  <p v-if="step !== 'requesting' && step !== 'waiting' && step !== 'error' && text.lead[step]">
     {{ text.lead[step] }}
   </p>
 
@@ -121,6 +121,7 @@ const props = withDefaults(defineProps<EvmTransactionFlowProps>(), {
   skipConfirmation: false,
   autoCloseSuccess: true,
   dismissable: true,
+  keepOpen: false,
 })
 
 function isUserRejection(e: unknown): boolean {
@@ -188,7 +189,10 @@ onBeforeUnmount(() => {
 })
 
 const canDismiss = computed(
-  () => props.dismissable && step.value !== 'requesting',
+  () =>
+    props.dismissable &&
+    step.value !== 'requesting' &&
+    !(props.keepOpen && step.value === 'waiting'),
 )
 
 const initializeRequest = async (request = cachedRequest.value) => {
@@ -219,67 +223,96 @@ const initializeRequest = async (request = cachedRequest.value) => {
     return
   }
 
-  // Phase 2: Receipt (toast)
-  step.value = 'idle'
+  // Phase 2: Receipt
+  if (props.keepOpen) {
+    // Stay in dialog through waiting → complete
+    step.value = 'waiting'
 
-  const link = `${blockExplorer}/tx/${tx.value}`
-  const toastId = toast.add({
-    variant: 'info',
-    title: text.value.title.waiting,
-    description: text.value.lead.waiting,
-    duration: Infinity,
-    loading: true,
-    progress: 0,
-    action: {
-      label: 'View on Block Explorer',
-      onClick: () => window.open(link, '_blank'),
-      persistent: true,
-    },
-  })
+    try {
+      const receiptObject = await waitForTransactionReceipt(
+        wagmiConfig as Config,
+        { hash: tx.value },
+      )
+      await delay(props.delayAfter)
+      receipt.value = receiptObject
+      step.value = 'complete'
+      emit('complete', receiptObject)
 
-  const start = Date.now()
-  progressTimer = setInterval(() => {
-    const elapsed = (Date.now() - start) / 1000
-    toast.update(toastId, {
-      progress: Math.round(90 * (1 - Math.exp(-elapsed / 15))),
-    })
-  }, 500)
-
-  try {
-    const receiptObject = await waitForTransactionReceipt(
-      wagmiConfig as Config,
-      { hash: tx.value },
-    )
-    clearInterval(progressTimer)
-    toast.update(toastId, { progress: 100, loading: false })
-    await delay(props.delayAfter)
-    receipt.value = receiptObject
-    emit('complete', receiptObject)
-
-    toast.update(toastId, {
-      variant: 'success',
-      title: text.value.title.complete,
-      description: text.value.lead.complete,
-      progress: false,
-      ...(props.autoCloseSuccess && { duration: props.delayAutoclose }),
-    })
-  } catch (e: unknown) {
-    clearInterval(progressTimer)
-    const err = e as { shortMessage?: string }
-    if (mounted) {
-      toast.dismiss(toastId)
+      if (props.autoCloseSuccess) {
+        await delay(props.delayAutoclose)
+        if (step.value === 'complete') {
+          step.value = 'idle'
+        }
+      }
+    } catch (e: unknown) {
+      const err = e as { shortMessage?: string }
       error.value = err.shortMessage || 'Transaction failed.'
       step.value = 'error'
-    } else {
-      toast.update(toastId, {
-        variant: 'error',
-        title: text.value.title.error,
-        description: err.shortMessage || 'Transaction failed.',
-        loading: false,
-        progress: false,
-      })
+      console.log(e)
     }
-    console.log(e)
+  } else {
+    // Close dialog, track receipt via toast
+    step.value = 'idle'
+
+    const link = `${blockExplorer}/tx/${tx.value}`
+    const toastId = toast.add({
+      variant: 'info',
+      title: text.value.title.waiting,
+      description: text.value.lead.waiting,
+      duration: Infinity,
+      loading: true,
+      progress: 0,
+      action: {
+        label: 'View on Block Explorer',
+        onClick: () => window.open(link, '_blank'),
+        persistent: true,
+      },
+    })
+
+    const start = Date.now()
+    progressTimer = setInterval(() => {
+      const elapsed = (Date.now() - start) / 1000
+      toast.update(toastId, {
+        progress: Math.round(90 * (1 - Math.exp(-elapsed / 15))),
+      })
+    }, 500)
+
+    try {
+      const receiptObject = await waitForTransactionReceipt(
+        wagmiConfig as Config,
+        { hash: tx.value },
+      )
+      clearInterval(progressTimer)
+      toast.update(toastId, { progress: 100, loading: false })
+      await delay(props.delayAfter)
+      receipt.value = receiptObject
+      emit('complete', receiptObject)
+
+      toast.update(toastId, {
+        variant: 'success',
+        title: text.value.title.complete,
+        description: text.value.lead.complete,
+        progress: false,
+        ...(props.autoCloseSuccess && { duration: props.delayAutoclose }),
+      })
+    } catch (e: unknown) {
+      clearInterval(progressTimer)
+      const err = e as { shortMessage?: string }
+      if (mounted) {
+        toast.dismiss(toastId)
+        error.value = err.shortMessage || 'Transaction failed.'
+        step.value = 'error'
+      } else {
+        toast.update(toastId, {
+          variant: 'error',
+          title: text.value.title.error,
+          description: err.shortMessage || 'Transaction failed.',
+          loading: false,
+          progress: false,
+        })
+      }
+      console.log(e)
+    }
   }
 
   return receipt.value

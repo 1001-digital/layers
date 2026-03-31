@@ -96,6 +96,7 @@ export interface EvmTransactionFlowProps {
   skipConfirmation?: boolean
   autoCloseSuccess?: boolean
   dismissable?: boolean
+  keepOpen?: boolean
 }
 
 export interface EvmTransactionFlowEmits {

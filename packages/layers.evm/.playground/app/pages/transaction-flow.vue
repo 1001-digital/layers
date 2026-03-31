@@ -125,6 +125,38 @@
     </Card>
 
     <Card>
+      <h2>Waiting &amp; Complete (Dialog)</h2>
+      <p>
+        Dialog stays open through waiting and complete steps instead of
+        switching to a toast.
+      </p>
+
+      <EvmTransactionFlowDialog
+        skip-confirmation
+        keep-open
+        :request="successRequest"
+        :delay-after="0"
+        :delay-autoclose="3000"
+        :text="{
+          title: {
+            waiting: 'Transfer Pending',
+            complete: 'Transfer Complete',
+          },
+          lead: {
+            waiting: 'Waiting for on-chain confirmation...',
+            complete: 'Your transfer has been confirmed.',
+          },
+        }"
+      >
+        <template #start="{ start }">
+          <Actions>
+            <Button @click="start">Open Waiting/Complete (Dialog)</Button>
+          </Actions>
+        </template>
+      </EvmTransactionFlowDialog>
+    </Card>
+
+    <Card>
       <h2>Chain Switch</h2>
       <p>
         Shown when the connected wallet is on a different chain. Connect to a
