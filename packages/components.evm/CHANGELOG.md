@@ -1,5 +1,13 @@
 # @1001-digital/components.evm
 
+## 3.0.0
+
+### Major Changes
+
+- [#29](https://github.com/1001-digital/layers/pull/29) [`f680a0f`](https://github.com/1001-digital/layers/commit/f680a0f543a301f012db11bb09bde5f33bfd55a0) Thanks [@yougogirldoteth](https://github.com/yougogirldoteth)! - Add EvmTransactionFlowDialog and keepOpen prop for persistent transaction dialogs
+
+  Note: Deprecation of old EvmTransactionFlow (clients have to rename their implementation to EvmTransactionFlowDialog)
+
 ## 2.7.0
 
 ### Minor Changes
