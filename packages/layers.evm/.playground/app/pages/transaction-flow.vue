@@ -1,13 +1,13 @@
 <template>
   <div class="playground">
-    <h1>EvmTransactionFlow States</h1>
+    <h1>EvmTransactionFlowDialog</h1>
     <p><NuxtLink to="/">&larr; Back</NuxtLink></p>
 
     <Card>
       <h2>Confirm</h2>
       <p>Opens the dialog at the confirmation step.</p>
 
-      <EvmTransactionFlow
+      <EvmTransactionFlowDialog
         :request="hangingRequest"
         :text="{
           title: { confirm: 'Confirm Transfer' },
@@ -30,7 +30,7 @@
             <p><strong>Network:</strong> Sepolia</p>
           </div>
         </template>
-      </EvmTransactionFlow>
+      </EvmTransactionFlowDialog>
     </Card>
 
     <Card>
@@ -40,7 +40,7 @@
         signature.
       </p>
 
-      <EvmTransactionFlow
+      <EvmTransactionFlowDialog
         skip-confirmation
         :dismissable="false"
         :request="hangingRequest"
@@ -54,14 +54,14 @@
             <Button @click="start">Open Requesting</Button>
           </Actions>
         </template>
-      </EvmTransactionFlow>
+      </EvmTransactionFlowDialog>
     </Card>
 
     <Card>
       <h2>Error: User Rejected</h2>
       <p>Simulates a user rejecting the transaction in their wallet.</p>
 
-      <EvmTransactionFlow
+      <EvmTransactionFlowDialog
         skip-confirmation
         :request="rejectedRequest"
       >
@@ -70,14 +70,14 @@
             <Button @click="start">Open Rejected</Button>
           </Actions>
         </template>
-      </EvmTransactionFlow>
+      </EvmTransactionFlowDialog>
     </Card>
 
     <Card>
       <h2>Error: Transaction Failed</h2>
       <p>Simulates a generic transaction error.</p>
 
-      <EvmTransactionFlow
+      <EvmTransactionFlowDialog
         skip-confirmation
         :request="failedRequest"
         :text="{
@@ -90,7 +90,7 @@
             <Button @click="start">Open Failed</Button>
           </Actions>
         </template>
-      </EvmTransactionFlow>
+      </EvmTransactionFlowDialog>
     </Card>
 
     <Card>
@@ -100,7 +100,7 @@
         mock resolves instantly and shows the success toast.
       </p>
 
-      <EvmTransactionFlow
+      <EvmTransactionFlowDialog
         skip-confirmation
         :request="successRequest"
         :delay-after="0"
@@ -121,7 +121,39 @@
             <Button @click="start">Open Waiting/Complete</Button>
           </Actions>
         </template>
-      </EvmTransactionFlow>
+      </EvmTransactionFlowDialog>
+    </Card>
+
+    <Card>
+      <h2>Waiting &amp; Complete (Dialog)</h2>
+      <p>
+        Dialog stays open through waiting and complete steps instead of
+        switching to a toast.
+      </p>
+
+      <EvmTransactionFlowDialog
+        skip-confirmation
+        keep-open
+        :request="successRequest"
+        :delay-after="0"
+        :delay-autoclose="3000"
+        :text="{
+          title: {
+            waiting: 'Transfer Pending',
+            complete: 'Transfer Complete',
+          },
+          lead: {
+            waiting: 'Waiting for on-chain confirmation...',
+            complete: 'Your transfer has been confirmed.',
+          },
+        }"
+      >
+        <template #start="{ start }">
+          <Actions>
+            <Button @click="start">Open Waiting/Complete (Dialog)</Button>
+          </Actions>
+        </template>
+      </EvmTransactionFlowDialog>
     </Card>
 
     <Card>
@@ -131,7 +163,7 @@
         non-Sepolia network to see this state.
       </p>
 
-      <EvmTransactionFlow
+      <EvmTransactionFlowDialog
         :request="hangingRequest"
         :text="{
           title: { chain: 'Wrong Network' },
@@ -143,14 +175,14 @@
             <Button @click="start">Open Chain Switch</Button>
           </Actions>
         </template>
-      </EvmTransactionFlow>
+      </EvmTransactionFlowDialog>
     </Card>
 
     <Card>
       <h2>Custom Actions Slot</h2>
       <p>Uses the <code>actions</code> slot to add custom footer buttons.</p>
 
-      <EvmTransactionFlow
+      <EvmTransactionFlowDialog
         :request="hangingRequest"
         :text="{
           title: { confirm: 'Custom Actions' },
@@ -174,12 +206,66 @@
             <Button>Approve &amp; Send</Button>
           </template>
         </template>
+      </EvmTransactionFlowDialog>
+    </Card>
+
+    <h1>EvmTransactionFlow (standalone)</h1>
+
+    <Card>
+      <h2>Inline Confirm</h2>
+      <p>
+        Renders the transaction flow inline without a dialog. Trigger
+        <code>start()</code> via the exposed ref.
+      </p>
+
+      <Actions>
+        <Button @click="inlineRef?.start()">Start Inline Flow</Button>
+      </Actions>
+
+      <EvmTransactionFlow
+        ref="inlineRef"
+        :request="hangingRequest"
+        :text="{
+          title: { confirm: 'Confirm Transfer' },
+          lead: {
+            confirm: 'You are about to send 1 ETH to vitalik.eth.',
+          },
+          action: { confirm: 'Send' },
+        }"
+      >
+        <template #confirm>
+          <div class="tx-details">
+            <p><strong>To:</strong> vitalik.eth</p>
+            <p><strong>Amount:</strong> 1 ETH</p>
+            <p><strong>Network:</strong> Sepolia</p>
+          </div>
+        </template>
       </EvmTransactionFlow>
+    </Card>
+
+    <Card>
+      <h2>Inline Error</h2>
+      <p>Renders an error state inline.</p>
+
+      <Actions>
+        <Button @click="inlineErrorRef?.start()">Start Inline Error</Button>
+      </Actions>
+
+      <EvmTransactionFlow
+        ref="inlineErrorRef"
+        skip-confirmation
+        :request="failedRequest"
+        :text="{
+          title: { error: 'Transfer Failed' },
+          action: { error: 'Retry' },
+        }"
+      />
     </Card>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import type { Hash } from 'viem'
 
 const delay = (ms: number) => new Promise((r) => setTimeout(r, ms))
@@ -209,6 +295,9 @@ const successRequest = async (): Promise<Hash> => {
   await delay(500)
   return '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef' as Hash
 }
+
+const inlineRef = ref<InstanceType<typeof EvmTransactionFlow> | null>(null)
+const inlineErrorRef = ref<InstanceType<typeof EvmTransactionFlow> | null>(null)
 </script>
 
 <style scoped>

@@ -24,6 +24,8 @@ export type {
   TransactionFlowText,
   EvmTransactionFlowProps,
   EvmTransactionFlowEmits,
+  EvmTransactionFlowDialogProps,
+  EvmTransactionFlowDialogEmits,
   EvmSeedPhraseInputProps,
   EvmSeedPhraseInputEmits,
   EvmInAppWalletSetupProps,
@@ -35,6 +37,7 @@ export type {
 } from './types'
 
 // Utils
+export { isUserRejection } from './utils/errors'
 export { createCache } from './utils/cache'
 export { shortAddress } from './utils/addresses'
 export { resolveChain } from './utils/chains'
@@ -67,6 +70,12 @@ export { useGasPrice } from './composables/gasPrice'
 export { usePriceFeed } from './composables/priceFeed'
 export { useWalletExplorer } from './composables/walletExplorer'
 export type { ExplorerWallet } from './composables/walletExplorer'
+export { useTransactionFlow, TRANSACTION_FLOW_STEPS } from './composables/transactionFlow'
+export type {
+  TransactionFlowStep,
+  TransactionFlowOptions,
+  TransactionFlow,
+} from './composables/transactionFlow'
 export { useSiwe } from './composables/siwe'
 export type {
   SiweSession,
@@ -95,6 +104,7 @@ export { default as EvmMetaMaskQR } from './components/EvmMetaMaskQR.vue'
 export { default as EvmWalletConnectQR } from './components/EvmWalletConnectQR.vue'
 export { default as EvmWalletConnectWallets } from './components/EvmWalletConnectWallets.vue'
 export { default as EvmTransactionFlow } from './components/EvmTransactionFlow.vue'
+export { default as EvmTransactionFlowDialog } from './components/EvmTransactionFlowDialog.vue'
 export { default as EvmSeedPhraseInput } from './components/EvmSeedPhraseInput.vue'
 export { default as EvmInAppWalletSetup } from './components/EvmInAppWalletSetup.vue'
 export { default as EvmSiwe } from './components/EvmSiwe.vue'

@@ -39,7 +39,7 @@
     <h2>Transaction Flow Example</h2>
     <p>Send 0 ETH to your own address</p>
 
-    <EvmTransactionFlow
+    <EvmTransactionFlowDialog
       :request="sendTransaction"
       chain="sepolia"
       :text="{
@@ -66,14 +66,14 @@
           <p><strong>Chain:</strong> Sepolia</p>
         </div>
       </template>
-    </EvmTransactionFlow>
+    </EvmTransactionFlowDialog>
   </Card>
 
   <Card v-if="isConnected">
     <h2>Cross-Chain Transaction</h2>
     <p>Send 0 ETH on Optimism (different from default chain Sepolia).</p>
 
-    <EvmTransactionFlow
+    <EvmTransactionFlowDialog
       :request="sendOptimismTransaction"
       chain="optimism"
       :text="{
@@ -103,8 +103,8 @@
           <p><strong>Chain:</strong> Optimism</p>
         </div>
       </template>
-    </EvmTransactionFlow>
-    <EvmTransactionFlow
+    </EvmTransactionFlowDialog>
+    <EvmTransactionFlowDialog
       :chain="10"
       :request="sendOptimismTransaction"
       :text="{
@@ -120,7 +120,7 @@
           <Button @click="start">Open Numeric Chain</Button>
         </Actions>
       </template>
-    </EvmTransactionFlow>
+    </EvmTransactionFlowDialog>
   </Card>
 </template>
 
