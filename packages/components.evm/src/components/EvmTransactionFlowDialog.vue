@@ -25,7 +25,7 @@
       </template>
 
       <template
-        v-for="name in stepSlots"
+        v-for="name in TRANSACTION_FLOW_STEPS"
         #[name]="slotProps"
       >
         <slot
@@ -71,22 +71,13 @@
 import { computed, toRefs } from 'vue'
 import { Dialog, Button } from '@1001-digital/components'
 import EvmTransactionFlow from './EvmTransactionFlow.vue'
-import { useTransactionFlow } from '../composables/transactionFlow'
+import { useTransactionFlow, TRANSACTION_FLOW_STEPS } from '../composables/transactionFlow'
 import type {
   EvmTransactionFlowDialogProps,
   EvmTransactionFlowDialogEmits,
 } from '../types'
 import type { TransactionReceipt } from 'viem'
 import { watch } from 'vue'
-
-const stepSlots = [
-  'confirm',
-  'chain',
-  'requesting',
-  'waiting',
-  'complete',
-  'error',
-] as const
 
 const props = withDefaults(defineProps<EvmTransactionFlowDialogProps>(), {
   delayAfter: 2000,

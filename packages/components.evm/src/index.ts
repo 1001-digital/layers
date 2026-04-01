@@ -70,7 +70,7 @@ export { useGasPrice } from './composables/gasPrice'
 export { usePriceFeed } from './composables/priceFeed'
 export { useWalletExplorer } from './composables/walletExplorer'
 export type { ExplorerWallet } from './composables/walletExplorer'
-export { useTransactionFlow } from './composables/transactionFlow'
+export { useTransactionFlow, TRANSACTION_FLOW_STEPS } from './composables/transactionFlow'
 export type {
   TransactionFlowStep,
   TransactionFlowOptions,

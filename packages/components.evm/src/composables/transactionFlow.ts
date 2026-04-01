@@ -8,14 +8,17 @@ import { useEnsureChainIdCheck, useBlockExplorer } from './chainId'
 import { isUserRejection } from '../utils/errors'
 import type { TransactionFlowText } from '../types'
 
-export type TransactionFlowStep =
-  | 'idle'
-  | 'confirm'
-  | 'chain'
-  | 'requesting'
-  | 'waiting'
-  | 'complete'
-  | 'error'
+export const TRANSACTION_FLOW_STEPS = [
+  'idle',
+  'confirm',
+  'chain',
+  'requesting',
+  'waiting',
+  'complete',
+  'error',
+] as const
+
+export type TransactionFlowStep = (typeof TRANSACTION_FLOW_STEPS)[number]
 
 export interface TransactionFlowOptions {
   chain?: MaybeRefOrGetter<string | number | undefined>
