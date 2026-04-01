@@ -3,6 +3,7 @@ import { signMessage } from '@wagmi/core'
 import { useConfig, useConnection, useSwitchChain } from '@wagmi/vue'
 import type { Config } from '@wagmi/vue'
 import { createSiweMessage, type SiweMessageParams } from '../utils/siwe'
+import { isUserRejection } from '../utils/errors'
 
 export interface SiweSession {
   address: `0x${string}`
@@ -31,18 +32,6 @@ export interface SiweSignInResult {
 
 const _isAuthenticated = ref(false)
 const _session = ref<SiweSession | null>(null)
-
-function isUserRejection(e: unknown): boolean {
-  const re = /reject|denied|cancel/i
-  let current = e as Record<string, unknown> | undefined
-  while (current) {
-    if ((current as { code?: number }).code === 4001) return true
-    if (re.test((current as { details?: string }).details || '')) return true
-    if (re.test((current as { message?: string }).message || '')) return true
-    current = current.cause as Record<string, unknown> | undefined
-  }
-  return false
-}
 
 /**
  * SIWE (Sign-In with Ethereum) composable.
