@@ -1,5 +1,11 @@
 # @1001-digital/components
 
+## 2.5.0
+
+### Minor Changes
+
+- [#31](https://github.com/1001-digital/layers/pull/31) [`ded0887`](https://github.com/1001-digital/layers/commit/ded08872a40886e9e428be746384ade45594fb00) Thanks [@yougogirldoteth](https://github.com/yougogirldoteth)! - Fix long tags overflowing TagsInput, default addOnBlur and duplicate to true
+
 ## 2.4.5
 
 ### Patch Changes
