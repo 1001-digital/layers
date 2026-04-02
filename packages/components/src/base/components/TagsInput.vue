@@ -68,6 +68,7 @@ withDefaults(
     delimiter: ',',
     max: 0,
     addOnBlur: true,
+    duplicate: true,
   },
 )
 </script>
