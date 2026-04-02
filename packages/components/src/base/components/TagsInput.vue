@@ -67,6 +67,8 @@ withDefaults(
   {
     delimiter: ',',
     max: 0,
+    addOnBlur: true,
+    duplicate: true,
   },
 )
 </script>
@@ -94,12 +96,15 @@ withDefaults(
       cursor: not-allowed;
     }
 
+    > span {
+      min-width: 0;
+      max-width: 100%;
+    }
+
     > input {
       all: unset;
       flex: 1;
-      height: 100%;
-      height: calc(100% + 2 * var(--ui-padding-block));
-      margin-block: calc(-1 * var(--ui-padding-block));
+      height: var(--form-item-height);
       min-inline-size: 5rem;
       padding: 0 var(--ui-padding-inline);
       font-family: var(--ui-font-family);
@@ -117,9 +122,7 @@ withDefaults(
       min-height: calc(var(--form-item-height-sm) + var(--ui-padding-block));
 
       > input {
-        height: 100%;
-        height: calc(100% + var(--ui-padding-block));
-        margin-block: calc(var(--ui-padding-block) / -2);
+        height: var(--form-item-height-sm);
         font-size: var(--font-xs);
       }
     }
