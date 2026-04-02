@@ -382,7 +382,7 @@
             v-model="tagsValue"
             placeholder="Add a tag..."
           />
-          <code>Tags: {{ tagsValue }}</code>
+          <code style="overflow-wrap: anywhere">Tags: {{ tagsValue }}</code>
         </div>
 
         <div class="component-demo">

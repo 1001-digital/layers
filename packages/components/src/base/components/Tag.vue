@@ -43,10 +43,12 @@ const emit = defineEmits<{
   line-height: var(--ui-line-height);
   color: var(--ui-color);
   display: flex;
-  align-items: center;
+  align-items: stretch;
 
   &:deep(> span) {
+    min-width: 0;
     padding: var(--spacer-sm) var(--spacer);
+    overflow-wrap: anywhere;
 
     + button {
       border-top-left-radius: 0;
