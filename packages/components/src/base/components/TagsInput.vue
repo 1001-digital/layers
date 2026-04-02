@@ -67,6 +67,7 @@ withDefaults(
   {
     delimiter: ',',
     max: 0,
+    addOnBlur: true,
   },
 )
 </script>
