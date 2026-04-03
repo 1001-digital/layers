@@ -39,7 +39,8 @@ const isCurrent = computed<boolean>(
 const { data: ensData } = useEnsWithAvatar(address)
 
 const ens = computed(() => ensData.value?.ens || null)
-const src = useResolvedUrl(() => ensData.value?.data?.avatar)
+const resolved = useResolvedUrl(() => ensData.value?.data?.avatar)
+const src = computed(() => props.avatarUrl || resolved.value)
 </script>
 
 <style scoped>

@@ -14,6 +14,7 @@ export interface EvmAccountProps {
 // EvmAvatar
 export interface EvmAvatarProps {
   address?: Address
+  avatarUrl?: string
   large?: boolean
 }
 
