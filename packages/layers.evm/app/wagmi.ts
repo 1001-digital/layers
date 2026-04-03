@@ -72,6 +72,7 @@ export function createWagmiConfig(options: CreateOptions): {
 
   const chains: Chain[] = []
   const transports: Record<number, Transport> = {}
+  const rpcUrls: Record<number, string> = {}
 
   for (const [key, entry] of sortedEntries) {
     const chain = resolveChain(entry.id)
@@ -85,6 +86,7 @@ export function createWagmiConfig(options: CreateOptions): {
     transportList.push(http())
 
     transports[chain.id] = fallback(transportList)
+    if (rpcs[0]) rpcUrls[chain.id] = rpcs[0]
   }
 
   // Connectors
@@ -146,6 +148,7 @@ export function createWagmiConfig(options: CreateOptions): {
     },
     ipfsGateway,
     arweaveGateway,
+    rpcUrls,
     baseURL,
     walletConnectProjectId,
   }

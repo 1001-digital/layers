@@ -16,6 +16,7 @@ export interface EvmConfig {
   }
   ipfsGateway?: string
   arweaveGateway?: string
+  rpcUrls?: Record<number, string>
   baseURL?: string
   walletConnectProjectId?: string
 }
