@@ -1,5 +1,11 @@
 # @1001-digital/components.evm
 
+## 3.0.3
+
+### Patch Changes
+
+- [`997b51e`](https://github.com/1001-digital/layers/commit/997b51ea751a9204240ef9096a585d55182e4a35) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Upgrade dweb-fetch to 0.2.1
+
 ## 3.0.2
 
 ### Patch Changes
