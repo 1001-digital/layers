@@ -1,5 +1,14 @@
 # @1001-digital/layers.evm
 
+## 2.6.4
+
+### Patch Changes
+
+- [`42c75d9`](https://github.com/1001-digital/layers/commit/42c75d937b68bdc13b7b746dbb702c94aca58f45) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Pass RPC URLs from wagmi config to dweb-fetch client for EIP-155 resolution
+
+- Updated dependencies [[`42c75d9`](https://github.com/1001-digital/layers/commit/42c75d937b68bdc13b7b746dbb702c94aca58f45)]:
+  - @1001-digital/components.evm@3.0.2
+
 ## 2.6.3
 
 ### Patch Changes
