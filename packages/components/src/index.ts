@@ -1,6 +1,7 @@
 // Components
 export { default as Actions } from './base/components/Actions.vue'
 export { default as Alert } from './base/components/Alert.vue'
+export { default as Avatar } from './base/components/Avatar.vue'
 export { default as AppShell } from './base/components/AppShell.vue'
 export { default as BottomNav } from './base/components/BottomNav.vue'
 export { default as Button } from './base/components/Button.vue'

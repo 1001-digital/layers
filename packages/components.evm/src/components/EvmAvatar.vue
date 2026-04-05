@@ -4,17 +4,12 @@
     :ens="ens"
     :is-current="isCurrent"
   >
-    <img
-      v-if="src"
+    <Avatar
       :src="src"
-      :alt="ens || 'Avatar'"
-      :class="['evm-avatar', { large }]"
-    />
-    <Opepicon
-      v-else-if="address"
       :seed="address"
-      :size="large ? 256 : 64"
-      :class="['evm-avatar', { large }]"
+      :alt="ens || 'Avatar'"
+      :large="large"
+      class="evm-avatar"
     />
   </slot>
 </template>
@@ -22,9 +17,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useConnection } from '@wagmi/vue'
+import { Avatar } from '@1001-digital/components'
 import { useEnsWithAvatar } from '../composables/ens'
 import { useResolvedUrl } from '../composables/uri'
-import { Opepicon } from '@1001-digital/components'
 import type { EvmAvatarProps } from '../types'
 
 const props = defineProps<EvmAvatarProps>()
@@ -39,26 +34,5 @@ const isCurrent = computed<boolean>(
 const { data: ensData } = useEnsWithAvatar(address)
 
 const ens = computed(() => ensData.value?.ens || null)
-const resolved = useResolvedUrl(() => ensData.value?.data?.avatar)
-const src = computed(() => props.avatarUrl || resolved.value)
+const src = useResolvedUrl(() => ensData.value?.data?.avatar)
 </script>
-
-<style scoped>
-.evm-avatar {
-  width: var(--size-5);
-  min-width: var(--size-5);
-  height: var(--size-5);
-  min-height: var(--size-5);
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  background-color: var(--background);
-  object-fit: cover;
-
-  &.large {
-    width: var(--size-9);
-    min-width: var(--size-9);
-    height: var(--size-9);
-    min-height: var(--size-9);
-  }
-}
-</style>
