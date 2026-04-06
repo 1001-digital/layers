@@ -1,7 +1,7 @@
 {
   "name": "@1001-digital/layers.evm",
   "type": "module",
-  "version": "2.6.5",
+  "version": "2.6.6",
   "main": "./nuxt.config.ts",
   "files": [
     "app",
