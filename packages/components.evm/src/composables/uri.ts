@@ -1,6 +1,9 @@
 import { ref, watch, toValue, type MaybeRefOrGetter, type Ref } from 'vue'
 import { createDwebFetch, type DwebClient } from '@1001-digital/dweb-fetch'
 import { useEvmConfig } from '../config'
+import { createCache } from '../utils/cache'
+
+const resolvedUrlCache = createCache<string>(5 * 60 * 1000, 200)
 
 function toBaseUrl(gateway: string): string {
   return gateway.replace(/\/(ipfs|ipns)\/?$/, '').replace(/\/+$/, '')
@@ -36,7 +39,9 @@ export function useResolvedUrl(
         return
       }
       try {
-        resolved.value = await dweb.resolveUrl(val)
+        resolved.value = await resolvedUrlCache.fetch(val, () =>
+          dweb.resolveUrl(val),
+        )
       } catch {
         resolved.value = ''
       }
