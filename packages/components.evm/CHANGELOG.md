@@ -1,5 +1,24 @@
 # @1001-digital/components.evm
 
+## 3.1.0
+
+### Minor Changes
+
+- [#35](https://github.com/1001-digital/layers/pull/35) [`3e1e0eb`](https://github.com/1001-digital/layers/commit/3e1e0ebd4189c34c516cc77421f8e487d4672cfa) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Extract generic Avatar component from EvmAvatar
+
+  Add a reusable `Avatar` component to `@1001-digital/components` that renders an image or an Opepicon fallback. `EvmAvatar` now delegates to this component instead of inlining the logic.
+  - Remove `avatarUrl` prop from `EvmAvatarProps` (avatar URL is now resolved internally)
+  - Cache resolved dweb URLs to avoid duplicate resolution
+
+- [`8536c21`](https://github.com/1001-digital/layers/commit/8536c21c543722a60c90c4f2b2a7781a4b5db48f) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Switch default block explorer to evm.now (mainnet)
+
+### Patch Changes
+
+- [`b6947f1`](https://github.com/1001-digital/layers/commit/b6947f146761c9e206deee37c1e89e957547d201) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Make block explorer link text customizable
+
+- Updated dependencies [[`3e1e0eb`](https://github.com/1001-digital/layers/commit/3e1e0ebd4189c34c516cc77421f8e487d4672cfa)]:
+  - @1001-digital/components@2.6.0
+
 ## 3.0.3
 
 ### Patch Changes

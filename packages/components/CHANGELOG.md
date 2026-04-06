@@ -1,5 +1,15 @@
 # @1001-digital/components
 
+## 2.6.0
+
+### Minor Changes
+
+- [#35](https://github.com/1001-digital/layers/pull/35) [`3e1e0eb`](https://github.com/1001-digital/layers/commit/3e1e0ebd4189c34c516cc77421f8e487d4672cfa) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Extract generic Avatar component from EvmAvatar
+
+  Add a reusable `Avatar` component to `@1001-digital/components` that renders an image or an Opepicon fallback. `EvmAvatar` now delegates to this component instead of inlining the logic.
+  - Remove `avatarUrl` prop from `EvmAvatarProps` (avatar URL is now resolved internally)
+  - Cache resolved dweb URLs to avoid duplicate resolution
+
 ## 2.5.0
 
 ### Minor Changes
