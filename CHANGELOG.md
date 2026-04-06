@@ -1,0 +1,157 @@
+# Changelog
+
+All notable changes across all packages in this monorepo.
+Generated from individual package changelogs — do not edit manually.
+
+## 2026-04-03
+
+- Upgrade dweb-fetch to 0.2.1 [`997b51e`](https://github.com/1001-digital/layers/commit/997b51e)
+  _`components.evm`_
+
+- Pass RPC URLs from wagmi config to dweb-fetch client for EIP-155 resolution [`42c75d9`](https://github.com/1001-digital/layers/commit/42c75d9)
+  _`components.evm`, `layers.evm`_
+
+## 2026-04-02
+
+- **Minor** Fix long tags overflowing TagsInput, default addOnBlur and duplicate to true ([#31](https://github.com/1001-digital/layers/pull/31)) [`ded0887`](https://github.com/1001-digital/layers/commit/ded0887)
+  _`components`_
+
+## 2026-03-31
+
+- Fix cross-browser issues, harden components, and ensure correct chain during SIWE signature [`6950d1a`](https://github.com/1001-digital/layers/commit/6950d1a)
+  _`components`, `components.evm`, `layers.base`, `styles`_
+
+- **Breaking** Add EvmTransactionFlowDialog and keepOpen prop for persistent transaction dialogs ([#29](https://github.com/1001-digital/layers/pull/29)) [`f680a0f`](https://github.com/1001-digital/layers/commit/f680a0f)
+  Note: Deprecation of old EvmTransactionFlow (clients have to rename their implementation to EvmTransactionFlowDialog)
+  _`components.evm`_
+
+- Fix dapp url [`282c26c`](https://github.com/1001-digital/layers/commit/282c26c)
+  _`layers.evm`_
+
+- **Minor** Implement new metamask/connect-evm library [`7229122`](https://github.com/1001-digital/layers/commit/7229122)
+  _`layers.evm`_
+
+- Implement automatic manifest.json generation for safe app browser integration [`db17ba9`](https://github.com/1001-digital/layers/commit/db17ba9)
+  Configure safe to allow safe.global to connect via an iframe
+  _`layers.evm`_
+
+- Upgrade @base-org/account and @walletconnnect/ethereum-provider packages [`e40fe80`](https://github.com/1001-digital/layers/commit/e40fe80)
+  _`layers.evm`_
+
+## 2026-03-30
+
+- **Minor** Update viem and wagmi to their latest versions. [`3e4d23e`](https://github.com/1001-digital/layers/commit/3e4d23e)
+  _`components.evm`, `layers.evm`_
+
+- **Minor** Extract WAGMI plugin registration vs config into separate concerns [`007a1b2`](https://github.com/1001-digital/layers/commit/007a1b2)
+  _`layers.evm`_
+
+## 2026-03-29
+
+- Add Embed component [`f2fae71`](https://github.com/1001-digital/layers/commit/f2fae71)
+  _`components`_
+
+- Fix combobox height [`aac9359`](https://github.com/1001-digital/layers/commit/aac9359)
+  _`components`_
+
+- **Minor** Fix chain config [`23d5c51`](https://github.com/1001-digital/layers/commit/23d5c51)
+  _`components.evm`_
+
+## 2026-03-27
+
+- Open combobox by default on focus [`d69112e`](https://github.com/1001-digital/layers/commit/d69112e)
+  _`components`_
+
+- Fix provide/inject module identity by importing LinkComponentKey and IconAliasesKey from deep subpaths, and add explicit package exports for `./base/icons` and `./base/link` so TypeScript resolves them correctly [`e7e9466`](https://github.com/1001-digital/layers/commit/e7e9466)
+  _`components`, `layers.base`_
+
+- Fix uncaught error when ENS avatar uses an unsupported URI scheme (e.g. eip155://) by catching the resolution failure and falling back to the identicon [`5081b62`](https://github.com/1001-digital/layers/commit/5081b62)
+  _`components.evm`_
+
+- Enforce correct loading of css layers. [`ed9d490`](https://github.com/1001-digital/layers/commit/ed9d490)
+  _`layers.base`_
+
+## 2026-03-26
+
+- **Minor** Update opepicons to v1 (SVG-based rendering) [`23fb107`](https://github.com/1001-digital/layers/commit/23fb107)
+  _`components`_
+
+## 2026-03-24
+
+- **Minor** Add `CopyText` component for click-to-copy with "Copied..." feedback and `EvmAddressInput` form input with ENS resolution [`b985ba1`](https://github.com/1001-digital/layers/commit/b985ba1)
+  _`components`, `components.evm`_
+
+- Add `--dialog-close-color` CSS variable for customizing the Dialog close button color [`53200b8`](https://github.com/1001-digital/layers/commit/53200b8)
+  _`components`, `styles`_
+
+- Fix scroll container on body. Enable ENS resolution [`0a9103e`](https://github.com/1001-digital/layers/commit/0a9103e)
+  _`components.evm`, `styles`_
+
+## 2026-03-23
+
+- **Minor** Add small variant to Tag and TagsInput components ([#16](https://github.com/1001-digital/layers/pull/16)) [`0a40ad6`](https://github.com/1001-digital/layers/commit/0a40ad6)
+  _`components`, `styles`_
+
+## 2026-03-20
+
+- **Minor** Introduced TagsInput component ([#14](https://github.com/1001-digital/layers/pull/14)) [`0efc23b`](https://github.com/1001-digital/layers/commit/0efc23b)
+  _`components`, `styles`_
+
+## 2026-03-19
+
+- Fix default max dialog height [`e72c6e5`](https://github.com/1001-digital/layers/commit/e72c6e5)
+  _`components`_
+
+- Fix escape keydown catch on some browsers [`3b2a682`](https://github.com/1001-digital/layers/commit/3b2a682)
+  _`components`_
+
+- **Minor** Add auto-imports for evm utils / composables [`be17369`](https://github.com/1001-digital/layers/commit/be17369)
+  _`components.evm`, `layers.evm`_
+
+- **Minor** Refactor SIWE composable [`3c9e791`](https://github.com/1001-digital/layers/commit/3c9e791)
+  _`components.evm`_
+
+- **Minor** Explicit import resolving for evm components [`e940bde`](https://github.com/1001-digital/layers/commit/e940bde)
+  _`components.evm`, `layers.evm`_
+
+- **Minor** Fix resolving relative modules [`b53939d`](https://github.com/1001-digital/layers/commit/b53939d)
+  _`layers.evm`_
+
+- Fix import map [`45724a3`](https://github.com/1001-digital/layers/commit/45724a3)
+  _`layers.evm`_
+
+- **Minor** Remove priceFeed as a default plugin [`9138b9c`](https://github.com/1001-digital/layers/commit/9138b9c)
+  _`layers.evm`_
+
+## 2026-03-18
+
+- Cast date as valid datetime [`6983bca`](https://github.com/1001-digital/layers/commit/6983bca)
+  _`components`_
+
+- Allow customizing the ui font family [`2fbe7c2`](https://github.com/1001-digital/layers/commit/2fbe7c2)
+  _`components`, `styles`_
+
+- Fixed Toast, Dropdown, and Combobox style scopes. Comboboxes now show clean empty value [`3486179`](https://github.com/1001-digital/layers/commit/3486179)
+  _`components`_
+
+- Add custom header bg vars for Dialogs, Popovers, and Toasts [`a5d3ae9`](https://github.com/1001-digital/layers/commit/a5d3ae9)
+  _`components`_
+
+- **Minor** Refactor faulty string matching [`4c6225e`](https://github.com/1001-digital/layers/commit/4c6225e)
+  _`components.evm`_
+
+- **Minor** Handle wallets that are already connected [`4086f5a`](https://github.com/1001-digital/layers/commit/4086f5a)
+  _`components.evm`_
+
+- **Minor** Refactor how indexers and rpcs are configured [`485b644`](https://github.com/1001-digital/layers/commit/485b644)
+  _`components.evm`, `layers.evm`_
+
+- **Minor** Rework configuration of indexer and rpc URLs [`15a0d15`](https://github.com/1001-digital/layers/commit/15a0d15)
+  _`components.evm`, `layers.evm`_
+
+- Fix border radius for toasts [`1f8234d`](https://github.com/1001-digital/layers/commit/1f8234d)
+  _`styles`_
+
+- **Minor** Add default input background that is separate from main background [`5f97a41`](https://github.com/1001-digital/layers/commit/5f97a41)
+  _`styles`_
+
