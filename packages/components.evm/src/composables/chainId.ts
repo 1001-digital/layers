@@ -10,7 +10,7 @@ export const useChainConfig = (key?: string | number): ChainConfig => {
   if (typeof key === 'number') {
     return {
       id: key,
-      blockExplorer: 'https://etherscan.io',
+      blockExplorer: 'https://evm.now',
     }
   }
 
@@ -20,7 +20,7 @@ export const useChainConfig = (key?: string | number): ChainConfig => {
 
   return {
     id: chain?.id ?? 1,
-    blockExplorer: chain?.blockExplorer ?? 'https://etherscan.io',
+    blockExplorer: chain?.blockExplorer ?? 'https://evm.now',
   }
 }
 
