@@ -12,7 +12,14 @@
     "
   />
 
-  <p v-if="flow.step.value !== 'requesting' && flow.step.value !== 'waiting' && flow.step.value !== 'error' && flow.text.value.lead[flow.step.value]">
+  <p
+    v-if="
+      flow.step.value !== 'requesting' &&
+      flow.step.value !== 'waiting' &&
+      flow.step.value !== 'error' &&
+      flow.text.value.lead[flow.step.value]
+    "
+  >
     {{ flow.text.value.lead[flow.step.value] }}
   </p>
 
@@ -20,7 +27,9 @@
     v-if="flow.error.value"
     type="error"
   >
-    <p v-if="flow.text.value.lead[flow.step.value]">{{ flow.text.value.lead[flow.step.value] }}</p>
+    <p v-if="flow.text.value.lead[flow.step.value]">
+      {{ flow.text.value.lead[flow.step.value] }}
+    </p>
     <p>{{ flow.error.value }}</p>
   </Alert>
 
@@ -45,7 +54,9 @@
         >
       </template>
 
-      <template v-if="flow.step.value === 'confirm' || flow.step.value === 'error'">
+      <template
+        v-if="flow.step.value === 'confirm' || flow.step.value === 'error'"
+      >
         <Button
           @click="cancel"
           class="secondary"
@@ -72,22 +83,24 @@ import { watch, toRefs } from 'vue'
 import { Loading, Alert, Button } from '@1001-digital/components'
 import { useTransactionFlow } from '../composables/transactionFlow'
 import type { TransactionFlow } from '../composables/transactionFlow'
-import type {
-  EvmTransactionFlowProps,
-  EvmTransactionFlowEmits,
-} from '../types'
+import type { EvmTransactionFlowProps, EvmTransactionFlowEmits } from '../types'
 
-const props = withDefaults(defineProps<EvmTransactionFlowProps & {
-  flow?: TransactionFlow
-  noFooter?: boolean
-}>(), {
-  delayAfter: 2000,
-  delayAutoclose: 2000,
-  skipConfirmation: false,
-  autoCloseSuccess: true,
-  dismissable: true,
-  keepOpen: false,
-})
+const props = withDefaults(
+  defineProps<
+    EvmTransactionFlowProps & {
+      flow?: TransactionFlow
+      noFooter?: boolean
+    }
+  >(),
+  {
+    delayAfter: 2000,
+    delayAutoclose: 2000,
+    skipConfirmation: false,
+    autoCloseSuccess: true,
+    dismissable: true,
+    keepOpen: false,
+  },
+)
 
 const emit = defineEmits<EvmTransactionFlowEmits>()
 

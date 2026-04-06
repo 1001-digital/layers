@@ -19,9 +19,10 @@ export function useDwebClient(): DwebClient {
     arweave: config.arweaveGateway
       ? { gateways: [toBaseUrl(config.arweaveGateway)] }
       : undefined,
-    eip155: config.rpcUrls && Object.keys(config.rpcUrls).length
-      ? { rpcUrls: config.rpcUrls }
-      : undefined,
+    eip155:
+      config.rpcUrls && Object.keys(config.rpcUrls).length
+        ? { rpcUrls: config.rpcUrls }
+        : undefined,
   })
 }
 

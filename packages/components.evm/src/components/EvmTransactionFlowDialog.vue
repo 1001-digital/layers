@@ -33,7 +33,6 @@
           v-bind="slotProps"
         />
       </template>
-
     </EvmTransactionFlow>
 
     <template #footer>
@@ -45,7 +44,9 @@
         >
       </template>
 
-      <template v-if="flow.step.value === 'confirm' || flow.step.value === 'error'">
+      <template
+        v-if="flow.step.value === 'confirm' || flow.step.value === 'error'"
+      >
         <Button
           @click="cancel"
           class="secondary"
@@ -71,7 +72,10 @@
 import { computed, toRefs } from 'vue'
 import { Dialog, Button } from '@1001-digital/components'
 import EvmTransactionFlow from './EvmTransactionFlow.vue'
-import { useTransactionFlow, TRANSACTION_FLOW_STEPS } from '../composables/transactionFlow'
+import {
+  useTransactionFlow,
+  TRANSACTION_FLOW_STEPS,
+} from '../composables/transactionFlow'
 import type {
   EvmTransactionFlowDialogProps,
   EvmTransactionFlowDialogEmits,

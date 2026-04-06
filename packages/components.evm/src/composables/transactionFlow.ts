@@ -56,9 +56,7 @@ const defaultText = {
 } satisfies TransactionFlowText
 
 export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
-  const checkChain = useEnsureChainIdCheck(
-    toValue(options.chain),
-  )
+  const checkChain = useEnsureChainIdCheck(toValue(options.chain))
 
   const wagmiConfig = useConfig()
   const { connector } = useConnection()
@@ -131,7 +129,8 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
         error.value = 'Transaction rejected by user.'
       } else {
         const err = e as { shortMessage?: string }
-        error.value = err.shortMessage || 'Error submitting transaction request.'
+        error.value =
+          err.shortMessage || 'Error submitting transaction request.'
       }
       step.value = 'error'
       console.log(e)
