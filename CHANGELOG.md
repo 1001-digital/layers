@@ -3,6 +3,20 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-04-06
+
+- **Minor** Extract generic Avatar component from EvmAvatar ([#35](https://github.com/1001-digital/layers/pull/35)) [`3e1e0eb`](https://github.com/1001-digital/layers/commit/3e1e0eb)
+  Add a reusable `Avatar` component to `@1001-digital/components` that renders an image or an Opepicon fallback. `EvmAvatar` now delegates to this component instead of inlining the logic.
+  - Remove `avatarUrl` prop from `EvmAvatarProps` (avatar URL is now resolved internally)
+  - Cache resolved dweb URLs to avoid duplicate resolution
+  _`components`, `components.evm`_
+
+- **Minor** Switch default block explorer to evm.now (mainnet) [`8536c21`](https://github.com/1001-digital/layers/commit/8536c21)
+  _`components.evm`_
+
+- Make block explorer link text customizable [`b6947f1`](https://github.com/1001-digital/layers/commit/b6947f1)
+  _`components.evm`_
+
 ## 2026-04-03
 
 - Upgrade dweb-fetch to 0.2.1 [`997b51e`](https://github.com/1001-digital/layers/commit/997b51e)
