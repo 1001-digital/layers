@@ -51,6 +51,7 @@ const defaultText = {
   action: {
     confirm: 'Execute',
     error: 'Try Again',
+    viewOnExplorer: 'View on Block Explorer',
   },
 } satisfies TransactionFlowText
 
@@ -179,7 +180,7 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
         loading: true,
         progress: 0,
         action: {
-          label: 'View on Block Explorer',
+          label: text.value.action.viewOnExplorer,
           onClick: () => window.open(link, '_blank'),
           persistent: true,
         },
