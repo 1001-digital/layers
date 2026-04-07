@@ -76,7 +76,7 @@ export default defineAppConfig({
     chains: {
       mainnet: {
         id: 1,
-        blockExplorer: 'https://etherscan.io',
+        blockExplorer: 'https://evm.now',
       },
     },
     ens: { mode: 'indexer' },

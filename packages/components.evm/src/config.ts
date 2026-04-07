@@ -27,7 +27,7 @@ export const defaultEvmConfig: EvmConfig = {
   title: 'EVM Layer',
   defaultChain: 'mainnet',
   chains: {
-    mainnet: { id: 1, blockExplorer: 'https://etherscan.io' },
+    mainnet: { id: 1, blockExplorer: 'https://evm.now' },
   },
   ens: { mode: 'indexer' },
 }

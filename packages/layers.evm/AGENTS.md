@@ -58,7 +58,7 @@ evm: {
   title: 'My dApp',
   defaultChain: 'mainnet',            // Key into chains map; wagmi uses it as chains[0]
   chains: {
-    mainnet: { id: 1, blockExplorer: 'https://etherscan.io' },
+    mainnet: { id: 1, blockExplorer: 'https://evm.now' },
     sepolia: { id: 11155111, blockExplorer: 'https://sepolia.etherscan.io' },
   },
   ens: { mode: 'indexer' },           // 'indexer' (ponder-ens API) or 'chain' (on-chain)
