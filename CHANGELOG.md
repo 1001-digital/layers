@@ -3,6 +3,11 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-04-07
+
+- Fix default block explorer links [`e4c7708`](https://github.com/1001-digital/layers/commit/e4c7708)
+  _`components.evm`, `layers.evm`_
+
 ## 2026-04-06
 
 - **Minor** Extract generic Avatar component from EvmAvatar ([#35](https://github.com/1001-digital/layers/pull/35)) [`3e1e0eb`](https://github.com/1001-digital/layers/commit/3e1e0eb)
@@ -71,36 +76,6 @@ Generated from individual package changelogs — do not edit manually.
 - **Minor** Fix chain config [`23d5c51`](https://github.com/1001-digital/layers/commit/23d5c51)
   _`components.evm`_
 
-## 2026-03-27
-
-- Open combobox by default on focus [`d69112e`](https://github.com/1001-digital/layers/commit/d69112e)
-  _`components`_
-
-- Fix provide/inject module identity by importing LinkComponentKey and IconAliasesKey from deep subpaths, and add explicit package exports for `./base/icons` and `./base/link` so TypeScript resolves them correctly [`e7e9466`](https://github.com/1001-digital/layers/commit/e7e9466)
-  _`components`, `layers.base`_
-
-- Fix uncaught error when ENS avatar uses an unsupported URI scheme (e.g. eip155://) by catching the resolution failure and falling back to the identicon [`5081b62`](https://github.com/1001-digital/layers/commit/5081b62)
-  _`components.evm`_
-
-- Enforce correct loading of css layers. [`ed9d490`](https://github.com/1001-digital/layers/commit/ed9d490)
-  _`layers.base`_
-
-## 2026-03-26
-
-- **Minor** Update opepicons to v1 (SVG-based rendering) [`23fb107`](https://github.com/1001-digital/layers/commit/23fb107)
-  _`components`_
-
-## 2026-03-24
-
-- **Minor** Add `CopyText` component for click-to-copy with "Copied..." feedback and `EvmAddressInput` form input with ENS resolution [`b985ba1`](https://github.com/1001-digital/layers/commit/b985ba1)
-  _`components`, `components.evm`_
-
-- Add `--dialog-close-color` CSS variable for customizing the Dialog close button color [`53200b8`](https://github.com/1001-digital/layers/commit/53200b8)
-  _`components`, `styles`_
-
-- Fix scroll container on body. Enable ENS resolution [`0a9103e`](https://github.com/1001-digital/layers/commit/0a9103e)
-  _`components.evm`, `styles`_
-
 ## 2026-03-23
 
 - **Minor** Add small variant to Tag and TagsInput components ([#16](https://github.com/1001-digital/layers/pull/16)) [`0a40ad6`](https://github.com/1001-digital/layers/commit/0a40ad6)
@@ -168,4 +143,30 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Add default input background that is separate from main background [`5f97a41`](https://github.com/1001-digital/layers/commit/5f97a41)
   _`styles`_
+
+## Unknown
+
+- Open combobox by default on focus [`d69112e`](https://github.com/1001-digital/layers/commit/d69112e)
+  _`components`_
+
+- Fix provide/inject module identity by importing LinkComponentKey and IconAliasesKey from deep subpaths, and add explicit package exports for `./base/icons` and `./base/link` so TypeScript resolves them correctly [`e7e9466`](https://github.com/1001-digital/layers/commit/e7e9466)
+  _`components`, `layers.base`_
+
+- **Minor** Update opepicons to v1 (SVG-based rendering) [`23fb107`](https://github.com/1001-digital/layers/commit/23fb107)
+  _`components`_
+
+- **Minor** Add `CopyText` component for click-to-copy with "Copied..." feedback and `EvmAddressInput` form input with ENS resolution [`b985ba1`](https://github.com/1001-digital/layers/commit/b985ba1)
+  _`components`, `components.evm`_
+
+- Add `--dialog-close-color` CSS variable for customizing the Dialog close button color [`53200b8`](https://github.com/1001-digital/layers/commit/53200b8)
+  _`components`, `styles`_
+
+- Fix uncaught error when ENS avatar uses an unsupported URI scheme (e.g. eip155://) by catching the resolution failure and falling back to the identicon [`5081b62`](https://github.com/1001-digital/layers/commit/5081b62)
+  _`components.evm`_
+
+- Fix scroll container on body. Enable ENS resolution [`0a9103e`](https://github.com/1001-digital/layers/commit/0a9103e)
+  _`components.evm`, `styles`_
+
+- Enforce correct loading of css layers. [`ed9d490`](https://github.com/1001-digital/layers/commit/ed9d490)
+  _`layers.base`_
 
