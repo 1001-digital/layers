@@ -5,6 +5,9 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-04-07
 
+- Fix client only component list [`5e71dfa`](https://github.com/1001-digital/layers/commit/5e71dfa)
+  _`components.evm`_
+
 - Fix default block explorer links [`e4c7708`](https://github.com/1001-digital/layers/commit/e4c7708)
   _`components.evm`, `layers.evm`_
 
@@ -68,9 +71,6 @@ Generated from individual package changelogs — do not edit manually.
 ## 2026-03-29
 
 - Add Embed component [`f2fae71`](https://github.com/1001-digital/layers/commit/f2fae71)
-  _`components`_
-
-- Fix combobox height [`aac9359`](https://github.com/1001-digital/layers/commit/aac9359)
   _`components`_
 
 - **Minor** Fix chain config [`23d5c51`](https://github.com/1001-digital/layers/commit/23d5c51)
@@ -145,6 +145,9 @@ Generated from individual package changelogs — do not edit manually.
   _`styles`_
 
 ## Unknown
+
+- Fix combobox height [`aac9359`](https://github.com/1001-digital/layers/commit/aac9359)
+  _`components`_
 
 - Open combobox by default on focus [`d69112e`](https://github.com/1001-digital/layers/commit/d69112e)
   _`components`_
