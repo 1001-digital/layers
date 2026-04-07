@@ -1,5 +1,11 @@
 # @1001-digital/components.evm
 
+## 3.1.2
+
+### Patch Changes
+
+- [`5e71dfa`](https://github.com/1001-digital/layers/commit/5e71dfab8f721b3f111e1cfbf81e103c203e5fa6) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Fix client only component list
+
 ## 3.1.1
 
 ### Patch Changes
