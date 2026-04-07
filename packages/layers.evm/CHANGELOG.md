@@ -1,5 +1,14 @@
 # @1001-digital/layers.evm
 
+## 2.6.7
+
+### Patch Changes
+
+- [`e4c7708`](https://github.com/1001-digital/layers/commit/e4c7708c502599b6e46dc97b782e4be55b248d6e) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Fix default block explorer links
+
+- Updated dependencies [[`e4c7708`](https://github.com/1001-digital/layers/commit/e4c7708c502599b6e46dc97b782e4be55b248d6e)]:
+  - @1001-digital/components.evm@3.1.1
+
 ## 2.6.6
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @1001-digital/components.evm
 
+## 3.1.1
+
+### Patch Changes
+
+- [`e4c7708`](https://github.com/1001-digital/layers/commit/e4c7708c502599b6e46dc97b782e4be55b248d6e) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Fix default block explorer links
+
 ## 3.1.0
 
 ### Minor Changes
