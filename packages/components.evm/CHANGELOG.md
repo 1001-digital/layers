@@ -1,5 +1,11 @@
 # @1001-digital/components.evm
 
+## 3.1.3
+
+### Patch Changes
+
+- [`3a532d8`](https://github.com/1001-digital/layers/commit/3a532d891118eec022577277f621a2cf31a17f82) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Expose ens and address in profile actions
+
 ## 3.1.2
 
 ### Patch Changes

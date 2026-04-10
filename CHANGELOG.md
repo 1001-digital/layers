@@ -3,6 +3,11 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-04-10
+
+- Expose ens and address in profile actions [`3a532d8`](https://github.com/1001-digital/layers/commit/3a532d8)
+  _`components.evm`_
+
 ## 2026-04-07
 
 - Fix client only component list [`5e71dfa`](https://github.com/1001-digital/layers/commit/5e71dfa)
@@ -72,9 +77,6 @@ Generated from individual package changelogs — do not edit manually.
 
 - Add Embed component [`f2fae71`](https://github.com/1001-digital/layers/commit/f2fae71)
   _`components`_
-
-- **Minor** Fix chain config [`23d5c51`](https://github.com/1001-digital/layers/commit/23d5c51)
-  _`components.evm`_
 
 ## 2026-03-23
 
@@ -163,6 +165,9 @@ Generated from individual package changelogs — do not edit manually.
 
 - Add `--dialog-close-color` CSS variable for customizing the Dialog close button color [`53200b8`](https://github.com/1001-digital/layers/commit/53200b8)
   _`components`, `styles`_
+
+- **Minor** Fix chain config [`23d5c51`](https://github.com/1001-digital/layers/commit/23d5c51)
+  _`components.evm`_
 
 - Fix uncaught error when ENS avatar uses an unsupported URI scheme (e.g. eip155://) by catching the resolution failure and falling back to the identicon [`5081b62`](https://github.com/1001-digital/layers/commit/5081b62)
   _`components.evm`_
