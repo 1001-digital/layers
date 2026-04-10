@@ -46,7 +46,11 @@
     </div>
 
     <div class="profile-actions">
-      <slot name="actions" />
+      <slot
+        name="actions"
+        :ens="ensName"
+        :address="address"
+      />
 
       <EvmSwitchNetwork class-name="block">
         <template #default="{ currentChain }">
