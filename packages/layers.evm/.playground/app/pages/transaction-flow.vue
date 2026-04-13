@@ -267,6 +267,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { Hash } from 'viem'
+import { EvmTransactionFlow } from '#components'
 
 const delay = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
