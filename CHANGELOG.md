@@ -3,6 +3,14 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-04-13
+
+- Fix type issue ([#40](https://github.com/1001-digital/layers/pull/40)) [`ead860d`](https://github.com/1001-digital/layers/commit/ead860d)
+  _`components.evm`_
+
+- This fixes a type error for the toast explorer label ([#40](https://github.com/1001-digital/layers/pull/40)) [`c703979`](https://github.com/1001-digital/layers/commit/c703979)
+  _`components.evm`_
+
 ## 2026-04-10
 
 - Expose ens and address in profile actions [`3a532d8`](https://github.com/1001-digital/layers/commit/3a532d8)
@@ -73,11 +81,6 @@ Generated from individual package changelogs — do not edit manually.
 - **Minor** Extract WAGMI plugin registration vs config into separate concerns [`007a1b2`](https://github.com/1001-digital/layers/commit/007a1b2)
   _`layers.evm`_
 
-## 2026-03-29
-
-- Add Embed component [`f2fae71`](https://github.com/1001-digital/layers/commit/f2fae71)
-  _`components`_
-
 ## 2026-03-23
 
 - **Minor** Add small variant to Tag and TagsInput components ([#16](https://github.com/1001-digital/layers/pull/16)) [`0a40ad6`](https://github.com/1001-digital/layers/commit/0a40ad6)
@@ -147,6 +150,9 @@ Generated from individual package changelogs — do not edit manually.
   _`styles`_
 
 ## Unknown
+
+- Add Embed component [`f2fae71`](https://github.com/1001-digital/layers/commit/f2fae71)
+  _`components`_
 
 - Fix combobox height [`aac9359`](https://github.com/1001-digital/layers/commit/aac9359)
   _`components`_

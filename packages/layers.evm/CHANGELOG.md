@@ -1,5 +1,12 @@
 # @1001-digital/layers.evm
 
+## 2.6.10
+
+### Patch Changes
+
+- Updated dependencies [[`ead860d`](https://github.com/1001-digital/layers/commit/ead860d398e27d8586da3651dff04b8117cf1b04), [`c703979`](https://github.com/1001-digital/layers/commit/c703979aea9d09d97c3b0528def60b89f6115efc)]:
+  - @1001-digital/components.evm@3.1.4
+
 ## 2.6.9
 
 ### Patch Changes
