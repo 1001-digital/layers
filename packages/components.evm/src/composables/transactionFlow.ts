@@ -179,7 +179,9 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
         loading: true,
         progress: 0,
         action: {
-          label: text.value.action.viewOnExplorer,
+          label:
+            text.value.action.viewOnExplorer ??
+            defaultText.action.viewOnExplorer,
           onClick: () => window.open(link, '_blank'),
           persistent: true,
         },
