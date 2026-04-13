@@ -1,5 +1,13 @@
 # @1001-digital/components.evm
 
+## 3.1.4
+
+### Patch Changes
+
+- [#40](https://github.com/1001-digital/layers/pull/40) [`ead860d`](https://github.com/1001-digital/layers/commit/ead860d398e27d8586da3651dff04b8117cf1b04) Thanks [@yougogirldoteth](https://github.com/yougogirldoteth)! - Fix type issue
+
+- [#40](https://github.com/1001-digital/layers/pull/40) [`c703979`](https://github.com/1001-digital/layers/commit/c703979aea9d09d97c3b0528def60b89f6115efc) Thanks [@yougogirldoteth](https://github.com/yougogirldoteth)! - This fixes a type error for the toast explorer label
+
 ## 3.1.3
 
 ### Patch Changes
