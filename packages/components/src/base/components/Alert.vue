@@ -49,6 +49,7 @@ const dismiss = () => {
     gap: var(--spacer-sm);
     border: var(--border);
     border-color: var(--alert-border-color);
+    border-radius: var(--alert-border-radius);
     background-color: var(--alert-background);
     color: var(--alert-color);
     font-family: var(--ui-font-family);
@@ -65,6 +66,10 @@ const dismiss = () => {
       border-color: var(--alert-error-border-color);
       background-color: var(--alert-error-background-color);
       color: var(--alert-error-color);
+    }
+
+    &:has(> .close) {
+      padding-inline-end: calc(var(--size-4) + var(--spacer-sm) * 2);
     }
 
     & :deep(> h1) {

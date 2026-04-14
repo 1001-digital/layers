@@ -1,4 +1,5 @@
 :root {
+  --alert-border-radius: var(--border-radius);
   --alert-color: var(--color);
   --alert-background: transparent;
   --alert-border-color: var(--border-color);
