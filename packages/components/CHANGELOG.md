@@ -1,5 +1,14 @@
 # @1001-digital/components
 
+## 2.7.1
+
+### Patch Changes
+
+- [`2aafcb9`](https://github.com/1001-digital/layers/commit/2aafcb97c1daefb1439966cfcb8adc770a31f17a) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Add `--alert-border-radius` token (defaults to `--border-radius`) so `Alert` can be themed like other components. Also reserve inline-end padding on `Alert` when a close button is present so content cannot overlap it.
+
+- Updated dependencies [[`2aafcb9`](https://github.com/1001-digital/layers/commit/2aafcb97c1daefb1439966cfcb8adc770a31f17a)]:
+  - @1001-digital/styles@2.4.0
+
 ## 2.7.0
 
 ### Minor Changes
