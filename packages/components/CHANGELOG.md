@@ -1,5 +1,11 @@
 # @1001-digital/components
 
+## 2.7.0
+
+### Minor Changes
+
+- [`856096e`](https://github.com/1001-digital/layers/commit/856096edf9f529e0a2519e8c17739dc43324b810) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Support non-persistent dismissal on `Alert`. Adds a `dismissable` boolean prop for in-memory dismissal and renames the persistence prop from `dismiss` to `dismiss-key` for clarity. Providing `dismiss-key` still implies `dismissable`.
+
 ## 2.6.0
 
 ### Minor Changes
