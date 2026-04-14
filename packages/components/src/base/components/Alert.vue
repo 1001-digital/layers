@@ -24,15 +24,16 @@ import Icon from './Icon.vue'
 
 const props = defineProps<{
   type?: 'info' | 'error'
-  dismiss?: string
+  dismissable?: boolean
+  dismissKey?: string
 }>()
 
-const dismissKey = computed(() => `alert:${props.dismiss}`)
+const storageKey = computed(() => `alert:${props.dismissKey}`)
 
-const dismissed = props.dismiss
-  ? useLocalStorage(dismissKey, false)
+const dismissed = props.dismissKey
+  ? useLocalStorage(storageKey, false)
   : ref(false)
-const dismissable = computed(() => !!props.dismiss)
+const dismissable = computed(() => !!props.dismissable || !!props.dismissKey)
 
 const dismiss = () => {
   dismissed.value = true

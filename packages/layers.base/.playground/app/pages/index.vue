@@ -276,6 +276,28 @@
             <p>Something went wrong. Please try again.</p>
           </Alert>
         </div>
+
+        <div class="component-demo">
+          <h4>Dismissable (non-persistent)</h4>
+          <Alert
+            type="info"
+            dismissable
+          >
+            <h1>Heads up</h1>
+            <p>Close me — I'll come back on reload.</p>
+          </Alert>
+        </div>
+
+        <div class="component-demo">
+          <h4>Dismissable (persistent)</h4>
+          <Alert
+            type="info"
+            dismiss-key="playground-demo"
+          >
+            <h1>Heads up</h1>
+            <p>Close me — I'll stay dismissed across reloads.</p>
+          </Alert>
+        </div>
       </Card>
 
       <!-- Card -->
