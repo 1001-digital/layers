@@ -1,5 +1,11 @@
 # @1001-digital/styles
 
+## 2.5.0
+
+### Minor Changes
+
+- [`197f125`](https://github.com/1001-digital/layers/commit/197f125d19e16b87e1e6e027e3b85bcdc3986b0e) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Add `--tag-background` token (defaults to `transparent`) so `Tag` can be themed like other components.
+
 ## 2.4.0
 
 ### Minor Changes

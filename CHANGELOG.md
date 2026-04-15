@@ -3,6 +3,11 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-04-15
+
+- **Minor** Add `--tag-background` token (defaults to `transparent`) so `Tag` can be themed like other components. [`197f125`](https://github.com/1001-digital/layers/commit/197f125)
+  _`components`, `styles`_
+
 ## 2026-04-14
 
 - **Minor** Add `--alert-border-radius` token (defaults to `--border-radius`) so `Alert` can be themed like other components. Also reserve inline-end padding on `Alert` when a close button is present so content cannot overlap it. [`2aafcb9`](https://github.com/1001-digital/layers/commit/2aafcb9)
@@ -69,9 +74,6 @@ Generated from individual package changelogs — do not edit manually.
   _`components.evm`_
 
 - Fix dapp url [`282c26c`](https://github.com/1001-digital/layers/commit/282c26c)
-  _`layers.evm`_
-
-- **Minor** Implement new metamask/connect-evm library [`7229122`](https://github.com/1001-digital/layers/commit/7229122)
   _`layers.evm`_
 
 - Implement automatic manifest.json generation for safe app browser integration [`db17ba9`](https://github.com/1001-digital/layers/commit/db17ba9)
@@ -186,6 +188,9 @@ Generated from individual package changelogs — do not edit manually.
 
 - Enforce correct loading of css layers. [`ed9d490`](https://github.com/1001-digital/layers/commit/ed9d490)
   _`layers.base`_
+
+- **Minor** Implement new metamask/connect-evm library [`7229122`](https://github.com/1001-digital/layers/commit/7229122)
+  _`layers.evm`_
 
 - **Minor** Extract WAGMI plugin registration vs config into separate concerns [`007a1b2`](https://github.com/1001-digital/layers/commit/007a1b2)
   _`layers.evm`_
