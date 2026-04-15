@@ -1,3 +1,4 @@
 :root {
   --tag-border-radius: var(--border-radius);
+  --tag-background: transparent;
 }

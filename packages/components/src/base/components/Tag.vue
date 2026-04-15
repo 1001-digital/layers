@@ -33,6 +33,7 @@ const emit = defineEmits<{
 
 <style scoped>
 .tag {
+  background: var(--tag-background);
   border-radius: var(--tag-border-radius);
   box-shadow: var(--border-shadow);
   font-family: var(--ui-font-family);
