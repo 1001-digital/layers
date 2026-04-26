@@ -14,15 +14,15 @@
         <Card>
           <h2>Dialog</h2>
           <p>
-            Opens a dialog with the full SIWE sign-in flow. Uses mock nonce
-            &amp; verification.
+            Opens a dialog with the full SIWE sign-in flow. Verifies with
+            <code>@signinwithethereum/siwe</code>.
           </p>
           <p class="connected">Connected: <EvmAccount :address="address" /></p>
 
           <Actions>
             <EvmSiweDialog
-              :get-nonce="mockGetNonce"
-              :verify="mockVerify"
+              :get-nonce="getNonce"
+              :verify="verify"
               statement="Sign in to the EVM Layer Playground."
               @authenticated="onAuthenticated"
               @signed-out="onSignedOut"
@@ -48,8 +48,8 @@
           <p>Embeds the sign-in steps directly in the page (no dialog).</p>
 
           <EvmSiwe
-            :get-nonce="mockGetNonce"
-            :verify="mockVerify"
+            :get-nonce="getNonce"
+            :verify="verify"
             statement="Sign in to the EVM Layer Playground."
             @authenticated="onAuthenticated"
             @error="onError"
@@ -61,7 +61,7 @@
           <p>Simulates a backend rejecting the signature.</p>
 
           <EvmSiwe
-            :get-nonce="mockGetNonce"
+            :get-nonce="getNonce"
             :verify="mockVerifyFail"
             statement="This will fail verification."
             @error="onError"
@@ -75,20 +75,56 @@
 </template>
 
 <script setup lang="ts">
-const delay = (ms: number) => new Promise((r) => setTimeout(r, ms))
+import {
+  SiweMessage,
+  createViemConfig,
+  generateNonce,
+} from '@signinwithethereum/siwe'
+import { createPublicClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
 
-const mockGetNonce = async () => {
-  await delay(300)
-  return Math.random().toString(36).slice(2)
+// In production the nonce would be issued and stored server-side;
+// here we keep it in module state so verify() can check it.
+let issuedNonce: string | null = null
+
+const getNonce = async () => {
+  issuedNonce = generateNonce()
+  return issuedNonce
 }
 
-const mockVerify = async (_message: string, _signature: string) => {
-  await delay(500)
+let verifierConfigPromise: ReturnType<typeof createViemConfig> | null = null
+const getVerifierConfig = () => {
+  if (!verifierConfigPromise) {
+    verifierConfigPromise = createViemConfig({
+      publicClient: createPublicClient({
+        chain: mainnet,
+        transport: http(),
+      }),
+    })
+  }
+  return verifierConfigPromise
+}
+
+const verify = async (message: string, signature: string) => {
+  const config = await getVerifierConfig()
+  const siwe = new SiweMessage(message)
+  const { success, error } = await siwe.verify(
+    {
+      signature,
+      domain: window.location.host,
+      nonce: issuedNonce ?? '',
+    },
+    { config, suppressExceptions: true },
+  )
+  if (!success) {
+    console.error('SIWE verification failed:', error)
+    return false
+  }
   return true
 }
 
 const mockVerifyFail = async (_message: string, _signature: string) => {
-  await delay(500)
+  await new Promise((r) => setTimeout(r, 500))
   return false
 }
 

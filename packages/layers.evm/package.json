@@ -23,6 +23,7 @@
   "devDependencies": {
     "@wagmi/core": "3.4.1",
     "@nuxt/eslint": "1.15.2",
+    "@signinwithethereum/siwe": "^4.2.0",
     "@types/node": "^24.10.4",
     "eslint": "^9.39.2",
     "nuxt": "^4.3.1",
