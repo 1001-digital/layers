@@ -4,6 +4,8 @@ export const clientOnlyComponents = [
   'EvmAddressInput',
   'EvmAvatar',
   'EvmConnect',
+  'EvmConnectAuth',
+  'EvmConnectAuthDialog',
   'EvmConnectDialog',
   'EvmConnectionStatus',
   'EvmConnectorQR',

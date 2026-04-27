@@ -145,6 +145,7 @@ export interface EvmSiweProps {
   resources?: string[]
   requestId?: string
   expirationTime?: string
+  autoSignIn?: boolean
 }
 
 export interface EvmSiweEmits {
@@ -163,6 +164,30 @@ export interface EvmSiweDialogProps extends EvmSiweProps {
 }
 
 export interface EvmSiweDialogEmits {
+  authenticated: [{ address: `0x${string}`; chainId: number }]
+  signedOut: []
+  error: [error: string]
+}
+
+// EvmConnectAuth
+export type EvmConnectAuthProps = EvmSiweProps
+
+export interface EvmConnectAuthEmits {
+  connecting: []
+  connected: [{ address: `0x${string}` | undefined }]
+  authenticated: [{ address: `0x${string}`; chainId: number }]
+  signedOut: []
+  error: [error: string]
+}
+
+// EvmConnectAuthDialog
+export interface EvmConnectAuthDialogProps extends EvmSiweProps {
+  className?: string
+}
+
+export interface EvmConnectAuthDialogEmits {
+  connected: [{ address: `0x${string}` | undefined }]
+  disconnected: []
   authenticated: [{ address: `0x${string}`; chainId: number }]
   signedOut: []
   error: [error: string]

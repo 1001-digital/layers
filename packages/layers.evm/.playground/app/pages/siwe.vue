@@ -3,6 +3,59 @@
     <h1>Sign-In with Ethereum (SIWE)</h1>
     <p><NuxtLink to="/">&larr; Back</NuxtLink></p>
 
+    <Card>
+      <h2>Combined Dialog: Connect &amp; Sign In</h2>
+      <p>One dialog, two wallet popups back-to-back &mdash; no extra clicks.</p>
+      <Actions>
+        <EvmConnectAuthDialog
+          :get-nonce="getNonce"
+          :verify="verify"
+          statement="Sign in to the EVM Layer Playground."
+          @authenticated="onAuthenticated"
+          @signed-out="onSignedOut"
+          @error="onError"
+        >
+          Connect &amp; Sign In
+          <template #authenticated="{ address: authAddr, signOut }">
+            <span class="authenticated">
+              Authenticated: {{ shortAddress(authAddr) }}
+            </span>
+            <Button
+              class="secondary"
+              @click="signOut"
+              >Sign Out</Button
+            >
+          </template>
+        </EvmConnectAuthDialog>
+      </Actions>
+    </Card>
+
+    <Card>
+      <h2>Combined Inline: Connect &amp; Sign In</h2>
+      <p>Same flow, embedded directly in the page (no dialog).</p>
+      <EvmConnectAuth
+        :get-nonce="getNonce"
+        :verify="verify"
+        statement="Sign in to the EVM Layer Playground."
+        @authenticated="onAuthenticated"
+        @signed-out="onSignedOut"
+        @error="onError"
+      >
+        <template #authenticated="{ address: authAddr, signOut }">
+          <p class="connected">
+            Authenticated: <EvmAccount :address="authAddr" />
+          </p>
+          <Actions>
+            <Button
+              class="secondary"
+              @click="signOut"
+              >Sign Out</Button
+            >
+          </Actions>
+        </template>
+      </EvmConnectAuth>
+    </Card>
+
     <EvmConnectionStatus v-slot="{ status, address }">
       <Card v-if="status === 'disconnected' || status === 'connecting'">
         <h2>Connect Wallet</h2>

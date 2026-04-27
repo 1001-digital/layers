@@ -25,12 +25,14 @@ Entry point: `src/index.ts` (barrel export). Also exports:
 
 ## Client-only components
 
-Must be rendered client-side: `EvmAccount`, `EvmAddressInput`, `EvmConnect`, `EvmConnectDialog`, `EvmConnectionStatus`, `EvmConnectorQR`, `EvmMetaMaskQR`, `EvmInAppWalletSetup`, `EvmTransactionFlow`, `EvmWalletConnectQR`, `EvmSiwe`, `EvmSiweDialog`, `EvmSidebarProfile`.
+Must be rendered client-side: `EvmAccount`, `EvmAddressInput`, `EvmConnect`, `EvmConnectAuth`, `EvmConnectAuthDialog`, `EvmConnectDialog`, `EvmConnectionStatus`, `EvmConnectorQR`, `EvmMetaMaskQR`, `EvmInAppWalletSetup`, `EvmTransactionFlow`, `EvmWalletConnectQR`, `EvmSiwe`, `EvmSiweDialog`, `EvmSidebarProfile`.
 
-## Components (18)
+## Components (20)
 
 - `EvmConnect` — wallet connection UI (connector list, QR, in-app wallet)
 - `EvmConnectDialog` — EvmConnect in a dialog; emits `connected({ address })`, `disconnected`
+- `EvmConnectAuth` — combined connect + SIWE flow (inline); auto-prompts signature once wallet connects
+- `EvmConnectAuthDialog` — EvmConnectAuth in a dialog; trigger button + authenticated slot, mirrors EvmSiweDialog shape
 - `EvmConnectionStatus` — renderless provider: `status`, `address`, `connector` via slot props
 - `EvmAccount` — address display with optional ENS (`address?`, `resolveEns?`)
 - `EvmAvatar` — ENS avatar with Opepicon fallback (`address?`, `large?`)
@@ -42,7 +44,7 @@ Must be rendered client-side: `EvmAccount`, `EvmAddressInput`, `EvmConnect`, `Ev
 - `EvmMetaMaskQR` — MetaMask deep-link QR
 - `EvmWalletConnectQR` — WalletConnect pairing QR
 - `EvmWalletConnectWallets` — searchable wallet explorer
-- `EvmSiwe` — Sign-In with Ethereum; requires `getNonce()` and `verify()` callbacks
+- `EvmSiwe` — Sign-In with Ethereum; requires `getNonce()` and `verify()` callbacks; optional `autoSignIn` prop triggers signature prompt on mount
 - `EvmSiweDialog` — SIWE dialog wrapper
 - `EvmAddressInput` — address/ENS input field
 - `EvmInAppWalletSetup` — mnemonic wallet creation flow

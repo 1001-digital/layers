@@ -34,6 +34,10 @@ export type {
   EvmSiweEmits,
   EvmSiweDialogProps,
   EvmSiweDialogEmits,
+  EvmConnectAuthProps,
+  EvmConnectAuthEmits,
+  EvmConnectAuthDialogProps,
+  EvmConnectAuthDialogEmits,
 } from './types'
 
 // Utils
@@ -112,3 +116,5 @@ export { default as EvmSeedPhraseInput } from './components/EvmSeedPhraseInput.v
 export { default as EvmInAppWalletSetup } from './components/EvmInAppWalletSetup.vue'
 export { default as EvmSiwe } from './components/EvmSiwe.vue'
 export { default as EvmSiweDialog } from './components/EvmSiweDialog.vue'
+export { default as EvmConnectAuth } from './components/EvmConnectAuth.vue'
+export { default as EvmConnectAuthDialog } from './components/EvmConnectAuthDialog.vue'

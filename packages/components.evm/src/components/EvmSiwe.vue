@@ -34,6 +34,7 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { Button, Alert, Loading } from '@1001-digital/components'
 import { useSiwe } from '../composables/siwe'
 import type { EvmSiweProps, EvmSiweEmits } from '../types'
@@ -62,6 +63,12 @@ const handleSignIn = async () => {
     chainId: result.chainId,
   })
 }
+
+onMounted(() => {
+  if (props.autoSignIn && step.value === 'idle') {
+    handleSignIn()
+  }
+})
 
 defineExpose({ reset })
 </script>

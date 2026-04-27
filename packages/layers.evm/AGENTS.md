@@ -6,7 +6,7 @@ Nuxt layer for building Ethereum dAPPs. Extends `@1001-digital/layers.base`.
 
 When a Nuxt app extends `@1001-digital/layers.evm`, it gets everything from `layers.base` plus:
 
-- **18 auto-imported EVM components** (wallet connection, ENS, transaction flow, SIWE)
+- **20 auto-imported EVM components** (wallet connection, ENS, transaction flow, SIWE)
 - **Auto-imported composables** for chain config, ENS, gas, price feeds, SIWE, dweb
 - **Auto-imported utils** for addresses, chains, ETH formatting, caching, SIWE messages
 - **Wagmi plugin** that configures wallet connectors, chains, transports, and TanStack Query
@@ -76,12 +76,14 @@ RPC URLs and sensitive values go in `runtimeConfig.public.evm`. Transports are b
 
 ## Components (all client-only)
 
-All EVM components are marked client-only via Nuxt config hook. Client-only list: `EvmAccount`, `EvmAddressInput`, `EvmConnect`, `EvmConnectDialog`, `EvmConnectionStatus`, `EvmConnectorQR`, `EvmMetaMaskQR`, `EvmInAppWalletSetup`, `EvmTransactionFlow`, `EvmWalletConnectQR`, `EvmSiwe`, `EvmSiweDialog`, `EvmSidebarProfile`.
+All EVM components are marked client-only via Nuxt config hook. Client-only list: `EvmAccount`, `EvmAddressInput`, `EvmConnect`, `EvmConnectAuth`, `EvmConnectAuthDialog`, `EvmConnectDialog`, `EvmConnectionStatus`, `EvmConnectorQR`, `EvmMetaMaskQR`, `EvmInAppWalletSetup`, `EvmTransactionFlow`, `EvmWalletConnectQR`, `EvmSiwe`, `EvmSiweDialog`, `EvmSidebarProfile`.
 
 ### Wallet connection
 
 - `EvmConnect` — full wallet connection UI with connector list, QR codes, in-app wallet setup
 - `EvmConnectDialog` — wraps EvmConnect in a dialog; emits `connected`, `disconnected`
+- `EvmConnectAuth` — combined connect + SIWE flow (inline); auto-prompts signature once wallet connects
+- `EvmConnectAuthDialog` — wraps EvmConnectAuth in a dialog; trigger button + authenticated slot
 - `EvmConnectionStatus` — renderless provider exposing `status`, `address`, `connector` via slot props
 
 ### Profile & display
@@ -108,7 +110,7 @@ All EVM components are marked client-only via Nuxt config hook. Client-only list
 
 ### Authentication
 
-- `EvmSiwe` — Sign-In with Ethereum (EIP-4361); requires `getNonce` and `verify` callbacks
+- `EvmSiwe` — Sign-In with Ethereum (EIP-4361); requires `getNonce` and `verify` callbacks; optional `autoSignIn` triggers signature prompt on mount
 - `EvmSiweDialog` — wraps EvmSiwe in a dialog
 - `EvmAddressInput` — address input with ENS resolution
 
