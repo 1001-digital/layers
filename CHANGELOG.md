@@ -5,6 +5,9 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-04-27
 
+- Upgrade `viem` to 2.48.4, `@wagmi/core` to 3.4.6, and `@wagmi/vue` to 0.5.6. [`ebca2e9`](https://github.com/1001-digital/layers/commit/ebca2e9)
+  _`components.evm`, `layers.evm`_
+
 - **Minor** Add `EvmConnectAuth` and `EvmConnectAuthDialog` for a combined connect + SIWE flow that auto-prompts the signature once the wallet connects, plus an `autoSignIn` prop on `EvmSiwe` that triggers sign-in on mount. [`76b8b30`](https://github.com/1001-digital/layers/commit/76b8b30)
   _`components.evm`, `layers.evm`_
 
