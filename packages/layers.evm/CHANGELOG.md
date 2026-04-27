@@ -1,5 +1,14 @@
 # @1001-digital/layers.evm
 
+## 2.7.1
+
+### Patch Changes
+
+- [`ebca2e9`](https://github.com/1001-digital/layers/commit/ebca2e9ece9a37d79b342f19c252dd2fe84533f2) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Upgrade `viem` to 2.48.4, `@wagmi/core` to 3.4.6, and `@wagmi/vue` to 0.5.6.
+
+- Updated dependencies [[`ebca2e9`](https://github.com/1001-digital/layers/commit/ebca2e9ece9a37d79b342f19c252dd2fe84533f2)]:
+  - @1001-digital/components.evm@3.2.1
+
 ## 2.7.0
 
 ### Minor Changes
