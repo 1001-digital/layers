@@ -183,6 +183,7 @@ export interface EvmConnectAuthEmits {
 // EvmConnectAuthDialog
 export interface EvmConnectAuthDialogProps extends EvmSiweProps {
   className?: string
+  noTrigger?: boolean
 }
 
 export interface EvmConnectAuthDialogEmits {

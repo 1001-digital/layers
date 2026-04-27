@@ -1,13 +1,13 @@
 <template>
   <Button
-    v-if="!isAuthenticated"
+    v-if="!noTrigger && !isAuthenticated"
     @click="open = true"
     :class="className"
   >
     <slot>Connect & Sign In</slot>
   </Button>
   <slot
-    v-else
+    v-else-if="!noTrigger"
     name="authenticated"
     :address="session?.address"
     :sign-out="handleSignOut"
@@ -20,7 +20,6 @@
   </slot>
 
   <Dialog
-    v-if="!isAuthenticated"
     :title="dialogTitle"
     v-model:open="open"
     @closed="onClosed"
@@ -59,7 +58,7 @@ const emit = defineEmits<EvmConnectAuthDialogEmits>()
 const { address, isConnected } = useConnection()
 const { isAuthenticated, session, signOut } = useSiwe()
 
-const open = ref(false)
+const open = defineModel<boolean>('open', { default: false })
 const authRef = ref<InstanceType<typeof EvmConnectAuth> | null>(null)
 
 const dialogTitle = computed(() =>
@@ -84,12 +83,6 @@ const emitConnectionState = () =>
   isConnected.value
     ? emit('connected', { address: address.value })
     : emit('disconnected')
-
-watch(isAuthenticated, (authenticated) => {
-  if (!authenticated) {
-    open.value = false
-  }
-})
 
 watch(isConnected, () => {
   emitConnectionState()
