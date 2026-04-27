@@ -3,6 +3,11 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-04-27
+
+- **Minor** Add `EvmConnectAuth` and `EvmConnectAuthDialog` for a combined connect + SIWE flow that auto-prompts the signature once the wallet connects, plus an `autoSignIn` prop on `EvmSiwe` that triggers sign-in on mount. [`76b8b30`](https://github.com/1001-digital/layers/commit/76b8b30)
+  _`components.evm`, `layers.evm`_
+
 ## 2026-04-15
 
 - **Minor** Add `--tag-background` token (defaults to `transparent`) so `Tag` can be themed like other components. [`197f125`](https://github.com/1001-digital/layers/commit/197f125)
@@ -74,13 +79,6 @@ Generated from individual package changelogs — do not edit manually.
   _`components.evm`_
 
 - Fix dapp url [`282c26c`](https://github.com/1001-digital/layers/commit/282c26c)
-  _`layers.evm`_
-
-- Implement automatic manifest.json generation for safe app browser integration [`db17ba9`](https://github.com/1001-digital/layers/commit/db17ba9)
-  Configure safe to allow safe.global to connect via an iframe
-  _`layers.evm`_
-
-- Upgrade @base-org/account and @walletconnnect/ethereum-provider packages [`e40fe80`](https://github.com/1001-digital/layers/commit/e40fe80)
   _`layers.evm`_
 
 ## 2026-03-23
@@ -193,5 +191,12 @@ Generated from individual package changelogs — do not edit manually.
   _`layers.evm`_
 
 - **Minor** Extract WAGMI plugin registration vs config into separate concerns [`007a1b2`](https://github.com/1001-digital/layers/commit/007a1b2)
+  _`layers.evm`_
+
+- Implement automatic manifest.json generation for safe app browser integration [`db17ba9`](https://github.com/1001-digital/layers/commit/db17ba9)
+  Configure safe to allow safe.global to connect via an iframe
+  _`layers.evm`_
+
+- Upgrade @base-org/account and @walletconnnect/ethereum-provider packages [`e40fe80`](https://github.com/1001-digital/layers/commit/e40fe80)
   _`layers.evm`_
 

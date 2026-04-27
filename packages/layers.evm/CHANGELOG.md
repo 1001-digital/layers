@@ -1,5 +1,16 @@
 # @1001-digital/layers.evm
 
+## 2.7.0
+
+### Minor Changes
+
+- [`76b8b30`](https://github.com/1001-digital/layers/commit/76b8b309a4fbb2d007ee6526c5eddbf45f86ebe7) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Add `EvmConnectAuth` and `EvmConnectAuthDialog` for a combined connect + SIWE flow that auto-prompts the signature once the wallet connects, plus an `autoSignIn` prop on `EvmSiwe` that triggers sign-in on mount.
+
+### Patch Changes
+
+- Updated dependencies [[`76b8b30`](https://github.com/1001-digital/layers/commit/76b8b309a4fbb2d007ee6526c5eddbf45f86ebe7)]:
+  - @1001-digital/components.evm@3.2.0
+
 ## 2.6.13
 
 ### Patch Changes
