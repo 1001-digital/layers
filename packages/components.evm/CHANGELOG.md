@@ -1,5 +1,13 @@
 # @1001-digital/components.evm
 
+## 3.3.0
+
+### Minor Changes
+
+- [`bdd255a`](https://github.com/1001-digital/layers/commit/bdd255a1e696e26a4736a14694e3c9b16386359a) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - `EvmConnectAuthDialog` can now be driven externally. Adds `v-model:open` for controlled open state and a `noTrigger` prop that suppresses the built-in trigger button and authenticated slot, so the component renders the dialog only. Useful for flows that already have their own trigger (e.g. linking an additional wallet from a settings page) and need to programmatically open the connect + SIWE flow even while the user is already signed in.
+
+  Also drops the internal watcher that auto-closed the dialog when `isAuthenticated` flipped to `false`, which interfered with controlled flows that clear the SIWE session before prompting a new signature.
+
 ## 3.2.1
 
 ### Patch Changes
