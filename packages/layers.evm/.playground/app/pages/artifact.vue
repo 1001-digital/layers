@@ -89,14 +89,16 @@ const showAnimation = ref(true)
 
 const staticOnly = {
   name: 'Static PNG',
-  image: 'https://ipfs.vv.xyz/ipfs/QmaRVTjYCNwjMXJW4kh3ix8BvpH27PPCCCLkiPEeZXbAGK/nft.png',
+  image:
+    'https://ipfs.vv.xyz/ipfs/QmaRVTjYCNwjMXJW4kh3ix8BvpH27PPCCCLkiPEeZXbAGK/nft.png',
   animation_url: null,
   background_color: '1a2b3c',
 } as const
 
 const videoToken = {
   name: 'Video animation',
-  image: 'https://ipfs.vv.xyz/ipfs/QmaRVTjYCNwjMXJW4kh3ix8BvpH27PPCCCLkiPEeZXbAGK/nft.png',
+  image:
+    'https://ipfs.vv.xyz/ipfs/QmaRVTjYCNwjMXJW4kh3ix8BvpH27PPCCCLkiPEeZXbAGK/nft.png',
   animation_url:
     'https://ipfs.vv.xyz/ipfs/Qma2J3HeaTw8G33uXotELP8N32wkR2cj6iM4EKMdw2zCLr/nft.mp4',
   background_color: null,
