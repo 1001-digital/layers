@@ -27,7 +27,7 @@ Entry point: `src/index.ts` (barrel export). Also exports:
 
 Must be rendered client-side: `EvmAccount`, `EvmAddressInput`, `EvmConnect`, `EvmConnectAuth`, `EvmConnectAuthDialog`, `EvmConnectDialog`, `EvmConnectionStatus`, `EvmConnectorQR`, `EvmMetaMaskQR`, `EvmInAppWalletSetup`, `EvmTransactionFlow`, `EvmWalletConnectQR`, `EvmSiwe`, `EvmSiweDialog`, `EvmSidebarProfile`.
 
-## Components (21)
+## Components (22)
 
 - `EvmConnect` — wallet connection UI (connector list, QR, in-app wallet)
 - `EvmConnectDialog` — EvmConnect in a dialog; emits `connected({ address })`, `disconnected`
@@ -36,7 +36,8 @@ Must be rendered client-side: `EvmAccount`, `EvmAddressInput`, `EvmConnect`, `Ev
 - `EvmConnectionStatus` — renderless provider: `status`, `address`, `connector` via slot props
 - `EvmAccount` — address display with optional ENS (`address?`, `resolveEns?`)
 - `EvmAvatar` — ENS avatar with Opepicon fallback (`address?`, `large?`)
-- `EvmArtifact` — generic NFT artifact renderer; accepts `metadata` (TokenMetadata-shaped) or individual `image`/`animationUrl`/`name`/`backgroundColor` props; auto-detects media type (image/video/audio/iframe/glb) with HEAD-request fallback; lazy-loads `@google/model-viewer` for `.glb`/`.gltf`; `v-model:show-animation` toggle; slots `#animation`, `#static`, `#overlay`, `#fallback`
+- `EvmArtifact` — generic NFT artifact renderer; accepts `metadata` (TokenMetadata-shaped) or individual `image`/`animationUrl`/`name`/`backgroundColor` props; auto-detects media type (image/video/audio/iframe/glb) by file extension first, with browser-only HEAD-request fallback; SSR-friendly for `<img>`/`<video>`/`<audio>` (model/embed renderers defer to a static or fallback render until after hydration); delegates 3D rendering to `EvmArtifactModel`; `v-model:show-animation` toggle; slots `#animation`, `#static`, `#overlay`, `#fallback`
+- `EvmArtifactModel` — client-only `<model-viewer>` wrapper; lazy-loads `@google/model-viewer` in `onMounted`; emits `error` (runtime) and `import-error` (failed dynamic import)
 - `EvmProfile` — profile dialog: ENS data, network switcher, disconnect
 - `EvmSidebarProfile` — compact sidebar profile
 - `EvmSwitchNetwork` — chain switcher (hidden if only 1 chain)

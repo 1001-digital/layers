@@ -2,7 +2,7 @@
 export const clientOnlyComponents = [
   'EvmAccount',
   'EvmAddressInput',
-  'EvmArtifact',
+  'EvmArtifactModel',
   'EvmAvatar',
   'EvmConnect',
   'EvmConnectAuth',

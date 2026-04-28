@@ -26,17 +26,34 @@ export function useDwebClient(): DwebClient {
   })
 }
 
+const PASSTHROUGH_RE = /^(https?:|data:|blob:)/
+
+function syncResolve(val: string): string {
+  if (PASSTHROUGH_RE.test(val)) return val
+  return resolvedUrlCache.get(val) ?? ''
+}
+
 export function useResolvedUrl(
   uri: MaybeRefOrGetter<string | undefined>,
 ): Ref<string> {
   const dweb = useDwebClient()
-  const resolved = ref('')
+  const initial = toValue(uri)
+  const resolved = ref(initial ? syncResolve(initial) : '')
 
   watch(
     () => toValue(uri),
     async (val) => {
       if (!val) {
         resolved.value = ''
+        return
+      }
+      if (PASSTHROUGH_RE.test(val)) {
+        resolved.value = val
+        return
+      }
+      const cached = resolvedUrlCache.get(val)
+      if (cached) {
+        resolved.value = cached
         return
       }
       try {

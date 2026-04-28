@@ -44,12 +44,12 @@
           <source :src="resolvedAnimationUrl" />
         </audio>
       </template>
-      <component
-        v-else-if="renderer === 'model' && modelViewerComp"
-        :is="modelViewerComp"
+      <EvmArtifactModel
+        v-else-if="renderer === 'model'"
         :src="resolvedAnimationUrl"
         :alt="resolvedName ?? ''"
         @error="onAnimationError"
+        @import-error="onModelImportError"
       />
       <Embed
         v-else
@@ -85,19 +85,10 @@
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  defineComponent,
-  h,
-  ref,
-  shallowRef,
-  watch,
-  type Component,
-  type CSSProperties,
-  type ShallowRef,
-} from 'vue'
+import { computed, onMounted, ref, watch, type CSSProperties } from 'vue'
 import { Embed } from '@1001-digital/components'
 import { useResolvedUrl } from '../composables/uri'
+import EvmArtifactModel from './EvmArtifactModel.vue'
 import type { EvmArtifactProps, EvmArtifactEmits } from '../types'
 
 type MediaKind = 'image' | 'video' | 'audio' | 'model' | 'embed'
@@ -123,6 +114,11 @@ defineSlots<{
     error: ArtifactError | null
   }): unknown
 }>()
+
+const isMounted = ref(false)
+onMounted(() => {
+  isMounted.value = true
+})
 
 const resolvedImageInput = computed(
   () => props.image ?? props.metadata?.image ?? null,
@@ -180,6 +176,9 @@ watch(
       return
     }
 
+    // HEAD probe is browser-only — skip on SSR.
+    if (typeof window === 'undefined') return
+
     detectionController = new AbortController()
     const { signal } = detectionController
     try {
@@ -197,48 +196,17 @@ watch(
   { immediate: true },
 )
 
-const modelViewerComp: ShallowRef<Component | null> = shallowRef(null)
-const modelImportFailed = ref(false)
-
-watch(
-  mediaType,
-  async (type) => {
-    if (type !== 'model') return
-    if (modelViewerComp.value || modelImportFailed.value) return
-    try {
-      await import('@google/model-viewer')
-      modelViewerComp.value = defineComponent({
-        name: 'ModelViewer',
-        props: { src: String, alt: String },
-        emits: ['error'],
-        setup(p, { emit: emitInner }) {
-          return () =>
-            h('model-viewer', {
-              src: p.src,
-              alt: p.alt,
-              'auto-rotate': '',
-              'camera-controls': '',
-              onerror: (e: Event) => emitInner('error', e),
-            })
-        },
-      })
-    } catch {
-      modelImportFailed.value = true
-      emit('error', {
-        kind: 'model',
-        url: resolvedAnimationUrl.value,
-      })
-    }
-  },
-  { immediate: true },
-)
-
 const renderer = computed<MediaKind | 'static' | 'fallback'>(() => {
   if (showAnimation.value && resolvedAnimationUrl.value) {
-    if (mediaType.value === 'model' && !modelViewerComp.value) {
+    const type = mediaType.value
+    // SSR-safe renderers — render the same on server and client.
+    if (type === 'image' || type === 'video' || type === 'audio') return type
+    // Client-only renderers (model-viewer, Embed, unknown→Embed) defer to
+    // a static/fallback render until after hydration so SSR matches.
+    if (!isMounted.value) {
       return resolvedImage.value ? 'static' : 'fallback'
     }
-    if (mediaType.value) return mediaType.value
+    if (type === 'model') return 'model'
     return 'embed'
   }
   if (resolvedImage.value) return 'static'
@@ -263,6 +231,14 @@ function onAnimationError() {
   const url = resolvedAnimationUrl.value
   if (!url) return
   const err: ArtifactError = { kind: 'animation', url }
+  lastError.value = err
+  emit('error', err)
+}
+
+function onModelImportError() {
+  const url = resolvedAnimationUrl.value
+  if (!url) return
+  const err: ArtifactError = { kind: 'model', url }
   lastError.value = err
   emit('error', err)
 }
