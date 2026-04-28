@@ -5,6 +5,9 @@
   "scripts": {
     "changelog": "node scripts/generate-changelog.ts",
     "changeset": "changeset",
+    "docs:build": "pnpm --dir docs build",
+    "docs:dev": "pnpm --dir docs dev",
+    "docs:preview": "pnpm --dir docs preview",
     "version-packages": "changeset version && node scripts/generate-changelog.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
