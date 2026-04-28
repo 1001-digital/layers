@@ -5,6 +5,11 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-04-28
 
+- **Minor** Add `EvmArtifact` — a generic NFT artifact renderer that accepts a normalized `TokenMetadata` shape (e.g. from `@1001-digital/resolve-metadata`) or individual `image` / `animationUrl` / `name` / `backgroundColor` props. Auto-detects media type by file extension first, then by HEAD-request `Content-Type` (with `AbortController` so rapid URL changes can't let stale responses overwrite fresh detection), and renders the appropriate element: `<img>` for images, `<video autoplay muted loop>` for video, `<audio controls>` (over the static image as poster) for audio, `<Embed>` for HTML/iframe and unknown types, and a lazy-loaded `<model-viewer>` for `.glb` / `.gltf` 3D assets. URLs from `resolve-metadata` come back as protocol URIs (`ipfs://`, `ar://`) and are resolved through the existing `useResolvedUrl` composable against the configured gateways. [`92d026c`](https://github.com/1001-digital/layers/commit/92d026c)
+  Provides `v-model:show-animation` for parent-controlled play/pause and four scoped slots: `#animation`, `#static`, `#overlay` (receives `showAnimation` and `hasAnimation`), and `#fallback` (receives `name` and the last `error`). Emits `error` with `{ kind: 'image' | 'animation' | 'model'; url }`. Optionally applies `background_color` from metadata as the container background (validated as 6-char hex). Aspect ratio defaults to `1` and is overridable via the `aspectRatio` prop or a `--evm-artifact-aspect-ratio` CSS custom property.
+  `@1001-digital/resolve-metadata` and `@google/model-viewer` are added as **optional** peer dependencies — the type import for `TokenMetadata` is type-only, and `model-viewer` is only fetched on demand when a 3D asset is detected, so neither is required for the common image/video case.
+  _`components.evm`_
+
 - **Minor** `EvmConnectAuthDialog` can now be driven externally. Adds `v-model:open` for controlled open state and a `noTrigger` prop that suppresses the built-in trigger button and authenticated slot, so the component renders the dialog only. Useful for flows that already have their own trigger (e.g. linking an additional wallet from a settings page) and need to programmatically open the connect + SIWE flow even while the user is already signed in. [`bdd255a`](https://github.com/1001-digital/layers/commit/bdd255a)
   Also drops the internal watcher that auto-closed the dialog when `isAuthenticated` flipped to `false`, which interfered with controlled flows that clear the SIWE session before prompting a new signature.
   _`components.evm`_
@@ -57,7 +62,7 @@ Generated from individual package changelogs — do not edit manually.
   Add a reusable `Avatar` component to `@1001-digital/components` that renders an image or an Opepicon fallback. `EvmAvatar` now delegates to this component instead of inlining the logic.
   - Remove `avatarUrl` prop from `EvmAvatarProps` (avatar URL is now resolved internally)
   - Cache resolved dweb URLs to avoid duplicate resolution
-    _`components`, `components.evm`_
+  _`components`, `components.evm`_
 
 - **Minor** Switch default block explorer to evm.now (mainnet) [`8536c21`](https://github.com/1001-digital/layers/commit/8536c21)
   _`components.evm`_
@@ -208,3 +213,4 @@ Generated from individual package changelogs — do not edit manually.
 
 - Upgrade @base-org/account and @walletconnnect/ethereum-provider packages [`e40fe80`](https://github.com/1001-digital/layers/commit/e40fe80)
   _`layers.evm`_
+
