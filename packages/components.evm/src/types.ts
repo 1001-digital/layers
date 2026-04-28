@@ -1,4 +1,5 @@
 import type { Address, Hash, TransactionReceipt } from 'viem'
+import type { TokenMetadata } from '@1001-digital/resolve-metadata'
 
 // EvmAddressInput
 export interface EvmAddressInputProps {
@@ -9,6 +10,21 @@ export interface EvmAddressInputProps {
 export interface EvmAccountProps {
   address?: Address
   resolveEns?: boolean
+}
+
+// EvmArtifact
+export interface EvmArtifactProps {
+  metadata?: Partial<TokenMetadata>
+  image?: string | null
+  animationUrl?: string | null
+  name?: string | null
+  backgroundColor?: string | null
+  useBackgroundColor?: boolean
+  aspectRatio?: string | number
+}
+
+export interface EvmArtifactEmits {
+  error: [{ kind: 'image' | 'animation' | 'model'; url: string }]
 }
 
 // EvmAvatar

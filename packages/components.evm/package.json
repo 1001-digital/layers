@@ -19,11 +19,21 @@
   },
   "peerDependencies": {
     "@1001-digital/components": "workspace:^",
+    "@1001-digital/resolve-metadata": ">=1.0.0",
+    "@google/model-viewer": ">=4.0.0",
     "@vueuse/core": ">=14.0.0",
     "@wagmi/core": ">=3.0.0",
     "@wagmi/vue": ">=0.5.0",
     "viem": ">=2.0.0",
     "vue": "^3.5.0"
+  },
+  "peerDependenciesMeta": {
+    "@1001-digital/resolve-metadata": {
+      "optional": true
+    },
+    "@google/model-viewer": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@1001-digital/dweb-fetch": "^0.2.1",
@@ -32,6 +42,8 @@
     "qrcode": "^1.5.4"
   },
   "devDependencies": {
+    "@1001-digital/resolve-metadata": "^1.0.2",
+    "@google/model-viewer": "^4.2.0",
     "@wagmi/core": "3.4.6",
     "@wagmi/vue": "0.5.6",
     "viem": "2.48.4",

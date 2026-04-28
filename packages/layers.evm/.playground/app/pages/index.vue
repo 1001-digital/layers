@@ -28,6 +28,7 @@
       <NuxtLink to="/connect">Inline Connect</NuxtLink>
       <NuxtLink to="/transaction-flow">Transaction Flow States</NuxtLink>
       <NuxtLink to="/siwe">Sign-In with Ethereum (SIWE)</NuxtLink>
+      <NuxtLink to="/artifact">Artifact (NFT preview)</NuxtLink>
     </Card>
   </div>
 </template>

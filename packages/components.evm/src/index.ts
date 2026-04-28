@@ -6,6 +6,8 @@ export type { EvmConfig, EvmChainConfig } from './config'
 export type {
   EvmAddressInputProps,
   EvmAccountProps,
+  EvmArtifactProps,
+  EvmArtifactEmits,
   EvmAvatarProps,
   EvmConnectEmits,
   EvmConnectDialogProps,
@@ -99,6 +101,7 @@ export { clientOnlyComponents } from './client-only'
 // Components
 export { default as EvmAddressInput } from './components/EvmAddressInput.vue'
 export { default as EvmAccount } from './components/EvmAccount.vue'
+export { default as EvmArtifact } from './components/EvmArtifact.vue'
 export { default as EvmAvatar } from './components/EvmAvatar.vue'
 export { default as EvmConnect } from './components/EvmConnect.vue'
 export { default as EvmConnectDialog } from './components/EvmConnectDialog.vue'
