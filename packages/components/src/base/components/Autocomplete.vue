@@ -249,8 +249,8 @@ const normalizedOptions = computed<(NormalizedItem | NormalizedGroup)[]>(() =>
     border-radius: var(--autocomplete-border-radius);
     box-shadow: var(--shadow-lg);
     z-index: var(--z-index-dropdown);
-    min-inline-size: var(--reka-autocomplete-trigger-width);
-    max-block-size: var(--reka-autocomplete-content-available-height);
+    inline-size: var(--reka-popper-anchor-width);
+    max-block-size: var(--reka-popper-available-height);
     overflow: hidden;
 
     opacity: 1;

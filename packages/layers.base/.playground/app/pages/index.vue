@@ -19,6 +19,7 @@
         <a href="#dialogs">Dialogs</a>
         <a href="#popovers">Popovers</a>
         <a href="#combobox">Combobox</a>
+        <a href="#autocomplete">Autocomplete</a>
         <a href="#dropdowns">Dropdowns</a>
         <a href="#tooltips">Tooltips</a>
         <a href="#toasts">Toasts</a>
@@ -1025,6 +1026,86 @@
         </div>
       </Card>
 
+      <!-- Autocomplete -->
+      <Card id="autocomplete">
+        <h3>Autocomplete</h3>
+
+        <div class="component-demo">
+          <h4>Basic (string options)</h4>
+          <FormLabel label="Fruit">
+            <FormItem>
+              <Autocomplete
+                v-model="autocompleteFruit"
+                :options="fruitNames"
+                placeholder="Type a fruit..."
+              />
+            </FormItem>
+          </FormLabel>
+          <code>Value: {{ autocompleteFruit || 'empty' }}</code>
+        </div>
+
+        <div class="component-demo">
+          <h4>Grouped suggestions</h4>
+          <FormLabel label="Place">
+            <FormItem>
+              <Autocomplete
+                v-model="autocompletePlace"
+                :options="autocompleteGroupedOptions"
+                placeholder="Type a place..."
+                hide-when-empty
+              />
+            </FormItem>
+          </FormLabel>
+          <code>Value: {{ autocompletePlace || 'empty' }}</code>
+        </div>
+
+        <div class="component-demo">
+          <h4>Server-driven results (ignore-filter)</h4>
+          <p>
+            Typing triggers a fake fetch that returns matching cities. The
+            component renders results without any client-side filtering on top.
+          </p>
+          <FormLabel label="City">
+            <FormItem>
+              <Autocomplete
+                v-model="autocompleteCity"
+                :options="autocompleteCityResults"
+                placeholder="Search cities..."
+                empty-text="No matching cities"
+                ignore-filter
+                hide-when-empty
+              />
+            </FormItem>
+          </FormLabel>
+          <code>
+            Value: {{ autocompleteCity || 'empty' }} —
+            {{ autocompleteCityResults.length }} result(s)
+          </code>
+        </div>
+
+        <div class="component-demo">
+          <h4>With disabled option</h4>
+          <FormItem>
+            <Autocomplete
+              v-model="autocompleteWithDisabled"
+              :options="autocompleteWithDisabledOptions"
+              placeholder="Pick or type..."
+            />
+          </FormItem>
+        </div>
+
+        <div class="component-demo">
+          <h4>Disabled</h4>
+          <FormItem>
+            <Autocomplete
+              model-value="Apple"
+              :options="fruitNames"
+              disabled
+            />
+          </FormItem>
+        </div>
+      </Card>
+
       <!-- Dropdowns -->
       <Card id="dropdowns">
         <h3>Dropdown</h3>
@@ -1785,6 +1866,65 @@ const fruitOptions = [
   { value: 'cherry', label: 'Cherry' },
   { value: 'date', label: 'Date' },
   { value: 'elderberry', label: 'Elderberry' },
+]
+
+// Autocomplete demo data
+const autocompleteFruit = ref('')
+const fruitNames = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry']
+
+const autocompletePlace = ref('')
+const autocompleteGroupedOptions = [
+  {
+    label: 'Cities',
+    options: ['Berlin', 'Buenos Aires', 'Lisbon', 'Tokyo'],
+  },
+  {
+    label: 'Countries',
+    options: ['Brazil', 'Germany', 'Japan', 'Portugal'],
+  },
+]
+
+const autocompleteCity = ref('')
+const autocompleteCityResults = ref<string[]>([])
+const cityCorpus = [
+  'Amsterdam',
+  'Barcelona',
+  'Berlin',
+  'Buenos Aires',
+  'Cape Town',
+  'Copenhagen',
+  'Lisbon',
+  'London',
+  'Madrid',
+  'New York',
+  'Paris',
+  'Rio de Janeiro',
+  'San Francisco',
+  'Sydney',
+  'Tokyo',
+  'Toronto',
+  'Vienna',
+  'Zurich',
+]
+let cityFetchToken = 0
+watch(autocompleteCity, async (q) => {
+  const token = ++cityFetchToken
+  if (!q) {
+    autocompleteCityResults.value = []
+    return
+  }
+  await delay(150)
+  if (token !== cityFetchToken) return
+  autocompleteCityResults.value = cityCorpus.filter((c) =>
+    c.toLowerCase().includes(q.toLowerCase()),
+  )
+})
+
+const autocompleteWithDisabled = ref('')
+const autocompleteWithDisabledOptions = [
+  { label: 'Free' },
+  { label: 'Pro' },
+  { label: 'Enterprise (contact us)', disabled: true },
 ]
 
 // Combobox demo data
