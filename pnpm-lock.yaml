@@ -44,8 +44,8 @@ importers:
         specifier: ^3.7.0
         version: 3.7.2
       reka-ui:
-        specifier: ^2.9.0
-        version: 2.9.0(vue@3.5.30(typescript@5.9.3))
+        specifier: ^2.9.6
+        version: 2.9.6(vue@3.5.30(typescript@5.9.3))
     devDependencies:
       '@types/luxon':
         specifier: ^3.7.0
@@ -7931,6 +7931,12 @@ packages:
         integrity: sha512-mEQCMmwJu317oSz8CwdIOdwf3xMif1ttiM8LTufzc3g6kR+9Pe236twL8j3IYT1F7GfRgGcW6MWxzZjLIkuHIg==,
       }
 
+  defu@6.1.7:
+    resolution:
+      {
+        integrity: sha512-7z22QmUWiQ/2d0KkdYmANbRUVABpZ9SNYyH5vx6PZ+nE5bcC0l7uFvEfHlyld/HcGBFTL536ClDt3DEcSlEJAQ==,
+      }
+
   delay@5.0.0:
     resolution:
       {
@@ -12823,10 +12829,10 @@ packages:
       }
     hasBin: true
 
-  reka-ui@2.9.0:
+  reka-ui@2.9.6:
     resolution:
       {
-        integrity: sha512-5dpp80u109iLTbRBu+jhAk8R/877/JN20gYGjb3GsuAgS7E/5QTX5ZxuzWtZAVbChBDYDpXc8pkaQAFpa6s+4w==,
+        integrity: sha512-K6bL457owpvWONc7hsjFxo3HDC9s6IzhRqShW0w9JSKelPGfRbkHD558UQTn/NH1cvrXVHygKyC7fExFmRketg==,
       }
     peerDependencies:
       vue: '>= 3.4.0'
@@ -22117,6 +22123,8 @@ snapshots:
 
   defu@6.1.4: {}
 
+  defu@6.1.7: {}
+
   delay@5.0.0: {}
 
   delay@6.0.0: {}
@@ -25738,7 +25746,7 @@ snapshots:
     dependencies:
       jsesc: 3.1.0
 
-  reka-ui@2.9.0(vue@3.5.30(typescript@5.9.3)):
+  reka-ui@2.9.6(vue@3.5.30(typescript@5.9.3)):
     dependencies:
       '@floating-ui/dom': 1.7.6
       '@floating-ui/vue': 1.1.11(vue@3.5.30(typescript@5.9.3))
@@ -25748,7 +25756,7 @@ snapshots:
       '@vueuse/core': 14.2.1(vue@3.5.30(typescript@5.9.3))
       '@vueuse/shared': 14.2.1(vue@3.5.30(typescript@5.9.3))
       aria-hidden: 1.2.6
-      defu: 6.1.4
+      defu: 6.1.7
       ohash: 2.0.11
       vue: 3.5.30(typescript@5.9.3)
     transitivePeerDependencies:

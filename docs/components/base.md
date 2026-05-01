@@ -107,6 +107,7 @@ Dropdown-related components:
 | `PinInput`       | PIN/OTP input.                                  |
 | `TagsInput`      | Multi-value tag input.                          |
 | `Combobox`       | Searchable autocomplete.                        |
+| `Autocomplete`   | Free-form input with optional suggestions.      |
 | `ColorPicker`    | Color picker control.                           |
 
 ```vue
@@ -146,7 +147,7 @@ Most form components use Vue `v-model` conventions. When a component wraps Reka 
 
 The base layer marks these components client-only:
 
-`Combobox`, `ConfirmDialog`, `Dialog`, `Toasts`, `Popover`, `Dropdown`, `FormDatePicker`, `ColorPicker`, `Embed`.
+`Autocomplete`, `Combobox`, `ConfirmDialog`, `Dialog`, `Toasts`, `Popover`, `Dropdown`, `FormDatePicker`, `ColorPicker`, `Embed`.
 
 If you import `@1001-digital/components` outside Nuxt, you must handle any browser-only rendering requirements in your own application.
 

@@ -1,0 +1,6 @@
+:root {
+  --autocomplete-background: var(--background);
+  --autocomplete-border: var(--border);
+  --autocomplete-border-radius: var(--border-radius);
+  --autocomplete-padding: var(--size-1);
+}
