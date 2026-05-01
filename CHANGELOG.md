@@ -5,6 +5,9 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-05-01
 
+- **Minor** Add an `Autocomplete` component wrapping Reka UI's autocomplete primitives. Unlike `Combobox`, the model value is the input text itself, so users can type free-form values with optional suggestions. Supports flat option lists, grouped options, and server-driven results via the `ignore-filter` prop. Reka UI is bumped to `^2.9.6`. [`bcead70`](https://github.com/1001-digital/layers/commit/bcead70)
+  _`components`, `styles`_
+
 - `EvmArtifact` now uses the static `image` as a poster for `<video>` and `<model-viewer>` while the heavy asset loads, so users see the artwork immediately instead of a blank container. The `#animation` slot also receives a `poster` prop for custom renderers. [`96171df`](https://github.com/1001-digital/layers/commit/96171df)
   _`components.evm`_
 
@@ -73,7 +76,7 @@ Generated from individual package changelogs — do not edit manually.
   Add a reusable `Avatar` component to `@1001-digital/components` that renders an image or an Opepicon fallback. `EvmAvatar` now delegates to this component instead of inlining the logic.
   - Remove `avatarUrl` prop from `EvmAvatarProps` (avatar URL is now resolved internally)
   - Cache resolved dweb URLs to avoid duplicate resolution
-    _`components`, `components.evm`_
+  _`components`, `components.evm`_
 
 - **Minor** Switch default block explorer to evm.now (mainnet) [`8536c21`](https://github.com/1001-digital/layers/commit/8536c21)
   _`components.evm`_
@@ -96,8 +99,74 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-03-31
 
+- Fix cross-browser issues, harden components, and ensure correct chain during SIWE signature [`6950d1a`](https://github.com/1001-digital/layers/commit/6950d1a)
+  _`components`, `components.evm`, `layers.base`, `styles`_
+
+- **Breaking** Add EvmTransactionFlowDialog and keepOpen prop for persistent transaction dialogs ([#29](https://github.com/1001-digital/layers/pull/29)) [`f680a0f`](https://github.com/1001-digital/layers/commit/f680a0f)
+  Note: Deprecation of old EvmTransactionFlow (clients have to rename their implementation to EvmTransactionFlowDialog)
+  _`components.evm`_
+
 - Fix dapp url [`282c26c`](https://github.com/1001-digital/layers/commit/282c26c)
   _`layers.evm`_
+
+- **Minor** Implement new metamask/connect-evm library [`7229122`](https://github.com/1001-digital/layers/commit/7229122)
+  _`layers.evm`_
+
+- Implement automatic manifest.json generation for safe app browser integration [`db17ba9`](https://github.com/1001-digital/layers/commit/db17ba9)
+  Configure safe to allow safe.global to connect via an iframe
+  _`layers.evm`_
+
+- Upgrade @base-org/account and @walletconnnect/ethereum-provider packages [`e40fe80`](https://github.com/1001-digital/layers/commit/e40fe80)
+  _`layers.evm`_
+
+## 2026-03-30
+
+- **Minor** Update viem and wagmi to their latest versions. [`3e4d23e`](https://github.com/1001-digital/layers/commit/3e4d23e)
+  _`components.evm`, `layers.evm`_
+
+- **Minor** Extract WAGMI plugin registration vs config into separate concerns [`007a1b2`](https://github.com/1001-digital/layers/commit/007a1b2)
+  _`layers.evm`_
+
+## 2026-03-29
+
+- Add Embed component [`f2fae71`](https://github.com/1001-digital/layers/commit/f2fae71)
+  _`components`_
+
+- Fix combobox height [`aac9359`](https://github.com/1001-digital/layers/commit/aac9359)
+  _`components`_
+
+- **Minor** Fix chain config [`23d5c51`](https://github.com/1001-digital/layers/commit/23d5c51)
+  _`components.evm`_
+
+## 2026-03-27
+
+- Open combobox by default on focus [`d69112e`](https://github.com/1001-digital/layers/commit/d69112e)
+  _`components`_
+
+- Fix provide/inject module identity by importing LinkComponentKey and IconAliasesKey from deep subpaths, and add explicit package exports for `./base/icons` and `./base/link` so TypeScript resolves them correctly [`e7e9466`](https://github.com/1001-digital/layers/commit/e7e9466)
+  _`components`, `layers.base`_
+
+- Fix uncaught error when ENS avatar uses an unsupported URI scheme (e.g. eip155://) by catching the resolution failure and falling back to the identicon [`5081b62`](https://github.com/1001-digital/layers/commit/5081b62)
+  _`components.evm`_
+
+- Enforce correct loading of css layers. [`ed9d490`](https://github.com/1001-digital/layers/commit/ed9d490)
+  _`layers.base`_
+
+## 2026-03-26
+
+- **Minor** Update opepicons to v1 (SVG-based rendering) [`23fb107`](https://github.com/1001-digital/layers/commit/23fb107)
+  _`components`_
+
+## 2026-03-24
+
+- **Minor** Add `CopyText` component for click-to-copy with "Copied..." feedback and `EvmAddressInput` form input with ENS resolution [`b985ba1`](https://github.com/1001-digital/layers/commit/b985ba1)
+  _`components`, `components.evm`_
+
+- Add `--dialog-close-color` CSS variable for customizing the Dialog close button color [`53200b8`](https://github.com/1001-digital/layers/commit/53200b8)
+  _`components`, `styles`_
+
+- Fix scroll container on body. Enable ENS resolution [`0a9103e`](https://github.com/1001-digital/layers/commit/0a9103e)
+  _`components.evm`, `styles`_
 
 ## 2026-03-23
 
@@ -167,60 +236,3 @@ Generated from individual package changelogs — do not edit manually.
 - **Minor** Add default input background that is separate from main background [`5f97a41`](https://github.com/1001-digital/layers/commit/5f97a41)
   _`styles`_
 
-## Unknown
-
-- Fix cross-browser issues, harden components, and ensure correct chain during SIWE signature [`6950d1a`](https://github.com/1001-digital/layers/commit/6950d1a)
-  _`components`, `components.evm`, `layers.base`, `styles`_
-
-- Add Embed component [`f2fae71`](https://github.com/1001-digital/layers/commit/f2fae71)
-  _`components`_
-
-- Fix combobox height [`aac9359`](https://github.com/1001-digital/layers/commit/aac9359)
-  _`components`_
-
-- Open combobox by default on focus [`d69112e`](https://github.com/1001-digital/layers/commit/d69112e)
-  _`components`_
-
-- Fix provide/inject module identity by importing LinkComponentKey and IconAliasesKey from deep subpaths, and add explicit package exports for `./base/icons` and `./base/link` so TypeScript resolves them correctly [`e7e9466`](https://github.com/1001-digital/layers/commit/e7e9466)
-  _`components`, `layers.base`_
-
-- **Minor** Update opepicons to v1 (SVG-based rendering) [`23fb107`](https://github.com/1001-digital/layers/commit/23fb107)
-  _`components`_
-
-- **Minor** Add `CopyText` component for click-to-copy with "Copied..." feedback and `EvmAddressInput` form input with ENS resolution [`b985ba1`](https://github.com/1001-digital/layers/commit/b985ba1)
-  _`components`, `components.evm`_
-
-- Add `--dialog-close-color` CSS variable for customizing the Dialog close button color [`53200b8`](https://github.com/1001-digital/layers/commit/53200b8)
-  _`components`, `styles`_
-
-- **Breaking** Add EvmTransactionFlowDialog and keepOpen prop for persistent transaction dialogs ([#29](https://github.com/1001-digital/layers/pull/29)) [`f680a0f`](https://github.com/1001-digital/layers/commit/f680a0f)
-  Note: Deprecation of old EvmTransactionFlow (clients have to rename their implementation to EvmTransactionFlowDialog)
-  _`components.evm`_
-
-- **Minor** Update viem and wagmi to their latest versions. [`3e4d23e`](https://github.com/1001-digital/layers/commit/3e4d23e)
-  _`components.evm`, `layers.evm`_
-
-- **Minor** Fix chain config [`23d5c51`](https://github.com/1001-digital/layers/commit/23d5c51)
-  _`components.evm`_
-
-- Fix uncaught error when ENS avatar uses an unsupported URI scheme (e.g. eip155://) by catching the resolution failure and falling back to the identicon [`5081b62`](https://github.com/1001-digital/layers/commit/5081b62)
-  _`components.evm`_
-
-- Fix scroll container on body. Enable ENS resolution [`0a9103e`](https://github.com/1001-digital/layers/commit/0a9103e)
-  _`components.evm`, `styles`_
-
-- Enforce correct loading of css layers. [`ed9d490`](https://github.com/1001-digital/layers/commit/ed9d490)
-  _`layers.base`_
-
-- **Minor** Implement new metamask/connect-evm library [`7229122`](https://github.com/1001-digital/layers/commit/7229122)
-  _`layers.evm`_
-
-- **Minor** Extract WAGMI plugin registration vs config into separate concerns [`007a1b2`](https://github.com/1001-digital/layers/commit/007a1b2)
-  _`layers.evm`_
-
-- Implement automatic manifest.json generation for safe app browser integration [`db17ba9`](https://github.com/1001-digital/layers/commit/db17ba9)
-  Configure safe to allow safe.global to connect via an iframe
-  _`layers.evm`_
-
-- Upgrade @base-org/account and @walletconnnect/ethereum-provider packages [`e40fe80`](https://github.com/1001-digital/layers/commit/e40fe80)
-  _`layers.evm`_
