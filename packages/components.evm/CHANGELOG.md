@@ -1,5 +1,11 @@
 # @1001-digital/components.evm
 
+## 3.5.1
+
+### Patch Changes
+
+- [`96171df`](https://github.com/1001-digital/layers/commit/96171dfb1dadc5435e102783d543b9d902207e74) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - `EvmArtifact` now uses the static `image` as a poster for `<video>` and `<model-viewer>` while the heavy asset loads, so users see the artwork immediately instead of a blank container. The `#animation` slot also receives a `poster` prop for custom renderers.
+
 ## 3.5.0
 
 ### Minor Changes

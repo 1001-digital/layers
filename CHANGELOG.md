@@ -3,6 +3,11 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-05-01
+
+- `EvmArtifact` now uses the static `image` as a poster for `<video>` and `<model-viewer>` while the heavy asset loads, so users see the artwork immediately instead of a blank container. The `#animation` slot also receives a `poster` prop for custom renderers. [`96171df`](https://github.com/1001-digital/layers/commit/96171df)
+  _`components.evm`_
+
 ## 2026-04-28
 
 - **Minor** Make `EvmArtifact` SSR-friendly. Plain `<img>`, `<video>`, and `<audio>` renderers now render server-side (good for LCP and SEO). The pieces that still need a browser — the `@google/model-viewer` dynamic import, `<Embed>`, and the HEAD-request MIME probe — are deferred until after hydration so the initial server and client render match. [`a3b31eb`](https://github.com/1001-digital/layers/commit/a3b31eb)
@@ -91,9 +96,6 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-03-31
 
-- Fix cross-browser issues, harden components, and ensure correct chain during SIWE signature [`6950d1a`](https://github.com/1001-digital/layers/commit/6950d1a)
-  _`components`, `components.evm`, `layers.base`, `styles`_
-
 - Fix dapp url [`282c26c`](https://github.com/1001-digital/layers/commit/282c26c)
   _`layers.evm`_
 
@@ -166,6 +168,9 @@ Generated from individual package changelogs — do not edit manually.
   _`styles`_
 
 ## Unknown
+
+- Fix cross-browser issues, harden components, and ensure correct chain during SIWE signature [`6950d1a`](https://github.com/1001-digital/layers/commit/6950d1a)
+  _`components`, `components.evm`, `layers.base`, `styles`_
 
 - Add Embed component [`f2fae71`](https://github.com/1001-digital/layers/commit/f2fae71)
   _`components`_
