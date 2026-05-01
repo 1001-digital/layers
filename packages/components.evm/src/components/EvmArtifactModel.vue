@@ -43,7 +43,7 @@ onMounted(async () => {
             src: p.src,
             alt: p.alt,
             poster: p.poster,
-            'reveal': p.poster ? 'auto' : undefined,
+            reveal: p.poster ? 'auto' : undefined,
             'auto-rotate': '',
             'camera-controls': '',
             onerror: (e: Event) => emitInner('error', e),
