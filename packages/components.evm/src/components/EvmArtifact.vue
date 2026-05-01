@@ -9,6 +9,7 @@
       :src="resolvedAnimationUrl"
       :media-type="mediaType ?? undefined"
       :name="resolvedName ?? undefined"
+      :poster="resolvedImage ?? undefined"
     >
       <img
         v-if="renderer === 'image'"
@@ -18,6 +19,7 @@
       />
       <video
         v-else-if="renderer === 'video'"
+        :poster="resolvedImage ?? undefined"
         autoplay
         muted
         loop
@@ -48,6 +50,7 @@
         v-else-if="renderer === 'model'"
         :src="resolvedAnimationUrl"
         :alt="resolvedName ?? ''"
+        :poster="resolvedImage ?? undefined"
         @error="onAnimationError"
         @import-error="onModelImportError"
       />
@@ -106,6 +109,7 @@ defineSlots<{
     src: string
     mediaType: MediaKind | undefined
     name: string | undefined
+    poster: string | undefined
   }): unknown
   static?(props: { src: string; name: string | undefined }): unknown
   overlay?(props: { showAnimation: boolean; hasAnimation: boolean }): unknown

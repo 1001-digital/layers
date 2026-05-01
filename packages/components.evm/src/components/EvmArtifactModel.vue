@@ -4,6 +4,7 @@
     :is="comp"
     :src="src"
     :alt="alt"
+    :poster="poster"
     @error="onRuntimeError"
   />
 </template>
@@ -19,7 +20,7 @@ import {
   type ShallowRef,
 } from 'vue'
 
-defineProps<{ src: string; alt?: string }>()
+defineProps<{ src: string; alt?: string; poster?: string }>()
 const emit = defineEmits<{
   error: [Event]
   'import-error': [unknown]
@@ -34,13 +35,15 @@ onMounted(async () => {
     await import('@google/model-viewer')
     comp.value = defineComponent({
       name: 'ModelViewer',
-      props: { src: String, alt: String },
+      props: { src: String, alt: String, poster: String },
       emits: ['error'],
       setup(p, { emit: emitInner }) {
         return () =>
           h('model-viewer', {
             src: p.src,
             alt: p.alt,
+            poster: p.poster,
+            'reveal': p.poster ? 'auto' : undefined,
             'auto-rotate': '',
             'camera-controls': '',
             onerror: (e: Event) => emitInner('error', e),
