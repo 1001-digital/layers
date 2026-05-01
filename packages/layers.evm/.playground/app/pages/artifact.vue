@@ -32,6 +32,19 @@
       </Card>
 
       <Card>
+        <h3>Video with poster</h3>
+        <p class="hint">
+          Lightweight <code>image</code> shows immediately as the
+          <code>&lt;video&gt;</code> poster while the heavy <code>.mp4</code>
+          loads.
+        </p>
+        <EvmArtifact
+          v-model:show-animation="showAnimation"
+          :metadata="videoWithPosterToken"
+        />
+      </Card>
+
+      <Card>
         <h3>HTML / iframe animation</h3>
         <p class="hint">
           Generative HTML, falls through to <code>Embed</code>.
@@ -101,6 +114,15 @@ const videoToken = {
     'https://ipfs.vv.xyz/ipfs/QmaRVTjYCNwjMXJW4kh3ix8BvpH27PPCCCLkiPEeZXbAGK/nft.png',
   animation_url:
     'https://ipfs.vv.xyz/ipfs/Qma2J3HeaTw8G33uXotELP8N32wkR2cj6iM4EKMdw2zCLr/nft.mp4',
+  background_color: null,
+} as const
+
+const videoWithPosterToken = {
+  name: 'Video with poster',
+  image:
+    'https://cdn.evm.now/tokens/4e143918b8806972295212948b5e05c51407752c4b4a424edcfcc423e6f5d2da_sm.webp',
+  animation_url:
+    'https://ipfs.networked.art/ipfs/QmWMvcCNVPCWR7CeWW4h8x8FptsQnRcrK2swxZQRRGqvWg/nft.mp4',
   background_color: null,
 } as const
 
