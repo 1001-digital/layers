@@ -1,5 +1,14 @@
 # @1001-digital/layers.evm
 
+## 2.7.6
+
+### Patch Changes
+
+- Updated dependencies [[`bcead70`](https://github.com/1001-digital/layers/commit/bcead7053ffec75e44a25d30b321d75c8bdd24c8)]:
+  - @1001-digital/components@2.8.0
+  - @1001-digital/components.evm@3.5.2
+  - @1001-digital/layers.base@2.0.23
+
 ## 2.7.5
 
 ### Patch Changes

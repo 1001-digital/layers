@@ -1,5 +1,16 @@
 # @1001-digital/components
 
+## 2.8.0
+
+### Minor Changes
+
+- [`bcead70`](https://github.com/1001-digital/layers/commit/bcead7053ffec75e44a25d30b321d75c8bdd24c8) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Add an `Autocomplete` component wrapping Reka UI's autocomplete primitives. Unlike `Combobox`, the model value is the input text itself, so users can type free-form values with optional suggestions. Supports flat option lists, grouped options, and server-driven results via the `ignore-filter` prop. Reka UI is bumped to `^2.9.6`.
+
+### Patch Changes
+
+- Updated dependencies [[`bcead70`](https://github.com/1001-digital/layers/commit/bcead7053ffec75e44a25d30b321d75c8bdd24c8)]:
+  - @1001-digital/styles@2.6.0
+
 ## 2.7.2
 
 ### Patch Changes
