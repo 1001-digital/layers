@@ -1,5 +1,14 @@
 # @1001-digital/components
 
+## 2.8.1
+
+### Patch Changes
+
+- [`7d3da95`](https://github.com/1001-digital/layers/commit/7d3da950e1e8f3aaa53eaef5cc4b48b649c119e3) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Fix type-check failures for external consumers:
+  - `Autocomplete`: simplify `NormalizedGroup.options` type — the previous conditional resolved to `never[]`, so iterating grouped options in the template surfaced `'label' does not exist on type 'never'` errors.
+  - `EvmArtifact`: inline a local `TokenMetadata` type instead of importing from `@1001-digital/resolve-metadata` so consumers without that optional peer dep can still type-check.
+  - `EvmArtifactModel`: silence the dynamic `import('@google/model-viewer')` for consumers without that optional peer dep.
+
 ## 2.8.0
 
 ### Minor Changes
