@@ -32,6 +32,7 @@ const importFailed = ref(false)
 onMounted(async () => {
   if (comp.value || importFailed.value) return
   try {
+    // @ts-ignore optional peer dep — types only resolve when consumer installs @google/model-viewer
     await import('@google/model-viewer')
     comp.value = defineComponent({
       name: 'ModelViewer',

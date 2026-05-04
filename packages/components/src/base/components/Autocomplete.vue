@@ -113,14 +113,12 @@ type NormalizedItem = {
 type NormalizedGroup = {
   isGroup: true
   label: string
-  options: Exclude<NormalizedItem, { isGroup: false }> extends never
-    ? never
-    : {
-        label: string
-        value?: string
-        textValue?: string
-        disabled?: boolean
-      }[]
+  options: {
+    label: string
+    value?: string
+    textValue?: string
+    disabled?: boolean
+  }[]
 }
 
 const teleportTarget = inject<HTMLElement | null>('teleport-target', null)

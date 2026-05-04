@@ -1,5 +1,13 @@
 import type { Address, Hash, TransactionReceipt } from 'viem'
-import type { TokenMetadata } from '@1001-digital/resolve-metadata'
+
+// Structurally compatible with @1001-digital/resolve-metadata's TokenMetadata
+// (kept local so consumers don't need that optional peer dep installed to type-check).
+interface TokenMetadata {
+  name: string | null
+  image: string | null
+  animation_url: string | null
+  background_color: string | null
+}
 
 // EvmAddressInput
 export interface EvmAddressInputProps {
