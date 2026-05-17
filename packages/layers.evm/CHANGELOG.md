@@ -1,5 +1,15 @@
 # @1001-digital/layers.evm
 
+## 2.7.8
+
+### Patch Changes
+
+- [`fe1eca0`](https://github.com/1001-digital/layers/commit/fe1eca0c37f50c1a8b38d00d551387835b72004c) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Fix Nuxt SSR crash from the `baseAccount` wagmi connector.
+
+  `@base-org/account`'s telemetry init runs eagerly inside `createBaseAccountSDK`, called by the connector's `getProvider()` during wagmi's SSR `reconnect()` step. On the server it has no `window`/`document` and throws `Telemetry is not supported in non-browser environments`, surfacing as an `unhandledRejection` in dev logs.
+
+  Pass `preference: { telemetry: false }` to `baseAccount(...)` so the SDK skips telemetry init entirely. The connector itself stays available; only the analytics call is suppressed.
+
 ## 2.7.7
 
 ### Patch Changes

@@ -3,6 +3,13 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-05-17
+
+- Fix Nuxt SSR crash from the `baseAccount` wagmi connector. [`fe1eca0`](https://github.com/1001-digital/layers/commit/fe1eca0)
+  `@base-org/account`'s telemetry init runs eagerly inside `createBaseAccountSDK`, called by the connector's `getProvider()` during wagmi's SSR `reconnect()` step. On the server it has no `window`/`document` and throws `Telemetry is not supported in non-browser environments`, surfacing as an `unhandledRejection` in dev logs.
+  Pass `preference: { telemetry: false }` to `baseAccount(...)` so the SDK skips telemetry init entirely. The connector itself stays available; only the analytics call is suppressed.
+  _`layers.evm`_
+
 ## 2026-05-04
 
 - Fix type-check failures for external consumers: [`7d3da95`](https://github.com/1001-digital/layers/commit/7d3da95)
@@ -96,9 +103,6 @@ Generated from individual package changelogs — do not edit manually.
 
 - Upgrade dweb-fetch to 0.2.1 [`997b51e`](https://github.com/1001-digital/layers/commit/997b51e)
   _`components.evm`_
-
-- Pass RPC URLs from wagmi config to dweb-fetch client for EIP-155 resolution [`42c75d9`](https://github.com/1001-digital/layers/commit/42c75d9)
-  _`components.evm`, `layers.evm`_
 
 ## 2026-04-02
 
@@ -243,4 +247,9 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Add default input background that is separate from main background [`5f97a41`](https://github.com/1001-digital/layers/commit/5f97a41)
   _`styles`_
+
+## Unknown
+
+- Pass RPC URLs from wagmi config to dweb-fetch client for EIP-155 resolution [`42c75d9`](https://github.com/1001-digital/layers/commit/42c75d9)
+  _`components.evm`, `layers.evm`_
 
