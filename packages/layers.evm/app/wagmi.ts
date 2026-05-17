@@ -98,6 +98,10 @@ export function createWagmiConfig(options: CreateOptions): {
     baseAccount({
       appName: title,
       appLogoUrl,
+      // Disable telemetry — its init runs eagerly during wagmi's SSR
+      // reconnect and throws `Telemetry is not supported in non-browser
+      // environments` because it touches `window`/`document`.
+      preference: { telemetry: false },
     }),
     metaMask({
       headless: true,
