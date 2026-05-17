@@ -287,7 +287,6 @@ const rootStyle = computed<CSSProperties>(() => {
   video,
   :deep(.embed),
   :deep(model-viewer) {
-    border: var(--border);
     z-index: 1;
   }
 
