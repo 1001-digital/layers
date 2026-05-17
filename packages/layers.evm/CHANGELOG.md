@@ -1,5 +1,12 @@
 # @1001-digital/layers.evm
 
+## 2.7.9
+
+### Patch Changes
+
+- Updated dependencies [[`ac8983d`](https://github.com/1001-digital/layers/commit/ac8983db1bc4203d19e9a128e0c7fa8881e7ae8f)]:
+  - @1001-digital/components.evm@3.5.4
+
 ## 2.7.8
 
 ### Patch Changes

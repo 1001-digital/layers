@@ -1,5 +1,11 @@
 # @1001-digital/components.evm
 
+## 3.5.4
+
+### Patch Changes
+
+- [`ac8983d`](https://github.com/1001-digital/layers/commit/ac8983db1bc4203d19e9a128e0c7fa8881e7ae8f) Thanks [@yougogirldoteth](https://github.com/yougogirldoteth)! - Remove the default border from EVM artifact media.
+
 ## 3.5.3
 
 ### Patch Changes
