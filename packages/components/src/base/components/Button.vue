@@ -52,6 +52,7 @@ const linkProps = computed(() => {
     &:not(.unstyled) {
       background: var(--button-background);
       color: var(--button-color);
+      font-weight: var(--button-font-weight);
       padding: var(--ui-padding-block) var(--ui-padding-inline);
       border: none;
       border-radius: var(--button-border-radius);
@@ -189,6 +190,7 @@ const linkProps = computed(() => {
       background: var(--button-primary-background);
       box-shadow: 0 0 0 var(--border-width) var(--button-primary-border-color);
       color: var(--button-primary-color);
+      font-weight: var(--button-primary-font-weight);
 
       > .icon {
         color: var(--button-primary-color);
