@@ -1,0 +1,15 @@
+:root {
+  --multi-transaction-flow-gap: var(--spacer);
+  --multi-transaction-flow-progress-gap: var(--spacer-sm);
+  --multi-transaction-flow-marker-size: calc(var(--spacer) * 2);
+  --multi-transaction-flow-marker-border-radius: 50%;
+  --multi-transaction-flow-marker-shadow: var(--border-shadow);
+  --multi-transaction-flow-marker-active-shadow: 0 0 0 var(--border-width)
+    var(--color);
+  --multi-transaction-flow-marker-error-shadow: 0 0 0 var(--border-width)
+    var(--error);
+  --multi-transaction-flow-color: var(--color);
+  --multi-transaction-flow-muted-color: var(--muted);
+  --multi-transaction-flow-error-color: var(--error);
+  --multi-transaction-flow-status-font-size: var(--ui-font-size);
+}

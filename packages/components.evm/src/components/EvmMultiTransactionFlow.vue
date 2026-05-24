@@ -254,56 +254,70 @@ defineExpose({
 <style scoped>
 .multi-transaction-flow {
   display: grid;
-  gap: var(--spacer);
+  gap: var(--multi-transaction-flow-gap, var(--spacer));
 }
 
 .multi-transaction-flow__progress {
   list-style: none;
   display: grid;
-  gap: var(--spacer-sm);
+  gap: var(--multi-transaction-flow-progress-gap, var(--spacer-sm));
   padding: 0;
   margin: 0;
 
   li {
     display: grid;
-    grid-template-columns: calc(var(--spacer) * 2) minmax(0, 1fr);
+    grid-template-columns:
+      var(--multi-transaction-flow-marker-size, calc(var(--spacer) * 2))
+      minmax(0, 1fr);
     gap: var(--spacer-sm);
     align-items: center;
-    color: var(--muted);
+    color: var(--multi-transaction-flow-muted-color, var(--muted));
   }
 
   li.is-active {
-    color: var(--color);
+    color: var(--multi-transaction-flow-color, var(--color));
   }
 
   li.is-complete,
   li.is-skipped {
-    color: var(--color);
+    color: var(--multi-transaction-flow-color, var(--color));
   }
 
   li.is-error {
-    color: var(--error);
+    color: var(--multi-transaction-flow-error-color, var(--error));
   }
 }
 
 .multi-transaction-flow__marker {
   display: inline-grid;
   place-items: center;
-  inline-size: calc(var(--spacer) * 2);
-  block-size: calc(var(--spacer) * 2);
-  border-radius: 50%;
-  box-shadow: var(--border-shadow);
+  inline-size: var(
+    --multi-transaction-flow-marker-size,
+    calc(var(--spacer) * 2)
+  );
+  block-size: var(
+    --multi-transaction-flow-marker-size,
+    calc(var(--spacer) * 2)
+  );
+  border-radius: var(--multi-transaction-flow-marker-border-radius, 50%);
+  box-shadow: var(--multi-transaction-flow-marker-shadow, var(--border-shadow));
   font-size: var(--ui-font-size);
   font-weight: var(--ui-font-weight);
 }
 
 .is-active .multi-transaction-flow__marker,
 .is-complete .multi-transaction-flow__marker {
-  box-shadow: 0 0 0 var(--border-width) var(--color);
+  box-shadow: var(
+    --multi-transaction-flow-marker-active-shadow,
+    0 0 0 var(--border-width) var(--color)
+  );
 }
 
 .is-error .multi-transaction-flow__marker {
-  box-shadow: 0 0 0 var(--border-width) var(--error);
+  box-shadow: var(
+    --multi-transaction-flow-marker-error-shadow,
+    0 0 0 var(--border-width) var(--error)
+  );
 }
 
 .multi-transaction-flow__step {
@@ -322,7 +336,10 @@ defineExpose({
 }
 
 .multi-transaction-flow__status {
-  color: var(--muted);
-  font-size: var(--ui-font-size);
+  color: var(--multi-transaction-flow-muted-color, var(--muted));
+  font-size: var(
+    --multi-transaction-flow-status-font-size,
+    var(--ui-font-size)
+  );
 }
 </style>
