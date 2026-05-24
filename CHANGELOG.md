@@ -5,6 +5,9 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-05-24
 
+- Render EvmTransactionFlow confirm and retry actions as primary buttons by default. [`ea90683`](https://github.com/1001-digital/layers/commit/ea90683)
+  _`components.evm`_
+
 - Introduce `--scrollbar-thumb-color` and `--scrollbar-track-color` variables so scrollbar colors can be themed without overriding the base selector. [`0619a34`](https://github.com/1001-digital/layers/commit/0619a34)
   _`styles`_
 
@@ -100,9 +103,6 @@ Generated from individual package changelogs — do not edit manually.
   - Remove `avatarUrl` prop from `EvmAvatarProps` (avatar URL is now resolved internally)
   - Cache resolved dweb URLs to avoid duplicate resolution
   _`components`, `components.evm`_
-
-- Make block explorer link text customizable [`b6947f1`](https://github.com/1001-digital/layers/commit/b6947f1)
-  _`components.evm`_
 
 ## 2026-04-03
 
@@ -259,5 +259,8 @@ Generated from individual package changelogs — do not edit manually.
 ## Unknown
 
 - **Minor** Switch default block explorer to evm.now (mainnet) [`8536c21`](https://github.com/1001-digital/layers/commit/8536c21)
+  _`components.evm`_
+
+- Make block explorer link text customizable [`b6947f1`](https://github.com/1001-digital/layers/commit/b6947f1)
   _`components.evm`_
 

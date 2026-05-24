@@ -1,5 +1,11 @@
 # @1001-digital/components.evm
 
+## 3.5.6
+
+### Patch Changes
+
+- [`ea90683`](https://github.com/1001-digital/layers/commit/ea906838b3d270897c6ffcc7a6f523e0d60c7433) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Render EvmTransactionFlow confirm and retry actions as primary buttons by default.
+
 ## 3.5.5
 
 ### Patch Changes
