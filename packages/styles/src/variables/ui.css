@@ -16,4 +16,8 @@
   /* UI spacing (logical property naming) */
   --ui-padding-block: var(--spacer-sm);
   --ui-padding-inline: var(--spacer);
+
+  /* Scrollbar */
+  --scrollbar-thumb-color: var(--gray-z-2);
+  --scrollbar-track-color: transparent;
 }
