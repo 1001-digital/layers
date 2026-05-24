@@ -52,7 +52,10 @@
           class="secondary"
           >Cancel</Button
         >
-        <Button @click="() => flow.initializeRequest()">
+        <Button
+          class="primary"
+          @click="() => flow.initializeRequest()"
+        >
           {{ flow.text.value.action[flow.step.value] || 'Execute' }}
         </Button>
       </template>
