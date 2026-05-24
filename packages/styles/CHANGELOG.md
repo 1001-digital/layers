@@ -1,5 +1,11 @@
 # @1001-digital/styles
 
+## 2.6.1
+
+### Patch Changes
+
+- [`0619a34`](https://github.com/1001-digital/layers/commit/0619a34bb425ffbbbbf2117a7902c94bab36d06c) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Introduce `--scrollbar-thumb-color` and `--scrollbar-track-color` variables so scrollbar colors can be themed without overriding the base selector.
+
 ## 2.6.0
 
 ### Minor Changes
