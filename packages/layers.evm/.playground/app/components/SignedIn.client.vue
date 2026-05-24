@@ -122,6 +122,43 @@
       </template>
     </EvmTransactionFlowDialog>
   </Card>
+
+  <Card v-if="isConnected">
+    <h2>Multi-Transaction Flow Example</h2>
+    <p>Send two 0 ETH transactions to your own address in sequence.</p>
+
+    <EvmMultiTransactionFlowDialog
+      :steps="multiTransactionSteps"
+      chain="sepolia"
+      :delay-after="0"
+      :text="{
+        title: {
+          complete: 'Transactions Complete',
+        },
+        lead: {
+          complete: 'Both test transactions have confirmed.',
+        },
+      }"
+      @complete="onMultiTransactionComplete"
+      @cancel="onTransactionCancel"
+    >
+      <template #start="{ start }">
+        <Actions>
+          <Button @click="start">Start Multi-Transaction Flow</Button>
+        </Actions>
+      </template>
+
+      <template #confirm="{ currentStep, stepIndex, steps }">
+        <div class="tx-details">
+          <p><strong>Step:</strong> {{ stepIndex + 1 }} / {{ steps.length }}</p>
+          <p><strong>Action:</strong> {{ currentStep?.title }}</p>
+          <p><strong>To:</strong> {{ address }}</p>
+          <p><strong>Amount:</strong> 0 ETH</p>
+          <p><strong>Chain:</strong> Sepolia</p>
+        </div>
+      </template>
+    </EvmMultiTransactionFlowDialog>
+  </Card>
 </template>
 
 <script setup lang="ts">
@@ -130,6 +167,10 @@ import { sendTransaction as sendTx } from '@wagmi/core'
 import { parseEther } from 'viem'
 import type { Config } from '@wagmi/vue'
 import type { TransactionReceipt } from 'viem'
+import type {
+  MultiTransactionFlowStep,
+  MultiTransactionFlowStepContext,
+} from '@1001-digital/components.evm'
 
 const { $wagmi } = useNuxtApp()
 const { address, isConnected, chainId } = useConnection()
@@ -169,8 +210,41 @@ const sendOptimismTransaction = async () => {
   return hash
 }
 
+const sendFollowUpTransaction = async ({
+  receipts,
+}: MultiTransactionFlowStepContext) => {
+  console.log('First transaction receipt:', receipts[0])
+
+  const hash = await sendTx($wagmi as Config, {
+    to: address.value!,
+    value: parseEther('0'),
+  })
+  return hash
+}
+
+const multiTransactionSteps: MultiTransactionFlowStep[] = [
+  {
+    id: 'first',
+    title: 'Send First Transaction',
+    lead: 'Send the first 0 ETH transaction to your address.',
+    action: 'Send First',
+    request: sendTransaction,
+  },
+  {
+    id: 'second',
+    title: 'Send Follow-Up Transaction',
+    lead: 'Send the second transaction after the first one confirms.',
+    action: 'Send Second',
+    request: sendFollowUpTransaction,
+  },
+]
+
 const onTransactionComplete = (receipt: TransactionReceipt) => {
   console.log('Transaction complete:', receipt)
+}
+
+const onMultiTransactionComplete = (receipts: TransactionReceipt[]) => {
+  console.log('Multi-transaction flow complete:', receipts)
 }
 
 const onTransactionCancel = () => {

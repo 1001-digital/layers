@@ -28,6 +28,15 @@ export type {
   EvmTransactionFlowEmits,
   EvmTransactionFlowDialogProps,
   EvmTransactionFlowDialogEmits,
+  MultiTransactionFlowStepStatus,
+  MultiTransactionFlowStepContext,
+  MultiTransactionFlowStep,
+  MultiTransactionFlowStepState,
+  MultiTransactionFlowText,
+  EvmMultiTransactionFlowProps,
+  EvmMultiTransactionFlowEmits,
+  EvmMultiTransactionFlowDialogProps,
+  EvmMultiTransactionFlowDialogEmits,
   EvmSeedPhraseInputProps,
   EvmSeedPhraseInputEmits,
   EvmInAppWalletSetupProps,
@@ -85,6 +94,15 @@ export type {
   TransactionFlowOptions,
   TransactionFlow,
 } from './composables/transactionFlow'
+export {
+  useMultiTransactionFlow,
+  MULTI_TRANSACTION_FLOW_STEPS,
+} from './composables/multiTransactionFlow'
+export type {
+  MultiTransactionFlowPhase,
+  MultiTransactionFlowOptions,
+  MultiTransactionFlow,
+} from './composables/multiTransactionFlow'
 export { useSiwe } from './composables/siwe'
 export type {
   SiweSession,
@@ -116,6 +134,8 @@ export { default as EvmWalletConnectQR } from './components/EvmWalletConnectQR.v
 export { default as EvmWalletConnectWallets } from './components/EvmWalletConnectWallets.vue'
 export { default as EvmTransactionFlow } from './components/EvmTransactionFlow.vue'
 export { default as EvmTransactionFlowDialog } from './components/EvmTransactionFlowDialog.vue'
+export { default as EvmMultiTransactionFlow } from './components/EvmMultiTransactionFlow.vue'
+export { default as EvmMultiTransactionFlowDialog } from './components/EvmMultiTransactionFlowDialog.vue'
 export { default as EvmSeedPhraseInput } from './components/EvmSeedPhraseInput.vue'
 export { default as EvmInAppWalletSetup } from './components/EvmInAppWalletSetup.vue'
 export { default as EvmSiwe } from './components/EvmSiwe.vue'

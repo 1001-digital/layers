@@ -209,6 +209,130 @@
       </EvmTransactionFlowDialog>
     </Card>
 
+    <h1>EvmMultiTransactionFlowDialog</h1>
+
+    <Card>
+      <h2>ENS-Style Registration</h2>
+      <p>
+        Three sequential transactions with later requests receiving prior hashes
+        and receipts through the step context.
+      </p>
+
+      <EvmMultiTransactionFlowDialog
+        :steps="ensRegistrationSteps"
+        :delay-after="0"
+        :text="{
+          title: { complete: 'Registration Complete' },
+          lead: {
+            complete: 'All registration transactions have completed.',
+          },
+        }"
+      >
+        <template #start="{ start }">
+          <Actions>
+            <Button @click="start">Open ENS Registration Flow</Button>
+          </Actions>
+        </template>
+
+        <template #confirm="{ currentStep, stepIndex, steps }">
+          <div class="tx-details">
+            <p>
+              <strong>Step:</strong> {{ stepIndex + 1 }} / {{ steps.length }}
+            </p>
+            <p><strong>Action:</strong> {{ currentStep?.title }}</p>
+            <p><strong>Name:</strong> example.eth</p>
+          </div>
+        </template>
+      </EvmMultiTransactionFlowDialog>
+    </Card>
+
+    <Card>
+      <h2>Dynamic Skip</h2>
+      <p>
+        Simulates a wrapping flow where an approval transaction is skipped when
+        the app already knows approval exists.
+      </p>
+
+      <label class="option">
+        <input
+          v-model="hasPunkApproval"
+          type="checkbox"
+        />
+        Existing CryptoPunks approval found
+      </label>
+
+      <EvmMultiTransactionFlowDialog
+        :steps="punkWrappingSteps"
+        :delay-after="0"
+        :text="{
+          title: { complete: 'Punk Wrapped' },
+          lead: { complete: 'The wrapping flow has completed.' },
+        }"
+      >
+        <template #start="{ start }">
+          <Actions>
+            <Button @click="start">Open Wrapping Flow</Button>
+          </Actions>
+        </template>
+
+        <template #confirm="{ currentStep, stepStates }">
+          <div class="tx-details">
+            <p><strong>Current action:</strong> {{ currentStep?.title }}</p>
+            <p>
+              <strong>Approval status:</strong>
+              {{ stepStates[0]?.status }}
+            </p>
+            <p><strong>Punk:</strong> #1001</p>
+          </div>
+        </template>
+      </EvmMultiTransactionFlowDialog>
+    </Card>
+
+    <h1>EvmMultiTransactionFlow (standalone)</h1>
+
+    <Card>
+      <h2>Inline Custom Progress</h2>
+      <p>
+        Renders a multi-transaction flow inline with a custom progress slot.
+      </p>
+
+      <Actions>
+        <Button @click="inlineMultiRef?.start()"
+          >Start Inline Multi Flow</Button
+        >
+      </Actions>
+
+      <EvmMultiTransactionFlow
+        ref="inlineMultiRef"
+        :steps="inlineMultiSteps"
+        :delay-after="0"
+        :text="{
+          title: { complete: 'Flow Complete' },
+          lead: { complete: 'All inline transactions have completed.' },
+        }"
+      >
+        <template #progress="{ stepStates, stepIndex }">
+          <ol class="custom-progress">
+            <li
+              v-for="(state, index) in stepStates"
+              :key="state.id"
+              :class="{ active: index === stepIndex }"
+            >
+              {{ index + 1 }}. {{ state.id }} -
+              {{ state.status }}
+            </li>
+          </ol>
+        </template>
+
+        <template #confirm="{ currentStep, stepIndex }">
+          <div class="tx-details">
+            <p><strong>Step:</strong> {{ stepIndex + 1 }}</p>
+            <p><strong>Action:</strong> {{ currentStep?.title }}</p>
+          </div>
+        </template>
+      </EvmMultiTransactionFlow>
+    </Card>
+
     <h1>EvmTransactionFlow (standalone)</h1>
 
     <Card>
@@ -267,7 +391,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { Hash } from 'viem'
-import { EvmTransactionFlow } from '#components'
+import type { MultiTransactionFlowStep } from '@1001-digital/components.evm'
+import { EvmMultiTransactionFlow, EvmTransactionFlow } from '#components'
 
 const delay = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
@@ -297,8 +422,81 @@ const successRequest = async (): Promise<Hash> => {
   return '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef' as Hash
 }
 
+const hasPunkApproval = ref(true)
+
+const ensRegistrationSteps: MultiTransactionFlowStep[] = [
+  {
+    id: 'commit',
+    title: 'Commit Name',
+    lead: 'Submit the name commitment transaction.',
+    action: 'Commit',
+    request: hangingRequest,
+  },
+  {
+    id: 'wait',
+    title: 'Settle Commitment',
+    lead: 'Submit the settlement transaction after the commitment wait.',
+    action: 'Settle',
+    request: async ({ receipts }) => {
+      console.log('Commit receipt:', receipts[0])
+      return hangingRequest()
+    },
+  },
+  {
+    id: 'register',
+    title: 'Register Name',
+    lead: 'Register the ENS name after the commitment is ready.',
+    action: 'Register',
+    request: async ({ hashes }) => {
+      console.log('Previous hashes:', hashes)
+      return hangingRequest()
+    },
+  },
+]
+
+const punkWrappingSteps: MultiTransactionFlowStep[] = [
+  {
+    id: 'approve',
+    title: 'Approve Wrapper',
+    lead: 'Approve the wrapper contract to transfer this Punk.',
+    action: 'Approve',
+    skip: () => hasPunkApproval.value,
+    request: hangingRequest,
+  },
+  {
+    id: 'wrap',
+    title: 'Wrap Punk',
+    lead: 'Wrap CryptoPunk #1001.',
+    action: 'Wrap',
+    request: async ({ receipts }) => {
+      console.log('Approval receipt:', receipts[0])
+      return hangingRequest()
+    },
+  },
+]
+
+const inlineMultiSteps: MultiTransactionFlowStep[] = [
+  {
+    id: 'prepare',
+    title: 'Prepare Position',
+    lead: 'Prepare the position with the first transaction.',
+    action: 'Prepare',
+    request: hangingRequest,
+  },
+  {
+    id: 'execute',
+    title: 'Execute Position',
+    lead: 'Execute after preparation is confirmed.',
+    action: 'Execute',
+    request: hangingRequest,
+  },
+]
+
 const inlineRef = ref<InstanceType<typeof EvmTransactionFlow> | null>(null)
 const inlineErrorRef = ref<InstanceType<typeof EvmTransactionFlow> | null>(null)
+const inlineMultiRef = ref<InstanceType<typeof EvmMultiTransactionFlow> | null>(
+  null,
+)
 </script>
 
 <style scoped>
@@ -322,5 +520,32 @@ const inlineErrorRef = ref<InstanceType<typeof EvmTransactionFlow> | null>(null)
   margin: 0;
   font-family: var(--font-mono);
   font-size: var(--font-sm);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacer-sm);
+}
+
+.custom-progress {
+  list-style: none;
+  display: grid;
+  gap: var(--spacer-sm);
+  padding: 0;
+  margin: 0;
+
+  li {
+    padding: var(--spacer-sm);
+    border-radius: var(--border-radius);
+    box-shadow: var(--border-shadow);
+    color: var(--muted);
+    overflow-wrap: anywhere;
+  }
+
+  li.active {
+    color: var(--color);
+    box-shadow: var(--border-shadow-highlight);
+  }
 }
 </style>

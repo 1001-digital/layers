@@ -137,6 +137,83 @@ export interface EvmTransactionFlowDialogEmits {
   cancel: []
 }
 
+// EvmMultiTransactionFlow
+export type MultiTransactionFlowStepStatus =
+  | 'idle'
+  | 'confirm'
+  | 'chain'
+  | 'requesting'
+  | 'waiting'
+  | 'complete'
+  | 'skipped'
+  | 'error'
+
+export interface MultiTransactionFlowStepContext {
+  stepIndex: number
+  hashes: Hash[]
+  receipts: TransactionReceipt[]
+  results: unknown[]
+}
+
+export interface MultiTransactionFlowStep {
+  id: string
+  title?: string
+  lead?: string
+  action?: string
+  chain?: string | number
+  request: (context: MultiTransactionFlowStepContext) => Promise<Hash>
+  skip?: (
+    context: MultiTransactionFlowStepContext,
+  ) => boolean | Promise<boolean>
+  result?: (
+    receipt: TransactionReceipt,
+    context: MultiTransactionFlowStepContext,
+  ) => unknown | Promise<unknown>
+}
+
+export interface MultiTransactionFlowStepState {
+  id: string
+  status: MultiTransactionFlowStepStatus
+  tx: Hash | null
+  receipt: TransactionReceipt | null
+  txLink: string
+  error: string
+}
+
+export interface MultiTransactionFlowText {
+  title?: Record<string, string>
+  lead?: Record<string, string>
+  action?: Record<string, string>
+}
+
+export interface EvmMultiTransactionFlowProps {
+  steps: MultiTransactionFlowStep[]
+  chain?: string | number
+  text?: MultiTransactionFlowText
+  delayAfter?: number
+  delayAutoclose?: number
+  skipConfirmation?: boolean
+  autoCloseSuccess?: boolean
+  dismissable?: boolean
+}
+
+export interface EvmMultiTransactionFlowEmits {
+  complete: [receipts: TransactionReceipt[]]
+  cancel: []
+  error: [error: string, step: MultiTransactionFlowStep, stepIndex: number]
+  'update:step': [step: string]
+  'update:stepIndex': [stepIndex: number]
+}
+
+// EvmMultiTransactionFlowDialog
+export interface EvmMultiTransactionFlowDialogProps extends EvmMultiTransactionFlowProps {}
+
+export interface EvmMultiTransactionFlowDialogEmits {
+  complete: [receipts: TransactionReceipt[]]
+  cancel: []
+  error: [error: string, step: MultiTransactionFlowStep, stepIndex: number]
+}
+
 // EvmSeedPhraseInput
 export interface EvmSeedPhraseInputProps {
   modelValue?: string

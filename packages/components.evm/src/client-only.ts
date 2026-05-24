@@ -17,6 +17,8 @@ export const clientOnlyComponents = [
   'EvmSiwe',
   'EvmSiweDialog',
   'EvmSwitchNetwork',
+  'EvmMultiTransactionFlow',
+  'EvmMultiTransactionFlowDialog',
   'EvmTransactionFlow',
   'EvmTransactionFlowDialog',
   'EvmWalletConnectQR',
