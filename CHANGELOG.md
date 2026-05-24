@@ -3,6 +3,11 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-05-24
+
+- Introduce `--scrollbar-thumb-color` and `--scrollbar-track-color` variables so scrollbar colors can be themed without overriding the base selector. [`0619a34`](https://github.com/1001-digital/layers/commit/0619a34)
+  _`styles`_
+
 ## 2026-05-17
 
 - Remove the default border from EVM artifact media. [`ac8983d`](https://github.com/1001-digital/layers/commit/ac8983d)
@@ -96,9 +101,6 @@ Generated from individual package changelogs — do not edit manually.
   - Cache resolved dweb URLs to avoid duplicate resolution
   _`components`, `components.evm`_
 
-- **Minor** Switch default block explorer to evm.now (mainnet) [`8536c21`](https://github.com/1001-digital/layers/commit/8536c21)
-  _`components.evm`_
-
 - Make block explorer link text customizable [`b6947f1`](https://github.com/1001-digital/layers/commit/b6947f1)
   _`components.evm`_
 
@@ -106,6 +108,9 @@ Generated from individual package changelogs — do not edit manually.
 
 - Upgrade dweb-fetch to 0.2.1 [`997b51e`](https://github.com/1001-digital/layers/commit/997b51e)
   _`components.evm`_
+
+- Pass RPC URLs from wagmi config to dweb-fetch client for EIP-155 resolution [`42c75d9`](https://github.com/1001-digital/layers/commit/42c75d9)
+  _`components.evm`, `layers.evm`_
 
 ## 2026-04-02
 
@@ -253,6 +258,6 @@ Generated from individual package changelogs — do not edit manually.
 
 ## Unknown
 
-- Pass RPC URLs from wagmi config to dweb-fetch client for EIP-155 resolution [`42c75d9`](https://github.com/1001-digital/layers/commit/42c75d9)
-  _`components.evm`, `layers.evm`_
+- **Minor** Switch default block explorer to evm.now (mainnet) [`8536c21`](https://github.com/1001-digital/layers/commit/8536c21)
+  _`components.evm`_
 

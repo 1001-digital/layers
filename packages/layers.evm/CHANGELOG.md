@@ -1,5 +1,14 @@
 # @1001-digital/layers.evm
 
+## 2.7.10
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @1001-digital/components@2.8.2
+  - @1001-digital/layers.base@2.0.25
+  - @1001-digital/components.evm@3.5.5
+
 ## 2.7.9
 
 ### Patch Changes
