@@ -1,5 +1,11 @@
 # @1001-digital/styles
 
+## 2.6.2
+
+### Patch Changes
+
+- [`31f94ce`](https://github.com/1001-digital/layers/commit/31f94cee0e466b26baa0744e312fed35220410ea) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Add multi-transaction flow components and composable for sequential EVM transaction flows, plus theme variables for multi-transaction progress styling.
+
 ## 2.6.1
 
 ### Patch Changes

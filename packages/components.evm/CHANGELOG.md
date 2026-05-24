@@ -1,5 +1,16 @@
 # @1001-digital/components.evm
 
+## 3.6.0
+
+### Minor Changes
+
+- [`31f94ce`](https://github.com/1001-digital/layers/commit/31f94cee0e466b26baa0744e312fed35220410ea) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Add multi-transaction flow components and composable for sequential EVM transaction flows, plus theme variables for multi-transaction progress styling.
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @1001-digital/components@2.8.3
+
 ## 3.5.6
 
 ### Patch Changes
