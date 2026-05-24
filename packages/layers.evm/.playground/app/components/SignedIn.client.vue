@@ -124,11 +124,11 @@
   </Card>
 
   <Card v-if="isConnected">
-    <h2>Multi-Transaction Flow Example</h2>
-    <p>Send two 0 ETH transactions to your own address in sequence.</p>
+    <h2>Three Self-Transfer Test</h2>
+    <p>Send three 0 ETH transactions to your own address in sequence.</p>
 
     <EvmMultiTransactionFlowDialog
-      :steps="multiTransactionSteps"
+      :steps="selfTransferTestSteps"
       chain="sepolia"
       :delay-after="0"
       :text="{
@@ -136,7 +136,7 @@
           complete: 'Transactions Complete',
         },
         lead: {
-          complete: 'Both test transactions have confirmed.',
+          complete: 'All three test transactions have confirmed.',
         },
       }"
       @complete="onMultiTransactionComplete"
@@ -144,7 +144,7 @@
     >
       <template #start="{ start }">
         <Actions>
-          <Button @click="start">Start Multi-Transaction Flow</Button>
+          <Button @click="start">Start Three Self-Transfers</Button>
         </Actions>
       </template>
 
@@ -152,6 +152,10 @@
         <div class="tx-details">
           <p><strong>Step:</strong> {{ stepIndex + 1 }} / {{ steps.length }}</p>
           <p><strong>Action:</strong> {{ currentStep?.title }}</p>
+          <p>
+            <strong>Confirmed before this step:</strong>
+            {{ stepIndex }}
+          </p>
           <p><strong>To:</strong> {{ address }}</p>
           <p><strong>Amount:</strong> 0 ETH</p>
           <p><strong>Chain:</strong> Sepolia</p>
@@ -210,10 +214,13 @@ const sendOptimismTransaction = async () => {
   return hash
 }
 
-const sendFollowUpTransaction = async ({
+const sendSelfTransfer = async ({
+  stepIndex,
   receipts,
 }: MultiTransactionFlowStepContext) => {
-  console.log('First transaction receipt:', receipts[0])
+  console.log(`Starting self-transfer ${stepIndex + 1}`, {
+    previousReceipts: receipts,
+  })
 
   const hash = await sendTx($wagmi as Config, {
     to: address.value!,
@@ -222,20 +229,27 @@ const sendFollowUpTransaction = async ({
   return hash
 }
 
-const multiTransactionSteps: MultiTransactionFlowStep[] = [
+const selfTransferTestSteps: MultiTransactionFlowStep[] = [
   {
     id: 'first',
-    title: 'Send First Transaction',
+    title: 'Send First Self-Transfer',
     lead: 'Send the first 0 ETH transaction to your address.',
     action: 'Send First',
-    request: sendTransaction,
+    request: sendSelfTransfer,
   },
   {
     id: 'second',
-    title: 'Send Follow-Up Transaction',
+    title: 'Send Second Self-Transfer',
     lead: 'Send the second transaction after the first one confirms.',
     action: 'Send Second',
-    request: sendFollowUpTransaction,
+    request: sendSelfTransfer,
+  },
+  {
+    id: 'third',
+    title: 'Send Third Self-Transfer',
+    lead: 'Send the third transaction after the second one confirms.',
+    action: 'Send Third',
+    request: sendSelfTransfer,
   },
 ]
 
