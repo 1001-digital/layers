@@ -3,6 +3,15 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-05-26
+
+- Add `--multi-transaction-flow-step-gap` so consumers can override the vertical gap between a step's title and status. [`3fbc4b8`](https://github.com/1001-digital/layers/commit/3fbc4b8)
+  _`components.evm`, `styles`_
+
+- **Minor** Add `--shadow-sm`, `--shadow-md`, `--shadow-lg`, and a `--shadow` default. Shadow colors adapt to the active color scheme via `light-dark()`, using heavier alpha in dark mode so elevation reads against dark backgrounds. [`23d6b76`](https://github.com/1001-digital/layers/commit/23d6b76)
+  This also lights up drop shadows on `Combobox`, `FormSelect`, and `Autocomplete` popover surfaces, which already referenced `--shadow-lg` before the token existed.
+  _`styles`_
+
 ## 2026-05-24
 
 - **Minor** Add multi-transaction flow components and composable for sequential EVM transaction flows, plus theme variables for multi-transaction progress styling. [`31f94ce`](https://github.com/1001-digital/layers/commit/31f94ce)
@@ -95,9 +104,6 @@ Generated from individual package changelogs — do not edit manually.
 
 - Fix client only component list [`5e71dfa`](https://github.com/1001-digital/layers/commit/5e71dfa)
   _`components.evm`_
-
-- Fix default block explorer links [`e4c7708`](https://github.com/1001-digital/layers/commit/e4c7708)
-  _`components.evm`, `layers.evm`_
 
 ## 2026-04-06
 
@@ -260,6 +266,9 @@ Generated from individual package changelogs — do not edit manually.
   _`styles`_
 
 ## Unknown
+
+- Fix default block explorer links [`e4c7708`](https://github.com/1001-digital/layers/commit/e4c7708)
+  _`components.evm`, `layers.evm`_
 
 - **Minor** Switch default block explorer to evm.now (mainnet) [`8536c21`](https://github.com/1001-digital/layers/commit/8536c21)
   _`components.evm`_
