@@ -1,5 +1,17 @@
 # @1001-digital/styles
 
+## 2.7.0
+
+### Minor Changes
+
+- [`23d6b76`](https://github.com/1001-digital/layers/commit/23d6b769ded3a82f663b8d94677e6dd9a0c57841) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Add `--shadow-sm`, `--shadow-md`, `--shadow-lg`, and a `--shadow` default. Shadow colors adapt to the active color scheme via `light-dark()`, using heavier alpha in dark mode so elevation reads against dark backgrounds.
+
+  This also lights up drop shadows on `Combobox`, `FormSelect`, and `Autocomplete` popover surfaces, which already referenced `--shadow-lg` before the token existed.
+
+### Patch Changes
+
+- [`3fbc4b8`](https://github.com/1001-digital/layers/commit/3fbc4b830117349e1d632a1b0403762918068c5d) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Add `--multi-transaction-flow-step-gap` so consumers can override the vertical gap between a step's title and status.
+
 ## 2.6.2
 
 ### Patch Changes

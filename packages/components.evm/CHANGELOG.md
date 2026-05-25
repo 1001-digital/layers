@@ -1,5 +1,14 @@
 # @1001-digital/components.evm
 
+## 3.6.1
+
+### Patch Changes
+
+- [`3fbc4b8`](https://github.com/1001-digital/layers/commit/3fbc4b830117349e1d632a1b0403762918068c5d) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Add `--multi-transaction-flow-step-gap` so consumers can override the vertical gap between a step's title and status.
+
+- Updated dependencies []:
+  - @1001-digital/components@2.8.4
+
 ## 3.6.0
 
 ### Minor Changes
