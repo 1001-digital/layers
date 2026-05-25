@@ -1,5 +1,11 @@
 # @1001-digital/components.evm
 
+## 3.6.2
+
+### Patch Changes
+
+- [`8dfd67c`](https://github.com/1001-digital/layers/commit/8dfd67c0044e8b8830ca489dcabc48cf52e625dd) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Prevent stale ENS lookup responses from overwriting newer address input state and show standard Error messages in transaction flow failures.
+
 ## 3.6.1
 
 ### Patch Changes
