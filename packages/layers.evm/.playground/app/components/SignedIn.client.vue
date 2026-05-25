@@ -74,6 +74,38 @@
     <p>Send 0 ETH on Optimism (different from default chain Sepolia).</p>
 
     <EvmTransactionFlowDialog
+      :request="sendHardhatTransaction"
+      chain="localhost"
+      :text="{
+        title: {
+          confirm: 'Send on Hardhat',
+          chain: 'Switch to Hardhat',
+        },
+        lead: {
+          confirm: 'This will send 0 ETH to your address on Hardhat.',
+          chain: 'This transaction requires the Hardhat network.',
+        },
+        action: { confirm: 'Send Transaction' },
+      }"
+      @complete="onTransactionComplete"
+      @cancel="onTransactionCancel"
+    >
+      <template #start="{ start }">
+        <Actions>
+          <Button @click="start">Start Hardhat Transaction</Button>
+        </Actions>
+      </template>
+
+      <template #confirm>
+        <div class="tx-details">
+          <p><strong>To:</strong> {{ address }}</p>
+          <p><strong>Amount:</strong> 0 ETH</p>
+          <p><strong>Chain:</strong> Hardhat</p>
+        </div>
+      </template>
+    </EvmTransactionFlowDialog>
+
+    <EvmTransactionFlowDialog
       :request="sendOptimismTransaction"
       chain="optimism"
       :text="{
@@ -210,6 +242,15 @@ const sendOptimismTransaction = async () => {
     to: address.value!,
     value: parseEther('0'),
     chainId: 10,
+  })
+  return hash
+}
+
+const sendHardhatTransaction = async () => {
+  const hash = await sendTx($wagmi as Config, {
+    to: address.value!,
+    value: parseEther('0'),
+    chainId: 31337,
   })
   return hash
 }

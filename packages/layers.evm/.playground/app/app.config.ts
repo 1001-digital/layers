@@ -11,6 +11,10 @@ export default defineAppConfig({
         id: 10,
         blockExplorer: 'https://optimistic.etherscan.io',
       },
+      localhost: {
+        id: 31337,
+        blockExplorer: 'https://etherscan.io',
+      },
     },
     inAppWallet: {
       enabled: true,
