@@ -8,6 +8,7 @@ import {
 } from 'vue'
 import { getPublicClient } from '@wagmi/core'
 import { useConfig, type Config } from '@wagmi/vue'
+import { isAddress } from 'viem'
 import { useEvmConfig } from '../config'
 import {
   ensCache,
@@ -48,7 +49,9 @@ async function resolve(
     }
   }
 
-  return { address: identifier, ens: null, data: null }
+  return isAddress(identifier)
+    ? { address: identifier, ens: null, data: null }
+    : { address: '', ens: identifier, data: null }
 }
 
 function useEnsBase(
@@ -70,8 +73,10 @@ function useEnsBase(
     ensCache.get(cacheKey.value) ?? undefined,
   )
   const pending = ref(false)
+  let run = 0
 
   watchEffect(async () => {
+    const currentRun = ++run
     const id = toValue(identifier)
     if (!id) {
       data.value = null
@@ -79,7 +84,8 @@ function useEnsBase(
       return
     }
 
-    const cached = ensCache.get(cacheKey.value)
+    const key = cacheKey.value
+    const cached = ensCache.get(key)
     if (cached) {
       data.value = cached
       pending.value = false
@@ -91,13 +97,16 @@ function useEnsBase(
 
     pending.value = true
     try {
-      data.value = await ensCache.fetch(cacheKey.value, () =>
+      const result = await ensCache.fetch(key, () =>
         resolve(id, strategies, indexers.value, config, chainKeys),
       )
+      if (currentRun !== run) return
+      data.value = result
     } catch {
+      if (currentRun !== run) return
       data.value = null
     } finally {
-      pending.value = false
+      if (currentRun === run) pending.value = false
     }
   })
 

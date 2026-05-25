@@ -55,6 +55,11 @@ const defaultText = {
   },
 } satisfies TransactionFlowText
 
+function errorMessage(e: unknown, fallback: string) {
+  const err = e as { shortMessage?: string; message?: string }
+  return err.shortMessage || err.message || fallback
+}
+
 export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
   const checkChain = useEnsureChainIdCheck(toValue(options.chain))
 
@@ -128,9 +133,7 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
       if (isUserRejection(e)) {
         error.value = 'Transaction rejected by user.'
       } else {
-        const err = e as { shortMessage?: string }
-        error.value =
-          err.shortMessage || 'Error submitting transaction request.'
+        error.value = errorMessage(e, 'Error submitting transaction request.')
       }
       step.value = 'error'
       console.log(e)
@@ -162,8 +165,7 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
           }
         }
       } catch (e: unknown) {
-        const err = e as { shortMessage?: string }
-        error.value = err.shortMessage || 'Transaction failed.'
+        error.value = errorMessage(e, 'Transaction failed.')
         step.value = 'error'
         console.log(e)
       }
@@ -212,16 +214,16 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
         })
       } catch (e: unknown) {
         clearInterval(progressTimer)
-        const err = e as { shortMessage?: string }
+        const message = errorMessage(e, 'Transaction failed.')
         if (mounted) {
           toast.dismiss(toastId)
-          error.value = err.shortMessage || 'Transaction failed.'
+          error.value = message
           step.value = 'error'
         } else {
           toast.update(toastId, {
             variant: 'error',
             title: text.value.title.error,
-            description: err.shortMessage || 'Transaction failed.',
+            description: message,
             loading: false,
             progress: false,
           })
