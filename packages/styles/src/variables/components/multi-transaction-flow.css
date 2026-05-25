@@ -12,4 +12,5 @@
   --multi-transaction-flow-muted-color: var(--muted);
   --multi-transaction-flow-error-color: var(--error);
   --multi-transaction-flow-status-font-size: var(--ui-font-size);
+  --multi-transaction-flow-step-gap: 0;
 }

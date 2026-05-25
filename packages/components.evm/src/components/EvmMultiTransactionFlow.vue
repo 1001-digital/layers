@@ -322,7 +322,7 @@ defineExpose({
 
 .multi-transaction-flow__step {
   display: grid;
-  gap: calc(var(--spacer-sm) / 2);
+  gap: var(--multi-transaction-flow-step-gap, calc(var(--spacer-sm) / 2));
   min-inline-size: 0;
 }
 
