@@ -1,3 +1,9 @@
 :root {
+  --shadow-sm: 0 6px 16px light-dark(rgb(10 10 18 / 8%), rgb(0 0 0 / 32%));
+  --shadow-md: 0 10px 24px light-dark(rgb(10 10 18 / 12%), rgb(0 0 0 / 40%));
+  --shadow-lg: 0 18px 42px light-dark(rgb(10 10 18 / 28%), rgb(0 0 0 / 56%));
+
+  --shadow: var(--shadow-sm);
+
   --blur: blur(var(--size-1));
 }

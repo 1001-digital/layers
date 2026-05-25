@@ -161,6 +161,10 @@ Layout widths:
 ```
 
 ```css
+--shadow
+--shadow-sm
+--shadow-md
+--shadow-lg
 --blur
 --speed-fast
 --speed
