@@ -5,6 +5,9 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-05-26
 
+- Prevent stale ENS lookup responses from overwriting newer address input state and show standard Error messages in transaction flow failures. [`8dfd67c`](https://github.com/1001-digital/layers/commit/8dfd67c)
+  _`components.evm`_
+
 - Add `--multi-transaction-flow-step-gap` so consumers can override the vertical gap between a step's title and status. [`3fbc4b8`](https://github.com/1001-digital/layers/commit/3fbc4b8)
   _`components.evm`, `styles`_
 
@@ -90,19 +93,6 @@ Generated from individual package changelogs — do not edit manually.
 ## 2026-04-13
 
 - Fix type issue ([#40](https://github.com/1001-digital/layers/pull/40)) [`ead860d`](https://github.com/1001-digital/layers/commit/ead860d)
-  _`components.evm`_
-
-- This fixes a type error for the toast explorer label ([#40](https://github.com/1001-digital/layers/pull/40)) [`c703979`](https://github.com/1001-digital/layers/commit/c703979)
-  _`components.evm`_
-
-## 2026-04-10
-
-- Expose ens and address in profile actions [`3a532d8`](https://github.com/1001-digital/layers/commit/3a532d8)
-  _`components.evm`_
-
-## 2026-04-07
-
-- Fix client only component list [`5e71dfa`](https://github.com/1001-digital/layers/commit/5e71dfa)
   _`components.evm`_
 
 ## 2026-04-06
@@ -266,6 +256,15 @@ Generated from individual package changelogs — do not edit manually.
   _`styles`_
 
 ## Unknown
+
+- This fixes a type error for the toast explorer label ([#40](https://github.com/1001-digital/layers/pull/40)) [`c703979`](https://github.com/1001-digital/layers/commit/c703979)
+  _`components.evm`_
+
+- Expose ens and address in profile actions [`3a532d8`](https://github.com/1001-digital/layers/commit/3a532d8)
+  _`components.evm`_
+
+- Fix client only component list [`5e71dfa`](https://github.com/1001-digital/layers/commit/5e71dfa)
+  _`components.evm`_
 
 - Fix default block explorer links [`e4c7708`](https://github.com/1001-digital/layers/commit/e4c7708)
   _`components.evm`, `layers.evm`_
