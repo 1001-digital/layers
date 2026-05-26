@@ -8,6 +8,12 @@ Generated from individual package changelogs — do not edit manually.
 - Make the `EvmEthInput` suffix customizable: new optional `suffix` prop (defaults to `'ETH'`); pass a different string to relabel it or `:suffix="false"` to hide it entirely. The existing `#suffix` slot still overrides both. [`700aef7`](https://github.com/1001-digital/layers/commit/700aef7)
   _`components.evm`_
 
+- Fix the component override facade so consumer overrides actually apply. [`11bccd5`](https://github.com/1001-digital/layers/commit/11bccd5)
+  Two bugs in 2.7.19 / 2.0.28:
+  1. **Infinite render recursion.** The proxy was given the same `name` as the original. Vue's `resolveAsset` checks self-name before the global registry, so `resolveComponent(name)` returned the proxy itself, looping until hydration crashed with `Cannot destructure property 'type' of 'vnode' as it is null`. Dropping `name:` from the proxy fixes the recursion.
+  2. **Overrides ignored.** After the recursion fix, `resolveComponent(name)` only finds _globally_ registered components. Nuxt auto-imports `app/components/<Name>.vue` as a named import, not as a global, so the proxy fell through to the package default — the consumer's `app/components/Loading.vue` was never picked up. A new plugin (`app/plugins/components.ts` in each layer) registers each shadowed name on `nuxtApp.vueApp.component()` from `#components`, where the consumer's override has already taken precedence over the layer's package-level file. The proxy's `resolveComponent` now resolves through that global registration.
+  _`layers.base`, `layers.evm`_
+
 - Fix infinite render recursion in the component facade. The proxy was given the same `name` as the original component, but Vue's `resolveAsset` checks self-name before the global registry — so `resolveComponent(name)` returned the proxy itself, looping until hydration crashed with `Cannot destructure property 'type' of 'vnode' as it is null`. Dropping `name:` from the proxy lets the lookup fall through to the Nuxt-registered original (or a consumer override). [`615c8e4`](https://github.com/1001-digital/layers/commit/615c8e4)
   _`layers.base`, `layers.evm`_
 
@@ -70,14 +76,6 @@ Generated from individual package changelogs — do not edit manually.
   _`components`, `styles`_
 
 - `EvmArtifact` now uses the static `image` as a poster for `<video>` and `<model-viewer>` while the heavy asset loads, so users see the artwork immediately instead of a blank container. The `#animation` slot also receives a `poster` prop for custom renderers. [`96171df`](https://github.com/1001-digital/layers/commit/96171df)
-  _`components.evm`_
-
-## 2026-04-28
-
-- **Minor** Make `EvmArtifact` SSR-friendly. Plain `<img>`, `<video>`, and `<audio>` renderers now render server-side (good for LCP and SEO). The pieces that still need a browser — the `@google/model-viewer` dynamic import, `<Embed>`, and the HEAD-request MIME probe — are deferred until after hydration so the initial server and client render match. [`a3b31eb`](https://github.com/1001-digital/layers/commit/a3b31eb)
-  3D rendering is split into a new `EvmArtifactModel` component (client-only) that owns the `@google/model-viewer` dynamic import. It emits `error` for runtime `<model-viewer>` errors and `import-error` if the dynamic import fails; `EvmArtifact` translates these into the existing `error` payload (`kind: 'animation' | 'model'`).
-  `useResolvedUrl` now resolves `http(s):`, `data:`, and `blob:` URIs synchronously (and reads cached `ipfs://` / `ar://` resolutions synchronously too), so SSR can emit a real `src` attribute on first paint instead of an empty string.
-  `EvmArtifact` is removed from the client-only component list; `EvmArtifactModel` takes its place.
   _`components.evm`_
 
 ## 2026-04-13
@@ -277,6 +275,12 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Support non-persistent dismissal on `Alert`. Adds a `dismissable` boolean prop for in-memory dismissal and renames the persistence prop from `dismiss` to `dismiss-key` for clarity. Providing `dismiss-key` still implies `dismissable`. [`856096e`](https://github.com/1001-digital/layers/commit/856096e)
   _`components`_
+
+- **Minor** Make `EvmArtifact` SSR-friendly. Plain `<img>`, `<video>`, and `<audio>` renderers now render server-side (good for LCP and SEO). The pieces that still need a browser — the `@google/model-viewer` dynamic import, `<Embed>`, and the HEAD-request MIME probe — are deferred until after hydration so the initial server and client render match. [`a3b31eb`](https://github.com/1001-digital/layers/commit/a3b31eb)
+  3D rendering is split into a new `EvmArtifactModel` component (client-only) that owns the `@google/model-viewer` dynamic import. It emits `error` for runtime `<model-viewer>` errors and `import-error` if the dynamic import fails; `EvmArtifact` translates these into the existing `error` payload (`kind: 'animation' | 'model'`).
+  `useResolvedUrl` now resolves `http(s):`, `data:`, and `blob:` URIs synchronously (and reads cached `ipfs://` / `ar://` resolutions synchronously too), so SSR can emit a real `src` attribute on first paint instead of an empty string.
+  `EvmArtifact` is removed from the client-only component list; `EvmArtifactModel` takes its place.
+  _`components.evm`_
 
 - **Minor** Add `EvmArtifact` — a generic NFT artifact renderer that accepts a normalized `TokenMetadata` shape (e.g. from `@1001-digital/resolve-metadata`) or individual `image` / `animationUrl` / `name` / `backgroundColor` props. Auto-detects media type by file extension first, then by HEAD-request `Content-Type` (with `AbortController` so rapid URL changes can't let stale responses overwrite fresh detection), and renders the appropriate element: `<img>` for images, `<video autoplay muted loop>` for video, `<audio controls>` (over the static image as poster) for audio, `<Embed>` for HTML/iframe and unknown types, and a lazy-loaded `<model-viewer>` for `.glb` / `.gltf` 3D assets. URLs from `resolve-metadata` come back as protocol URIs (`ipfs://`, `ar://`) and are resolved through the existing `useResolvedUrl` composable against the configured gateways. [`92d026c`](https://github.com/1001-digital/layers/commit/92d026c)
   Provides `v-model:show-animation` for parent-controlled play/pause and four scoped slots: `#animation`, `#static`, `#overlay` (receives `showAnimation` and `hasAnimation`), and `#fallback` (receives `name` and the last `error`). Emits `error` with `{ kind: 'image' | 'animation' | 'model'; url }`. Optionally applies `background_color` from metadata as the container background (validated as 6-char hex). Aspect ratio defaults to `1` and is overridable via the `aspectRatio` prop or a `--evm-artifact-aspect-ratio` CSS custom property.
