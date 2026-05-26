@@ -12,6 +12,8 @@ import * as Originals from '@1001-digital/components.evm-original'
 // before consulting the global registry, so a same-named proxy would
 // resolve back to itself and recurse infinitely. With no name, the lookup
 // falls through to the Nuxt-registered original (or a consumer override).
+// The companion plugin `app/plugins/register-shadowed.ts` globally
+// registers each shadowed name so this resolveComponent call succeeds.
 const proxy = <T extends Component>(name: string, fallback: T): T =>
   defineComponent({
     inheritAttrs: false,
