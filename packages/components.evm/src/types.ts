@@ -211,7 +211,10 @@ export interface EvmMultiTransactionFlowEmits {
 }
 
 // EvmMultiTransactionFlowDialog
-export interface EvmMultiTransactionFlowDialogProps extends EvmMultiTransactionFlowProps {}
+export interface EvmMultiTransactionFlowDialogProps
+  extends EvmMultiTransactionFlowProps {
+  title?: string
+}
 
 export interface EvmMultiTransactionFlowDialogEmits {
   complete: [receipts: TransactionReceipt[]]

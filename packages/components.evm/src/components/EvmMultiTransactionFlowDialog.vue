@@ -11,7 +11,7 @@
     v-model:open="open"
     :closable="flow.canDismiss.value"
     :click-outside="flow.canDismiss.value"
-    :title="flow.currentTitle.value || ''"
+    :title="props.title || flow.currentTitle.value || ''"
     class="multi-transaction-flow-dialog"
     compat
     @closed="flow.reset"
