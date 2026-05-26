@@ -1,5 +1,14 @@
 # @1001-digital/layers.evm
 
+## 2.7.16
+
+### Patch Changes
+
+- [`b98b8ce`](https://github.com/1001-digital/layers/commit/b98b8ceaa8b7de4ccac3ed6e0677705a2e57e892) Thanks [@yougogirldoteth](https://github.com/yougogirldoteth)! - Add an `EvmEthInput` component for ETH amount text input with parsed wei output.
+
+- Updated dependencies [[`b98b8ce`](https://github.com/1001-digital/layers/commit/b98b8ceaa8b7de4ccac3ed6e0677705a2e57e892)]:
+  - @1001-digital/components.evm@3.6.4
+
 ## 2.7.15
 
 ### Patch Changes
