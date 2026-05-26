@@ -80,6 +80,11 @@ export {
   useEnsureChainIdCheck,
 } from './composables/chainId'
 export { useEns, useEnsWithAvatar, useEnsProfile } from './composables/ens'
+export {
+  normalizeEthAmountInput,
+  parseEthAmountInput,
+  useEthAmountInput,
+} from './composables/ethAmountInput'
 export { useDwebClient, useResolvedUrl } from './composables/uri'
 export { useGasPrice } from './composables/gasPrice'
 export { usePriceFeed } from './composables/priceFeed'
