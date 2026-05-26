@@ -51,7 +51,7 @@ Generated from individual package changelogs — do not edit manually.
   - `Autocomplete`: simplify `NormalizedGroup.options` type — the previous conditional resolved to `never[]`, so iterating grouped options in the template surfaced `'label' does not exist on type 'never'` errors.
   - `EvmArtifact`: inline a local `TokenMetadata` type instead of importing from `@1001-digital/resolve-metadata` so consumers without that optional peer dep can still type-check.
   - `EvmArtifactModel`: silence the dynamic `import('@google/model-viewer')` for consumers without that optional peer dep.
-  _`components`, `components.evm`_
+    _`components`, `components.evm`_
 
 ## 2026-05-01
 
@@ -110,7 +110,7 @@ Generated from individual package changelogs — do not edit manually.
   Add a reusable `Avatar` component to `@1001-digital/components` that renders an image or an Opepicon fallback. `EvmAvatar` now delegates to this component instead of inlining the logic.
   - Remove `avatarUrl` prop from `EvmAvatarProps` (avatar URL is now resolved internally)
   - Cache resolved dweb URLs to avoid duplicate resolution
-  _`components`, `components.evm`_
+    _`components`, `components.evm`_
 
 - **Minor** Switch default block explorer to evm.now (mainnet) [`8536c21`](https://github.com/1001-digital/layers/commit/8536c21)
   _`components.evm`_
@@ -283,4 +283,3 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Add `EvmConnectAuth` and `EvmConnectAuthDialog` for a combined connect + SIWE flow that auto-prompts the signature once the wallet connects, plus an `autoSignIn` prop on `EvmSiwe` that triggers sign-in on mount. [`76b8b30`](https://github.com/1001-digital/layers/commit/76b8b30)
   _`components.evm`, `layers.evm`_
-

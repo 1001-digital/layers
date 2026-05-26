@@ -1,15 +1,47 @@
+import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import { clientOnlyComponents } from '@1001-digital/components/client-only'
+
+const require = createRequire(import.meta.url)
 
 const componentsDir = fileURLToPath(
   new URL('../components/src/base/components', import.meta.url),
 )
+const baseComponentsEntry = require.resolve('@1001-digital/components')
+const componentsFacade = fileURLToPath(
+  new URL('./app/shims/components.ts', import.meta.url),
+)
+
+type ViteAliasEntry = { find: string | RegExp; replacement: string }
+type ViteAliases = Record<string, string> | ViteAliasEntry[]
+type MutableViteConfig = { resolve?: { alias?: ViteAliases } }
+
+const normalizeViteAliases = (
+  aliases: ViteAliases | undefined,
+): ViteAliasEntry[] => {
+  if (!aliases) {
+    return []
+  }
+
+  if (Array.isArray(aliases)) {
+    return aliases
+  }
+
+  return Object.entries(aliases).map(([find, replacement]) => ({
+    find,
+    replacement,
+  }))
+}
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
   modules: ['@nuxt/icon'],
+
+  alias: {
+    '@1001-digital/components-original': baseComponentsEntry,
+  },
 
   hooks: {
     'components:dirs': (dirs) => {
@@ -25,6 +57,23 @@ export default defineNuxtConfig({
           c.mode = 'client'
         }
       }
+    },
+    'vite:extendConfig': (config) => {
+      const mutableConfig = config as MutableViteConfig
+      mutableConfig.resolve ||= {}
+      mutableConfig.resolve.alias = [
+        // In Nuxt builds, package-level component imports should resolve
+        // through Nuxt's component registry so app/layer overrides apply.
+        {
+          find: /^@1001-digital\/components$/,
+          replacement: componentsFacade,
+        },
+        {
+          find: /^@1001-digital\/components-original$/,
+          replacement: baseComponentsEntry,
+        },
+        ...normalizeViteAliases(mutableConfig.resolve.alias),
+      ]
     },
   },
 

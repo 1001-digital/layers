@@ -1,5 +1,6 @@
 import { createRequire } from 'node:module'
 import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { clientOnlyComponents } from '@1001-digital/components.evm/client-only'
 
 const require = createRequire(import.meta.url)
@@ -8,6 +9,10 @@ const componentsEvm = dirname(
   require.resolve('@1001-digital/components.evm/package.json'),
 )
 const componentsDir = join(componentsEvm, 'src', 'components')
+const componentsEvmEntry = require.resolve('@1001-digital/components.evm')
+const componentsFacade = fileURLToPath(
+  new URL('./app/shims/components.ts', import.meta.url),
+)
 
 // Force certain imports to resolve to a single copy.
 // pnpm creates separate instances per dependency set — breaking
@@ -16,11 +21,36 @@ const componentsDir = join(componentsEvm, 'src', 'components')
 const wagmiVue = dirname(require.resolve('@wagmi/vue/package.json'))
 const eventemitter3 = dirname(require.resolve('eventemitter3/package.json'))
 
+type ViteAliasEntry = { find: string | RegExp; replacement: string }
+type ViteAliases = Record<string, string> | ViteAliasEntry[]
+type MutableViteConfig = { resolve?: { alias?: ViteAliases } }
+
+const normalizeViteAliases = (
+  aliases: ViteAliases | undefined,
+): ViteAliasEntry[] => {
+  if (!aliases) {
+    return []
+  }
+
+  if (Array.isArray(aliases)) {
+    return aliases
+  }
+
+  return Object.entries(aliases).map(([find, replacement]) => ({
+    find,
+    replacement,
+  }))
+}
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   extends: ['@1001-digital/layers.base'],
 
   modules: ['@wagmi/vue/nuxt'],
+
+  alias: {
+    '@1001-digital/components.evm-original': componentsEvmEntry,
+  },
 
   hooks: {
     'components:dirs': (dirs) => {
@@ -35,6 +65,23 @@ export default defineNuxtConfig({
           c.mode = 'client'
         }
       }
+    },
+    'vite:extendConfig': (config) => {
+      const mutableConfig = config as MutableViteConfig
+      mutableConfig.resolve ||= {}
+      mutableConfig.resolve.alias = [
+        // In Nuxt builds, package-level component imports should resolve
+        // through Nuxt's component registry so app/layer overrides apply.
+        {
+          find: /^@1001-digital\/components\.evm$/,
+          replacement: componentsFacade,
+        },
+        {
+          find: /^@1001-digital\/components\.evm-original$/,
+          replacement: componentsEvmEntry,
+        },
+        ...normalizeViteAliases(mutableConfig.resolve.alias),
+      ]
     },
   },
 
