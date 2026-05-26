@@ -92,6 +92,7 @@ const explorer = useBlockExplorer('sepolia')
 | `useEnsProfile()`     | Resolve an ENS profile object.                            |
 | `useDwebClient()`     | Access the decentralized-web fetch client.                |
 | `useResolvedUrl()`    | Resolve `ipfs://`, `ipns://`, or Arweave URLs reactively. |
+| `useEthAmountInput()` | Manage ETH amount text input and parsed wei value.        |
 | `useGasPrice()`       | Read current gas price data.                              |
 | `usePriceFeed()`      | Read cached ETH price feed data.                          |
 | `useWalletExplorer()` | Search and rank wallet options.                           |
@@ -139,6 +140,8 @@ Important returned state:
 | `shortAddress()`                  | Display-shortened address string.            |
 | `resolveChain()`                  | Resolve a viem chain object from a chain ID. |
 | `formatETH()`                     | Format wei values as ETH.                    |
+| `parseEthAmountInput()`           | Parse user-entered ETH text to wei.          |
+| `normalizeEthAmountInput()`       | Normalize ETH amount text input.             |
 | `isUserRejection()`               | Detect common wallet user-rejection errors.  |
 | `createCache()`                   | Small cache utility used by EVM helpers.     |
 | `createDwebFetch()`               | Create a dweb fetch client.                  |
@@ -148,4 +151,5 @@ Important returned state:
 ```ts
 const label = shortAddress('0x1234567890abcdef1234567890abcdef12345678')
 const amount = formatETH(1000000000000000000n)
+const wei = parseEthAmountInput('0,5')
 ```
