@@ -1,5 +1,11 @@
 # @1001-digital/components.evm
 
+## 3.6.6
+
+### Patch Changes
+
+- [`700aef7`](https://github.com/1001-digital/layers/commit/700aef7779ab920f6314cf59e05550e89ab4b6eb) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Make the `EvmEthInput` suffix customizable: new optional `suffix` prop (defaults to `'ETH'`); pass a different string to relabel it or `:suffix="false"` to hide it entirely. The existing `#suffix` slot still overrides both.
+
 ## 3.6.5
 
 ### Patch Changes
