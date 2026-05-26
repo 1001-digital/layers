@@ -15,8 +15,11 @@
       :placeholder="placeholder"
       v-bind="$attrs"
     />
-    <template #suffix>
-      <slot name="suffix">ETH</slot>
+    <template
+      v-if="$slots.suffix || suffix !== false"
+      #suffix
+    >
+      <slot name="suffix">{{ suffix }}</slot>
     </template>
   </FormItem>
 </template>
@@ -34,6 +37,7 @@ defineOptions({ inheritAttrs: false })
 
 withDefaults(defineProps<EvmEthInputProps>(), {
   placeholder: '0.5',
+  suffix: 'ETH',
 })
 
 const model = defineModel<string>({ default: '' })

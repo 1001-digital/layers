@@ -17,6 +17,7 @@ export interface EvmAddressInputProps {
 // EvmEthInput
 export interface EvmEthInputProps {
   placeholder?: string
+  suffix?: string | false
 }
 
 // EvmAccount
@@ -211,8 +212,7 @@ export interface EvmMultiTransactionFlowEmits {
 }
 
 // EvmMultiTransactionFlowDialog
-export interface EvmMultiTransactionFlowDialogProps
-  extends EvmMultiTransactionFlowProps {
+export interface EvmMultiTransactionFlowDialogProps extends EvmMultiTransactionFlowProps {
   title?: string
 }
 
