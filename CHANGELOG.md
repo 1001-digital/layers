@@ -5,6 +5,9 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-05-26
 
+- Add reusable ETH amount input helpers for parsing user-entered ETH values to wei. [`623d075`](https://github.com/1001-digital/layers/commit/623d075)
+  _`components.evm`, `layers.evm`_
+
 - Prevent stale ENS lookup responses from overwriting newer address input state and show standard Error messages in transaction flow failures. [`8dfd67c`](https://github.com/1001-digital/layers/commit/8dfd67c)
   _`components.evm`_
 
@@ -87,13 +90,26 @@ Generated from individual package changelogs — do not edit manually.
 - **Minor** Add `--alert-border-radius` token (defaults to `--border-radius`) so `Alert` can be themed like other components. Also reserve inline-end padding on `Alert` when a close button is present so content cannot overlap it. [`2aafcb9`](https://github.com/1001-digital/layers/commit/2aafcb9)
   _`components`, `styles`_
 
-- **Minor** Support non-persistent dismissal on `Alert`. Adds a `dismissable` boolean prop for in-memory dismissal and renames the persistence prop from `dismiss` to `dismiss-key` for clarity. Providing `dismiss-key` still implies `dismissable`. [`856096e`](https://github.com/1001-digital/layers/commit/856096e)
-  _`components`_
-
 ## 2026-04-13
 
 - Fix type issue ([#40](https://github.com/1001-digital/layers/pull/40)) [`ead860d`](https://github.com/1001-digital/layers/commit/ead860d)
   _`components.evm`_
+
+- This fixes a type error for the toast explorer label ([#40](https://github.com/1001-digital/layers/pull/40)) [`c703979`](https://github.com/1001-digital/layers/commit/c703979)
+  _`components.evm`_
+
+## 2026-04-10
+
+- Expose ens and address in profile actions [`3a532d8`](https://github.com/1001-digital/layers/commit/3a532d8)
+  _`components.evm`_
+
+## 2026-04-07
+
+- Fix client only component list [`5e71dfa`](https://github.com/1001-digital/layers/commit/5e71dfa)
+  _`components.evm`_
+
+- Fix default block explorer links [`e4c7708`](https://github.com/1001-digital/layers/commit/e4c7708)
+  _`components.evm`, `layers.evm`_
 
 ## 2026-04-06
 
@@ -102,6 +118,12 @@ Generated from individual package changelogs — do not edit manually.
   - Remove `avatarUrl` prop from `EvmAvatarProps` (avatar URL is now resolved internally)
   - Cache resolved dweb URLs to avoid duplicate resolution
   _`components`, `components.evm`_
+
+- **Minor** Switch default block explorer to evm.now (mainnet) [`8536c21`](https://github.com/1001-digital/layers/commit/8536c21)
+  _`components.evm`_
+
+- Make block explorer link text customizable [`b6947f1`](https://github.com/1001-digital/layers/commit/b6947f1)
+  _`components.evm`_
 
 ## 2026-04-03
 
@@ -257,21 +279,6 @@ Generated from individual package changelogs — do not edit manually.
 
 ## Unknown
 
-- This fixes a type error for the toast explorer label ([#40](https://github.com/1001-digital/layers/pull/40)) [`c703979`](https://github.com/1001-digital/layers/commit/c703979)
-  _`components.evm`_
-
-- Expose ens and address in profile actions [`3a532d8`](https://github.com/1001-digital/layers/commit/3a532d8)
-  _`components.evm`_
-
-- Fix client only component list [`5e71dfa`](https://github.com/1001-digital/layers/commit/5e71dfa)
-  _`components.evm`_
-
-- Fix default block explorer links [`e4c7708`](https://github.com/1001-digital/layers/commit/e4c7708)
-  _`components.evm`, `layers.evm`_
-
-- **Minor** Switch default block explorer to evm.now (mainnet) [`8536c21`](https://github.com/1001-digital/layers/commit/8536c21)
-  _`components.evm`_
-
-- Make block explorer link text customizable [`b6947f1`](https://github.com/1001-digital/layers/commit/b6947f1)
-  _`components.evm`_
+- **Minor** Support non-persistent dismissal on `Alert`. Adds a `dismissable` boolean prop for in-memory dismissal and renames the persistence prop from `dismiss` to `dismiss-key` for clarity. Providing `dismiss-key` still implies `dismissable`. [`856096e`](https://github.com/1001-digital/layers/commit/856096e)
+  _`components`_
 
