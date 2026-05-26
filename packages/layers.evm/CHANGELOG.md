@@ -1,5 +1,14 @@
 # @1001-digital/layers.evm
 
+## 2.7.18
+
+### Patch Changes
+
+- [`227d6a6`](https://github.com/1001-digital/layers/commit/227d6a6944a87b21193ff19a6a921e6994c62eee) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Route `@1001-digital/components` and `@1001-digital/components.evm` package imports through a Nuxt-layer facade so consumer/layer component overrides apply to package-level imports (e.g. `<Button>` inside `EvmConnectDialog` will pick up an app's override of `Button`).
+
+- Updated dependencies [[`227d6a6`](https://github.com/1001-digital/layers/commit/227d6a6944a87b21193ff19a6a921e6994c62eee)]:
+  - @1001-digital/layers.base@2.0.28
+
 ## 2.7.17
 
 ### Patch Changes
