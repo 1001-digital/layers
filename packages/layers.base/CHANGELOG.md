@@ -1,5 +1,11 @@
 # @1001-digital/layers.base
 
+## 2.0.29
+
+### Patch Changes
+
+- [`615c8e4`](https://github.com/1001-digital/layers/commit/615c8e4592dcc8a31e42ccab807ddf41543e67dc) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Fix infinite render recursion in the component facade. The proxy was given the same `name` as the original component, but Vue's `resolveAsset` checks self-name before the global registry — so `resolveComponent(name)` returned the proxy itself, looping until hydration crashed with `Cannot destructure property 'type' of 'vnode' as it is null`. Dropping `name:` from the proxy lets the lookup fall through to the Nuxt-registered original (or a consumer override).
+
 ## 2.0.28
 
 ### Patch Changes
