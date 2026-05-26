@@ -5,6 +5,9 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-05-26
 
+- Allow passing a global `title` prop to `EvmMultiTransactionFlowDialog`. When set, it overrides the per-step title from the flow; otherwise the current step's title is used as before. [`1952d69`](https://github.com/1001-digital/layers/commit/1952d69)
+  _`components.evm`, `layers.evm`_
+
 - Add an `EvmEthInput` component for ETH amount text input with parsed wei output. [`b98b8ce`](https://github.com/1001-digital/layers/commit/b98b8ce)
   _`components.evm`, `layers.evm`_
 
@@ -78,9 +81,6 @@ Generated from individual package changelogs — do not edit manually.
 ## 2026-04-27
 
 - Upgrade `viem` to 2.48.4, `@wagmi/core` to 3.4.6, and `@wagmi/vue` to 0.5.6. [`ebca2e9`](https://github.com/1001-digital/layers/commit/ebca2e9)
-  _`components.evm`, `layers.evm`_
-
-- **Minor** Add `EvmConnectAuth` and `EvmConnectAuthDialog` for a combined connect + SIWE flow that auto-prompts the signature once the wallet connects, plus an `autoSignIn` prop on `EvmSiwe` that triggers sign-in on mount. [`76b8b30`](https://github.com/1001-digital/layers/commit/76b8b30)
   _`components.evm`, `layers.evm`_
 
 ## 2026-04-13
@@ -280,4 +280,7 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Support non-persistent dismissal on `Alert`. Adds a `dismissable` boolean prop for in-memory dismissal and renames the persistence prop from `dismiss` to `dismiss-key` for clarity. Providing `dismiss-key` still implies `dismissable`. [`856096e`](https://github.com/1001-digital/layers/commit/856096e)
   _`components`_
+
+- **Minor** Add `EvmConnectAuth` and `EvmConnectAuthDialog` for a combined connect + SIWE flow that auto-prompts the signature once the wallet connects, plus an `autoSignIn` prop on `EvmSiwe` that triggers sign-in on mount. [`76b8b30`](https://github.com/1001-digital/layers/commit/76b8b30)
+  _`components.evm`, `layers.evm`_
 
