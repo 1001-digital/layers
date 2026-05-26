@@ -8,9 +8,12 @@ export * from '@1001-digital/components.evm-original'
 import { defineComponent, h, resolveComponent, type Component } from 'vue'
 import * as Originals from '@1001-digital/components.evm-original'
 
+// No `name:` on the proxy — Vue's `resolveAsset` does a self-name check
+// before consulting the global registry, so a same-named proxy would
+// resolve back to itself and recurse infinitely. With no name, the lookup
+// falls through to the Nuxt-registered original (or a consumer override).
 const proxy = <T extends Component>(name: string, fallback: T): T =>
   defineComponent({
-    name,
     inheritAttrs: false,
     setup(_, { attrs, slots }) {
       return () => {
