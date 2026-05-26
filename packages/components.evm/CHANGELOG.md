@@ -1,5 +1,11 @@
 # @1001-digital/components.evm
 
+## 3.6.5
+
+### Patch Changes
+
+- [`1952d69`](https://github.com/1001-digital/layers/commit/1952d69e4cc3943769a22f3cfcaa9d0116497046) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Allow passing a global `title` prop to `EvmMultiTransactionFlowDialog`. When set, it overrides the per-step title from the flow; otherwise the current step's title is used as before.
+
 ## 3.6.4
 
 ### Patch Changes
