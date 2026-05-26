@@ -1,5 +1,14 @@
 # @1001-digital/layers.evm
 
+## 2.7.15
+
+### Patch Changes
+
+- [`623d075`](https://github.com/1001-digital/layers/commit/623d075b5afe60f87cec8480f5931f7f47a5f910) Thanks [@yougogirldoteth](https://github.com/yougogirldoteth)! - Add reusable ETH amount input helpers for parsing user-entered ETH values to wei.
+
+- Updated dependencies [[`623d075`](https://github.com/1001-digital/layers/commit/623d075b5afe60f87cec8480f5931f7f47a5f910)]:
+  - @1001-digital/components.evm@3.6.3
+
 ## 2.7.14
 
 ### Patch Changes
