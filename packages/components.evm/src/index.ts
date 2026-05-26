@@ -5,6 +5,7 @@ export type { EvmConfig, EvmChainConfig } from './config'
 // Component types
 export type {
   EvmAddressInputProps,
+  EvmEthInputProps,
   EvmAccountProps,
   EvmArtifactProps,
   EvmArtifactEmits,
@@ -123,6 +124,7 @@ export { clientOnlyComponents } from './client-only'
 
 // Components
 export { default as EvmAddressInput } from './components/EvmAddressInput.vue'
+export { default as EvmEthInput } from './components/EvmEthInput.vue'
 export { default as EvmAccount } from './components/EvmAccount.vue'
 export { default as EvmArtifact } from './components/EvmArtifact.vue'
 export { default as EvmArtifactModel } from './components/EvmArtifactModel.vue'

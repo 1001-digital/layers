@@ -14,6 +14,11 @@ export interface EvmAddressInputProps {
   placeholder?: string
 }
 
+// EvmEthInput
+export interface EvmEthInputProps {
+  placeholder?: string
+}
+
 // EvmAccount
 export interface EvmAccountProps {
   address?: Address
