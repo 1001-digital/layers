@@ -85,17 +85,17 @@ const explorer = useBlockExplorer('sepolia')
 
 ## ENS, URI, and Price Composables
 
-| Composable            | Purpose                                                   |
-| --------------------- | --------------------------------------------------------- |
-| `useEns()`            | Resolve ENS data.                                         |
-| `useEnsWithAvatar()`  | Resolve ENS name plus avatar data.                        |
-| `useEnsProfile()`     | Resolve an ENS profile object.                            |
-| `useDwebClient()`     | Access the decentralized-web fetch client.                |
-| `useResolvedUrl()`    | Resolve `ipfs://`, `ipns://`, or Arweave URLs reactively. |
-| `useEthAmountInput()` | Manage ETH amount text input and parsed wei value.        |
-| `useGasPrice()`       | Read current gas price data.                              |
-| `usePriceFeed()`      | Read cached ETH price feed data.                          |
-| `useWalletExplorer()` | Search and rank wallet options.                           |
+| Composable            | Purpose                                                                   |
+| --------------------- | ------------------------------------------------------------------------- |
+| `useEns()`            | Resolve ENS data.                                                         |
+| `useEnsWithAvatar()`  | Resolve ENS name plus avatar data.                                        |
+| `useEnsProfile()`     | Resolve an ENS profile object.                                            |
+| `useDwebClient()`     | Access the decentralized-web fetch client.                                |
+| `useResolvedUrl()`    | Resolve `ipfs://`, `ipns://`, or Arweave URLs reactively.                 |
+| `useEthAmountInput()` | Manage ETH amount text input and parsed wei value. Used by `EvmEthInput`. |
+| `useGasPrice()`       | Read current gas price data.                                              |
+| `usePriceFeed()`      | Read cached ETH price feed data.                                          |
+| `useWalletExplorer()` | Search and rank wallet options.                                           |
 
 ## Transaction Flow
 

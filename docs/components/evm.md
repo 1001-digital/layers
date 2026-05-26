@@ -2,7 +2,7 @@
 
 EVM components come from `@1001-digital/components.evm`. Nuxt apps usually receive them through `@1001-digital/layers.evm`; direct Vue consumers can import them from the package.
 
-All EVM components are client-only in Nuxt layer usage.
+Components that require wallet or browser APIs are marked client-only by the Nuxt layer.
 
 ## Wallet Connection
 
@@ -34,12 +34,13 @@ All EVM components are client-only in Nuxt layer usage.
 </template>
 ```
 
-## Accounts and Profiles
+## Accounts, Inputs, and Profiles
 
 | Component           | Purpose                                             | Key API                                      |
 | ------------------- | --------------------------------------------------- | -------------------------------------------- |
 | `EvmAccount`        | Short account display with optional ENS resolution. | Props `address`, `resolveEns`.               |
 | `EvmAddressInput`   | Address or ENS input.                               | Prop `placeholder`; uses `v-model`.          |
+| `EvmEthInput`       | ETH amount input with parsed wei output.            | `v-model`, `v-model:wei`, `placeholder`.     |
 | `EvmAvatar`         | ENS avatar or generated fallback.                   | Props `address`, `large`.                    |
 | `EvmProfile`        | Wallet profile display.                             | Prop `className`; emits `disconnected`.      |
 | `EvmSidebarProfile` | Sidebar profile variant.                            | Emits `disconnected`.                        |
@@ -49,6 +50,13 @@ All EVM components are client-only in Nuxt layer usage.
 <template>
   <FormLabel label="Recipient">
     <EvmAddressInput v-model="recipient" />
+  </FormLabel>
+
+  <FormLabel label="Amount">
+    <EvmEthInput
+      v-model="eth"
+      v-model:wei="wei"
+    />
   </FormLabel>
 
   <EvmAccount
@@ -142,6 +150,7 @@ Your application owns nonce generation, session storage, and server-side verific
 ```ts
 import {
   EvmAccount,
+  EvmEthInput,
   EvmConnectDialog,
   EvmTransactionFlowDialog,
   shortAddress,
