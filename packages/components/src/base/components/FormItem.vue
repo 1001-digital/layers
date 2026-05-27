@@ -47,7 +47,7 @@
       color: var(--muted);
       background: var(--button-background);
       transition: all var(--speed);
-      block-size: 100%;
+      block-size: var(--form-item-height);
       display: flex;
       align-items: center;
       justify-content: center;
