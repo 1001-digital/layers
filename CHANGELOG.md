@@ -5,6 +5,11 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-05-27
 
+- Use `Symbol.for` for `LinkComponentKey` and `IconAliasesKey` so provide/inject identity survives Vite serving the same source file at two URLs. The previous fix (deduping `@1001-digital/components` and importing keys from deep subpaths) wasn't enough — Vite's dev server still appends `?v=<hash>` to imports of `src/base/link.ts` and `src/base/icons.ts` when the importer is inside the components package, but not when imported from a layer plugin. Two URLs evaluate the module twice and produce two `Symbol(...)` values, so `inject` silently falls back to defaults — `<Button to="…">` rendered as a plain `<a>` (full reload on click), and `<Icon>` aliases configured in the consumer were ignored. [`ca4e516`](https://github.com/1001-digital/layers/commit/ca4e516)
+  `Symbol.for` interns the symbol on the global registry, so all module instances resolve to the same key.
+  Also drops the unused `exact` prop on `Button`. Vue Router 4 / Nuxt 3 no longer support an `exact` prop on `<RouterLink>`/`<NuxtLink>` — it was leaking onto the rendered `<a>` as `exact="false"`.
+  _`components`_
+
 - Fix `Dialog` rendering nothing when the component is globally auto-registered as `Dialog` (which Nuxt layers do). The template used `<component :is="tag">` with `tag` being `'dialog'` or `'article'`. Vue's `resolveAsset` is case-insensitive (it probes the registry with `name`, `camelize(name)`, and `capitalize(camelize(name))`), so `:is="'dialog'"` resolved to the registered `Dialog` component instead of the native `<dialog>` element — the inner instance had no `open` prop, fired `[Vue warn]: Missing required prop: "open"`, and rendered a comment node. Replaced the dynamic component with literal `<dialog>` / `<article>` blocks so the wrapper element bypasses the component registry entirely. [`b3e8c9a`](https://github.com/1001-digital/layers/commit/b3e8c9a)
   _`components`_
 
