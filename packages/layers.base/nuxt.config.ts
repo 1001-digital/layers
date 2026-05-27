@@ -110,5 +110,29 @@ export default defineNuxtConfig({
 
   css: ['@1001-digital/styles'],
 
+  vite: {
+    resolve: {
+      // Force a single instance of `@1001-digital/components` so injection
+      // keys like `LinkComponentKey` and `IconAliasesKey` resolve to the
+      // same `Symbol(...)` everywhere. Without this, Vite's dep optimizer
+      // pre-bundles the bare-specifier import as a separate chunk from the
+      // package's own relative-path imports — two module instances, two
+      // symbols, and `inject` silently falls back to defaults.
+      dedupe: ['@1001-digital/components'],
+    },
+    optimizeDeps: {
+      // Pair with `resolve.dedupe` above — skip pre-bundling so the package
+      // is consumed as source through both the bare-specifier and relative
+      // import paths. Both names must be excluded: the facade re-exports
+      // through the `-original` alias, and Vite's optimizer scans that as
+      // a bare specifier too — pre-bundling either name creates a parallel
+      // module instance with its own injection-key symbols.
+      exclude: [
+        '@1001-digital/components',
+        '@1001-digital/components-original',
+      ],
+    },
+  },
+
   compatibilityDate: '2026-01-28',
 })

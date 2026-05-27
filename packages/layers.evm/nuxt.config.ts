@@ -107,6 +107,14 @@ export default defineNuxtConfig({
         '@wagmi/vue': wagmiVue,
         eventemitter3: eventemitter3,
       },
+      // Force a single instance of `@1001-digital/components.evm` so the
+      // wagmi plugin's `provide(EvmConfigKey, ...)` and the dialog's
+      // `inject(EvmConfigKey)` resolve to the same `Symbol('EvmConfig')`.
+      // Without this, Vite's dep optimizer pre-bundles the bare-specifier
+      // import as a separate chunk from the package's own relative-path
+      // imports — two module instances, two symbols, and `inject` silently
+      // falls back to a mainnet-only default.
+      dedupe: ['@1001-digital/components.evm'],
     },
     optimizeDeps: {
       include: [
@@ -116,6 +124,16 @@ export default defineNuxtConfig({
         '@1001-digital/layers.evm > @walletconnect/ethereum-provider',
         '@1001-digital/layers.evm > @safe-global/safe-apps-sdk',
         '@1001-digital/layers.evm > @safe-global/safe-apps-provider',
+      ],
+      // Pair with `resolve.dedupe` above — skip pre-bundling so the package
+      // is consumed as source through both the bare-specifier and relative
+      // import paths. Both names must be excluded: the facade re-exports
+      // through the `-original` alias, and Vite's optimizer scans that as
+      // a bare specifier too — pre-bundling either name creates a parallel
+      // module instance with its own `Symbol('EvmConfig')`.
+      exclude: [
+        '@1001-digital/components.evm',
+        '@1001-digital/components.evm-original',
       ],
     },
   },
