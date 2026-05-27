@@ -7,10 +7,15 @@
       @leave="onLeave"
       @after-leave="() => emit('closed')"
     >
-      <component
-        v-if="open"
+      <!--
+        Literal <dialog>/<article> instead of <component :is="tag">. Vue's
+        resolveAsset is case-insensitive ('dialog' → 'Dialog'), and when this
+        component is auto-registered as `Dialog` (Nuxt layers do this), the
+        dynamic `is` resolves back to this component and renders nothing.
+      -->
+      <dialog
+        v-if="open && !compat"
         ref="dialog"
-        :is="tag"
         :class="classes"
         tabindex="-1"
         @cancel.stop.prevent="closable && (open = false)"
@@ -37,7 +42,36 @@
             <slot name="footer" />
           </footer>
         </div>
-      </component>
+      </dialog>
+      <article
+        v-else-if="open"
+        ref="dialog"
+        :class="classes"
+        tabindex="-1"
+        @keydown.escape.stop.prevent="closable && (open = false)"
+        @click="onDialogClick"
+      >
+        <div class="dialog-content">
+          <h1 v-if="title">{{ title }}</h1>
+          <button
+            v-if="closable"
+            class="close"
+            :title="`Close ${title || 'Dialog'}`"
+            @pointerdown="open = false"
+            @click="open = false"
+          >
+            <Icon name="close" />
+          </button>
+
+          <section>
+            <slot />
+          </section>
+
+          <footer v-if="$slots.footer">
+            <slot name="footer" />
+          </footer>
+        </div>
+      </article>
     </Transition>
 
     <div
@@ -73,7 +107,6 @@ const emit = defineEmits<{
   closed: []
 }>()
 const open = defineModel<boolean>('open', { required: true })
-const tag = computed(() => (props.compat ? 'article' : 'dialog'))
 const classes = computed(() => {
   let obj: Record<string, boolean> = {
     dialog: true,
