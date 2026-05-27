@@ -5,6 +5,9 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-05-27
 
+- Fix `Dialog` rendering nothing when the component is globally auto-registered as `Dialog` (which Nuxt layers do). The template used `<component :is="tag">` with `tag` being `'dialog'` or `'article'`. Vue's `resolveAsset` is case-insensitive (it probes the registry with `name`, `camelize(name)`, and `capitalize(camelize(name))`), so `:is="'dialog'"` resolved to the registered `Dialog` component instead of the native `<dialog>` element — the inner instance had no `open` prop, fired `[Vue warn]: Missing required prop: "open"`, and rendered a comment node. Replaced the dynamic component with literal `<dialog>` / `<article>` blocks so the wrapper element bypasses the component registry entirely. [`b3e8c9a`](https://github.com/1001-digital/layers/commit/b3e8c9a)
+  _`components`_
+
 - Make the `EvmEthInput` suffix customizable: new optional `suffix` prop (defaults to `'ETH'`); pass a different string to relabel it or `:suffix="false"` to hide it entirely. The existing `#suffix` slot still overrides both. [`700aef7`](https://github.com/1001-digital/layers/commit/700aef7)
   _`components.evm`_
 
@@ -78,9 +81,6 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Add an `Autocomplete` component wrapping Reka UI's autocomplete primitives. Unlike `Combobox`, the model value is the input text itself, so users can type free-form values with optional suggestions. Supports flat option lists, grouped options, and server-driven results via the `ignore-filter` prop. Reka UI is bumped to `^2.9.6`. [`bcead70`](https://github.com/1001-digital/layers/commit/bcead70)
   _`components`, `styles`_
-
-- `EvmArtifact` now uses the static `image` as a poster for `<video>` and `<model-viewer>` while the heavy asset loads, so users see the artwork immediately instead of a blank container. The `#animation` slot also receives a `poster` prop for custom renderers. [`96171df`](https://github.com/1001-digital/layers/commit/96171df)
-  _`components.evm`_
 
 ## 2026-04-13
 
@@ -279,6 +279,9 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Support non-persistent dismissal on `Alert`. Adds a `dismissable` boolean prop for in-memory dismissal and renames the persistence prop from `dismiss` to `dismiss-key` for clarity. Providing `dismiss-key` still implies `dismissable`. [`856096e`](https://github.com/1001-digital/layers/commit/856096e)
   _`components`_
+
+- `EvmArtifact` now uses the static `image` as a poster for `<video>` and `<model-viewer>` while the heavy asset loads, so users see the artwork immediately instead of a blank container. The `#animation` slot also receives a `poster` prop for custom renderers. [`96171df`](https://github.com/1001-digital/layers/commit/96171df)
+  _`components.evm`_
 
 - **Minor** Make `EvmArtifact` SSR-friendly. Plain `<img>`, `<video>`, and `<audio>` renderers now render server-side (good for LCP and SEO). The pieces that still need a browser — the `@google/model-viewer` dynamic import, `<Embed>`, and the HEAD-request MIME probe — are deferred until after hydration so the initial server and client render match. [`a3b31eb`](https://github.com/1001-digital/layers/commit/a3b31eb)
   3D rendering is split into a new `EvmArtifactModel` component (client-only) that owns the `@google/model-viewer` dynamic import. It emits `error` for runtime `<model-viewer>` errors and `import-error` if the dynamic import fails; `EvmArtifact` translates these into the existing `error` payload (`kind: 'animation' | 'model'`).

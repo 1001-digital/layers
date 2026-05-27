@@ -1,6 +1,6 @@
 {
   "name": "@1001-digital/components.evm",
-  "version": "3.6.6",
+  "version": "3.6.7",
   "type": "module",
   "sideEffects": [
     "*.css"
