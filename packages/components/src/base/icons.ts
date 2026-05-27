@@ -2,7 +2,10 @@ import type { InjectionKey } from 'vue'
 
 export type IconAliases = Record<string, string>
 
-export const IconAliasesKey: InjectionKey<IconAliases> = Symbol('IconAliases')
+// See `./link.ts` for why this uses `Symbol.for` instead of a fresh symbol.
+export const IconAliasesKey: InjectionKey<IconAliases> = Symbol.for(
+  '@1001-digital/components/IconAliases',
+)
 
 export const defaultIconAliases: IconAliases = {
   add: 'lucide:plus',

@@ -20,7 +20,6 @@ const props = withDefaults(
   defineProps<{
     to?: string | Record<string, any>
     target?: string
-    exact?: boolean
   }>(),
   {
     target: '_self',
@@ -33,7 +32,7 @@ const linkProps = computed(() => {
   if (typeof linkComponent === 'string') {
     return { href: props.to, target: props.target }
   }
-  return { to: props.to, target: props.target, exact: props.exact }
+  return { to: props.to, target: props.target }
 })
 </script>
 
