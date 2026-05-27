@@ -1,5 +1,11 @@
 # @1001-digital/components
 
+## 2.8.7
+
+### Patch Changes
+
+- [`722a1bc`](https://github.com/1001-digital/layers/commit/722a1bc841e1010ff35dbafbcad0f958e9fced13) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Set explicit `block-size: var(--form-item-height)` on `FormItem` prefix/suffix instead of relying on `block-size: 100%`, so they render at the correct height regardless of the parent's resolved block size.
+
 ## 2.8.6
 
 ### Patch Changes

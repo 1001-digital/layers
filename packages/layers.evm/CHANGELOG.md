@@ -1,5 +1,14 @@
 # @1001-digital/layers.evm
 
+## 2.7.25
+
+### Patch Changes
+
+- Updated dependencies [[`722a1bc`](https://github.com/1001-digital/layers/commit/722a1bc841e1010ff35dbafbcad0f958e9fced13)]:
+  - @1001-digital/components@2.8.7
+  - @1001-digital/components.evm@3.6.9
+  - @1001-digital/layers.base@2.0.34
+
 ## 2.7.24
 
 ### Patch Changes
