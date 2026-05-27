@@ -1,5 +1,16 @@
 # @1001-digital/layers.evm
 
+## 2.7.22
+
+### Patch Changes
+
+- [`ad3c686`](https://github.com/1001-digital/layers/commit/ad3c686650468f71d8c6242dbc75512882e59ec2) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Force Vite to dedupe `@1001-digital/components` and `@1001-digital/components.evm` so injection keys (`EvmConfigKey`, `LinkComponentKey`, `IconAliasesKey`, …) resolve to a single `Symbol(...)` everywhere. Without this, Vite's dep optimizer pre-bundles the bare-specifier import as a separate chunk from the package's own relative-path imports — two module instances, two symbols, and `inject` silently falls back to defaults (in `EvmConfigKey`'s case: a mainnet-only config, which is why every write transaction prompted the wallet to switch to chain 1).
+
+  `exclude` must list both the bare name and its `-original` companion. The new facade re-exports through `@1001-digital/components.evm-original` (and `@1001-digital/components-original` in the base layer); Vite's optimizer scans those as bare specifiers too, and pre-bundling either name creates the same parallel module instance the bare name causes. The combined `resolve.dedupe` + `optimizeDeps.exclude` for both spellings picks the same physical file and keeps everything as source.
+
+- Updated dependencies [[`ad3c686`](https://github.com/1001-digital/layers/commit/ad3c686650468f71d8c6242dbc75512882e59ec2)]:
+  - @1001-digital/layers.base@2.0.31
+
 ## 2.7.21
 
 ### Patch Changes

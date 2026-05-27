@@ -8,6 +8,10 @@ Generated from individual package changelogs — do not edit manually.
 - Make the `EvmEthInput` suffix customizable: new optional `suffix` prop (defaults to `'ETH'`); pass a different string to relabel it or `:suffix="false"` to hide it entirely. The existing `#suffix` slot still overrides both. [`700aef7`](https://github.com/1001-digital/layers/commit/700aef7)
   _`components.evm`_
 
+- Force Vite to dedupe `@1001-digital/components` and `@1001-digital/components.evm` so injection keys (`EvmConfigKey`, `LinkComponentKey`, `IconAliasesKey`, …) resolve to a single `Symbol(...)` everywhere. Without this, Vite's dep optimizer pre-bundles the bare-specifier import as a separate chunk from the package's own relative-path imports — two module instances, two symbols, and `inject` silently falls back to defaults (in `EvmConfigKey`'s case: a mainnet-only config, which is why every write transaction prompted the wallet to switch to chain 1). [`ad3c686`](https://github.com/1001-digital/layers/commit/ad3c686)
+  `exclude` must list both the bare name and its `-original` companion. The new facade re-exports through `@1001-digital/components.evm-original` (and `@1001-digital/components-original` in the base layer); Vite's optimizer scans those as bare specifiers too, and pre-bundling either name creates the same parallel module instance the bare name causes. The combined `resolve.dedupe` + `optimizeDeps.exclude` for both spellings picks the same physical file and keeps everything as source.
+  _`layers.base`, `layers.evm`_
+
 - Fix the component override facade so consumer overrides actually apply. [`11bccd5`](https://github.com/1001-digital/layers/commit/11bccd5)
   Two bugs in 2.7.19 / 2.0.28:
   1. **Infinite render recursion.** The proxy was given the same `name` as the original. Vue's `resolveAsset` checks self-name before the global registry, so `resolveComponent(name)` returned the proxy itself, looping until hydration crashed with `Cannot destructure property 'type' of 'vnode' as it is null`. Dropping `name:` from the proxy fixes the recursion.
