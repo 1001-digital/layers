@@ -29,7 +29,7 @@
     "@visualizevalue/opepicons": "^1.0.0",
     "@vueuse/core": "^14.2.1",
     "luxon": "^3.7.0",
-    "reka-ui": "^2.9.6"
+    "reka-ui": "^2.9.8"
   },
   "devDependencies": {
     "@types/luxon": "^3.7.0",

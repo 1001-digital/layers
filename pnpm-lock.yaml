@@ -44,8 +44,8 @@ importers:
         specifier: ^3.7.0
         version: 3.7.2
       reka-ui:
-        specifier: ^2.9.6
-        version: 2.9.6(vue@3.5.30(typescript@5.9.3))
+        specifier: ^2.9.8
+        version: 2.9.8(vue@3.5.30(typescript@5.9.3))
     devDependencies:
       '@types/luxon':
         specifier: ^3.7.0
@@ -12829,10 +12829,10 @@ packages:
       }
     hasBin: true
 
-  reka-ui@2.9.6:
+  reka-ui@2.9.8:
     resolution:
       {
-        integrity: sha512-K6bL457owpvWONc7hsjFxo3HDC9s6IzhRqShW0w9JSKelPGfRbkHD558UQTn/NH1cvrXVHygKyC7fExFmRketg==,
+        integrity: sha512-7dxaBJ6nQ0zOQZXPV45219tTEgZPstmihBLS9ABPhSiPiJ8SiF0sacfZHFaBptS0v9N4tzsevq+8MNBpE4p5JQ==,
       }
     peerDependencies:
       vue: '>= 3.4.0'
@@ -25746,7 +25746,7 @@ snapshots:
     dependencies:
       jsesc: 3.1.0
 
-  reka-ui@2.9.6(vue@3.5.30(typescript@5.9.3)):
+  reka-ui@2.9.8(vue@3.5.30(typescript@5.9.3)):
     dependencies:
       '@floating-ui/dom': 1.7.6
       '@floating-ui/vue': 1.1.11(vue@3.5.30(typescript@5.9.3))
