@@ -1,5 +1,13 @@
 # @1001-digital/components
 
+## 2.8.8
+
+### Patch Changes
+
+- [`a4cb297`](https://github.com/1001-digital/layers/commit/a4cb297cdb607a8e34bf41dca7b7fc884a2c0ad9) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Update reka-ui to ^2.9.8.
+
+  The notable fix for consumers is accessibility: toast title and description are now announced to screen readers as plain text instead of being JSON-serialized (reka-ui [#2612](https://github.com/1001-digital/layers/issues/2612)). Also picks up reka-ui's Menu fixes that clear a stuck `data-highlighted` on pointer-leave and prevent a brief highlight flash on dropdown open ([#2596](https://github.com/1001-digital/layers/issues/2596)/[#2605](https://github.com/1001-digital/layers/issues/2605), [#2651](https://github.com/1001-digital/layers/issues/2651)), plus internal SSR/efficiency improvements. No API changes.
+
 ## 2.8.7
 
 ### Patch Changes

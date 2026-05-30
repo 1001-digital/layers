@@ -3,6 +3,23 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-05-30
+
+- Update reka-ui to ^2.9.8. [`a4cb297`](https://github.com/1001-digital/layers/commit/a4cb297)
+  The notable fix for consumers is accessibility: toast title and description are now announced to screen readers as plain text instead of being JSON-serialized (reka-ui [#2612](https://github.com/1001-digital/layers/issues/2612)). Also picks up reka-ui's Menu fixes that clear a stuck `data-highlighted` on pointer-leave and prevent a brief highlight flash on dropdown open ([#2596](https://github.com/1001-digital/layers/issues/2596)/[#2605](https://github.com/1001-digital/layers/issues/2605), [#2651](https://github.com/1001-digital/layers/issues/2651)), plus internal SSR/efficiency improvements. No API changes.
+  _`components`_
+
+- Expand the `resolveChain` known-chain list. [`656b1f9`](https://github.com/1001-digital/layers/commit/656b1f9)
+  Adds Shape (360) and Shape Sepolia (11011), Zora (7777777) and Zora Sepolia
+  (999999999), Base Sepolia (84532), OP Sepolia (11155420), and Hardhat (31337).
+  Previously these fell through to the generic `defineChain` fallback, so they
+  rendered as "Chain <id>" in the `EvmSwitchNetwork` switcher and had no default
+  RPC. They now resolve to viem's chain definitions with proper names and RPC
+  URLs. The Zora pair matches the creator/NFT focus of Shape; the Base/OP testnets
+  complete the mainnet+testnet pairs already shipped; and Hardhat (31337) covers
+  the common local-dev chain id (viem's `localhost` is only 1337).
+  _`components.evm`_
+
 ## 2026-05-27
 
 - Set explicit `block-size: var(--form-item-height)` on `FormItem` prefix/suffix instead of relying on `block-size: 100%`, so they render at the correct height regardless of the parent's resolved block size. [`722a1bc`](https://github.com/1001-digital/layers/commit/722a1bc)
@@ -76,14 +93,6 @@ Generated from individual package changelogs — do not edit manually.
   `@base-org/account`'s telemetry init runs eagerly inside `createBaseAccountSDK`, called by the connector's `getProvider()` during wagmi's SSR `reconnect()` step. On the server it has no `window`/`document` and throws `Telemetry is not supported in non-browser environments`, surfacing as an `unhandledRejection` in dev logs.
   Pass `preference: { telemetry: false }` to `baseAccount(...)` so the SDK skips telemetry init entirely. The connector itself stays available; only the analytics call is suppressed.
   _`layers.evm`_
-
-## 2026-05-04
-
-- Fix type-check failures for external consumers: [`7d3da95`](https://github.com/1001-digital/layers/commit/7d3da95)
-  - `Autocomplete`: simplify `NormalizedGroup.options` type — the previous conditional resolved to `never[]`, so iterating grouped options in the template surfaced `'label' does not exist on type 'never'` errors.
-  - `EvmArtifact`: inline a local `TokenMetadata` type instead of importing from `@1001-digital/resolve-metadata` so consumers without that optional peer dep can still type-check.
-  - `EvmArtifactModel`: silence the dynamic `import('@google/model-viewer')` for consumers without that optional peer dep.
-  _`components`, `components.evm`_
 
 ## 2026-04-13
 
@@ -273,6 +282,12 @@ Generated from individual package changelogs — do not edit manually.
   _`styles`_
 
 ## Unknown
+
+- Fix type-check failures for external consumers: [`7d3da95`](https://github.com/1001-digital/layers/commit/7d3da95)
+  - `Autocomplete`: simplify `NormalizedGroup.options` type — the previous conditional resolved to `never[]`, so iterating grouped options in the template surfaced `'label' does not exist on type 'never'` errors.
+  - `EvmArtifact`: inline a local `TokenMetadata` type instead of importing from `@1001-digital/resolve-metadata` so consumers without that optional peer dep can still type-check.
+  - `EvmArtifactModel`: silence the dynamic `import('@google/model-viewer')` for consumers without that optional peer dep.
+  _`components`, `components.evm`_
 
 - **Minor** Add an `Autocomplete` component wrapping Reka UI's autocomplete primitives. Unlike `Combobox`, the model value is the input text itself, so users can type free-form values with optional suggestions. Supports flat option lists, grouped options, and server-driven results via the `ignore-filter` prop. Reka UI is bumped to `^2.9.6`. [`bcead70`](https://github.com/1001-digital/layers/commit/bcead70)
   _`components`, `styles`_
