@@ -4,10 +4,17 @@ import {
   sepolia,
   holesky,
   optimism,
+  optimismSepolia,
   arbitrum,
   base,
+  baseSepolia,
   polygon,
+  shape,
+  shapeSepolia,
+  zora,
+  zoraSepolia,
   localhost,
+  hardhat,
 } from 'viem/chains'
 
 const KNOWN: Chain[] = [
@@ -15,10 +22,17 @@ const KNOWN: Chain[] = [
   sepolia,
   holesky,
   optimism,
+  optimismSepolia,
   arbitrum,
   base,
+  baseSepolia,
   polygon,
+  shape,
+  shapeSepolia,
+  zora,
+  zoraSepolia,
   localhost,
+  hardhat,
 ]
 const byId = new Map<number, Chain>(KNOWN.map((c) => [c.id, c]))
 
