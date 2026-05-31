@@ -341,10 +341,11 @@ onBeforeUnmount(() => {
     z-index: calc(var(--z-index-dialog) + 3);
   }
 
+  /*
+   * Lock document scroll while a dialog is open by clipping the root scroller.
+   */
   html:has(dialog[open]),
-  body:has(dialog[open]),
-  html:has(.dialog.open),
-  body:has(.dialog.open) {
+  html:has(.dialog.open) {
     overflow: hidden;
   }
 }
