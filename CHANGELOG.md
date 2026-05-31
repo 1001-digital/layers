@@ -3,6 +3,19 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-06-01
+
+- Fix `Dialog` scroll-lock breaking `position: sticky` layout. [`13e3143`](https://github.com/1001-digital/layers/commit/13e3143)
+  The open-dialog scroll lock applied `overflow: hidden` to both `html` and
+  `body`. Clipping `body` turns it into a scroll container, which breaks
+  `position: sticky` descendants — sticky headers and pinned panels drop to their
+  in-flow position and jump out of view while the page is scrolled behind the
+  dialog.
+  The lock now clips only `html`, the root scroller. `html` already carries
+  `scrollbar-gutter: stable` (styles reset), so the gutter stays reserved and
+  nothing shifts horizontally, while sticky descendants keep their positioning.
+  _`components`_
+
 ## 2026-05-30
 
 - Update reka-ui to ^2.9.8. [`a4cb297`](https://github.com/1001-digital/layers/commit/a4cb297)
@@ -88,11 +101,6 @@ Generated from individual package changelogs — do not edit manually.
 
 - Remove the default border from EVM artifact media. [`ac8983d`](https://github.com/1001-digital/layers/commit/ac8983d)
   _`components.evm`_
-
-- Fix Nuxt SSR crash from the `baseAccount` wagmi connector. [`fe1eca0`](https://github.com/1001-digital/layers/commit/fe1eca0)
-  `@base-org/account`'s telemetry init runs eagerly inside `createBaseAccountSDK`, called by the connector's `getProvider()` during wagmi's SSR `reconnect()` step. On the server it has no `window`/`document` and throws `Telemetry is not supported in non-browser environments`, surfacing as an `unhandledRejection` in dev logs.
-  Pass `preference: { telemetry: false }` to `baseAccount(...)` so the SDK skips telemetry init entirely. The connector itself stays available; only the analytics call is suppressed.
-  _`layers.evm`_
 
 ## 2026-04-13
 
@@ -324,4 +332,9 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Add `EvmConnectAuth` and `EvmConnectAuthDialog` for a combined connect + SIWE flow that auto-prompts the signature once the wallet connects, plus an `autoSignIn` prop on `EvmSiwe` that triggers sign-in on mount. [`76b8b30`](https://github.com/1001-digital/layers/commit/76b8b30)
   _`components.evm`, `layers.evm`_
+
+- Fix Nuxt SSR crash from the `baseAccount` wagmi connector. [`fe1eca0`](https://github.com/1001-digital/layers/commit/fe1eca0)
+  `@base-org/account`'s telemetry init runs eagerly inside `createBaseAccountSDK`, called by the connector's `getProvider()` during wagmi's SSR `reconnect()` step. On the server it has no `window`/`document` and throws `Telemetry is not supported in non-browser environments`, surfacing as an `unhandledRejection` in dev logs.
+  Pass `preference: { telemetry: false }` to `baseAccount(...)` so the SDK skips telemetry init entirely. The connector itself stays available; only the analytics call is suppressed.
+  _`layers.evm`_
 
