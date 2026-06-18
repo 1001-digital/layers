@@ -1,5 +1,11 @@
 # @1001-digital/components.evm
 
+## 3.6.12
+
+### Patch Changes
+
+- [`b3ca421`](https://github.com/1001-digital/layers/commit/b3ca4217e1ed7115f8bf1e14c82221d753e32746) Thanks [@yougogirldoteth](https://github.com/yougogirldoteth)! - Upgrade `@1001-digital/dweb-fetch` to 0.6.0 and use gateway mode for UI URI resolution so Helia verified-fetch is not loaded for component image URL resolution.
+
 ## 3.6.11
 
 ### Patch Changes
