@@ -36,7 +36,7 @@
     }
   },
   "dependencies": {
-    "@1001-digital/dweb-fetch": "^0.6.0",
+    "@1001-digital/dweb-fetch": "^0.7.0",
     "@1001-digital/wagmi-in-app-wallet": "^0.1.0",
     "@types/qrcode": "^1.5.6",
     "qrcode": "^1.5.4"
