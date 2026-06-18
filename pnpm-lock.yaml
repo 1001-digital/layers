@@ -60,8 +60,8 @@ importers:
         specifier: workspace:^
         version: link:../components
       '@1001-digital/dweb-fetch':
-        specifier: ^0.2.1
-        version: 0.2.1(bufferutil@4.1.0)(react-native@0.84.1(@babel/core@7.29.0)(@types/react@19.2.7)(bufferutil@4.1.0)(react@19.2.4)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10)
+        specifier: ^0.6.0
+        version: 0.6.0(bufferutil@4.1.0)(react-native@0.84.1(@babel/core@7.29.0)(@types/react@19.2.7)(bufferutil@4.1.0)(react@19.2.4)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10)
       '@1001-digital/wagmi-in-app-wallet':
         specifier: ^0.1.0
         version: 0.1.0(@wagmi/core@3.4.6(@tanstack/query-core@5.95.2)(@types/react@19.2.7)(immer@9.0.21)(react@19.2.4)(typescript@5.9.3)(viem@2.48.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)))(viem@2.48.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
@@ -199,10 +199,10 @@ importers:
         version: 3.0.1
 
 packages:
-  '@1001-digital/dweb-fetch@0.2.1':
+  '@1001-digital/dweb-fetch@0.6.0':
     resolution:
       {
-        integrity: sha512-S5MCUXIW3VkQ22gTRXD8e+sj7tmA/pvn8fj7q6jCNnt1jSX72w9xgQurSPnantNcs5edD0eOaGEjMmsyGRn+5Q==,
+        integrity: sha512-3H8CF/Bkjw6xTIgdEifqvUmJ5bTmiOSdqA09Dk+7sBuWqQ23Q2rgUpiL9juSzjQ9utXLLDuK5R2WhiJ3MTVVkw==,
       }
 
   '@1001-digital/normalize-dweb-url@0.1.0':
@@ -15172,8 +15172,9 @@ packages:
       }
 
 snapshots:
-  '@1001-digital/dweb-fetch@0.2.1(bufferutil@4.1.0)(react-native@0.84.1(@babel/core@7.29.0)(@types/react@19.2.7)(bufferutil@4.1.0)(react@19.2.4)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10)':
+  '@1001-digital/dweb-fetch@0.6.0(bufferutil@4.1.0)(react-native@0.84.1(@babel/core@7.29.0)(@types/react@19.2.7)(bufferutil@4.1.0)(react@19.2.4)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10)':
     dependencies:
+      '@1001-digital/normalize-dweb-url': 0.1.0
       '@ar.io/sdk': 3.24.0(bufferutil@4.1.0)(utf-8-validate@5.0.10)
       '@ar.io/wayfinder-core': 1.9.1(@ar.io/sdk@3.24.0(bufferutil@4.1.0)(utf-8-validate@5.0.10))(bufferutil@4.1.0)(utf-8-validate@5.0.10)
       '@helia/verified-fetch': 7.1.0(bufferutil@4.1.0)(react-native@0.84.1(@babel/core@7.29.0)(@types/react@19.2.7)(bufferutil@4.1.0)(react@19.2.4)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10)
