@@ -14,7 +14,7 @@ export function useDwebClient(): DwebClient {
 
   return createDwebFetch({
     ipfs: config.ipfsGateway
-      ? { gateways: [toBaseUrl(config.ipfsGateway)] }
+      ? { mode: 'gateway', gateways: [toBaseUrl(config.ipfsGateway)] }
       : undefined,
     arweave: config.arweaveGateway
       ? { gateways: [toBaseUrl(config.arweaveGateway)] }
