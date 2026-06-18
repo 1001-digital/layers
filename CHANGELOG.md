@@ -3,6 +3,11 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-06-18
+
+- Upgrade `@1001-digital/dweb-fetch` to 0.6.0 and use gateway mode for UI URI resolution so Helia verified-fetch is not loaded for component image URL resolution. [`b3ca421`](https://github.com/1001-digital/layers/commit/b3ca421)
+  _`components.evm`_
+
 ## 2026-06-01
 
 - Fix `Dialog` scroll-lock breaking `position: sticky` layout. [`13e3143`](https://github.com/1001-digital/layers/commit/13e3143)
@@ -96,11 +101,6 @@ Generated from individual package changelogs — do not edit manually.
 
 - Introduce `--scrollbar-thumb-color` and `--scrollbar-track-color` variables so scrollbar colors can be themed without overriding the base selector. [`0619a34`](https://github.com/1001-digital/layers/commit/0619a34)
   _`styles`_
-
-## 2026-05-17
-
-- Remove the default border from EVM artifact media. [`ac8983d`](https://github.com/1001-digital/layers/commit/ac8983d)
-  _`components.evm`_
 
 ## 2026-04-13
 
@@ -308,6 +308,9 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Support non-persistent dismissal on `Alert`. Adds a `dismissable` boolean prop for in-memory dismissal and renames the persistence prop from `dismiss` to `dismiss-key` for clarity. Providing `dismiss-key` still implies `dismissable`. [`856096e`](https://github.com/1001-digital/layers/commit/856096e)
   _`components`_
+
+- Remove the default border from EVM artifact media. [`ac8983d`](https://github.com/1001-digital/layers/commit/ac8983d)
+  _`components.evm`_
 
 - `EvmArtifact` now uses the static `image` as a poster for `<video>` and `<model-viewer>` while the heavy asset loads, so users see the artwork immediately instead of a blank container. The `#animation` slot also receives a `poster` prop for custom renderers. [`96171df`](https://github.com/1001-digital/layers/commit/96171df)
   _`components.evm`_
