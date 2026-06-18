@@ -1,5 +1,14 @@
 # @1001-digital/layers.evm
 
+## 2.7.29
+
+### Patch Changes
+
+- [`1e24ddd`](https://github.com/1001-digital/layers/commit/1e24ddd49e07cb708d6f22996737e6493dc2cec1) Thanks [@yougogirldoteth](https://github.com/yougogirldoteth)! - Upgrade dweb-fetch so gateway-mode URI resolution stays free of Helia in consumers.
+
+- Updated dependencies [[`1e24ddd`](https://github.com/1001-digital/layers/commit/1e24ddd49e07cb708d6f22996737e6493dc2cec1)]:
+  - @1001-digital/components.evm@3.6.13
+
 ## 2.7.28
 
 ### Patch Changes

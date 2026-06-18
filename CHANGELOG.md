@@ -5,6 +5,9 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-06-18
 
+- Upgrade dweb-fetch so gateway-mode URI resolution stays free of Helia in consumers. [`1e24ddd`](https://github.com/1001-digital/layers/commit/1e24ddd)
+  _`components.evm`, `layers.evm`_
+
 - Upgrade `@1001-digital/dweb-fetch` to 0.6.0 and use gateway mode for UI URI resolution so Helia verified-fetch is not loaded for component image URL resolution. [`b3ca421`](https://github.com/1001-digital/layers/commit/b3ca421)
   _`components.evm`_
 
@@ -98,9 +101,6 @@ Generated from individual package changelogs — do not edit manually.
 
 - Render EvmTransactionFlow confirm and retry actions as primary buttons by default. [`ea90683`](https://github.com/1001-digital/layers/commit/ea90683)
   _`components.evm`_
-
-- Introduce `--scrollbar-thumb-color` and `--scrollbar-track-color` variables so scrollbar colors can be themed without overriding the base selector. [`0619a34`](https://github.com/1001-digital/layers/commit/0619a34)
-  _`styles`_
 
 ## 2026-04-13
 
@@ -340,4 +340,7 @@ Generated from individual package changelogs — do not edit manually.
   `@base-org/account`'s telemetry init runs eagerly inside `createBaseAccountSDK`, called by the connector's `getProvider()` during wagmi's SSR `reconnect()` step. On the server it has no `window`/`document` and throws `Telemetry is not supported in non-browser environments`, surfacing as an `unhandledRejection` in dev logs.
   Pass `preference: { telemetry: false }` to `baseAccount(...)` so the SDK skips telemetry init entirely. The connector itself stays available; only the analytics call is suppressed.
   _`layers.evm`_
+
+- Introduce `--scrollbar-thumb-color` and `--scrollbar-track-color` variables so scrollbar colors can be themed without overriding the base selector. [`0619a34`](https://github.com/1001-digital/layers/commit/0619a34)
+  _`styles`_
 
