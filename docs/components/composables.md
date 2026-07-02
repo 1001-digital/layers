@@ -85,17 +85,18 @@ const explorer = useBlockExplorer('sepolia')
 
 ## ENS, URI, and Price Composables
 
-| Composable            | Purpose                                                                   |
-| --------------------- | ------------------------------------------------------------------------- |
-| `useEns()`            | Resolve ENS data.                                                         |
-| `useEnsWithAvatar()`  | Resolve ENS name plus avatar data.                                        |
-| `useEnsProfile()`     | Resolve an ENS profile object.                                            |
-| `useDwebClient()`     | Access the decentralized-web fetch client.                                |
-| `useResolvedUrl()`    | Resolve `ipfs://`, `ipns://`, or Arweave URLs reactively.                 |
-| `useEthAmountInput()` | Manage ETH amount text input and parsed wei value. Used by `EvmEthInput`. |
-| `useGasPrice()`       | Read current gas price data.                                              |
-| `usePriceFeed()`      | Read cached ETH price feed data.                                          |
-| `useWalletExplorer()` | Search and rank wallet options.                                           |
+| Composable            | Purpose                                                                                       |
+| --------------------- | --------------------------------------------------------------------------------------------- |
+| `useEns()`            | Resolve ENS data.                                                                             |
+| `useEnsWithAvatar()`  | Resolve ENS name plus avatar data.                                                            |
+| `useEnsProfile()`     | Resolve an ENS profile object.                                                                |
+| `useDwebClient()`     | Access the decentralized-web fetch client.                                                    |
+| `useResolvedUrl()`    | Resolve `ipfs://`, `ipns://`, or Arweave URLs reactively.                                     |
+| `useAmountInput()`    | Manage decimals-aware amount text input and parsed base-unit value. Used by `EvmAmountInput`. |
+| `useEthAmountInput()` | Manage ETH amount text input and parsed wei value. Used by `EvmEthInput`.                     |
+| `useGasPrice()`       | Read current gas price data.                                                                  |
+| `usePriceFeed()`      | Read cached ETH price feed data.                                                              |
+| `useWalletExplorer()` | Search and rank wallet options.                                                               |
 
 ## Transaction Flow
 
@@ -135,18 +136,20 @@ Important returned state:
 
 ## EVM Utilities
 
-| Utility                           | Purpose                                      |
-| --------------------------------- | -------------------------------------------- |
-| `shortAddress()`                  | Display-shortened address string.            |
-| `resolveChain()`                  | Resolve a viem chain object from a chain ID. |
-| `formatETH()`                     | Format wei values as ETH.                    |
-| `parseEthAmountInput()`           | Parse user-entered ETH text to wei.          |
-| `normalizeEthAmountInput()`       | Normalize ETH amount text input.             |
-| `isUserRejection()`               | Detect common wallet user-rejection errors.  |
-| `createCache()`                   | Small cache utility used by EVM helpers.     |
-| `createDwebFetch()`               | Create a dweb fetch client.                  |
-| `formatPrice()`                   | Format price feed values.                    |
-| `stringifyJSON()` / `parseJSON()` | JSON helpers for price/feed storage.         |
+| Utility                           | Purpose                                                                      |
+| --------------------------------- | ---------------------------------------------------------------------------- |
+| `shortAddress()`                  | Display-shortened address string.                                            |
+| `resolveChain()`                  | Resolve a viem chain object from a chain ID.                                 |
+| `formatETH()`                     | Format wei values as ETH.                                                    |
+| `parseAmountInput()`              | Parse user-entered amount text to base units for a given number of decimals. |
+| `normalizeAmountInput()`          | Normalize amount text input.                                                 |
+| `parseEthAmountInput()`           | Parse user-entered ETH text to wei.                                          |
+| `normalizeEthAmountInput()`       | Normalize ETH amount text input.                                             |
+| `isUserRejection()`               | Detect common wallet user-rejection errors.                                  |
+| `createCache()`                   | Small cache utility used by EVM helpers.                                     |
+| `createDwebFetch()`               | Create a dweb fetch client.                                                  |
+| `formatPrice()`                   | Format price feed values.                                                    |
+| `stringifyJSON()` / `parseJSON()` | JSON helpers for price/feed storage.                                         |
 
 ```ts
 const label = shortAddress('0x1234567890abcdef1234567890abcdef12345678')

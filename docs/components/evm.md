@@ -36,15 +36,16 @@ Components that require wallet or browser APIs are marked client-only by the Nux
 
 ## Accounts, Inputs, and Profiles
 
-| Component           | Purpose                                             | Key API                                      |
-| ------------------- | --------------------------------------------------- | -------------------------------------------- |
-| `EvmAccount`        | Short account display with optional ENS resolution. | Props `address`, `resolveEns`.               |
-| `EvmAddressInput`   | Address or ENS input.                               | Prop `placeholder`; uses `v-model`.          |
-| `EvmEthInput`       | ETH amount input with parsed wei output.            | `v-model`, `v-model:wei`, `placeholder`.     |
-| `EvmAvatar`         | ENS avatar or generated fallback.                   | Props `address`, `large`.                    |
-| `EvmProfile`        | Wallet profile display.                             | Prop `className`; emits `disconnected`.      |
-| `EvmSidebarProfile` | Sidebar profile variant.                            | Emits `disconnected`.                        |
-| `EvmSwitchNetwork`  | Network switching UI.                               | Prop `className`; emits `switched`, `error`. |
+| Component           | Purpose                                               | Key API                                                                         |
+| ------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `EvmAccount`        | Short account display with optional ENS resolution.   | Props `address`, `resolveEns`.                                                  |
+| `EvmAddressInput`   | Address or ENS input.                                 | Prop `placeholder`; uses `v-model`.                                             |
+| `EvmAmountInput`    | Token amount input with symbol suffix and max button. | `v-model`, `v-model:units`, props `decimals`, `symbol`, `balance`; emits `max`. |
+| `EvmEthInput`       | ETH amount input with parsed wei output.              | `v-model`, `v-model:wei`, `placeholder`, `balance`.                             |
+| `EvmAvatar`         | ENS avatar or generated fallback.                     | Props `address`, `large`.                                                       |
+| `EvmProfile`        | Wallet profile display.                               | Prop `className`; emits `disconnected`.                                         |
+| `EvmSidebarProfile` | Sidebar profile variant.                              | Emits `disconnected`.                                                           |
+| `EvmSwitchNetwork`  | Network switching UI.                                 | Prop `className`; emits `switched`, `error`.                                    |
 
 ```vue
 <template>
@@ -56,6 +57,16 @@ Components that require wallet or browser APIs are marked client-only by the Nux
     <EvmEthInput
       v-model="eth"
       v-model:wei="wei"
+    />
+  </FormLabel>
+
+  <FormLabel label="USDC">
+    <EvmAmountInput
+      v-model="usdc"
+      v-model:units="usdcUnits"
+      :decimals="6"
+      symbol="USDC"
+      :balance="usdcBalance"
     />
   </FormLabel>
 

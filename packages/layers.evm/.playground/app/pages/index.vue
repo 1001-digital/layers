@@ -24,6 +24,23 @@
     </Card>
 
     <Card>
+      <h2>Amount Input</h2>
+      <FormLabel label="Amount">
+        <EvmAmountInput
+          v-model="amount"
+          v-model:units="units"
+          :decimals="6"
+          symbol="USDC"
+          :balance="1234560000n"
+        />
+      </FormLabel>
+      <p v-if="units != null">Base units: {{ units }}</p>
+      <FormLabel label="ETH">
+        <EvmEthInput v-model="eth" />
+      </FormLabel>
+    </Card>
+
+    <Card>
       <h2>Pages</h2>
       <NuxtLink to="/connect">Inline Connect</NuxtLink>
       <NuxtLink to="/transaction-flow">Transaction Flow States</NuxtLink>
@@ -35,6 +52,9 @@
 
 <script setup lang="ts">
 const address = ref('')
+const amount = ref('')
+const units = ref<bigint | null>(null)
+const eth = ref('')
 </script>
 
 <style scoped>

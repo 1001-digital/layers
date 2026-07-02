@@ -5,6 +5,8 @@ export type { EvmConfig, EvmChainConfig } from './config'
 // Component types
 export type {
   EvmAddressInputProps,
+  EvmAmountInputProps,
+  EvmAmountInputEmits,
   EvmEthInputProps,
   EvmAccountProps,
   EvmArtifactProps,
@@ -87,6 +89,11 @@ export {
   useEnsResolver,
 } from './composables/ens'
 export {
+  normalizeAmountInput,
+  parseAmountInput,
+  useAmountInput,
+} from './composables/amountInput'
+export {
   normalizeEthAmountInput,
   parseEthAmountInput,
   useEthAmountInput,
@@ -129,6 +136,7 @@ export { clientOnlyComponents } from './client-only'
 
 // Components
 export { default as EvmAddressInput } from './components/EvmAddressInput.vue'
+export { default as EvmAmountInput } from './components/EvmAmountInput.vue'
 export { default as EvmEthInput } from './components/EvmEthInput.vue'
 export { default as EvmAccount } from './components/EvmAccount.vue'
 export { default as EvmArtifact } from './components/EvmArtifact.vue'

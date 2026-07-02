@@ -31,6 +31,7 @@ export const EvmAddressInput = proxy(
   'EvmAddressInput',
   Originals.EvmAddressInput,
 )
+export const EvmAmountInput = proxy('EvmAmountInput', Originals.EvmAmountInput)
 export const EvmArtifact = proxy('EvmArtifact', Originals.EvmArtifact)
 export const EvmArtifactModel = proxy(
   'EvmArtifactModel',

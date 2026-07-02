@@ -1,6 +1,7 @@
 import {
   EvmAccount,
   EvmAddressInput,
+  EvmAmountInput,
   EvmArtifact,
   EvmArtifactModel,
   EvmAvatar,
@@ -37,6 +38,7 @@ import {
 const shadowed = {
   EvmAccount,
   EvmAddressInput,
+  EvmAmountInput,
   EvmArtifact,
   EvmArtifactModel,
   EvmAvatar,

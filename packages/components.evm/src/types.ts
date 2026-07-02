@@ -14,10 +14,23 @@ export interface EvmAddressInputProps {
   placeholder?: string
 }
 
+// EvmAmountInput
+export interface EvmAmountInputProps {
+  decimals?: number
+  symbol?: string | false
+  balance?: bigint | null
+  placeholder?: string
+}
+
+export interface EvmAmountInputEmits {
+  max: [balance: bigint]
+}
+
 // EvmEthInput
 export interface EvmEthInputProps {
   placeholder?: string
   suffix?: string | false
+  balance?: bigint | null
 }
 
 // EvmAccount
