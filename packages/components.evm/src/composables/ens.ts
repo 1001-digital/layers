@@ -1,15 +1,8 @@
-import {
-  ref,
-  computed,
-  watchEffect,
-  toValue,
-  type MaybeRefOrGetter,
-  type Ref,
-} from 'vue'
+import { ref, watchEffect, toValue, type MaybeRefOrGetter, type Ref } from 'vue'
 import { getPublicClient } from '@wagmi/core'
 import { useConfig, type Config } from '@wagmi/vue'
 import { isAddress } from 'viem'
-import { useEvmConfig } from '../config'
+import { useEvmConfig, type EvmConfig } from '../config'
 import {
   ensCache,
   fetchEnsFromIndexer,
@@ -25,13 +18,25 @@ interface UseEnsOptions {
   mode?: MaybeRefOrGetter<EnsMode | undefined>
 }
 
+const ensCacheKey = (tier: string, identifier?: string) =>
+  `ens-${tier}-${identifier}`
+
+function ensSettings(options: UseEnsOptions, evmConfig: EvmConfig) {
+  const mode: EnsMode =
+    toValue(options.mode) || evmConfig.ens?.mode || 'indexer'
+  return { mode, indexers: evmConfig.ens?.indexers || [] }
+}
+
 async function resolve(
   identifier: string,
-  strategies: EnsMode[],
+  mode: EnsMode,
   indexers: string[],
   wagmi: Config,
   chainKeys: string[],
 ): Promise<EnsProfile> {
+  const strategies: EnsMode[] =
+    mode === 'indexer' ? ['indexer', 'chain'] : ['chain', 'indexer']
+
   for (const strategy of strategies) {
     try {
       if (strategy === 'indexer') {
@@ -63,28 +68,22 @@ function useEnsBase(
   const config = useConfig()
   const evmConfig = useEvmConfig()
 
-  const mode = computed<EnsMode>(
-    () => toValue(options.mode) || evmConfig.ens?.mode || 'indexer',
-  )
-  const indexers = computed(() => evmConfig.ens?.indexers || [])
-  const cacheKey = computed(() => `ens-${tier}-${toValue(identifier)}`)
-
   const data: Ref<EnsProfile | null | undefined> = ref(
-    ensCache.get(cacheKey.value) ?? undefined,
+    ensCache.get(ensCacheKey(tier, toValue(identifier)?.trim())) ?? undefined,
   )
   const pending = ref(false)
   let run = 0
 
   watchEffect(async () => {
     const currentRun = ++run
-    const id = toValue(identifier)
+    const id = toValue(identifier)?.trim()
     if (!id) {
       data.value = null
       pending.value = false
       return
     }
 
-    const key = cacheKey.value
+    const key = ensCacheKey(tier, id)
     const cached = ensCache.get(key)
     if (cached) {
       data.value = cached
@@ -92,13 +91,12 @@ function useEnsBase(
       return
     }
 
-    const strategies: EnsMode[] =
-      mode.value === 'indexer' ? ['indexer', 'chain'] : ['chain', 'indexer']
+    const { mode, indexers } = ensSettings(options, evmConfig)
 
     pending.value = true
     try {
       const result = await ensCache.fetch(key, () =>
-        resolve(id, strategies, indexers.value, config, chainKeys),
+        resolve(id, mode, indexers, config, chainKeys),
       )
       if (currentRun !== run) return
       data.value = result
@@ -144,20 +142,17 @@ export function useEnsResolver(options: UseEnsOptions = {}) {
     const id = identifier.trim()
     if (!id) return null
 
-    const key = `ens-resolve-${id}`
-    const cached = ensCache.get(key)
-    if (cached?.address) return cached
+    const key = ensCacheKey('resolve', id)
     // A cached failed resolution should not pin the name as unresolvable
-    // for the whole TTL — evict it and try again.
-    if (cached) ensCache.evict(key)
+    // for the whole TTL — evict it and retry.
+    const cached = ensCache.get(key)
+    if (cached && !cached.address) ensCache.evict(key)
 
-    const mode = toValue(options.mode) || evmConfig.ens?.mode || 'indexer'
-    const strategies: EnsMode[] =
-      mode === 'indexer' ? ['indexer', 'chain'] : ['chain', 'indexer']
+    const { mode, indexers } = ensSettings(options, evmConfig)
 
     try {
       return await ensCache.fetch(key, () =>
-        resolve(id, strategies, evmConfig.ens?.indexers || [], config, []),
+        resolve(id, mode, indexers, config, []),
       )
     } catch {
       return null
@@ -170,9 +165,7 @@ export function useEnsResolver(options: UseEnsOptions = {}) {
     if (isAddress(id)) return id
 
     const profile = await resolveProfile(id)
-    return profile?.address && isAddress(profile.address)
-      ? profile.address
-      : null
+    return profile && isAddress(profile.address) ? profile.address : null
   }
 
   return { resolveProfile, resolveAddress }
