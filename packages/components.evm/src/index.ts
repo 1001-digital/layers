@@ -80,7 +80,12 @@ export {
   useBlockExplorer,
   useEnsureChainIdCheck,
 } from './composables/chainId'
-export { useEns, useEnsWithAvatar, useEnsProfile } from './composables/ens'
+export {
+  useEns,
+  useEnsWithAvatar,
+  useEnsProfile,
+  useEnsResolver,
+} from './composables/ens'
 export {
   normalizeEthAmountInput,
   parseEthAmountInput,

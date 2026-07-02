@@ -127,3 +127,53 @@ export const useEnsProfile = (
   identifier: MaybeRefOrGetter<string | undefined>,
   options?: UseEnsOptions,
 ) => useEnsBase('profile', identifier, [...ENS_KEYS_PROFILE], options)
+
+/**
+ * Imperative, awaitable ENS resolution sharing the cache and strategy order
+ * of `useEns`. Use it to force-resolve an identifier at the moment it is
+ * acted on (e.g. form submit), instead of relying on a background resolution
+ * having already landed in the cache.
+ */
+export function useEnsResolver(options: UseEnsOptions = {}) {
+  const config = useConfig()
+  const evmConfig = useEvmConfig()
+
+  async function resolveProfile(
+    identifier: string,
+  ): Promise<EnsProfile | null> {
+    const id = identifier.trim()
+    if (!id) return null
+
+    const key = `ens-resolve-${id}`
+    const cached = ensCache.get(key)
+    if (cached?.address) return cached
+    // A cached failed resolution should not pin the name as unresolvable
+    // for the whole TTL — evict it and try again.
+    if (cached) ensCache.evict(key)
+
+    const mode = toValue(options.mode) || evmConfig.ens?.mode || 'indexer'
+    const strategies: EnsMode[] =
+      mode === 'indexer' ? ['indexer', 'chain'] : ['chain', 'indexer']
+
+    try {
+      return await ensCache.fetch(key, () =>
+        resolve(id, strategies, evmConfig.ens?.indexers || [], config, []),
+      )
+    } catch {
+      return null
+    }
+  }
+
+  /** Resolve an address or ENS name to an address, or `null` on failure. */
+  async function resolveAddress(identifier: string): Promise<string | null> {
+    const id = identifier.trim()
+    if (isAddress(id)) return id
+
+    const profile = await resolveProfile(id)
+    return profile?.address && isAddress(profile.address)
+      ? profile.address
+      : null
+  }
+
+  return { resolveProfile, resolveAddress }
+}

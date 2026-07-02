@@ -58,5 +58,9 @@ export function createCache<T>(ttl: number, max: number) {
     return promise
   }
 
-  return { get, fetch }
+  function evict(key: string) {
+    entries.delete(key)
+  }
+
+  return { get, fetch, evict }
 }

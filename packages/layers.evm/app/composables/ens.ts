@@ -3,4 +3,5 @@ export {
   useEns,
   useEnsWithAvatar,
   useEnsProfile,
+  useEnsResolver,
 } from '@1001-digital/components.evm'
