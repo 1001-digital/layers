@@ -1,5 +1,11 @@
 # @1001-digital/components.evm
 
+## 3.8.0
+
+### Minor Changes
+
+- [`ab0c0f0`](https://github.com/1001-digital/layers/commit/ab0c0f0ebe7ce51af6321218f2017057a5c9bd73) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Add `EvmAmountInput` — a decimals-aware token amount input with an optional symbol suffix, balance-backed "max" button (default writes the full balance; a `max` listener takes over the behavior), and a parsed base-unit `units` model. `EvmEthInput` is now a thin wrapper over it and gains a `balance` prop. The underlying `useAmountInput`/`parseAmountInput`/`normalizeAmountInput` composables are exported and auto-imported through the layer.
+
 ## 3.7.0
 
 ### Minor Changes

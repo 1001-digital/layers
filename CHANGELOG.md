@@ -3,6 +3,11 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-07-03
+
+- **Minor** Add `EvmAmountInput` — a decimals-aware token amount input with an optional symbol suffix, balance-backed "max" button (default writes the full balance; a `max` listener takes over the behavior), and a parsed base-unit `units` model. `EvmEthInput` is now a thin wrapper over it and gains a `balance` prop. The underlying `useAmountInput`/`parseAmountInput`/`normalizeAmountInput` composables are exported and auto-imported through the layer. [`ab0c0f0`](https://github.com/1001-digital/layers/commit/ab0c0f0)
+  _`components.evm`, `layers.evm`_
+
 ## 2026-07-02
 
 - **Minor** Add `useEnsResolver`, an imperative awaitable ENS resolver. [`ecff162`](https://github.com/1001-digital/layers/commit/ecff162)
@@ -99,11 +104,6 @@ Generated from individual package changelogs — do not edit manually.
 - **Minor** Add `--shadow-sm`, `--shadow-md`, `--shadow-lg`, and a `--shadow` default. Shadow colors adapt to the active color scheme via `light-dark()`, using heavier alpha in dark mode so elevation reads against dark backgrounds. [`23d6b76`](https://github.com/1001-digital/layers/commit/23d6b76)
   This also lights up drop shadows on `Combobox`, `FormSelect`, and `Autocomplete` popover surfaces, which already referenced `--shadow-lg` before the token existed.
   _`styles`_
-
-## 2026-05-24
-
-- **Minor** Add multi-transaction flow components and composable for sequential EVM transaction flows, plus theme variables for multi-transaction progress styling. [`31f94ce`](https://github.com/1001-digital/layers/commit/31f94ce)
-  _`components.evm`, `styles`_
 
 ## 2026-04-13
 
@@ -311,6 +311,9 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Support non-persistent dismissal on `Alert`. Adds a `dismissable` boolean prop for in-memory dismissal and renames the persistence prop from `dismiss` to `dismiss-key` for clarity. Providing `dismiss-key` still implies `dismissable`. [`856096e`](https://github.com/1001-digital/layers/commit/856096e)
   _`components`_
+
+- **Minor** Add multi-transaction flow components and composable for sequential EVM transaction flows, plus theme variables for multi-transaction progress styling. [`31f94ce`](https://github.com/1001-digital/layers/commit/31f94ce)
+  _`components.evm`, `styles`_
 
 - Render EvmTransactionFlow confirm and retry actions as primary buttons by default. [`ea90683`](https://github.com/1001-digital/layers/commit/ea90683)
   _`components.evm`_
