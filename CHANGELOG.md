@@ -3,6 +3,12 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-07-02
+
+- **Minor** Add `useEnsResolver`, an imperative awaitable ENS resolver. [`ecff162`](https://github.com/1001-digital/layers/commit/ecff162)
+  `useEnsResolver()` returns `resolveAddress(identifier)` and `resolveProfile(identifier)` functions that share the cache and strategy order of `useEns`, so consumers can force-resolve a name at the moment it is acted on (e.g. form submit) instead of relying on a background resolution having already landed in the cache. A cached failed resolution is evicted and retried rather than pinning the name as unresolvable for the whole cache TTL. Also adds `evict(key)` to `createCache`.
+  _`components.evm`, `layers.evm`_
+
 ## 2026-06-18
 
 - Upgrade dweb-fetch so gateway-mode URI resolution stays free of Helia in consumers. [`1e24ddd`](https://github.com/1001-digital/layers/commit/1e24ddd)
@@ -98,9 +104,6 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Add multi-transaction flow components and composable for sequential EVM transaction flows, plus theme variables for multi-transaction progress styling. [`31f94ce`](https://github.com/1001-digital/layers/commit/31f94ce)
   _`components.evm`, `styles`_
-
-- Render EvmTransactionFlow confirm and retry actions as primary buttons by default. [`ea90683`](https://github.com/1001-digital/layers/commit/ea90683)
-  _`components.evm`_
 
 ## 2026-04-13
 
@@ -308,6 +311,9 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Support non-persistent dismissal on `Alert`. Adds a `dismissable` boolean prop for in-memory dismissal and renames the persistence prop from `dismiss` to `dismiss-key` for clarity. Providing `dismiss-key` still implies `dismissable`. [`856096e`](https://github.com/1001-digital/layers/commit/856096e)
   _`components`_
+
+- Render EvmTransactionFlow confirm and retry actions as primary buttons by default. [`ea90683`](https://github.com/1001-digital/layers/commit/ea90683)
+  _`components.evm`_
 
 - Remove the default border from EVM artifact media. [`ac8983d`](https://github.com/1001-digital/layers/commit/ac8983d)
   _`components.evm`_
