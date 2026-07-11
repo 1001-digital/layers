@@ -1,5 +1,11 @@
 # @1001-digital/components.evm
 
+## 3.9.0
+
+### Minor Changes
+
+- [`5c4e910`](https://github.com/1001-digital/layers/commit/5c4e91093ea90ffff2c80041bed744eba34aaa69) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Expose an `error-actions` slot for SIWE auth errors so apps can render recovery actions next to the retry button.
+
 ## 3.8.0
 
 ### Minor Changes
