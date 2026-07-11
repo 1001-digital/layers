@@ -18,11 +18,15 @@
     <Alert type="error">
       <p>{{ errorMessage }}</p>
     </Alert>
-    <Button
-      class="secondary"
-      @click="handleSignIn"
-      >Try Again</Button
-    >
+    <Actions class="left siwe-error-actions">
+      <Button
+        type="button"
+        @click="handleSignIn"
+      >
+        Try again
+      </Button>
+      <slot name="error-actions" />
+    </Actions>
   </template>
 
   <template v-else>
@@ -35,7 +39,7 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { Button, Alert, Loading } from '@1001-digital/components'
+import { Actions, Alert, Button, Loading } from '@1001-digital/components'
 import { useSiwe } from '../composables/siwe'
 import type { EvmSiweProps, EvmSiweEmits } from '../types'
 
@@ -74,7 +78,7 @@ defineExpose({ reset })
 </script>
 
 <style scoped>
-.secondary {
+.siwe-error-actions {
   margin-top: var(--spacer-sm);
 }
 </style>

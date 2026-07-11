@@ -36,7 +36,11 @@
       :expiration-time="expirationTime"
       @authenticated="onAuthenticated"
       @error="(e) => emit('error', e)"
-    />
+    >
+      <template #error-actions>
+        <slot name="error-actions" />
+      </template>
+    </EvmConnectAuth>
   </Dialog>
 </template>
 
