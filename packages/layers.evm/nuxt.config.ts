@@ -147,5 +147,5 @@ export default defineNuxtConfig({
     },
   },
 
-  compatibilityDate: '2024-11-01',
+  // compatibilityDate is inherited from @1001-digital/layers.base
 })
