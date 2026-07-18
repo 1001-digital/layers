@@ -3,6 +3,16 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-07-18
+
+- Upgrade `nuxt` to 4.4.8 and align the toolchain around it: [`83024fb`](https://github.com/1001-digital/layers/commit/83024fb)
+  - `vue` ^3.5.40 (matches nuxt's `^3.5.35` requirement — previously the exact pin at 3.5.30 produced a second Vue copy in the tree)
+  - `eslint` 10.7.0 and `@nuxt/eslint` 1.16.0
+  - `@nuxt/icon` 2.3.1
+  - `vue-tsc` added as a dev dependency since `nuxi typecheck` no longer installs a type checker on demand
+  - `compatibilityDate` set to 2026-07-18 in layers.base; layers.evm (previously stuck on 2024-11-01) now inherits it through `extends` instead of duplicating the date
+  _`layers.base`, `layers.evm`_
+
 ## 2026-07-11
 
 - **Minor** Expose an `error-actions` slot for SIWE auth errors so apps can render recovery actions next to the retry button. [`5c4e910`](https://github.com/1001-digital/layers/commit/5c4e910)
@@ -102,13 +112,6 @@ Generated from individual package changelogs — do not edit manually.
 
 - Prevent stale ENS lookup responses from overwriting newer address input state and show standard Error messages in transaction flow failures. [`8dfd67c`](https://github.com/1001-digital/layers/commit/8dfd67c)
   _`components.evm`_
-
-- Add `--multi-transaction-flow-step-gap` so consumers can override the vertical gap between a step's title and status. [`3fbc4b8`](https://github.com/1001-digital/layers/commit/3fbc4b8)
-  _`components.evm`, `styles`_
-
-- **Minor** Add `--shadow-sm`, `--shadow-md`, `--shadow-lg`, and a `--shadow` default. Shadow colors adapt to the active color scheme via `light-dark()`, using heavier alpha in dark mode so elevation reads against dark backgrounds. [`23d6b76`](https://github.com/1001-digital/layers/commit/23d6b76)
-  This also lights up drop shadows on `Combobox`, `FormSelect`, and `Autocomplete` popover surfaces, which already referenced `--shadow-lg` before the token existed.
-  _`styles`_
 
 ## 2026-04-13
 
@@ -317,6 +320,9 @@ Generated from individual package changelogs — do not edit manually.
 - **Minor** Support non-persistent dismissal on `Alert`. Adds a `dismissable` boolean prop for in-memory dismissal and renames the persistence prop from `dismiss` to `dismiss-key` for clarity. Providing `dismiss-key` still implies `dismissable`. [`856096e`](https://github.com/1001-digital/layers/commit/856096e)
   _`components`_
 
+- Add `--multi-transaction-flow-step-gap` so consumers can override the vertical gap between a step's title and status. [`3fbc4b8`](https://github.com/1001-digital/layers/commit/3fbc4b8)
+  _`components.evm`, `styles`_
+
 - **Minor** Add multi-transaction flow components and composable for sequential EVM transaction flows, plus theme variables for multi-transaction progress styling. [`31f94ce`](https://github.com/1001-digital/layers/commit/31f94ce)
   _`components.evm`, `styles`_
 
@@ -354,6 +360,10 @@ Generated from individual package changelogs — do not edit manually.
   `@base-org/account`'s telemetry init runs eagerly inside `createBaseAccountSDK`, called by the connector's `getProvider()` during wagmi's SSR `reconnect()` step. On the server it has no `window`/`document` and throws `Telemetry is not supported in non-browser environments`, surfacing as an `unhandledRejection` in dev logs.
   Pass `preference: { telemetry: false }` to `baseAccount(...)` so the SDK skips telemetry init entirely. The connector itself stays available; only the analytics call is suppressed.
   _`layers.evm`_
+
+- **Minor** Add `--shadow-sm`, `--shadow-md`, `--shadow-lg`, and a `--shadow` default. Shadow colors adapt to the active color scheme via `light-dark()`, using heavier alpha in dark mode so elevation reads against dark backgrounds. [`23d6b76`](https://github.com/1001-digital/layers/commit/23d6b76)
+  This also lights up drop shadows on `Combobox`, `FormSelect`, and `Autocomplete` popover surfaces, which already referenced `--shadow-lg` before the token existed.
+  _`styles`_
 
 - Introduce `--scrollbar-thumb-color` and `--scrollbar-track-color` variables so scrollbar colors can be themed without overriding the base selector. [`0619a34`](https://github.com/1001-digital/layers/commit/0619a34)
   _`styles`_
