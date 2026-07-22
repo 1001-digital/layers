@@ -1,5 +1,14 @@
 # @1001-digital/components
 
+## 2.8.10
+
+### Patch Changes
+
+- [`14da803`](https://github.com/1001-digital/layers/commit/14da8037e46fb0504cd3cd86f4ff801321b04fff) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Accessibility improvements for `Autocomplete` and `Combobox`:
+  - New `ariaLabel` prop forwarded to the inner input as `aria-label`, so consumers can give the combobox an accessible name (placeholders alone are an unreliable name source).
+  - `Autocomplete` no longer renders a group label element when the group's label is empty — screen readers previously announced these as nameless groups.
+  - Highlighted options honor new `--autocomplete-item-highlight` / `--combobox-item-highlight` tokens (falling back to `--button-background-highlight`), so apps whose button highlight is white can keep the keyboard cursor visible.
+
 ## 2.8.9
 
 ### Patch Changes
