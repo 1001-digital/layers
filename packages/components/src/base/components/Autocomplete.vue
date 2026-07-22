@@ -13,6 +13,7 @@
       <AutocompleteInput
         class="autocomplete-input"
         :placeholder="placeholder"
+        :aria-label="ariaLabel"
         :disabled="disabled"
       />
       <AutocompleteTrigger class="autocomplete-trigger">
@@ -40,7 +41,10 @@
               v-if="entry.isGroup"
               class="autocomplete-group"
             >
-              <AutocompleteLabel class="autocomplete-label">
+              <AutocompleteLabel
+                v-if="entry.label"
+                class="autocomplete-label"
+              >
                 {{ entry.label }}
               </AutocompleteLabel>
               <AutocompleteItem
@@ -136,6 +140,8 @@ const props = withDefaults(
     hideWhenEmpty?: boolean
     resetSearchTermOnBlur?: boolean
     ignoreFilter?: boolean
+    /** Accessible name for the input — placeholders alone are unreliable */
+    ariaLabel?: string
   }>(),
   {
     options: () => [],
@@ -315,7 +321,10 @@ const normalizedOptions = computed<(NormalizedItem | NormalizedGroup)[]>(() =>
     font-size: var(--ui-font-size);
 
     &[data-highlighted] {
-      background: var(--button-background-highlight);
+      background: var(
+        --autocomplete-item-highlight,
+        var(--button-background-highlight)
+      );
     }
 
     &[data-disabled] {

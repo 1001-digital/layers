@@ -337,7 +337,7 @@ const rootStyle = computed<CSSProperties>(() => {
     opacity: var(--evm-artifact-shadow-opacity);
     z-index: 0;
     height: 80%;
-    top: 40%;
+    top: 9%;
     border-radius: 20%;
   }
 }

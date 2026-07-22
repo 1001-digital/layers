@@ -14,6 +14,7 @@
         class="combobox-input"
         :placeholder="placeholder"
         :display-value="resolveDisplayValue"
+        :aria-label="ariaLabel"
         :disabled="disabled"
         @focus="open = true"
       />
@@ -82,6 +83,8 @@ const props = withDefaults(
     emptyText?: string
     resetSearchTermOnBlur?: boolean
     resetSearchTermOnSelect?: boolean
+    /** Accessible name for the input — placeholders alone are unreliable */
+    ariaLabel?: string
   }>(),
   {
     options: () => [],
@@ -237,7 +240,10 @@ const resolveDisplayValue = (val: any) => {
     font-size: var(--ui-font-size);
 
     &[data-highlighted] {
-      background: var(--button-background-highlight);
+      background: var(
+        --combobox-item-highlight,
+        var(--button-background-highlight)
+      );
     }
 
     &[data-state='checked'] {
