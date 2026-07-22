@@ -11,6 +11,12 @@ Generated from individual package changelogs — do not edit manually.
   - Highlighted options honor new `--autocomplete-item-highlight` / `--combobox-item-highlight` tokens (falling back to `--button-background-highlight`), so apps whose button highlight is white can keep the keyboard cursor visible.
   _`components`_
 
+- Declare `@x402/*` as dependencies so consumer builds keep working with `@coinbase/cdp-sdk` >= 1.53: [`b924b3c`](https://github.com/1001-digital/layers/commit/b924b3c)
+  - `@base-org/account` (pulled in for the Base connector) depends on `@coinbase/cdp-sdk`, and since 1.53.0 the SDK does static named imports from its _optional_ peer deps `@x402/core|evm|extensions|svm`. When they're absent, Vite substitutes an empty shim and consumer Nuxt builds fail with `"toClientEvmSigner" is not exported by "__vite-optional-peer-dep:@x402/evm..."`.
+  - Adding the four packages as regular dependencies of the layer puts them in every consumer's resolution graph, so pnpm links them as the SDK's peers and the imports resolve.
+  - Remove again once the SDK guards these imports (lazy import or hard dependency).
+  _`layers.evm`_
+
 ## 2026-07-18
 
 - Upgrade `nuxt` to 4.4.8 and align the toolchain around it: [`83024fb`](https://github.com/1001-digital/layers/commit/83024fb)
@@ -117,9 +123,6 @@ Generated from individual package changelogs — do not edit manually.
 
 - Add reusable ETH amount input helpers for parsing user-entered ETH values to wei. [`623d075`](https://github.com/1001-digital/layers/commit/623d075)
   _`components.evm`, `layers.evm`_
-
-- Prevent stale ENS lookup responses from overwriting newer address input state and show standard Error messages in transaction flow failures. [`8dfd67c`](https://github.com/1001-digital/layers/commit/8dfd67c)
-  _`components.evm`_
 
 ## 2026-04-13
 
@@ -327,6 +330,9 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Support non-persistent dismissal on `Alert`. Adds a `dismissable` boolean prop for in-memory dismissal and renames the persistence prop from `dismiss` to `dismiss-key` for clarity. Providing `dismiss-key` still implies `dismissable`. [`856096e`](https://github.com/1001-digital/layers/commit/856096e)
   _`components`_
+
+- Prevent stale ENS lookup responses from overwriting newer address input state and show standard Error messages in transaction flow failures. [`8dfd67c`](https://github.com/1001-digital/layers/commit/8dfd67c)
+  _`components.evm`_
 
 - Add `--multi-transaction-flow-step-gap` so consumers can override the vertical gap between a step's title and status. [`3fbc4b8`](https://github.com/1001-digital/layers/commit/3fbc4b8)
   _`components.evm`, `styles`_
