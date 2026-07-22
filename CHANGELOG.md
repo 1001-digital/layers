@@ -3,6 +3,14 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-07-22
+
+- Accessibility improvements for `Autocomplete` and `Combobox`: [`14da803`](https://github.com/1001-digital/layers/commit/14da803)
+  - New `ariaLabel` prop forwarded to the inner input as `aria-label`, so consumers can give the combobox an accessible name (placeholders alone are an unreliable name source).
+  - `Autocomplete` no longer renders a group label element when the group's label is empty — screen readers previously announced these as nameless groups.
+  - Highlighted options honor new `--autocomplete-item-highlight` / `--combobox-item-highlight` tokens (falling back to `--button-background-highlight`), so apps whose button highlight is white can keep the keyboard cursor visible.
+  _`components`_
+
 ## 2026-07-18
 
 - Upgrade `nuxt` to 4.4.8 and align the toolchain around it: [`83024fb`](https://github.com/1001-digital/layers/commit/83024fb)
