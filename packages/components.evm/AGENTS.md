@@ -96,7 +96,7 @@ interface EvmConfig {
 - `shortAddress(address, length)` — truncate address
 - `formatETH(value, maxDecimals)` — format ETH
 - `resolveChain(id)` — chain ID → viem Chain
-- `createCache(ttl, max)` — LRU cache with TTL
+- `createCache(ttl, max)` — LRU cache with TTL (re-exported from `@1001-digital/components`)
 - `createSiweMessage(params)` — EIP-4361 message
 - `formatPrice(num, digits)` — format USD price
 - `stringifyJSON`, `parseJSON` — safe JSON helpers

@@ -1,4 +1,4 @@
-// Re-exported from the base component library for backwards compatibility
+// Re-exported to enable Nuxt auto-imports for layer consumers
 export {
   detectMediaInfoFromMime,
   detectMediaInfoFromUrl,

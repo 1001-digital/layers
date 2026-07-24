@@ -17,9 +17,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "scripts": {
-    "test": "node --test test/*.test.ts"
-  },
   "peerDependencies": {
     "@1001-digital/components": "workspace:^",
     "@1001-digital/resolve-metadata": ">=1.0.0",

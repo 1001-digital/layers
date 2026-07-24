@@ -96,6 +96,12 @@ These need browser APIs and must be rendered client-side: `Combobox`, `ConfirmDi
 - `daysInSeconds(days)` — convert days to seconds
 - `nowInSeconds()` — current time in seconds
 - `asUTCDate(timestamp)` — timestamp to UTC date
+- `createCache(ttl, max)` — LRU cache with TTL
+- `detectMediaInfoFromUrl(url)` — media kind/MIME/extension from a URL (extension or data-URL based)
+- `detectMediaInfoFromMime(mimeType)` — media kind/MIME/extension from a MIME type
+- `inspectMediaUrl(url, options?)` — async detection with a HEAD-request fallback (10s timeout)
+- `fetchMediaInfo(url, options?)` — cached `inspectMediaUrl`; used by `Embed` and `useMediaInfo` in `components.evm`
+- `getCachedMediaInfo(url)` — synchronous peek into the media info cache
 
 ## Injection keys
 
@@ -112,7 +118,7 @@ src/
 ├── base/
 │   ├── components/           # 50+ Vue SFC components
 │   ├── composables/          # confirm.ts, toast.ts, time.ts
-│   ├── utils/                # format-number.ts, time.ts
+│   ├── utils/                # format-number.ts, time.ts, cache.ts, media.ts
 │   ├── icons.ts              # IconAliasesKey, defaultIconAliases
 │   └── link.ts               # LinkComponentKey
 ```

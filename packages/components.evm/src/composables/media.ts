@@ -6,16 +6,14 @@ import {
   type MaybeRefOrGetter,
   type Ref,
 } from 'vue'
-import { useResolvedUrl } from './uri'
-import { createCache } from '../utils/cache'
 import {
   detectMediaInfoFromUrl,
-  inspectMediaUrl,
+  fetchMediaInfo,
+  getCachedMediaInfo,
   type MediaInfo,
   type MediaKind,
-} from '../utils/media'
-
-const mediaInfoCache = createCache<MediaInfo>(5 * 60 * 1000, 200)
+} from '@1001-digital/components'
+import { useResolvedUrl } from './uri'
 
 export interface UseMediaInfoResult {
   resolvedUrl: Ref<string>
@@ -28,7 +26,7 @@ export function useMediaInfo(
   uri: MaybeRefOrGetter<string | undefined>,
 ): UseMediaInfoResult {
   const resolvedUrl = useResolvedUrl(uri)
-  const info = ref<MediaInfo>(detectMediaInfoFromUrl(resolvedUrl.value))
+  const info = ref<MediaInfo>({ kind: null, mimeType: null, extension: null })
 
   watch(
     resolvedUrl,
@@ -36,12 +34,18 @@ export function useMediaInfo(
       const fromUrl = detectMediaInfoFromUrl(url)
       info.value = fromUrl
 
-      if (!url || fromUrl.kind || typeof window === 'undefined') return
+      // Data URLs are fully described by detection; probing is browser-only.
+      if (!url || fromUrl.kind || url.startsWith('data:')) return
+      if (typeof window === 'undefined') return
+
+      const cached = getCachedMediaInfo(url)
+      if (cached) {
+        info.value = cached
+        return
+      }
 
       try {
-        const inspected = await mediaInfoCache.fetch(url, () =>
-          inspectMediaUrl(url),
-        )
+        const inspected = await fetchMediaInfo(url)
         if (resolvedUrl.value === url) info.value = inspected
       } catch {
         // Best effort: CORS, timeouts, and unavailable resources retain the

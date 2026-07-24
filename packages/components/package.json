@@ -19,6 +19,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "scripts": {
+    "test": "node --test test/*.test.ts"
+  },
   "peerDependencies": {
     "@1001-digital/styles": "workspace:^",
     "vue": "^3.5.0"

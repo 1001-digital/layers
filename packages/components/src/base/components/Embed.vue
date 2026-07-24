@@ -32,20 +32,7 @@
 <script setup lang="ts">
 import { ref, computed, watchEffect, watch, nextTick } from 'vue'
 import { useWindowSize } from '@vueuse/core'
-
-async function fetchMediaType(url: string): Promise<string | undefined> {
-  try {
-    const response = await fetch(url, { method: 'HEAD' })
-
-    if (!response.ok) return undefined
-
-    const contentType = response.headers.get('Content-Type')
-    return contentType ? contentType.split(';')[0] : undefined
-  } catch (error) {
-    console.error(`Error fetching media type: ${error}`)
-    return undefined
-  }
-}
+import { fetchMediaInfo } from '../utils/media'
 
 const props = defineProps<{
   src: string
@@ -60,7 +47,12 @@ const isPlayable = computed(() => {
 
 watchEffect(async () => {
   src.value = props.src
-  mediaType.value = await fetchMediaType(src.value)
+  try {
+    mediaType.value = (await fetchMediaInfo(src.value)).mimeType ?? undefined
+  } catch {
+    // Unreachable or misbehaving resources render as an iframe.
+    mediaType.value = undefined
+  }
 })
 
 // Force reload on resize

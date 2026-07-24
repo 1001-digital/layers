@@ -82,6 +82,19 @@ export {
   asUTCDate,
 } from './base/utils/time'
 export type { UTCDateTime } from './base/utils/time'
+export { createCache } from './base/utils/cache'
+export {
+  detectMediaInfoFromMime,
+  detectMediaInfoFromUrl,
+  fetchMediaInfo,
+  getCachedMediaInfo,
+  inspectMediaUrl,
+} from './base/utils/media'
+export type {
+  InspectMediaUrlOptions,
+  MediaInfo,
+  MediaKind,
+} from './base/utils/media'
 
 // Date types
 export {
