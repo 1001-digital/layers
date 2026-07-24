@@ -5,6 +5,11 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-07-24
 
+- Keep tall dialogs within the viewport and make their content area scrollable, [`1ee65c7`](https://github.com/1001-digital/layers/commit/1ee65c7)
+  including in Safari. Preserve the header divider above scrolling content and
+  add `--dialog-max-block-size` for customizing the dialog height limit.
+  _`components`_
+
 - **Minor** Add shared media detection to `@1001-digital/components`: `detectMediaInfoFromUrl`, [`ce2b4c3`](https://github.com/1001-digital/layers/commit/ce2b4c3)
   `detectMediaInfoFromMime`, `inspectMediaUrl`, and a cached `fetchMediaInfo` resolve
   a media URL's kind, MIME type, and extension. `Embed` now reuses the shared

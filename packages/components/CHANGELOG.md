@@ -1,5 +1,13 @@
 # @1001-digital/components
 
+## 2.9.1
+
+### Patch Changes
+
+- [`1ee65c7`](https://github.com/1001-digital/layers/commit/1ee65c7678a151cc3e3c30868db7ca714f78e063) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Keep tall dialogs within the viewport and make their content area scrollable,
+  including in Safari. Preserve the header divider above scrolling content and
+  add `--dialog-max-block-size` for customizing the dialog height limit.
+
 ## 2.9.0
 
 ### Minor Changes
