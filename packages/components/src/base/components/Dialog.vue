@@ -186,6 +186,14 @@ onBeforeUnmount(() => {
 <style>
 @layer components {
   .dialog {
+    /* Flex prevents Safari from expanding the inner grid's 1fr row. */
+    display: flex;
+    flex-direction: column;
+    block-size: fit-content;
+    max-block-size: var(
+      --dialog-max-block-size,
+      calc(100dvh - 2 * var(--spacer))
+    );
     max-inline-size: min(
       var(--dialog-width, 32rem),
       calc(100vw - var(--spacer) * 2)
@@ -201,7 +209,9 @@ onBeforeUnmount(() => {
     > .dialog-content {
       display: grid;
       grid-template-rows: auto 1fr auto;
-      max-block-size: calc(100dvh - 2 * var(--spacer));
+      inline-size: 100%;
+      min-block-size: 0;
+      max-block-size: inherit;
 
       > h1:first-child,
       > .close {
@@ -218,12 +228,15 @@ onBeforeUnmount(() => {
       }
 
       > h1:first-child {
+        position: relative;
+        z-index: 1;
         padding-right: calc(var(--spacer) * 3);
       }
 
       > .close {
         color: var(--dialog-close-color);
         position: absolute;
+        z-index: 2;
         top: 0;
         right: 0;
         inline-size: calc(var(--spacer) * 2);
