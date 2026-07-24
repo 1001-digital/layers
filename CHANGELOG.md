@@ -3,6 +3,19 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-07-24
+
+- **Minor** Add shared media detection to `@1001-digital/components`: `detectMediaInfoFromUrl`, [`ce2b4c3`](https://github.com/1001-digital/layers/commit/ce2b4c3)
+  `detectMediaInfoFromMime`, `inspectMediaUrl`, and a cached `fetchMediaInfo` resolve
+  a media URL's kind, MIME type, and extension. `Embed` now reuses the shared
+  (cached) probe instead of its own HEAD request, and `createCache` moved to the
+  base library (still re-exported from `@1001-digital/components.evm`).
+  `@1001-digital/components.evm` gains a `useMediaInfo` composable that resolves
+  `ipfs://`/`ipns://`/Arweave URLs and exposes the detected media info reactively.
+  `EvmArtifact` uses the same inspection result, so artifact rendering and `Embed`
+  no longer issue duplicate HEAD probes.
+  _`components`, `components.evm`, `layers.base`, `layers.evm`_
+
 ## 2026-07-22
 
 - Accessibility improvements for `Autocomplete` and `Combobox`: [`14da803`](https://github.com/1001-digital/layers/commit/14da803)
@@ -119,9 +132,6 @@ Generated from individual package changelogs — do not edit manually.
   _`components.evm`, `layers.evm`_
 
 - Add an `EvmEthInput` component for ETH amount text input with parsed wei output. [`b98b8ce`](https://github.com/1001-digital/layers/commit/b98b8ce)
-  _`components.evm`, `layers.evm`_
-
-- Add reusable ETH amount input helpers for parsing user-entered ETH values to wei. [`623d075`](https://github.com/1001-digital/layers/commit/623d075)
   _`components.evm`, `layers.evm`_
 
 ## 2026-04-13
@@ -330,6 +340,9 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Support non-persistent dismissal on `Alert`. Adds a `dismissable` boolean prop for in-memory dismissal and renames the persistence prop from `dismiss` to `dismiss-key` for clarity. Providing `dismiss-key` still implies `dismissable`. [`856096e`](https://github.com/1001-digital/layers/commit/856096e)
   _`components`_
+
+- Add reusable ETH amount input helpers for parsing user-entered ETH values to wei. [`623d075`](https://github.com/1001-digital/layers/commit/623d075)
+  _`components.evm`, `layers.evm`_
 
 - Prevent stale ENS lookup responses from overwriting newer address input state and show standard Error messages in transaction flow failures. [`8dfd67c`](https://github.com/1001-digital/layers/commit/8dfd67c)
   _`components.evm`_

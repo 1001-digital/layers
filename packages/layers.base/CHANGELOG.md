@@ -1,5 +1,25 @@
 # @1001-digital/layers.base
 
+## 2.1.0
+
+### Minor Changes
+
+- [`ce2b4c3`](https://github.com/1001-digital/layers/commit/ce2b4c3225650c87127c2a454fa0ee29c4820a64) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Add shared media detection to `@1001-digital/components`: `detectMediaInfoFromUrl`,
+  `detectMediaInfoFromMime`, `inspectMediaUrl`, and a cached `fetchMediaInfo` resolve
+  a media URL's kind, MIME type, and extension. `Embed` now reuses the shared
+  (cached) probe instead of its own HEAD request, and `createCache` moved to the
+  base library (still re-exported from `@1001-digital/components.evm`).
+
+  `@1001-digital/components.evm` gains a `useMediaInfo` composable that resolves
+  `ipfs://`/`ipns://`/Arweave URLs and exposes the detected media info reactively.
+  `EvmArtifact` uses the same inspection result, so artifact rendering and `Embed`
+  no longer issue duplicate HEAD probes.
+
+### Patch Changes
+
+- Updated dependencies [[`ce2b4c3`](https://github.com/1001-digital/layers/commit/ce2b4c3225650c87127c2a454fa0ee29c4820a64)]:
+  - @1001-digital/components@2.9.0
+
 ## 2.0.38
 
 ### Patch Changes
