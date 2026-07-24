@@ -88,13 +88,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch, type CSSProperties } from 'vue'
+import { computed, onMounted, ref, type CSSProperties } from 'vue'
 import { Embed } from '@1001-digital/components'
+import { useMediaInfo } from '../composables/media'
 import { useResolvedUrl } from '../composables/uri'
 import EvmArtifactModel from './EvmArtifactModel.vue'
 import type { EvmArtifactProps, EvmArtifactEmits } from '../types'
+import type { MediaKind } from '../utils/media'
 
-type MediaKind = 'image' | 'video' | 'audio' | 'model' | 'embed'
 type ArtifactError = { kind: 'image' | 'animation' | 'model'; url: string }
 
 const props = withDefaults(defineProps<EvmArtifactProps>(), {
@@ -138,67 +139,11 @@ const resolvedBgColor = computed(
 const resolvedImage = useResolvedUrl(
   () => resolvedImageInput.value ?? undefined,
 )
-const resolvedAnimationUrl = useResolvedUrl(
+const { resolvedUrl: resolvedAnimationUrl, kind: mediaType } = useMediaInfo(
   () => resolvedAnimationInput.value ?? undefined,
 )
 
 const hasAnimation = computed(() => !!resolvedAnimationUrl.value)
-
-const mediaType = ref<MediaKind | null>(null)
-
-function detectFromExtension(url: string): MediaKind | null {
-  const [path = ''] = url.toLowerCase().split(/[?#]/)
-  if (/\.(svg|png|jpg|jpeg|gif|webp|avif)$/.test(path)) return 'image'
-  if (/\.(mp4|webm|mov|m4v)$/.test(path)) return 'video'
-  if (/\.(mp3|wav|ogg|flac)$/.test(path)) return 'audio'
-  if (/\.(glb|gltf)$/.test(path)) return 'model'
-  if (/\.(html|htm)$/.test(path)) return 'embed'
-  return null
-}
-
-function classifyMime(mime: string): MediaKind | null {
-  if (mime.startsWith('image/')) return 'image'
-  if (mime.startsWith('video/')) return 'video'
-  if (mime.startsWith('audio/')) return 'audio'
-  if (mime === 'model/gltf-binary' || mime === 'model/gltf+json') return 'model'
-  if (mime === 'text/html') return 'embed'
-  return null
-}
-
-let detectionController: AbortController | null = null
-
-watch(
-  resolvedAnimationUrl,
-  async (url) => {
-    detectionController?.abort()
-    mediaType.value = null
-    if (!url) return
-
-    const fromExt = detectFromExtension(url)
-    if (fromExt) {
-      mediaType.value = fromExt
-      return
-    }
-
-    // HEAD probe is browser-only — skip on SSR.
-    if (typeof window === 'undefined') return
-
-    detectionController = new AbortController()
-    const { signal } = detectionController
-    try {
-      const response = await fetch(url, { method: 'HEAD', signal })
-      if (signal.aborted || !response.ok) return
-      const contentType = response.headers
-        .get('Content-Type')
-        ?.split(';')[0]
-        ?.trim()
-      if (contentType) mediaType.value = classifyMime(contentType)
-    } catch {
-      // best-effort detection: AbortError, CORS, network — fall through to <Embed>
-    }
-  },
-  { immediate: true },
-)
 
 const renderer = computed<MediaKind | 'static' | 'fallback'>(() => {
   if (showAnimation.value && resolvedAnimationUrl.value) {

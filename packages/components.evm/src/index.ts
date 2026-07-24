@@ -98,7 +98,10 @@ export {
   parseEthAmountInput,
   useEthAmountInput,
 } from './composables/ethAmountInput'
+export { useMediaInfo } from './composables/media'
+export type { UseMediaInfoResult } from './composables/media'
 export { useDwebClient, useResolvedUrl } from './composables/uri'
+export type { MediaInfo, MediaKind } from './utils/media'
 export { useGasPrice } from './composables/gasPrice'
 export { usePriceFeed } from './composables/priceFeed'
 export { useWalletExplorer } from './composables/walletExplorer'

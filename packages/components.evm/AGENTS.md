@@ -88,6 +88,7 @@ interface EvmConfig {
 - `useSiwe()` — SIWE session (`isAuthenticated`, `session`, `signIn`, `signOut`)
 - `useDwebClient()` — IPFS/Arweave fetch client
 - `useResolvedUrl(uri)` — reactive URI resolution
+- `useMediaInfo(uri)` — reactive resolved URL and cached media kind/MIME/extension detection
 - `useWalletExplorer()` — WalletConnect wallet discovery
 
 ## Utilities
