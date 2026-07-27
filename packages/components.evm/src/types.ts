@@ -48,6 +48,8 @@ export interface EvmArtifactProps {
   backgroundColor?: string | null
   useBackgroundColor?: boolean
   aspectRatio?: string | number
+  controls?: boolean
+  muted?: boolean
 }
 
 export interface EvmArtifactEmits {

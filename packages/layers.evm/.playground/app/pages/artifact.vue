@@ -45,6 +45,19 @@
       </Card>
 
       <Card>
+        <h3>Video with controls</h3>
+        <p class="hint">
+          <code>controls</code> shows the native player so viewers can unmute
+          audio. Autoplay stays muted.
+        </p>
+        <EvmArtifact
+          v-model:show-animation="showAnimation"
+          :metadata="videoToken"
+          controls
+        />
+      </Card>
+
+      <Card>
         <h3>HTML / iframe animation</h3>
         <p class="hint">
           Generative HTML, falls through to <code>Embed</code>.

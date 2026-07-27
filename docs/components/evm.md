@@ -139,9 +139,9 @@ Your application owns nonce generation, session storage, and server-side verific
 
 ## Artifacts
 
-| Component     | Purpose                                                              | Key API                                                                                                                   |
-| ------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `EvmArtifact` | NFT/media artifact preview with image, animation, and model support. | Props `metadata`, `image`, `animationUrl`, `name`, `backgroundColor`, `useBackgroundColor`, `aspectRatio`; emits `error`. |
+| Component     | Purpose                                                              | Key API                                                                                                                                                                                                                       |
+| ------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `EvmArtifact` | NFT/media artifact preview with image, animation, and model support. | Props `metadata`, `image`, `animationUrl`, `name`, `backgroundColor`, `useBackgroundColor`, `aspectRatio`, `controls`, `muted`; emits `error`. Videos autoplay muted by default — set `controls` so viewers can unmute audio. |
 
 ```vue
 <template>
