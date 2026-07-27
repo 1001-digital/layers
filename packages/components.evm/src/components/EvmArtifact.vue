@@ -10,6 +10,8 @@
       :media-type="mediaType ?? undefined"
       :name="resolvedName ?? undefined"
       :poster="resolvedImage ?? undefined"
+      :controls="controls"
+      :muted="muted"
     >
       <img
         v-if="renderer === 'image'"
@@ -20,8 +22,9 @@
       <video
         v-else-if="renderer === 'video'"
         :poster="resolvedImage ?? undefined"
+        :controls="controls"
+        :muted="muted"
         autoplay
-        muted
         loop
         playsinline
         crossorigin="anonymous"
@@ -101,6 +104,9 @@ type ArtifactError = { kind: 'image' | 'animation' | 'model'; url: string }
 const props = withDefaults(defineProps<EvmArtifactProps>(), {
   useBackgroundColor: true,
   aspectRatio: 1,
+  controls: false,
+  // Muted by default so video autoplay isn't blocked by browser policy.
+  muted: true,
 })
 const emit = defineEmits<EvmArtifactEmits>()
 const showAnimation = defineModel<boolean>('showAnimation', { default: false })
@@ -111,6 +117,8 @@ defineSlots<{
     mediaType: MediaKind | undefined
     name: string | undefined
     poster: string | undefined
+    controls: boolean
+    muted: boolean
   }): unknown
   static?(props: { src: string; name: string | undefined }): unknown
   overlay?(props: { showAnimation: boolean; hasAnimation: boolean }): unknown
