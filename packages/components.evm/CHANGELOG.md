@@ -1,5 +1,11 @@
 # @1001-digital/components.evm
 
+## 3.11.0
+
+### Minor Changes
+
+- [#83](https://github.com/1001-digital/layers/pull/83) [`9d9f8d3`](https://github.com/1001-digital/layers/commit/9d9f8d3f16af39e76ecc4c569d1f99c84b3eaa76) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Add `controls` and `muted` props to `EvmArtifact` so videos with sound can be heard. Videos still autoplay muted by default; enable `controls` to show the native player and let viewers unmute audio, or set `muted: false` to opt out of muting entirely.
+
 ## 3.10.1
 
 ### Patch Changes
