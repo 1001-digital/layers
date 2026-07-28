@@ -5,6 +5,9 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-07-28
 
+- `Embed`: when `width`/`height` are set, scale the iframe to fit the frame with `contain` semantics (centered, smaller axis wins) instead of filling the width. This keeps the artifact's aspect ratio and matches the poster's footprint even when the frame is a different shape (e.g. portrait art in a square mat). [`56e7a19`](https://github.com/1001-digital/layers/commit/56e7a19)
+  _`components`_
+
 - **Minor** `Embed` / `EvmArtifact`: control iframe artifact rendering. [`8c7648b`](https://github.com/1001-digital/layers/commit/8c7648b)
   - Add a `scroll` prop. `EvmArtifact` now defaults to non-scrolling (`scrolling="no"`), so generative HTML artifacts that overflow their frame by a pixel no longer render stray browser scrollbars. Pass `:scroll="true"` to opt back in.
   - Add `width` / `height` props. When both are set the iframe renders at those exact native pixel dimensions and is scaled (pure CSS, container-query based) to fill the frame, so the piece renders at its intended resolution and the frame matches the poster's aspect ratio.

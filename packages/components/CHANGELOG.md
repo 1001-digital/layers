@@ -1,5 +1,11 @@
 # @1001-digital/components
 
+## 2.10.1
+
+### Patch Changes
+
+- [`56e7a19`](https://github.com/1001-digital/layers/commit/56e7a199a5c47c8e5eca77e7a20aabab29701542) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - `Embed`: when `width`/`height` are set, scale the iframe to fit the frame with `contain` semantics (centered, smaller axis wins) instead of filling the width. This keeps the artifact's aspect ratio and matches the poster's footprint even when the frame is a different shape (e.g. portrait art in a square mat).
+
 ## 2.10.0
 
 ### Minor Changes
