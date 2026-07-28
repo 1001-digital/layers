@@ -50,6 +50,9 @@ export interface EvmArtifactProps {
   aspectRatio?: string | number
   controls?: boolean
   muted?: boolean
+  // Whether an HTML/iframe artifact may show its own scrollbars. Off by default
+  // so generative pieces that overflow their frame don't render stray bars.
+  scroll?: boolean
 }
 
 export interface EvmArtifactEmits {

@@ -60,6 +60,7 @@
       <Embed
         v-else
         :src="resolvedAnimationUrl"
+        :scroll="scroll"
       />
     </slot>
     <slot
@@ -107,6 +108,9 @@ const props = withDefaults(defineProps<EvmArtifactProps>(), {
   controls: false,
   // Muted by default so video autoplay isn't blocked by browser policy.
   muted: true,
+  // Generative HTML artifacts routinely overflow their iframe by a pixel or
+  // two; suppress the resulting scrollbars unless a consumer opts back in.
+  scroll: false,
 })
 const emit = defineEmits<EvmArtifactEmits>()
 const showAnimation = defineModel<boolean>('showAnimation', { default: false })

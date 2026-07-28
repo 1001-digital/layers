@@ -23,6 +23,7 @@
       v-else
       ref="frame"
       frameborder="0"
+      :scrolling="scroll ? undefined : 'no'"
       :src="src"
       sandbox="allow-scripts"
     ></iframe>
@@ -34,9 +35,17 @@ import { ref, computed, watchEffect, watch, nextTick } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 import { fetchMediaInfo } from '../utils/media'
 
-const props = defineProps<{
-  src: string
-}>()
+const props = withDefaults(
+  defineProps<{
+    src: string
+    // Whether the embedded document may show its own scrollbars. Set false for
+    // content that overflows its frame by a hair (generative art, etc.).
+    scroll?: boolean
+  }>(),
+  {
+    scroll: true,
+  },
+)
 
 const src = ref(props.src)
 const mediaType = ref<string>()
