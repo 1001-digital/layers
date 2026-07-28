@@ -1,5 +1,13 @@
 # @1001-digital/components
 
+## 2.10.0
+
+### Minor Changes
+
+- [`8c7648b`](https://github.com/1001-digital/layers/commit/8c7648bc4bce5a8de76f3e6c14fe6925c8bb4348) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - `Embed` / `EvmArtifact`: control iframe artifact rendering.
+  - Add a `scroll` prop. `EvmArtifact` now defaults to non-scrolling (`scrolling="no"`), so generative HTML artifacts that overflow their frame by a pixel no longer render stray browser scrollbars. Pass `:scroll="true"` to opt back in.
+  - Add `width` / `height` props. When both are set the iframe renders at those exact native pixel dimensions and is scaled (pure CSS, container-query based) to fill the frame, so the piece renders at its intended resolution and the frame matches the poster's aspect ratio.
+
 ## 2.9.1
 
 ### Patch Changes
