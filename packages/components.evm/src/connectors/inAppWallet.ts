@@ -1,5 +1,17 @@
 export {
+  EncryptedWalletKeyring,
+  PasskeyPrfUnavailableError,
+  VaultConflictError,
+  WalletLockedError,
+  assertVaultPassphrase,
+  createLocalEncryptedVaultStore,
   inAppWallet,
-  prepareInAppWallet,
   type InAppWalletParameters,
+  type EncryptedWalletVaultV1,
+  type PasskeyRegistrationOptions,
+  type RequestUnlock,
+  type SyncedWalletVault,
+  type UnlockReason,
+  type WalletKeyringSnapshot,
+  type WalletVaultStore,
 } from '@1001-digital/wagmi-in-app-wallet'

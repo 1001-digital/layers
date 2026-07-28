@@ -21,6 +21,7 @@ import {
   resolveChain,
   inAppWallet,
   type EvmConfig,
+  type InAppWalletParameters,
 } from '@1001-digital/components.evm'
 
 interface ChainEntry {
@@ -40,7 +41,7 @@ interface CreateOptions {
   ipfsGateway?: string
   arweaveGateway?: string
   baseURL?: string
-  inAppWalletEnabled?: boolean
+  inAppWallet?: InAppWalletParameters
   isClient?: boolean
 }
 
@@ -60,7 +61,7 @@ export function createWagmiConfig(options: CreateOptions): {
     ipfsGateway,
     arweaveGateway,
     baseURL,
-    inAppWalletEnabled,
+    inAppWallet: inAppWalletOptions,
     isClient,
   } = options
 
@@ -121,7 +122,9 @@ export function createWagmiConfig(options: CreateOptions): {
       }),
     )
 
-  if (inAppWalletEnabled) connectors.push(inAppWallet())
+  if (inAppWalletOptions) {
+    connectors.push(inAppWallet(inAppWalletOptions) as CreateConnectorFn)
+  }
 
   const wagmiConfig: Config = createConfig({
     chains: chains as [Chain, ...Chain[]],

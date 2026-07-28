@@ -1,6 +1,5 @@
 // Re-exported to enable Nuxt auto-imports for layer consumers
 export {
-  configureEvmInAppWalletHost,
-  createLocalEncryptedVaultStore,
-  inAppWallet,
+  useEvmInAppWallet,
+  useOptionalEvmInAppWallet,
 } from '@1001-digital/components.evm'

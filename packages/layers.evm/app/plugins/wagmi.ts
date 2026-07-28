@@ -1,11 +1,19 @@
 import { VueQueryPlugin } from '@tanstack/vue-query'
 import { WagmiPlugin } from '@wagmi/vue'
-import { EvmConfigKey } from '@1001-digital/components.evm'
+import {
+  createLocalEncryptedVaultStore,
+  EncryptedWalletKeyring,
+  EvmConfigKey,
+  EvmInAppWalletController,
+  EvmInAppWalletControllerKey,
+  getConfiguredEvmInAppWalletHost,
+  type EvmInAppWalletHost,
+} from '@1001-digital/components.evm'
 import { createWagmiConfig } from '../wagmi'
 
 export default defineNuxtPlugin({
   name: 'wagmi',
-  setup(nuxtApp) {
+  async setup(nuxtApp) {
     const appConfig = useAppConfig()
     const runtimeConfig = nuxtApp.$config.public.evm as {
       walletConnectProjectId: string
@@ -15,6 +23,19 @@ export default defineNuxtPlugin({
 
     const indexers =
       runtimeConfig.ens?.indexers?.split(/\s+/).filter(Boolean) || []
+
+    let walletController: EvmInAppWalletController | null = null
+    if (import.meta.client && appConfig.evm?.inAppWallet?.enabled) {
+      const configuredHost = getConfiguredEvmInAppWalletHost()
+      const host: EvmInAppWalletHost = configuredHost ?? {
+        store: createLocalEncryptedVaultStore(),
+        scope: window.location.host,
+        rpName: appConfig.evm?.title || 'EVM Layer',
+      }
+      const keyring = new EncryptedWalletKeyring({ store: host.store })
+      walletController = new EvmInAppWalletController(keyring, host)
+      await keyring.load()
+    }
 
     const { wagmiConfig, evmConfig } = createWagmiConfig({
       title: appConfig.evm?.title || 'EVM Layer',
@@ -28,7 +49,12 @@ export default defineNuxtPlugin({
       ipfsGateway: appConfig.evm?.ipfsGateway,
       arweaveGateway: appConfig.evm?.arweaveGateway,
       baseURL: nuxtApp.$config.app.baseURL,
-      inAppWalletEnabled: appConfig.evm?.inAppWallet?.enabled,
+      inAppWallet: walletController
+        ? {
+            keyring: walletController.keyring,
+            requestUnlock: walletController.requestUnlock,
+          }
+        : undefined,
       isClient: import.meta.client,
     })
 
@@ -37,9 +63,14 @@ export default defineNuxtPlugin({
       .use(VueQueryPlugin, {})
       .provide(EvmConfigKey, evmConfig)
 
+    if (walletController) {
+      nuxtApp.vueApp.provide(EvmInAppWalletControllerKey, walletController)
+    }
+
     return {
       provide: {
         wagmi: wagmiConfig,
+        evmInAppWallet: walletController,
       },
     }
   },

@@ -58,6 +58,14 @@ export const EvmInAppWalletSetup = proxy(
   'EvmInAppWalletSetup',
   Originals.EvmInAppWalletSetup,
 )
+export const EvmInAppWalletManager = proxy(
+  'EvmInAppWalletManager',
+  Originals.EvmInAppWalletManager,
+)
+export const EvmInAppWalletUnlockDialog = proxy(
+  'EvmInAppWalletUnlockDialog',
+  Originals.EvmInAppWalletUnlockDialog,
+)
 export const EvmMetaMaskQR = proxy('EvmMetaMaskQR', Originals.EvmMetaMaskQR)
 export const EvmMultiTransactionFlow = proxy(
   'EvmMultiTransactionFlow',

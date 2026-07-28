@@ -267,6 +267,11 @@ export interface EvmInAppWalletSetupEmits {
   back: []
 }
 
+export interface EvmInAppWalletUnlockDialogEmits {
+  unlocked: []
+  cancelled: []
+}
+
 // EvmSiwe
 export interface EvmSiweProps {
   getNonce: () => Promise<string>

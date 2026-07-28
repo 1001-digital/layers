@@ -11,6 +11,8 @@ export const clientOnlyComponents = [
   'EvmConnectionStatus',
   'EvmConnectorQR',
   'EvmInAppWalletSetup',
+  'EvmInAppWalletManager',
+  'EvmInAppWalletUnlockDialog',
   'EvmMetaMaskQR',
   'EvmProfile',
   'EvmSidebarProfile',

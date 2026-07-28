@@ -131,9 +131,18 @@ export type {
   SiweSignInOptions,
   SiweSignInResult,
 } from './composables/siwe'
+export {
+  configureEvmInAppWalletHost,
+  EvmInAppWalletController,
+  EvmInAppWalletControllerKey,
+  getConfiguredEvmInAppWalletHost,
+  useEvmInAppWallet,
+  useOptionalEvmInAppWallet,
+} from './composables/inAppWallet'
+export type { EvmInAppWalletHost } from './composables/inAppWallet'
 
 // Connectors
-export { inAppWallet, prepareInAppWallet } from './connectors/inAppWallet'
+export * from './connectors/inAppWallet'
 
 export { clientOnlyComponents } from './client-only'
 
@@ -161,6 +170,8 @@ export { default as EvmMultiTransactionFlow } from './components/EvmMultiTransac
 export { default as EvmMultiTransactionFlowDialog } from './components/EvmMultiTransactionFlowDialog.vue'
 export { default as EvmSeedPhraseInput } from './components/EvmSeedPhraseInput.vue'
 export { default as EvmInAppWalletSetup } from './components/EvmInAppWalletSetup.vue'
+export { default as EvmInAppWalletManager } from './components/EvmInAppWalletManager.vue'
+export { default as EvmInAppWalletUnlockDialog } from './components/EvmInAppWalletUnlockDialog.vue'
 export { default as EvmSiwe } from './components/EvmSiwe.vue'
 export { default as EvmSiweDialog } from './components/EvmSiweDialog.vue'
 export { default as EvmConnectAuth } from './components/EvmConnectAuth.vue'
