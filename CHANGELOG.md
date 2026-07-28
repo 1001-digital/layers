@@ -3,6 +3,11 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-07-28
+
+- Keep the EvmArtifact shadow behind every rendered asset by isolating its stacking context. [`cd16f00`](https://github.com/1001-digital/layers/commit/cd16f00)
+  _`components.evm`_
+
 ## 2026-07-27
 
 - **Minor** Add `controls` and `muted` props to `EvmArtifact` so videos with sound can be heard. Videos still autoplay muted by default; enable `controls` to show the native player and let viewers unmute audio, or set `muted: false` to opt out of muting entirely. ([#83](https://github.com/1001-digital/layers/pull/83)) [`9d9f8d3`](https://github.com/1001-digital/layers/commit/9d9f8d3)
@@ -135,11 +140,6 @@ Generated from individual package changelogs — do not edit manually.
 
 - Route `@1001-digital/components` and `@1001-digital/components.evm` package imports through a Nuxt-layer facade so consumer/layer component overrides apply to package-level imports (e.g. `<Button>` inside `EvmConnectDialog` will pick up an app's override of `Button`). [`227d6a6`](https://github.com/1001-digital/layers/commit/227d6a6)
   _`layers.base`, `layers.evm`_
-
-## 2026-05-26
-
-- Allow passing a global `title` prop to `EvmMultiTransactionFlowDialog`. When set, it overrides the per-step title from the flow; otherwise the current step's title is used as before. [`1952d69`](https://github.com/1001-digital/layers/commit/1952d69)
-  _`components.evm`, `layers.evm`_
 
 ## 2026-04-13
 
@@ -347,6 +347,9 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Support non-persistent dismissal on `Alert`. Adds a `dismissable` boolean prop for in-memory dismissal and renames the persistence prop from `dismiss` to `dismiss-key` for clarity. Providing `dismiss-key` still implies `dismissable`. [`856096e`](https://github.com/1001-digital/layers/commit/856096e)
   _`components`_
+
+- Allow passing a global `title` prop to `EvmMultiTransactionFlowDialog`. When set, it overrides the per-step title from the flow; otherwise the current step's title is used as before. [`1952d69`](https://github.com/1001-digital/layers/commit/1952d69)
+  _`components.evm`, `layers.evm`_
 
 - Add an `EvmEthInput` component for ETH amount text input with parsed wei output. [`b98b8ce`](https://github.com/1001-digital/layers/commit/b98b8ce)
   _`components.evm`, `layers.evm`_
