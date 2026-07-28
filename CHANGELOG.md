@@ -5,6 +5,11 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-07-28
 
+- **Minor** `Embed` / `EvmArtifact`: control iframe artifact rendering. [`8c7648b`](https://github.com/1001-digital/layers/commit/8c7648b)
+  - Add a `scroll` prop. `EvmArtifact` now defaults to non-scrolling (`scrolling="no"`), so generative HTML artifacts that overflow their frame by a pixel no longer render stray browser scrollbars. Pass `:scroll="true"` to opt back in.
+  - Add `width` / `height` props. When both are set the iframe renders at those exact native pixel dimensions and is scaled (pure CSS, container-query based) to fill the frame, so the piece renders at its intended resolution and the frame matches the poster's aspect ratio.
+  _`components`, `components.evm`_
+
 - Keep the EvmArtifact shadow behind every rendered asset by isolating its stacking context. [`cd16f00`](https://github.com/1001-digital/layers/commit/cd16f00)
   _`components.evm`_
 
@@ -136,9 +141,6 @@ Generated from individual package changelogs — do not edit manually.
   _`layers.base`, `layers.evm`_
 
 - Fix infinite render recursion in the component facade. The proxy was given the same `name` as the original component, but Vue's `resolveAsset` checks self-name before the global registry — so `resolveComponent(name)` returned the proxy itself, looping until hydration crashed with `Cannot destructure property 'type' of 'vnode' as it is null`. Dropping `name:` from the proxy lets the lookup fall through to the Nuxt-registered original (or a consumer override). [`615c8e4`](https://github.com/1001-digital/layers/commit/615c8e4)
-  _`layers.base`, `layers.evm`_
-
-- Route `@1001-digital/components` and `@1001-digital/components.evm` package imports through a Nuxt-layer facade so consumer/layer component overrides apply to package-level imports (e.g. `<Button>` inside `EvmConnectDialog` will pick up an app's override of `Button`). [`227d6a6`](https://github.com/1001-digital/layers/commit/227d6a6)
   _`layers.base`, `layers.evm`_
 
 ## 2026-04-13
@@ -395,6 +397,9 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Add `EvmConnectAuth` and `EvmConnectAuthDialog` for a combined connect + SIWE flow that auto-prompts the signature once the wallet connects, plus an `autoSignIn` prop on `EvmSiwe` that triggers sign-in on mount. [`76b8b30`](https://github.com/1001-digital/layers/commit/76b8b30)
   _`components.evm`, `layers.evm`_
+
+- Route `@1001-digital/components` and `@1001-digital/components.evm` package imports through a Nuxt-layer facade so consumer/layer component overrides apply to package-level imports (e.g. `<Button>` inside `EvmConnectDialog` will pick up an app's override of `Button`). [`227d6a6`](https://github.com/1001-digital/layers/commit/227d6a6)
+  _`layers.base`, `layers.evm`_
 
 - Fix Nuxt SSR crash from the `baseAccount` wagmi connector. [`fe1eca0`](https://github.com/1001-digital/layers/commit/fe1eca0)
   `@base-org/account`'s telemetry init runs eagerly inside `createBaseAccountSDK`, called by the connector's `getProvider()` during wagmi's SSR `reconnect()` step. On the server it has no `window`/`document` and throws `Telemetry is not supported in non-browser environments`, surfacing as an `unhandledRejection` in dev logs.
