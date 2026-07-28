@@ -231,6 +231,7 @@ const rootStyle = computed<CSSProperties>(() => {
 <style scoped>
 .evm-artifact {
   position: relative;
+  isolation: isolate;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -288,7 +289,7 @@ const rootStyle = computed<CSSProperties>(() => {
     background: var(--evm-artifact-shadow-color);
     filter: blur(var(--evm-artifact-shadow-blur));
     opacity: var(--evm-artifact-shadow-opacity);
-    z-index: 0;
+    z-index: -1;
     height: 80%;
     top: 9%;
     border-radius: 20%;
