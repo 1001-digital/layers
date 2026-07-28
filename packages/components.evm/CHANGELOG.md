@@ -1,5 +1,11 @@
 # @1001-digital/components.evm
 
+## 3.11.1
+
+### Patch Changes
+
+- [`cd16f00`](https://github.com/1001-digital/layers/commit/cd16f0095bbeec976f3e342689d60d15dba3a942) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Keep the EvmArtifact shadow behind every rendered asset by isolating its stacking context.
+
 ## 3.11.0
 
 ### Minor Changes
