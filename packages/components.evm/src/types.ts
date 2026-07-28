@@ -53,6 +53,11 @@ export interface EvmArtifactProps {
   // Whether an HTML/iframe artifact may show its own scrollbars. Off by default
   // so generative pieces that overflow their frame don't render stray bars.
   scroll?: boolean
+  // Native pixel dimensions for an HTML/iframe artifact. When both are set the
+  // iframe renders at these exact dimensions (scaled to fit), matching the
+  // artwork's intended resolution and the poster's aspect ratio.
+  width?: number
+  height?: number
 }
 
 export interface EvmArtifactEmits {

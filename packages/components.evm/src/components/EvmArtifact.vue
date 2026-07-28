@@ -61,6 +61,8 @@
         v-else
         :src="resolvedAnimationUrl"
         :scroll="scroll"
+        :width="width"
+        :height="height"
       />
     </slot>
     <slot

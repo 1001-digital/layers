@@ -1,7 +1,8 @@
 <template>
   <div
     class="embed"
-    :class="{ playable: isPlayable }"
+    :class="{ playable: isPlayable, sized }"
+    :style="sizeStyle"
     @touchmove.stop.prevent="() => null"
   >
     <video
@@ -41,10 +42,25 @@ const props = withDefaults(
     // Whether the embedded document may show its own scrollbars. Set false for
     // content that overflows its frame by a hair (generative art, etc.).
     scroll?: boolean
+    // Native pixel dimensions to render the iframe at. When both are set the
+    // iframe is sized to these exact dimensions and scaled to fit the frame,
+    // so the document renders at its intended resolution and aspect ratio.
+    width?: number
+    height?: number
   }>(),
   {
     scroll: true,
   },
+)
+
+const sized = computed(() => !!props.width && !!props.height)
+const sizeStyle = computed(() =>
+  sized.value
+    ? {
+        '--embed-w': String(props.width),
+        '--embed-h': String(props.height),
+      }
+    : undefined,
 )
 
 const src = ref(props.src)
@@ -99,6 +115,23 @@ watch(width, () => {
     position: absolute;
     inset: 0;
     pointer-events: all;
+  }
+}
+
+/* Render the iframe at its native pixel dimensions and scale it down to fill
+   the frame's width. The frame's aspect ratio matches, so it fills the height
+   too. `cqw` resolves against .embed (now a container), so the scale factor
+   tracks the frame's actual width responsively — no JS measurement needed. */
+.embed.sized {
+  container-type: inline-size;
+  aspect-ratio: var(--embed-w) / var(--embed-h);
+
+  iframe {
+    inset: 0 auto auto 0;
+    width: calc(var(--embed-w) * 1px);
+    height: calc(var(--embed-h) * 1px);
+    transform: scale(calc(100cqw / (var(--embed-w) * 1px)));
+    transform-origin: top left;
   }
 }
 </style>
