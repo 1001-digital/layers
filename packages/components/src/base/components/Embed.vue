@@ -43,8 +43,8 @@ const props = withDefaults(
     // content that overflows its frame by a hair (generative art, etc.).
     scroll?: boolean
     // Native pixel dimensions to render the iframe at. When both are set the
-    // iframe is sized to these exact dimensions and scaled to fit the frame,
-    // so the document renders at its intended resolution and aspect ratio.
+    // iframe renders at these exact dimensions and is scaled to fit the frame
+    // (contain), so the document keeps its intended resolution and aspect ratio.
     width?: number
     height?: number
   }>(),
@@ -118,20 +118,27 @@ watch(width, () => {
   }
 }
 
-/* Render the iframe at its native pixel dimensions and scale it down to fill
-   the frame's width. The frame's aspect ratio matches, so it fills the height
-   too. `cqw` resolves against .embed (now a container), so the scale factor
-   tracks the frame's actual width responsively — no JS measurement needed. */
+/* Render the iframe at its native pixel dimensions, then scale it to fit inside
+   the frame — `object-fit: contain` semantics the iframe element can't express
+   itself. `cqw`/`cqh` resolve against .embed (now a size container), so the
+   scale tracks the frame responsively with no JS measurement, and the smaller
+   axis wins so the document keeps its aspect ratio and stays centered. */
 .embed.sized {
-  container-type: inline-size;
-  aspect-ratio: var(--embed-w) / var(--embed-h);
+  container-type: size;
 
   iframe {
-    inset: 0 auto auto 0;
+    inset: auto;
+    left: 50%;
+    top: 50%;
     width: calc(var(--embed-w) * 1px);
     height: calc(var(--embed-h) * 1px);
-    transform: scale(calc(100cqw / (var(--embed-w) * 1px)));
-    transform-origin: top left;
+    transform: translate(-50%, -50%)
+      scale(
+        min(
+          calc(100cqw / (var(--embed-w) * 1px)),
+          calc(100cqh / (var(--embed-h) * 1px))
+        )
+      );
   }
 }
 </style>
