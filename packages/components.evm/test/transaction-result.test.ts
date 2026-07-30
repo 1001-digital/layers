@@ -4,6 +4,7 @@ import type { GetCallsStatusReturnType } from 'viem/actions'
 import {
   getCallsTransactionHash,
   isCallsResult,
+  transactionExplorerUrl,
 } from '../src/utils/transaction-result.ts'
 
 describe('transaction results', () => {
@@ -28,6 +29,14 @@ describe('transaction results', () => {
           receipts: [],
         } as unknown as GetCallsStatusReturnType),
       /failed/,
+    )
+  })
+
+  it('only creates explorer URLs for transaction hashes', () => {
+    assert.equal(transactionExplorerUrl('https://evm.now', null), null)
+    assert.equal(
+      transactionExplorerUrl('https://evm.now/', '0x03'),
+      'https://evm.now/tx/0x03',
     )
   })
 })

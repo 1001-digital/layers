@@ -2,6 +2,13 @@ import type { Hash } from 'viem'
 import type { GetCallsStatusReturnType } from 'viem/actions'
 import type { TransactionFlowRequestResult } from '../types'
 
+export function transactionExplorerUrl(
+  blockExplorer: string,
+  hash: Hash | null | undefined,
+) {
+  return hash ? `${blockExplorer.replace(/\/$/, '')}/tx/${hash}` : null
+}
+
 export function isCallsResult(
   result: TransactionFlowRequestResult,
 ): result is { kind: 'calls'; id: string } {

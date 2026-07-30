@@ -17,6 +17,7 @@ import type {
 import {
   getCallsTransactionHash,
   isCallsResult,
+  transactionExplorerUrl,
 } from '../utils/transaction-result'
 
 export const TRANSACTION_FLOW_STEPS = [
@@ -86,7 +87,9 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
   const tx = ref<Hash | null>(null)
   const callsId = ref<string | null>(null)
   const receipt = ref<TransactionReceipt | null>(null)
-  const txLink = computed(() => `${blockExplorer}/tx/${tx.value}`)
+  const txLink = computed(
+    () => transactionExplorerUrl(blockExplorer, tx.value) ?? '',
+  )
 
   const text = computed<Required<TransactionFlowText>>(() => ({
     title: { ...defaultText.title, ...toValue(options.text)?.title },
@@ -203,6 +206,7 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
     } else {
       step.value = 'idle'
 
+      const submittedTxLink = txLink.value
       const toastId = toast.add({
         variant: 'info',
         title: text.value.title.waiting,
@@ -210,10 +214,10 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
         duration: Infinity,
         loading: true,
         progress: 0,
-        ...(tx.value && {
+        ...(submittedTxLink && {
           action: {
             label: text.value.action.viewOnExplorer!,
-            onClick: () => window.open(txLink.value, '_blank'),
+            onClick: () => window.open(submittedTxLink, '_blank'),
             persistent: true,
           },
         }),
@@ -234,6 +238,10 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
         await delay(delayAfter)
         receipt.value = receiptObject
 
+        const confirmedTxLink = transactionExplorerUrl(
+          blockExplorer,
+          receiptObject.transactionHash,
+        )!
         toast.update(toastId, {
           variant: 'success',
           title: text.value.title.complete,
@@ -241,7 +249,7 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
           progress: false,
           action: {
             label: text.value.action.viewOnExplorer!,
-            onClick: () => window.open(txLink.value, '_blank'),
+            onClick: () => window.open(confirmedTxLink, '_blank'),
             persistent: true,
           },
           ...(autoCloseSuccess && { duration: delayAutoclose }),
