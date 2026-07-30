@@ -1,5 +1,12 @@
 <template>
   <div class="in-app-wallet-setup">
+    <Alert
+      v-if="errorMessage"
+      type="error"
+    >
+      {{ errorMessage }}
+    </Alert>
+
     <!-- Step: Choose -->
     <div
       v-if="step === 'choose'"
@@ -30,6 +37,18 @@
         <Icon name="chevron-left" />
         <span>Back</span>
       </Button>
+    </div>
+
+    <!-- Step: Generating -->
+    <div
+      v-else-if="step === 'generating'"
+      class="setup-step"
+    >
+      <Loading
+        txt="Creating wallet..."
+        spinner
+        stacked
+      />
     </div>
 
     <!-- Step: Generate -->
@@ -69,7 +88,7 @@
       </Button>
       <Button
         class="link muted small"
-        @click="step = 'choose'"
+        @click="goBack"
       >
         <Icon name="chevron-left" />
         <span>Back</span>
@@ -100,7 +119,7 @@
       </Button>
       <Button
         class="link muted small"
-        @click="step = 'choose'"
+        @click="goBack"
       >
         <Icon name="chevron-left" />
         <span>Back</span>
@@ -122,7 +141,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useConnect, useConnectors } from '@wagmi/vue'
 import {
   Button,
@@ -140,6 +159,7 @@ import type {
 
 const props = withDefaults(defineProps<EvmInAppWalletSetupProps>(), {
   note: 'Create a browser-based wallet stored locally on this device. Only you have access to your keys.',
+  initialStep: 'choose',
 })
 
 const emit = defineEmits<EvmInAppWalletSetupEmits>()
@@ -150,8 +170,11 @@ const inAppConnector = computed(() =>
   connectors.value.find((c) => c.type === 'inAppWallet'),
 )
 
-type Step = 'choose' | 'generate' | 'restore' | 'connecting'
-const step = ref<Step>('choose')
+type Step = 'choose' | 'generating' | 'generate' | 'restore' | 'connecting'
+const step = ref<Step>(
+  props.initialStep === 'create' ? 'generating' : props.initialStep,
+)
+const errorMessage = ref('')
 
 // Generate state
 const generatedMnemonic = ref('')
@@ -163,40 +186,68 @@ const restorePhrase = ref('')
 const restoreValid = ref(false)
 
 async function startGenerate() {
-  const { generateMnemonic, english } = await import('viem/accounts')
-  generatedMnemonic.value = generateMnemonic(english)
-  generatedWords.value = generatedMnemonic.value.split(' ')
-  backupConfirmed.value = false
-  step.value = 'generate'
+  errorMessage.value = ''
+  step.value = 'generating'
+  try {
+    const { generateMnemonic, english } = await import('viem/accounts')
+    generatedMnemonic.value = generateMnemonic(english)
+    generatedWords.value = generatedMnemonic.value.split(' ')
+    backupConfirmed.value = false
+    step.value = 'generate'
+  } catch (error) {
+    console.error('Failed to create in-app wallet:', error)
+    errorMessage.value = 'Failed to create wallet. Please try again.'
+    step.value = 'choose'
+  }
 }
 
 async function connectWithMnemonic(mnemonic: string) {
+  if (!inAppConnector.value) {
+    throw new Error('In-app wallet connector is unavailable')
+  }
   await prepareInAppWallet(mnemonic)
-  await connectAsync({ connector: inAppConnector.value! })
+  await connectAsync({ connector: inAppConnector.value })
 }
 
 async function confirmGenerated() {
+  errorMessage.value = ''
   step.value = 'connecting'
   try {
     await connectWithMnemonic(generatedMnemonic.value)
     emit('connected')
   } catch (e) {
     console.error('Failed to connect in-app wallet:', e)
+    errorMessage.value = 'Failed to connect wallet. Please try again.'
     step.value = 'generate'
   }
 }
 
 async function restoreWallet() {
   if (!restoreValid.value) return
+  errorMessage.value = ''
   step.value = 'connecting'
   try {
     await connectWithMnemonic(restorePhrase.value)
     emit('connected')
   } catch (e) {
     console.error('Failed to restore in-app wallet:', e)
+    errorMessage.value = 'Failed to restore wallet. Please try again.'
     step.value = 'restore'
   }
 }
+
+function goBack() {
+  errorMessage.value = ''
+  if (props.initialStep === 'choose') {
+    step.value = 'choose'
+    return
+  }
+  emit('back')
+}
+
+onMounted(() => {
+  if (props.initialStep === 'create') void startGenerate()
+})
 </script>
 
 <style scoped>

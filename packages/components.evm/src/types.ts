@@ -71,19 +71,28 @@ export interface EvmAvatarProps {
 }
 
 // EvmConnect
+export type EvmConnectorFilter = 'all' | 'external' | 'in-app'
+
+export interface EvmConnectProps {
+  connectorFilter?: EvmConnectorFilter
+  inAppWalletInitialStep?: EvmInAppWalletInitialStep
+}
+
 export interface EvmConnectEmits {
   connecting: []
   connected: []
+  back: []
 }
 
 // EvmConnectDialog
-export interface EvmConnectDialogProps {
+export interface EvmConnectDialogProps extends EvmConnectProps {
   className?: string
 }
 
 export interface EvmConnectDialogEmits {
   connected: [{ address: `0x${string}` | undefined }]
   disconnected: []
+  back: []
 }
 
 // EvmProfile
@@ -258,8 +267,11 @@ export interface EvmSeedPhraseInputEmits {
 }
 
 // EvmInAppWalletSetup
+export type EvmInAppWalletInitialStep = 'choose' | 'create' | 'restore'
+
 export interface EvmInAppWalletSetupProps {
   note?: string
+  initialStep?: EvmInAppWalletInitialStep
 }
 
 export interface EvmInAppWalletSetupEmits {
@@ -302,7 +314,7 @@ export interface EvmSiweDialogEmits {
 }
 
 // EvmConnectAuth
-export type EvmConnectAuthProps = EvmSiweProps
+export interface EvmConnectAuthProps extends EvmSiweProps, EvmConnectProps {}
 
 export interface EvmConnectAuthEmits {
   connecting: []
@@ -310,10 +322,12 @@ export interface EvmConnectAuthEmits {
   authenticated: [{ address: `0x${string}`; chainId: number }]
   signedOut: []
   error: [error: string]
+  back: []
 }
 
 // EvmConnectAuthDialog
-export interface EvmConnectAuthDialogProps extends EvmSiweProps {
+export interface EvmConnectAuthDialogProps
+  extends EvmSiweProps, EvmConnectProps {
   className?: string
   noTrigger?: boolean
 }
@@ -324,4 +338,5 @@ export interface EvmConnectAuthDialogEmits {
   authenticated: [{ address: `0x${string}`; chainId: number }]
   signedOut: []
   error: [error: string]
+  back: []
 }

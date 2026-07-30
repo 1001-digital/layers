@@ -22,7 +22,10 @@
   >
     <EvmConnect
       ref="connectRef"
+      :connector-filter="connectorFilter"
+      :in-app-wallet-initial-step="inAppWalletInitialStep"
       @connected="onConnected"
+      @back="emit('back')"
     />
   </Dialog>
 </template>

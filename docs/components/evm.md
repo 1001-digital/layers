@@ -6,17 +6,17 @@ Components that require wallet or browser APIs are marked client-only by the Nux
 
 ## Wallet Connection
 
-| Component                 | Purpose                             | Key API                                              |
-| ------------------------- | ----------------------------------- | ---------------------------------------------------- |
-| `EvmConnect`              | Inline wallet connection UI.        | Emits `connecting`, `connected`.                     |
-| `EvmConnectDialog`        | Dialog-based wallet connection.     | Prop `className`; emits `connected`, `disconnected`. |
-| `EvmConnectionStatus`     | Displays current connection status. | Uses wagmi connection state.                         |
-| `EvmConnectorQR`          | Generic QR connector UI.            | Prop `uri`.                                          |
-| `EvmMetaMaskQR`           | MetaMask QR flow.                   | Prop `uri`; emits `back`.                            |
-| `EvmWalletConnectQR`      | WalletConnect QR flow.              | Prop `uri`.                                          |
-| `EvmWalletConnectWallets` | WalletConnect wallet list.          | Prop `uri`; emits `back`.                            |
-| `EvmInAppWalletSetup`     | In-app wallet setup UI.             | Prop `note`; emits `connected`, `back`.              |
-| `EvmSeedPhraseInput`      | Seed phrase input.                  | `v-model`, `disabled`; emits `valid`, `submit`.      |
+| Component                 | Purpose                             | Key API                                                                                     |
+| ------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------- |
+| `EvmConnect`              | Inline wallet connection UI.        | Props `connectorFilter`, `inAppWalletInitialStep`; emits `connecting`, `connected`, `back`. |
+| `EvmConnectDialog`        | Dialog-based wallet connection.     | Connect props plus `className`; emits `connected`, `disconnected`, `back`.                  |
+| `EvmConnectionStatus`     | Displays current connection status. | Uses wagmi connection state.                                                                |
+| `EvmConnectorQR`          | Generic QR connector UI.            | Prop `uri`.                                                                                 |
+| `EvmMetaMaskQR`           | MetaMask QR flow.                   | Prop `uri`; emits `back`.                                                                   |
+| `EvmWalletConnectQR`      | WalletConnect QR flow.              | Prop `uri`.                                                                                 |
+| `EvmWalletConnectWallets` | WalletConnect wallet list.          | Prop `uri`; emits `back`.                                                                   |
+| `EvmInAppWalletSetup`     | In-app wallet setup UI.             | Props `note`, `initialStep`; emits `connected`, `back`.                                     |
+| `EvmSeedPhraseInput`      | Seed phrase input.                  | `v-model`, `disabled`; emits `valid`, `submit`.                                             |
 
 ```vue
 <template>
@@ -31,6 +31,31 @@ Components that require wallet or browser APIs are marked client-only by the Nux
       </p>
     </template>
   </EvmConnectDialog>
+</template>
+```
+
+Use `connectorFilter` to let the host application own a wallet-choice screen.
+`external` excludes the in-app connector, while `in-app` opens the in-app
+setup without showing the connector list. The optional
+`inAppWalletInitialStep` can skip the setup's internal chooser:
+
+```vue
+<template>
+  <EvmConnectAuth
+    v-if="walletPath === 'existing'"
+    connector-filter="external"
+    :get-nonce="getNonce"
+    :verify="verify"
+    @back="walletPath = null"
+  />
+  <EvmConnectAuth
+    v-else-if="walletPath === 'create'"
+    connector-filter="in-app"
+    in-app-wallet-initial-step="create"
+    :get-nonce="getNonce"
+    :verify="verify"
+    @back="walletPath = null"
+  />
 </template>
 ```
 
@@ -117,12 +142,12 @@ The transaction flow checks chain selection, requests a transaction, waits for a
 
 ## SIWE and Auth
 
-| Component              | Purpose                               | Key API                                                                   |
-| ---------------------- | ------------------------------------- | ------------------------------------------------------------------------- |
-| `EvmSiwe`              | Inline Sign-In with Ethereum flow.    | Requires `getNonce` and `verify`; emits `authenticated`, `error`.         |
-| `EvmSiweDialog`        | Dialog-based SIWE flow.               | SIWE props plus `className`; emits `authenticated`, `signedOut`, `error`. |
-| `EvmConnectAuth`       | Wallet connect plus SIWE auth flow.   | SIWE props; emits connection and auth events.                             |
-| `EvmConnectAuthDialog` | Dialog wrapper for connect plus SIWE. | SIWE props plus `className`, `noTrigger`.                                 |
+| Component              | Purpose                               | Key API                                                                                 |
+| ---------------------- | ------------------------------------- | --------------------------------------------------------------------------------------- |
+| `EvmSiwe`              | Inline Sign-In with Ethereum flow.    | Requires `getNonce` and `verify`; emits `authenticated`, `error`.                       |
+| `EvmSiweDialog`        | Dialog-based SIWE flow.               | SIWE props plus `className`; emits `authenticated`, `signedOut`, `error`.               |
+| `EvmConnectAuth`       | Wallet connect plus SIWE auth flow.   | SIWE and connect props; emits connection, auth, and `back` events.                      |
+| `EvmConnectAuthDialog` | Dialog wrapper for connect plus SIWE. | SIWE and connect props plus `className`, `noTrigger`; emits auth and connection events. |
 
 ```vue
 <template>
