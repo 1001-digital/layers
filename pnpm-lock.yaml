@@ -64,8 +64,8 @@ importers:
         specifier: ^0.7.0
         version: 0.7.0(@helia/verified-fetch@7.1.0(bufferutil@4.1.0)(react-native@0.84.1(@babel/core@7.29.7)(@types/react@19.2.7)(bufferutil@4.1.0)(react@19.2.4)(utf-8-validate@5.0.10))(utf-8-validate@5.0.10))(bufferutil@4.1.0)(utf-8-validate@5.0.10)
       '@1001-digital/wagmi-in-app-wallet':
-        specifier: ^0.1.0
-        version: 0.1.0(@wagmi/core@3.4.6(@tanstack/query-core@5.95.2)(@types/react@19.2.7)(immer@9.0.21)(react@19.2.4)(typescript@5.9.3)(viem@2.48.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)))(viem@2.48.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
+        specifier: ^0.2.0
+        version: 0.2.0(@wagmi/core@3.4.6(@tanstack/query-core@5.95.2)(@types/react@19.2.7)(immer@9.0.21)(react@19.2.4)(typescript@5.9.3)(viem@2.48.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)))(viem@2.48.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
       '@types/qrcode':
         specifier: ^1.5.6
         version: 1.5.6
@@ -233,8 +233,8 @@ packages:
   '@1001-digital/resolve-metadata@1.0.3':
     resolution: {integrity: sha512-lYdw0xNjSUS+2j4OCxkNm3Lizf7drq54I7uZBL0txSBoWebS8PWWbMK9Qb/zNzc+ayfGjVSV6LQaSRc/MRWMmQ==}
 
-  '@1001-digital/wagmi-in-app-wallet@0.1.0':
-    resolution: {integrity: sha512-PrGt0IpR5F6b5tpw+n0b1j/u63WgO1tP/D49hUKu+HGBTXiHQqiJtLRFxsdlFALNj8o747V5IOTcvh3q++6uag==}
+  '@1001-digital/wagmi-in-app-wallet@0.2.0':
+    resolution: {integrity: sha512-FgZPlWH9HvYtU60K9CtvP/zP6gh9s3USxEaSqs2THTp/ZVkq8d7H8iPKfGOsVf7croomFnGhHDlovRPxgGeuuQ==}
     peerDependencies:
       '@wagmi/core': '>=3.0.0'
       viem: '>=2.0.0'
@@ -9855,7 +9855,7 @@ snapshots:
     dependencies:
       '@1001-digital/normalize-dweb-url': 0.1.0
 
-  '@1001-digital/wagmi-in-app-wallet@0.1.0(@wagmi/core@3.4.6(@tanstack/query-core@5.95.2)(@types/react@19.2.7)(immer@9.0.21)(react@19.2.4)(typescript@5.9.3)(viem@2.48.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)))(viem@2.48.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))':
+  '@1001-digital/wagmi-in-app-wallet@0.2.0(@wagmi/core@3.4.6(@tanstack/query-core@5.95.2)(@types/react@19.2.7)(immer@9.0.21)(react@19.2.4)(typescript@5.9.3)(viem@2.48.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)))(viem@2.48.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))':
     dependencies:
       '@wagmi/core': 3.4.6(@tanstack/query-core@5.95.2)(@types/react@19.2.7)(immer@9.0.21)(react@19.2.4)(typescript@5.9.3)(viem@2.48.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76))
       viem: 2.48.4(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)

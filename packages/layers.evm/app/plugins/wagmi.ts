@@ -9,7 +9,7 @@ export default defineNuxtPlugin({
     const appConfig = useAppConfig()
     const runtimeConfig = nuxtApp.$config.public.evm as {
       walletConnectProjectId: string
-      chains: Record<string, { rpcs?: string }>
+      chains: Record<string, { rpcs?: string; smartAccountRpc?: string }>
       ens: { indexers?: string }
     }
 

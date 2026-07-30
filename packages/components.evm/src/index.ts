@@ -29,6 +29,7 @@ export type {
   EvmWalletConnectWalletsProps,
   EvmWalletConnectWalletsEmits,
   TransactionFlowText,
+  TransactionFlowRequestResult,
   EvmTransactionFlowProps,
   EvmTransactionFlowEmits,
   EvmTransactionFlowDialogProps,
@@ -136,7 +137,18 @@ export type {
 } from './composables/siwe'
 
 // Connectors
-export { inAppWallet, prepareInAppWallet } from './connectors/inAppWallet'
+export {
+  clearInAppWalletDelegation,
+  inAppWallet,
+  prepareInAppWallet,
+} from './connectors/inAppWallet'
+export type {
+  DelegationState,
+  InAppWalletParameters,
+  SmartAccountChainParameters,
+  WalletCall,
+  WalletSendCallsRequest,
+} from './connectors/inAppWallet'
 
 export { clientOnlyComponents } from './client-only'
 

@@ -23,6 +23,11 @@ export default defineAppConfig({
 interface EvmChainConfig {
   id?: number
   blockExplorer?: string
+  smartAccount?: {
+    entryPoint?: `0x${string}`
+    implementation?: `0x${string}`
+    paymasterContext?: unknown
+  }
 }
 
 declare module '@nuxt/schema' {

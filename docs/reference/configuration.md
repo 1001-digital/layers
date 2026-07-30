@@ -62,6 +62,14 @@ export default defineAppConfig({
         id: 1,
         blockExplorer: 'https://evm.now',
       },
+      sepolia: {
+        id: 11155111,
+        blockExplorer: 'https://sepolia.etherscan.io',
+        smartAccount: {
+          entryPoint: '0x4337084D9E255Ff0702461CF8895CE9E3b5Ff108',
+          implementation: '0xe6Cae83BdE06E4c305530e199D7217f42808555B',
+        },
+      },
     },
     ens: {
       mode: 'indexer',
@@ -79,18 +87,19 @@ export default defineAppConfig({
 })
 ```
 
-| Key                   | Type                                                      | Purpose                                                 |
-| --------------------- | --------------------------------------------------------- | ------------------------------------------------------- |
-| `title`               | `string`                                                  | App name used by wallet connectors and UI.              |
-| `appLogoUrl`          | `string`                                                  | App logo used by connectors and Safe manifest defaults. |
-| `defaultChain`        | `string`                                                  | Key in `chains` used as the primary chain.              |
-| `chains`              | `Record<string, { id?: number; blockExplorer?: string }>` | Named chain definitions.                                |
-| `ens.mode`            | `'indexer' \| 'chain'`                                    | ENS resolution strategy.                                |
-| `ipfsGateway`         | `string`                                                  | Gateway used to resolve IPFS URLs.                      |
-| `arweaveGateway`      | `string`                                                  | Gateway used to resolve Arweave URLs.                   |
-| `inAppWallet.enabled` | `boolean`                                                 | Enables the integrated in-app wallet connector.         |
-| `safe.description`    | `string`                                                  | Description in `/manifest.json` for Safe.               |
-| `safe.iconPath`       | `string`                                                  | Safe manifest icon path.                                |
+| Key                     | Type                                                                             | Purpose                                                                 |
+| ----------------------- | -------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `title`                 | `string`                                                                         | App name used by wallet connectors and UI.                              |
+| `appLogoUrl`            | `string`                                                                         | App logo used by connectors and Safe manifest defaults.                 |
+| `defaultChain`          | `string`                                                                         | Key in `chains` used as the primary chain.                              |
+| `chains`                | `Record<string, { id?: number; blockExplorer?: string; smartAccount?: object }>` | Named chain definitions.                                                |
+| `ens.mode`              | `'indexer' \| 'chain'`                                                           | ENS resolution strategy.                                                |
+| `ipfsGateway`           | `string`                                                                         | Gateway used to resolve IPFS URLs.                                      |
+| `arweaveGateway`        | `string`                                                                         | Gateway used to resolve Arweave URLs.                                   |
+| `inAppWallet.enabled`   | `boolean`                                                                        | Enables the integrated in-app wallet connector.                         |
+| `chains.*.smartAccount` | `{ entryPoint?, implementation?, paymasterContext? }`                            | Enables EIP-7702 calls when the chain also has a smart-account RPC URL. |
+| `safe.description`      | `string`                                                                         | Description in `/manifest.json` for Safe.                               |
+| `safe.iconPath`         | `string`                                                                         | Safe manifest icon path.                                                |
 
 ## Chain Configuration
 

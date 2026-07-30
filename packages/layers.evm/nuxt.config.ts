@@ -92,7 +92,7 @@ export default defineNuxtConfig({
       evm: {
         walletConnectProjectId: '',
         chains: {
-          mainnet: { rpcs: '' },
+          mainnet: { rpcs: '', smartAccountRpc: '' },
         },
         ens: {
           indexers: '',
