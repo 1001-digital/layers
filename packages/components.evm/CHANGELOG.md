@@ -1,5 +1,13 @@
 # @1001-digital/components.evm
 
+## 3.13.0
+
+### Minor Changes
+
+- [#89](https://github.com/1001-digital/layers/pull/89) [`1d187b4`](https://github.com/1001-digital/layers/commit/1d187b4b195531cf5174a1101049271ac0b1387f) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Make wallet onboarding composable with external-only and in-app-only connector
+  filters, direct create or restore entry points for in-app wallets, and back
+  events that bubble through the connect and SIWE auth wrappers.
+
 ## 3.12.1
 
 ### Patch Changes
