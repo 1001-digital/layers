@@ -1,5 +1,11 @@
 # @1001-digital/components.evm
 
+## 3.14.1
+
+### Patch Changes
+
+- [`014f66c`](https://github.com/1001-digital/layers/commit/014f66cb0850153e9ad0a4ac4ac21b4f0bd30311) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Keep transaction explorer toast links stable after the transaction dialog resets.
+
 ## 3.14.0
 
 ### Minor Changes

@@ -5,6 +5,9 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-07-30
 
+- Keep transaction explorer toast links stable after the transaction dialog resets. [`014f66c`](https://github.com/1001-digital/layers/commit/014f66c)
+  _`components.evm`_
+
 - **Minor** Add EIP-7702 smart-account configuration and sponsored call receipt support for ([#91](https://github.com/1001-digital/layers/pull/91)) [`9ea5d95`](https://github.com/1001-digital/layers/commit/9ea5d95)
   in-app wallets.
   _`components.evm`, `layers.evm`_
@@ -143,12 +146,6 @@ Generated from individual package changelogs — do not edit manually.
 
 - Force Vite to dedupe `@1001-digital/components` and `@1001-digital/components.evm` so injection keys (`EvmConfigKey`, `LinkComponentKey`, `IconAliasesKey`, …) resolve to a single `Symbol(...)` everywhere. Without this, Vite's dep optimizer pre-bundles the bare-specifier import as a separate chunk from the package's own relative-path imports — two module instances, two symbols, and `inject` silently falls back to defaults (in `EvmConfigKey`'s case: a mainnet-only config, which is why every write transaction prompted the wallet to switch to chain 1). [`ad3c686`](https://github.com/1001-digital/layers/commit/ad3c686)
   `exclude` must list both the bare name and its `-original` companion. The new facade re-exports through `@1001-digital/components.evm-original` (and `@1001-digital/components-original` in the base layer); Vite's optimizer scans those as bare specifiers too, and pre-bundling either name creates the same parallel module instance the bare name causes. The combined `resolve.dedupe` + `optimizeDeps.exclude` for both spellings picks the same physical file and keeps everything as source.
-  _`layers.base`, `layers.evm`_
-
-- Fix the component override facade so consumer overrides actually apply. [`11bccd5`](https://github.com/1001-digital/layers/commit/11bccd5)
-  Two bugs in 2.7.19 / 2.0.28:
-  1. **Infinite render recursion.** The proxy was given the same `name` as the original. Vue's `resolveAsset` checks self-name before the global registry, so `resolveComponent(name)` returned the proxy itself, looping until hydration crashed with `Cannot destructure property 'type' of 'vnode' as it is null`. Dropping `name:` from the proxy fixes the recursion.
-  2. **Overrides ignored.** After the recursion fix, `resolveComponent(name)` only finds _globally_ registered components. Nuxt auto-imports `app/components/<Name>.vue` as a named import, not as a global, so the proxy fell through to the package default — the consumer's `app/components/Loading.vue` was never picked up. A new plugin (`app/plugins/components.ts` in each layer) registers each shadowed name on `nuxtApp.vueApp.component()` from `#components`, where the consumer's override has already taken precedence over the layer's package-level file. The proxy's `resolveComponent` now resolves through that global registration.
   _`layers.base`, `layers.evm`_
 
 ## 2026-04-13
@@ -408,6 +405,12 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Add `EvmConnectAuth` and `EvmConnectAuthDialog` for a combined connect + SIWE flow that auto-prompts the signature once the wallet connects, plus an `autoSignIn` prop on `EvmSiwe` that triggers sign-in on mount. [`76b8b30`](https://github.com/1001-digital/layers/commit/76b8b30)
   _`components.evm`, `layers.evm`_
+
+- Fix the component override facade so consumer overrides actually apply. [`11bccd5`](https://github.com/1001-digital/layers/commit/11bccd5)
+  Two bugs in 2.7.19 / 2.0.28:
+  1. **Infinite render recursion.** The proxy was given the same `name` as the original. Vue's `resolveAsset` checks self-name before the global registry, so `resolveComponent(name)` returned the proxy itself, looping until hydration crashed with `Cannot destructure property 'type' of 'vnode' as it is null`. Dropping `name:` from the proxy fixes the recursion.
+  2. **Overrides ignored.** After the recursion fix, `resolveComponent(name)` only finds _globally_ registered components. Nuxt auto-imports `app/components/<Name>.vue` as a named import, not as a global, so the proxy fell through to the package default — the consumer's `app/components/Loading.vue` was never picked up. A new plugin (`app/plugins/components.ts` in each layer) registers each shadowed name on `nuxtApp.vueApp.component()` from `#components`, where the consumer's override has already taken precedence over the layer's package-level file. The proxy's `resolveComponent` now resolves through that global registration.
+  _`layers.base`, `layers.evm`_
 
 - Fix infinite render recursion in the component facade. The proxy was given the same `name` as the original component, but Vue's `resolveAsset` checks self-name before the global registry — so `resolveComponent(name)` returned the proxy itself, looping until hydration crashed with `Cannot destructure property 'type' of 'vnode' as it is null`. Dropping `name:` from the proxy lets the lookup fall through to the Nuxt-registered original (or a consumer override). [`615c8e4`](https://github.com/1001-digital/layers/commit/615c8e4)
   _`layers.base`, `layers.evm`_
