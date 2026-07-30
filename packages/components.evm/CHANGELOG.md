@@ -1,5 +1,12 @@
 # @1001-digital/components.evm
 
+## 3.14.0
+
+### Minor Changes
+
+- [#91](https://github.com/1001-digital/layers/pull/91) [`9ea5d95`](https://github.com/1001-digital/layers/commit/9ea5d952af9d429eb1508201a2a28bd97901e078) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Add EIP-7702 smart-account configuration and sponsored call receipt support for
+  in-app wallets.
+
 ## 3.13.0
 
 ### Minor Changes
