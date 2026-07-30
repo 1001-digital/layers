@@ -1,8 +1,10 @@
 import { inject, type InjectionKey } from 'vue'
+import type { SmartAccountChainParameters } from './connectors/inAppWallet'
 
 export interface EvmChainConfig {
   id: number
   blockExplorer?: string
+  smartAccount?: Omit<SmartAccountChainParameters, 'rpcUrl' | 'fetchOptions'>
 }
 
 export interface EvmConfig {
@@ -17,6 +19,7 @@ export interface EvmConfig {
   ipfsGateway?: string
   arweaveGateway?: string
   rpcUrls?: Record<number, string>
+  smartAccounts?: Record<number, SmartAccountChainParameters>
   baseURL?: string
   walletConnectProjectId?: string
 }

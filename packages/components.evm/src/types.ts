@@ -1,5 +1,7 @@
 import type { Address, Hash, TransactionReceipt } from 'viem'
 
+export type TransactionFlowRequestResult = Hash | { kind: 'calls'; id: string }
+
 // Structurally compatible with @1001-digital/resolve-metadata's TokenMetadata
 // (kept local so consumers don't need that optional peer dep installed to type-check).
 interface TokenMetadata {
@@ -152,7 +154,7 @@ export interface TransactionFlowText {
 export interface EvmTransactionFlowProps {
   chain?: string | number
   text?: TransactionFlowText
-  request?: () => Promise<Hash>
+  request?: () => Promise<TransactionFlowRequestResult>
   delayAfter?: number
   delayAutoclose?: number
   skipConfirmation?: boolean

@@ -26,6 +26,11 @@ import {
 interface ChainEntry {
   id: number
   blockExplorer?: string
+  smartAccount?: {
+    entryPoint?: `0x${string}`
+    implementation?: `0x${string}`
+    paymasterContext?: unknown
+  }
 }
 
 interface CreateOptions {
@@ -33,7 +38,7 @@ interface CreateOptions {
   appLogoUrl?: string
   defaultChain: string
   chains: Record<string, ChainEntry>
-  runtimeChains: Record<string, { rpcs?: string }>
+  runtimeChains: Record<string, { rpcs?: string; smartAccountRpc?: string }>
   walletConnectProjectId?: string
   ensMode?: 'indexer' | 'chain'
   ensIndexers?: string[]
@@ -73,6 +78,7 @@ export function createWagmiConfig(options: CreateOptions): {
   const chains: Chain[] = []
   const transports: Record<number, Transport> = {}
   const rpcUrls: Record<number, string> = {}
+  const smartAccounts: NonNullable<EvmConfig['smartAccounts']> = {}
 
   for (const [key, entry] of sortedEntries) {
     const chain = resolveChain(entry.id)
@@ -87,6 +93,13 @@ export function createWagmiConfig(options: CreateOptions): {
 
     transports[chain.id] = fallback(transportList)
     if (rpcs[0]) rpcUrls[chain.id] = rpcs[0]
+    const smartAccountRpc = runtimeChains[key]?.smartAccountRpc
+    if (smartAccountRpc)
+      smartAccounts[chain.id] = {
+        ...entry.smartAccount,
+        rpcUrl: smartAccountRpc,
+        fetchOptions: { credentials: 'include' },
+      }
   }
 
   // Connectors
@@ -121,7 +134,12 @@ export function createWagmiConfig(options: CreateOptions): {
       }),
     )
 
-  if (inAppWalletEnabled) connectors.push(inAppWallet())
+  if (inAppWalletEnabled)
+    connectors.push(
+      inAppWallet({
+        smartAccounts,
+      }),
+    )
 
   const wagmiConfig: Config = createConfig({
     chains: chains as [Chain, ...Chain[]],
@@ -153,6 +171,7 @@ export function createWagmiConfig(options: CreateOptions): {
     ipfsGateway,
     arweaveGateway,
     rpcUrls,
+    smartAccounts,
     baseURL,
     walletConnectProjectId,
   }

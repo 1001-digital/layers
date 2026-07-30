@@ -1,12 +1,23 @@
 import { ref, computed, watch, toValue, onBeforeUnmount } from 'vue'
 import type { MaybeRefOrGetter } from 'vue'
-import { waitForTransactionReceipt, watchChainId } from '@wagmi/core'
+import {
+  waitForCallsStatus,
+  waitForTransactionReceipt,
+  watchChainId,
+} from '@wagmi/core'
 import { useConfig, useConnection, type Config } from '@wagmi/vue'
 import type { TransactionReceipt, Hash } from 'viem'
 import { useToast, delay } from '@1001-digital/components'
 import { useEnsureChainIdCheck, useBlockExplorer } from './chainId'
 import { isUserRejection } from '../utils/errors'
-import type { TransactionFlowText } from '../types'
+import type {
+  TransactionFlowRequestResult,
+  TransactionFlowText,
+} from '../types'
+import {
+  getCallsTransactionHash,
+  isCallsResult,
+} from '../utils/transaction-result'
 
 export const TRANSACTION_FLOW_STEPS = [
   'idle',
@@ -23,7 +34,9 @@ export type TransactionFlowStep = (typeof TRANSACTION_FLOW_STEPS)[number]
 export interface TransactionFlowOptions {
   chain?: MaybeRefOrGetter<string | number | undefined>
   text?: MaybeRefOrGetter<TransactionFlowText | undefined>
-  request?: MaybeRefOrGetter<(() => Promise<Hash>) | undefined>
+  request?: MaybeRefOrGetter<
+    (() => Promise<TransactionFlowRequestResult>) | undefined
+  >
   delayAfter?: MaybeRefOrGetter<number | undefined>
   delayAutoclose?: MaybeRefOrGetter<number | undefined>
   skipConfirmation?: MaybeRefOrGetter<boolean | undefined>
@@ -71,6 +84,7 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
   const step = ref<TransactionFlowStep>('idle')
   const error = ref('')
   const tx = ref<Hash | null>(null)
+  const callsId = ref<string | null>(null)
   const receipt = ref<TransactionReceipt | null>(null)
   const txLink = computed(() => `${blockExplorer}/tx/${tx.value}`)
 
@@ -117,6 +131,7 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
     cachedRequest.value = request
     error.value = ''
     tx.value = null
+    callsId.value = null
     receipt.value = null
     step.value = 'confirm'
 
@@ -128,7 +143,9 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
     // Phase 1: Signing
     try {
       step.value = 'requesting'
-      tx.value = await request!()
+      const result = await request!()
+      if (isCallsResult(result)) callsId.value = result.id
+      else tx.value = result
     } catch (e: unknown) {
       if (isUserRejection(e)) {
         error.value = 'Transaction rejected by user.'
@@ -145,15 +162,29 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
     const delayAfter = toValue(options.delayAfter) ?? 2000
     const delayAutoclose = toValue(options.delayAutoclose) ?? 2000
     const autoCloseSuccess = toValue(options.autoCloseSuccess) ?? true
+    const waitForReceipt = async () => {
+      if (!callsId.value)
+        return waitForTransactionReceipt(wagmiConfig as Config, {
+          hash: tx.value!,
+        })
+
+      const status = await waitForCallsStatus(wagmiConfig as Config, {
+        connector: connector.value,
+        id: callsId.value,
+        throwOnFailure: true,
+        timeout: 120_000,
+      })
+      tx.value = getCallsTransactionHash(status)
+      return waitForTransactionReceipt(wagmiConfig as Config, {
+        hash: tx.value,
+      })
+    }
 
     if (keepOpen) {
       step.value = 'waiting'
 
       try {
-        const receiptObject = await waitForTransactionReceipt(
-          wagmiConfig as Config,
-          { hash: tx.value },
-        )
+        const receiptObject = await waitForReceipt()
         await delay(delayAfter)
         receipt.value = receiptObject
         step.value = 'complete'
@@ -172,7 +203,6 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
     } else {
       step.value = 'idle'
 
-      const link = `${blockExplorer}/tx/${tx.value}`
       const toastId = toast.add({
         variant: 'info',
         title: text.value.title.waiting,
@@ -180,11 +210,13 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
         duration: Infinity,
         loading: true,
         progress: 0,
-        action: {
-          label: text.value.action.viewOnExplorer!,
-          onClick: () => window.open(link, '_blank'),
-          persistent: true,
-        },
+        ...(tx.value && {
+          action: {
+            label: text.value.action.viewOnExplorer!,
+            onClick: () => window.open(txLink.value, '_blank'),
+            persistent: true,
+          },
+        }),
       })
 
       const startTime = Date.now()
@@ -196,10 +228,7 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
       }, 500)
 
       try {
-        const receiptObject = await waitForTransactionReceipt(
-          wagmiConfig as Config,
-          { hash: tx.value },
-        )
+        const receiptObject = await waitForReceipt()
         clearInterval(progressTimer)
         toast.update(toastId, { progress: 100, loading: false })
         await delay(delayAfter)
@@ -210,6 +239,11 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
           title: text.value.title.complete,
           description: text.value.lead.complete,
           progress: false,
+          action: {
+            label: text.value.action.viewOnExplorer!,
+            onClick: () => window.open(txLink.value, '_blank'),
+            persistent: true,
+          },
           ...(autoCloseSuccess && { duration: delayAutoclose }),
         })
       } catch (e: unknown) {
@@ -253,6 +287,7 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
     step.value = 'idle'
     error.value = ''
     tx.value = null
+    callsId.value = null
     receipt.value = null
   }
 
@@ -260,6 +295,7 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
     step,
     error,
     tx,
+    callsId,
     receipt,
     txLink,
     text,

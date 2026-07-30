@@ -97,6 +97,7 @@ export default defineNuxtConfig({
 ```bash
 NUXT_PUBLIC_EVM_WALLET_CONNECT_PROJECT_ID=...
 NUXT_PUBLIC_EVM_CHAINS_SEPOLIA_RPCS="https://rpc1.example https://rpc2.example"
+NUXT_PUBLIC_EVM_CHAINS_SEPOLIA_SMART_ACCOUNT_RPC="https://api.example/11x11/smart-account/rpc"
 NUXT_PUBLIC_EVM_CHAINS_BASE_RPCS="https://base-rpc.example"
 NUXT_PUBLIC_EVM_ENS_INDEXERS="https://ens-indexer.example"
 ```

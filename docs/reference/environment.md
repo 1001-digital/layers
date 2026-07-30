@@ -4,13 +4,14 @@ Nuxt maps environment variables into `runtimeConfig` when the corresponding runt
 
 ## Common Variables
 
-| Variable                                    | Runtime config key                  | Purpose                                         |
-| ------------------------------------------- | ----------------------------------- | ----------------------------------------------- |
-| `NUXT_PUBLIC_EVM_WALLET_CONNECT_PROJECT_ID` | `public.evm.walletConnectProjectId` | Enables WalletConnect.                          |
-| `NUXT_PUBLIC_EVM_CHAINS_MAINNET_RPCS`       | `public.evm.chains.mainnet.rpcs`    | Space-separated mainnet RPC URLs.               |
-| `NUXT_PUBLIC_EVM_CHAINS_SEPOLIA_RPCS`       | `public.evm.chains.sepolia.rpcs`    | Space-separated sepolia RPC URLs when declared. |
-| `NUXT_PUBLIC_EVM_ENS_INDEXERS`              | `public.evm.ens.indexers`           | Space-separated ENS indexer base URLs.          |
-| `NUXT_SSR`                                  | `ssr`                               | Set to `false` to disable SSR in the EVM layer. |
+| Variable                                           | Runtime config key                          | Purpose                                              |
+| -------------------------------------------------- | ------------------------------------------- | ---------------------------------------------------- |
+| `NUXT_PUBLIC_EVM_WALLET_CONNECT_PROJECT_ID`        | `public.evm.walletConnectProjectId`         | Enables WalletConnect.                               |
+| `NUXT_PUBLIC_EVM_CHAINS_MAINNET_RPCS`              | `public.evm.chains.mainnet.rpcs`            | Space-separated mainnet RPC URLs.                    |
+| `NUXT_PUBLIC_EVM_CHAINS_SEPOLIA_RPCS`              | `public.evm.chains.sepolia.rpcs`            | Space-separated sepolia RPC URLs when declared.      |
+| `NUXT_PUBLIC_EVM_CHAINS_SEPOLIA_SMART_ACCOUNT_RPC` | `public.evm.chains.sepolia.smartAccountRpc` | Authenticated EIP-7702 bundler/paymaster broker URL. |
+| `NUXT_PUBLIC_EVM_ENS_INDEXERS`                     | `public.evm.ens.indexers`                   | Space-separated ENS indexer base URLs.               |
+| `NUXT_SSR`                                         | `ssr`                                       | Set to `false` to disable SSR in the EVM layer.      |
 
 ## Example
 
