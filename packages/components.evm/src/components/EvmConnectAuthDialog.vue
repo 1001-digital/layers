@@ -34,8 +34,11 @@
       :resources="resources"
       :request-id="requestId"
       :expiration-time="expirationTime"
+      :connector-filter="connectorFilter"
+      :in-app-wallet-initial-step="inAppWalletInitialStep"
       @authenticated="onAuthenticated"
       @error="(e) => emit('error', e)"
+      @back="emit('back')"
     >
       <template #error-actions>
         <slot name="error-actions" />

@@ -2,8 +2,11 @@
   <EvmConnect
     v-if="!isConnected"
     ref="connectRef"
+    :connector-filter="connectorFilter"
+    :in-app-wallet-initial-step="inAppWalletInitialStep"
     @connecting="emit('connecting')"
     @connected="onConnected"
+    @back="emit('back')"
   />
   <EvmSiwe
     v-else-if="!isAuthenticated"

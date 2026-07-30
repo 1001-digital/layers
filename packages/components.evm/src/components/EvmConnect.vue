@@ -1,9 +1,23 @@
 <template>
-  <EvmInAppWalletSetup
-    v-if="showInAppSetup"
-    @connected="onInAppConnected"
-    @back="showInAppSetup = false"
-  />
+  <template v-if="showInAppSetup">
+    <EvmInAppWalletSetup
+      v-if="inAppConnector"
+      :key="inAppSetupKey"
+      :initial-step="inAppWalletInitialStep"
+      @connected="onInAppConnected"
+      @back="onInAppBack"
+    />
+    <template v-else>
+      <Alert type="error">In-app wallet is unavailable.</Alert>
+      <Button
+        class="link muted small"
+        @click="onInAppBack"
+      >
+        <Icon name="chevron-left" />
+        <span>Back</span>
+      </Button>
+    </template>
+  </template>
   <template v-else-if="errorMessage">
     <Alert type="error">
       {{ errorMessage }}
@@ -38,7 +52,7 @@
     class="wallet-options"
   >
     <Button
-      v-for="connector in shownConnectors"
+      v-for="connector in showExternalWallets ? shownConnectors : []"
       :key="connector.uid"
       @click="() => login(connector)"
       class="block choose-connector"
@@ -57,7 +71,7 @@
       <span>{{ connector.name }}</span>
     </Button>
     <Button
-      v-if="wcConnector"
+      v-if="showExternalWallets && wcConnector"
       @click="loginWithSafe"
       class="block choose-connector"
     >
@@ -68,7 +82,7 @@
       <span>Safe</span>
     </Button>
     <Button
-      v-if="inAppConnector"
+      v-if="showInAppWallet && inAppConnector"
       @click="
         () => {
           emit('connecting')
@@ -84,6 +98,7 @@
       <span>In App</span>
     </Button>
     <Button
+      v-if="showExternalWallets"
       to="https://ethereum.org/wallets/"
       target="_blank"
       class="link muted small"
@@ -95,7 +110,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import type { Connector } from '@wagmi/vue'
 import {
   useConnect,
@@ -110,7 +125,7 @@ import { Button, Icon, Alert, Loading } from '@1001-digital/components'
 import EvmMetaMaskQR from './EvmMetaMaskQR.vue'
 import EvmWalletConnectWallets from './EvmWalletConnectWallets.vue'
 import EvmInAppWalletSetup from './EvmInAppWalletSetup.vue'
-import type { EvmConnectEmits } from '../types'
+import type { EvmConnectProps, EvmConnectEmits } from '../types'
 
 import coinbaseIcon from '../assets/wallets/coinbase.svg'
 import metamaskIcon from '../assets/wallets/metamask.svg'
@@ -137,6 +152,10 @@ const PRIORITY: Record<string, number> = {
   'Base Account': 10,
 }
 
+const props = withDefaults(defineProps<EvmConnectProps>(), {
+  connectorFilter: 'all',
+  inAppWalletInitialStep: 'choose',
+})
 const emit = defineEmits<EvmConnectEmits>()
 
 const chainId = useChainId()
@@ -146,7 +165,10 @@ const { mutateAsync: connectAsync } = useConnect()
 const inAppConnector = computed(() =>
   connectors.value.find((c) => c.type === 'inAppWallet'),
 )
-const showInAppSetup = ref(false)
+const showExternalWallets = computed(() => props.connectorFilter !== 'in-app')
+const showInAppWallet = computed(() => props.connectorFilter !== 'external')
+const showInAppSetup = ref(props.connectorFilter === 'in-app')
+const inAppSetupKey = ref(0)
 
 const shownConnectors = computed(() => {
   const unique = Array.from(
@@ -273,10 +295,28 @@ const onInAppConnected = () => {
   emit('connected')
 }
 
-const reset = () => {
-  resetConnection()
+const onInAppBack = () => {
+  if (props.connectorFilter === 'in-app') {
+    emit('back')
+    return
+  }
   showInAppSetup.value = false
 }
+
+const reset = () => {
+  resetConnection()
+  inAppSetupKey.value += 1
+  showInAppSetup.value = props.connectorFilter === 'in-app'
+}
+
+watch(
+  () => props.connectorFilter,
+  (connectorFilter) => {
+    resetConnection()
+    inAppSetupKey.value += 1
+    showInAppSetup.value = connectorFilter === 'in-app'
+  },
+)
 
 defineExpose({ reset })
 </script>
