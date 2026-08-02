@@ -1,5 +1,12 @@
 # @1001-digital/components.evm
 
+## 3.15.0
+
+### Minor Changes
+
+- [#94](https://github.com/1001-digital/layers/pull/94) [`2076e7f`](https://github.com/1001-digital/layers/commit/2076e7f7f68ec4c9703f9039131e1ed282ff028f) Thanks [@yougogirldoteth](https://github.com/yougogirldoteth)! - Keep artifact names such as `_` from being interpreted as Vue slot names, and
+  expose them to custom artifact slots as `artifactName`.
+
 ## 3.14.1
 
 ### Patch Changes
