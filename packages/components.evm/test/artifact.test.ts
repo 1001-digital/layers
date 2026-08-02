@@ -5,6 +5,7 @@ import {
   compile,
   createSSRApp,
   defineComponent,
+  h,
   type RenderFunction,
 } from 'vue'
 import { renderToString } from 'vue/server-renderer'
@@ -27,10 +28,15 @@ function compileArtifactTemplate() {
 }
 
 describe('EvmArtifact', () => {
-  it('renders an artifact named _ without treating its name as a slot', async () => {
+  it('passes an artifact named _ to the static slot', async () => {
     const renderArtifact = compileArtifactTemplate()
     const context = {
-      $slots: { _: 1 },
+      $slots: {
+        _: 1,
+        static: ({ artifactName }: { artifactName: string }) => [
+          h('span', { 'data-artifact-name': artifactName }, artifactName),
+        ],
+      },
       rootStyle: {},
       isAnimationRenderer: false,
       renderer: 'static',
@@ -50,6 +56,6 @@ describe('EvmArtifact', () => {
 
     const html = await renderToString(app)
 
-    assert.match(html, /<img src="https:\/\/example.com\/cover.jpg" alt="_">/)
+    assert.match(html, /<span data-artifact-name="_">_<\/span>/)
   })
 })
