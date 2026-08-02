@@ -8,7 +8,7 @@
       name="animation"
       :src="resolvedAnimationUrl"
       :media-type="mediaType ?? undefined"
-      :name="resolvedName ?? undefined"
+      v-bind="{ name: resolvedName ?? undefined }"
       :poster="resolvedImage ?? undefined"
       :controls="controls"
       :muted="muted"
@@ -69,7 +69,7 @@
       v-else-if="renderer === 'static'"
       name="static"
       :src="resolvedImage"
-      :name="resolvedName ?? undefined"
+      v-bind="{ name: resolvedName ?? undefined }"
     >
       <img
         :src="resolvedImage"
@@ -80,7 +80,7 @@
     <slot
       v-else
       name="fallback"
-      :name="resolvedName ?? undefined"
+      v-bind="{ name: resolvedName ?? undefined }"
       :error="lastError"
     >
       <div class="artifact-fallback">{{ resolvedName ?? 'Untitled' }}</div>
