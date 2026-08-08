@@ -5,6 +5,9 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-08-08
 
+- Fix Nuxt 4.5 type checking for seed phrase input refs and replace obsolete CSS mixin directives with standard declarations. [`8b4c5ab`](https://github.com/1001-digital/layers/commit/8b4c5ab)
+  _`components.evm`_
+
 - **Breaking** SIWE: surface a structured, machine-readable error so consumers can identify the underlying failure. [`ebccef6`](https://github.com/1001-digital/layers/commit/ebccef6)
   - `useSiwe()` now exposes an `error` ref of shape `SiweError { code, message, rpcCode?, cause? }`. `code` is a stable `SiweErrorCode` (`not-connected`, `server-environment`, `nonce-request-failed`, `chain-switch-failed`, `user-rejected`, `sign-failed`, `verification-failed`) safe to branch on; `rpcCode` is the underlying EIP-1193 / JSON-RPC code from the wallet (e.g. `-32603`, `4001`); `cause` is the original error, also logged to the console.
   - Wallet signing failures with JSON-RPC `-32603` now show safe, actionable troubleshooting guidance instead of the opaque provider string.
@@ -155,11 +158,6 @@ Generated from individual package changelogs — do not edit manually.
   complete the mainnet+testnet pairs already shipped; and Hardhat (31337) covers
   the common local-dev chain id (viem's `localhost` is only 1337).
   _`components.evm`_
-
-## 2026-05-27
-
-- Set explicit `block-size: var(--form-item-height)` on `FormItem` prefix/suffix instead of relying on `block-size: 100%`, so they render at the correct height regardless of the parent's resolved block size. [`722a1bc`](https://github.com/1001-digital/layers/commit/722a1bc)
-  _`components`_
 
 ## 2026-04-13
 
@@ -349,6 +347,9 @@ Generated from individual package changelogs — do not edit manually.
   _`styles`_
 
 ## Unknown
+
+- Set explicit `block-size: var(--form-item-height)` on `FormItem` prefix/suffix instead of relying on `block-size: 100%`, so they render at the correct height regardless of the parent's resolved block size. [`722a1bc`](https://github.com/1001-digital/layers/commit/722a1bc)
+  _`components`_
 
 - Use `Symbol.for` for `LinkComponentKey` and `IconAliasesKey` so provide/inject identity survives Vite serving the same source file at two URLs. The previous fix (deduping `@1001-digital/components` and importing keys from deep subpaths) wasn't enough — Vite's dev server still appends `?v=<hash>` to imports of `src/base/link.ts` and `src/base/icons.ts` when the importer is inside the components package, but not when imported from a layer plugin. Two URLs evaluate the module twice and produce two `Symbol(...)` values, so `inject` silently falls back to defaults — `<Button to="…">` rendered as a plain `<a>` (full reload on click), and `<Icon>` aliases configured in the consumer were ignored. [`ca4e516`](https://github.com/1001-digital/layers/commit/ca4e516)
   `Symbol.for` interns the symbol on the global registry, so all module instances resolve to the same key.
