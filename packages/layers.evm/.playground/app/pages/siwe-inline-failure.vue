@@ -29,7 +29,6 @@
 </template>
 
 <script setup lang="ts">
-import type { SiweError } from '@1001-digital/components.evm'
 const onError = (error: SiweError) => {
   console.error(
     'SIWE error:',

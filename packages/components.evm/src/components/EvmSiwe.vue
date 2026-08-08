@@ -23,7 +23,7 @@
       >
         <small
           >{{ error.code
-          }}<template v-if="error.rpcCode">
+          }}<template v-if="error.rpcCode !== undefined">
             · {{ error.rpcCode }}</template
           ></small
         >

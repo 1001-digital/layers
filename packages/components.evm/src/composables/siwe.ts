@@ -42,18 +42,17 @@ export interface SiweError {
 }
 
 /**
- * Turn a wallet signing failure into a user-facing message. Hardware wallets
- * (Ledger, Trezor) surface `-32603` "internal error" when the on-device app
- * can't process the request — most often an outdated Ethereum app or blind
- * signing being disabled. Give those users an actionable hint instead of the
- * opaque provider string.
+ * Turn a wallet signing failure into a user-facing message. `-32603` is a
+ * generic provider error, but hardware wallets can surface it when their
+ * on-device app cannot process the request. Offer safe troubleshooting while
+ * retaining the original error for support and telemetry.
  */
 function describeSignError(
   rpcCode: number | undefined,
   fallback: string | undefined,
 ): string {
   if (rpcCode === -32603) {
-    return "Your wallet returned an internal error. If you're using a hardware wallet like Ledger, update its Ethereum app and enable Blind signing, then try again."
+    return "Your wallet returned an internal error. Reconnect it and try again. If you're using a hardware wallet, update its Ethereum app. If the problem continues, follow your wallet's troubleshooting guidance."
   }
   return fallback || 'Failed to sign message.'
 }
@@ -106,12 +105,15 @@ export const useSiwe = () => {
     code: SiweErrorCode,
     message: string,
     cause?: unknown,
+    rpcCode?: number,
   ): undefined => {
-    const rpcCode = cause === undefined ? undefined : getRpcErrorCode(cause)
     error.value = { code, message, rpcCode, cause }
     step.value = 'error'
     if (cause !== undefined) {
-      console.error(`[siwe] ${code}${rpcCode ? ` (${rpcCode})` : ''}`, cause)
+      console.error(
+        `[siwe] ${code}${rpcCode !== undefined ? ` (${rpcCode})` : ''}`,
+        cause,
+      )
     }
     return undefined
   }
@@ -182,10 +184,12 @@ export const useSiwe = () => {
         await switchChain({ chainId: currentChainId })
       }
     } catch (e) {
+      const rpcCode = getRpcErrorCode(e)
       return fail(
         'chain-switch-failed',
         'Failed to switch to the required network.',
         e,
+        rpcCode,
       )
     }
 
@@ -210,7 +214,12 @@ export const useSiwe = () => {
       signature = await signMessage(config as Config, { message })
     } catch (e: unknown) {
       if (isUserRejection(e)) {
-        return fail('user-rejected', 'Signature rejected by user.', e)
+        return fail(
+          'user-rejected',
+          'Signature rejected by user.',
+          e,
+          getRpcErrorCode(e),
+        )
       }
       const err = e as { shortMessage?: string; message?: string }
       const rpcCode = getRpcErrorCode(e)
@@ -218,6 +227,7 @@ export const useSiwe = () => {
         'sign-failed',
         describeSignError(rpcCode, err.shortMessage || err.message),
         e,
+        rpcCode,
       )
     }
 

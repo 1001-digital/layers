@@ -88,7 +88,6 @@
 </template>
 
 <script setup lang="ts">
-import type { SiweError } from '@1001-digital/components.evm'
 const shortAddress = (addr?: `0x${string}`) =>
   addr ? `${addr.slice(0, 6)}…${addr.slice(-4)}` : ''
 

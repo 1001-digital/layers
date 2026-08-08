@@ -30,7 +30,6 @@
 </template>
 
 <script setup lang="ts">
-import type { SiweError } from '@1001-digital/components.evm'
 const onAuthenticated = (data: { address: `0x${string}`; chainId: number }) => {
   console.log('SIWE authenticated:', data)
 }
