@@ -10,11 +10,7 @@
         <label :for="`seed-word-${i}`">{{ i + 1 }}</label>
         <input
           :id="`seed-word-${i}`"
-          :ref="
-            (el) => {
-              if (el) inputRefs[i] = el as HTMLInputElement
-            }
-          "
+          :ref="(el) => setInputRef(el, i)"
           v-model="words[i]"
           type="text"
           autocomplete="off"
@@ -32,6 +28,7 @@
 
 <script setup lang="ts">
 import { ref, watch, computed, onMounted } from 'vue'
+import type { ComponentPublicInstance } from 'vue'
 import { english } from 'viem/accounts'
 import type { EvmSeedPhraseInputProps, EvmSeedPhraseInputEmits } from '../types'
 
@@ -42,7 +39,17 @@ const emit = defineEmits<EvmSeedPhraseInputEmits>()
 const wordSet = new Set(english)
 
 const words = ref<string[]>(Array.from({ length: 12 }, () => ''))
-const inputRefs = ref<HTMLInputElement[]>([])
+// Template refs are imperative DOM handles, so they do not need Vue's deep
+// reactivity. Keeping them in a plain array also avoids deeply unwrapping DOM
+// types, which newer Vue tooling correctly rejects as incompatible.
+const inputRefs: HTMLInputElement[] = []
+
+function setInputRef(
+  element: Element | ComponentPublicInstance | null,
+  index: number,
+) {
+  if (element) inputRefs[index] = element as HTMLInputElement
+}
 
 function isValidWord(word: string): boolean {
   return wordSet.has(word.trim().toLowerCase())
@@ -79,7 +86,7 @@ watch(isValid, (val) => {
 })
 
 function focusInput(index: number) {
-  const el = inputRefs.value[index]
+  const el = inputRefs[index]
   if (el) {
     el.focus()
     el.select()

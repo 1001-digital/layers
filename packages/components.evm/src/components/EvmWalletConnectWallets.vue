@@ -139,7 +139,11 @@ onMounted(() => {
   display: flex;
   align-items: center;
   gap: var(--spacer-sm);
-  @mixin ui-font;
+  font-family: var(--ui-font-family);
+  font-weight: var(--ui-font-weight);
+  text-transform: var(--ui-text-transform);
+  letter-spacing: var(--ui-letter-spacing);
+  line-height: var(--ui-line-height);
   color: var(--muted);
   font-size: var(--font-sm);
 
@@ -191,7 +195,12 @@ onMounted(() => {
 /* Empty state */
 .empty-state {
   text-align: center;
-  @mixin ui-font;
+  font-family: var(--ui-font-family);
+  font-size: var(--ui-font-size);
+  font-weight: var(--ui-font-weight);
+  text-transform: var(--ui-text-transform);
+  letter-spacing: var(--ui-letter-spacing);
+  line-height: var(--ui-line-height);
   color: var(--muted);
 }
 </style>
