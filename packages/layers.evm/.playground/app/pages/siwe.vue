@@ -88,6 +88,7 @@
 </template>
 
 <script setup lang="ts">
+import type { SiweError } from '@1001-digital/components.evm'
 const shortAddress = (addr?: `0x${string}`) =>
   addr ? `${addr.slice(0, 6)}…${addr.slice(-4)}` : ''
 
@@ -99,8 +100,14 @@ const onSignedOut = () => {
   console.log('SIWE signed out')
 }
 
-const onError = (error: string) => {
-  console.error('SIWE error:', error)
+const onError = (error: SiweError) => {
+  console.error(
+    'SIWE error:',
+    error.code,
+    error.rpcCode,
+    error.message,
+    error.cause,
+  )
 }
 </script>
 

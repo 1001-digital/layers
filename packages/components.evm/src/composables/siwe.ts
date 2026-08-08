@@ -3,7 +3,7 @@ import { signMessage } from '@wagmi/core'
 import { useConfig, useConnection, useSwitchChain } from '@wagmi/vue'
 import type { Config } from '@wagmi/vue'
 import { createSiweMessage, type SiweMessageParams } from '../utils/siwe'
-import { isUserRejection } from '../utils/errors'
+import { getRpcErrorCode, isUserRejection } from '../utils/errors'
 
 export interface SiweSession {
   address: `0x${string}`
@@ -11,6 +11,52 @@ export interface SiweSession {
 }
 
 export type SiweStep = 'idle' | 'signing' | 'verifying' | 'complete' | 'error'
+
+/**
+ * Stable, machine-readable identifier for each failure point in the SIWE
+ * flow. Prefer switching on this over matching the human-readable
+ * `SiweError.message`, which is not part of the contract and may change.
+ */
+export type SiweErrorCode =
+  | 'not-connected'
+  | 'server-environment'
+  | 'nonce-request-failed'
+  | 'chain-switch-failed'
+  | 'user-rejected'
+  | 'sign-failed'
+  | 'verification-failed'
+
+export interface SiweError {
+  /** Stable identifier for the failure point — safe to branch on. */
+  code: SiweErrorCode
+  /** Human-readable message, suitable for display. */
+  message: string
+  /**
+   * Underlying EIP-1193 / JSON-RPC error code from the wallet, when the
+   * failure originated there (e.g. `-32603` internal error, `4001`
+   * user-rejected). Undefined for failures that never reached the wallet.
+   */
+  rpcCode?: number
+  /** The original thrown error, retained for logging/telemetry. */
+  cause?: unknown
+}
+
+/**
+ * Turn a wallet signing failure into a user-facing message. Hardware wallets
+ * (Ledger, Trezor) surface `-32603` "internal error" when the on-device app
+ * can't process the request — most often an outdated Ethereum app or blind
+ * signing being disabled. Give those users an actionable hint instead of the
+ * opaque provider string.
+ */
+function describeSignError(
+  rpcCode: number | undefined,
+  fallback: string | undefined,
+): string {
+  if (rpcCode === -32603) {
+    return "Your wallet returned an internal error. If you're using a hardware wallet like Ledger, update its Ethereum app and enable Blind signing, then try again."
+  }
+  return fallback || 'Failed to sign message.'
+}
 
 export interface SiweSignInOptions {
   getNonce: () => Promise<string>
@@ -46,7 +92,29 @@ export const useSiwe = () => {
   const { mutateAsync: switchChain } = useSwitchChain()
 
   const step = ref<SiweStep>('idle')
-  const errorMessage = ref('')
+  const error = ref<SiweError | null>(null)
+  // Kept as a convenience/back-compat view over `error` for templates that
+  // only need the display string.
+  const errorMessage = computed(() => error.value?.message ?? '')
+
+  /**
+   * Record a failure: set the structured error, flip to the error step, and
+   * log the underlying cause so the real provider error is recoverable from
+   * the console/telemetry even though the UI only shows `message`.
+   */
+  const fail = (
+    code: SiweErrorCode,
+    message: string,
+    cause?: unknown,
+  ): undefined => {
+    const rpcCode = cause === undefined ? undefined : getRpcErrorCode(cause)
+    error.value = { code, message, rpcCode, cause }
+    step.value = 'error'
+    if (cause !== undefined) {
+      console.error(`[siwe] ${code}${rpcCode ? ` (${rpcCode})` : ''}`, cause)
+    }
+    return undefined
+  }
 
   const statusText = computed(() => {
     switch (step.value) {
@@ -73,7 +141,7 @@ export const useSiwe = () => {
 
   const reset = () => {
     step.value = 'idle'
-    errorMessage.value = ''
+    error.value = null
   }
 
   const signIn = async (
@@ -83,27 +151,28 @@ export const useSiwe = () => {
     const currentChainId = chainId.value
 
     if (!currentAddress || !currentChainId) {
-      errorMessage.value = 'Wallet not connected.'
-      step.value = 'error'
-      return
+      return fail('not-connected', 'Wallet not connected.')
     }
 
-    errorMessage.value = ''
+    error.value = null
 
     if (import.meta.server) {
-      errorMessage.value = 'SIWE sign-in requires a browser environment.'
-      step.value = 'error'
-      return
+      return fail(
+        'server-environment',
+        'SIWE sign-in requires a browser environment.',
+      )
     }
 
     // Get nonce
     let nonce: string
     try {
       nonce = await options.getNonce()
-    } catch {
-      errorMessage.value = 'Failed to get authentication nonce.'
-      step.value = 'error'
-      return
+    } catch (e) {
+      return fail(
+        'nonce-request-failed',
+        'Failed to get authentication nonce.',
+        e,
+      )
     }
 
     // Ensure the connector is on the correct chain
@@ -112,10 +181,12 @@ export const useSiwe = () => {
       if (connectorChainId && connectorChainId !== currentChainId) {
         await switchChain({ chainId: currentChainId })
       }
-    } catch {
-      errorMessage.value = 'Failed to switch to the required network.'
-      step.value = 'error'
-      return
+    } catch (e) {
+      return fail(
+        'chain-switch-failed',
+        'Failed to switch to the required network.',
+        e,
+      )
     }
 
     // Sign message
@@ -139,14 +210,15 @@ export const useSiwe = () => {
       signature = await signMessage(config as Config, { message })
     } catch (e: unknown) {
       if (isUserRejection(e)) {
-        errorMessage.value = 'Signature rejected by user.'
-      } else {
-        const err = e as { shortMessage?: string; message?: string }
-        errorMessage.value =
-          err.shortMessage || err.message || 'Failed to sign message.'
+        return fail('user-rejected', 'Signature rejected by user.', e)
       }
-      step.value = 'error'
-      return
+      const err = e as { shortMessage?: string; message?: string }
+      const rpcCode = getRpcErrorCode(e)
+      return fail(
+        'sign-failed',
+        describeSignError(rpcCode, err.shortMessage || err.message),
+        e,
+      )
     }
 
     // Verify with backend
@@ -159,9 +231,11 @@ export const useSiwe = () => {
       }
     } catch (e: unknown) {
       const err = e as { message?: string }
-      errorMessage.value = err.message || 'Verification failed.'
-      step.value = 'error'
-      return
+      return fail(
+        'verification-failed',
+        err.message || 'Verification failed.',
+        e,
+      )
     }
 
     step.value = 'complete'
@@ -182,7 +256,8 @@ export const useSiwe = () => {
   return {
     // State
     step: readonly(step),
-    errorMessage: readonly(errorMessage),
+    error: readonly(error),
+    errorMessage,
     statusText,
 
     // Session

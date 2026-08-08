@@ -29,6 +29,11 @@ export function createSiweMessage(params: SiweMessageParams): string {
     resources,
   } = params
 
+  // EIP-4361 ABNF: `address LF, LF, [statement LF], LF, "URI:"…`. The blank
+  // line separating the (optional) statement block from the URI field is
+  // always present — so an omitted statement still leaves two blank lines
+  // between the address and `URI:`. Emitting only one produces a non-canonical
+  // message that strict on-device parsers (e.g. Ledger's clear-signing) reject.
   const lines: string[] = [
     `${domain} wants you to sign in with your Ethereum account:`,
     address,
@@ -36,8 +41,9 @@ export function createSiweMessage(params: SiweMessageParams): string {
   ]
 
   if (statement) {
-    lines.push(statement, '')
+    lines.push(statement)
   }
+  lines.push('')
 
   lines.push(
     `URI: ${uri}`,

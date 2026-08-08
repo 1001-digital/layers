@@ -1,4 +1,5 @@
 import type { Address, Hash, TransactionReceipt } from 'viem'
+import type { SiweError } from './composables/siwe'
 
 export type TransactionFlowRequestResult = Hash | { kind: 'calls'; id: string }
 
@@ -296,7 +297,7 @@ export interface EvmSiweProps {
 
 export interface EvmSiweEmits {
   authenticated: [{ address: `0x${string}`; chainId: number }]
-  error: [error: string]
+  error: [error: SiweError]
 }
 
 // EvmSidebarProfile
@@ -312,7 +313,7 @@ export interface EvmSiweDialogProps extends EvmSiweProps {
 export interface EvmSiweDialogEmits {
   authenticated: [{ address: `0x${string}`; chainId: number }]
   signedOut: []
-  error: [error: string]
+  error: [error: SiweError]
 }
 
 // EvmConnectAuth
@@ -323,7 +324,7 @@ export interface EvmConnectAuthEmits {
   connected: [{ address: `0x${string}` | undefined }]
   authenticated: [{ address: `0x${string}`; chainId: number }]
   signedOut: []
-  error: [error: string]
+  error: [error: SiweError]
   back: []
 }
 
@@ -339,6 +340,6 @@ export interface EvmConnectAuthDialogEmits {
   disconnected: []
   authenticated: [{ address: `0x${string}`; chainId: number }]
   signedOut: []
-  error: [error: string]
+  error: [error: SiweError]
   back: []
 }

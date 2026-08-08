@@ -29,8 +29,15 @@
 </template>
 
 <script setup lang="ts">
-const onError = (error: string) => {
-  console.error('SIWE error:', error)
+import type { SiweError } from '@1001-digital/components.evm'
+const onError = (error: SiweError) => {
+  console.error(
+    'SIWE error:',
+    error.code,
+    error.rpcCode,
+    error.message,
+    error.cause,
+  )
 }
 </script>
 

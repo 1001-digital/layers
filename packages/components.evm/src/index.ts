@@ -59,7 +59,7 @@ export type {
 } from './types'
 
 // Utils
-export { isUserRejection } from './utils/errors'
+export { isUserRejection, getRpcErrorCode } from './utils/errors'
 export { createCache } from './utils/cache'
 export { shortAddress } from './utils/addresses'
 export { resolveChain } from './utils/chains'
@@ -132,6 +132,8 @@ export { useSiwe } from './composables/siwe'
 export type {
   SiweSession,
   SiweStep,
+  SiweError,
+  SiweErrorCode,
   SiweSignInOptions,
   SiweSignInResult,
 } from './composables/siwe'

@@ -17,6 +17,17 @@
   <template v-else-if="step === 'error'">
     <Alert type="error">
       <p>{{ errorMessage }}</p>
+      <p
+        v-if="error"
+        class="siwe-error-code"
+      >
+        <small
+          >{{ error.code
+          }}<template v-if="error.rpcCode">
+            · {{ error.rpcCode }}</template
+          ></small
+        >
+      </p>
     </Alert>
     <Actions class="left siwe-error-actions">
       <Button
@@ -47,13 +58,14 @@ const props = defineProps<EvmSiweProps>()
 
 const emit = defineEmits<EvmSiweEmits>()
 
-const { step, errorMessage, statusText, signIn, setSession, reset } = useSiwe()
+const { step, error, errorMessage, statusText, signIn, setSession, reset } =
+  useSiwe()
 
 const handleSignIn = async () => {
   const result = await signIn(props)
 
   if (!result) {
-    emit('error', errorMessage.value)
+    if (error.value) emit('error', error.value)
     return
   }
 
@@ -80,5 +92,11 @@ defineExpose({ reset })
 <style scoped>
 .siwe-error-actions {
   margin-top: var(--spacer-sm);
+}
+
+.siwe-error-code {
+  margin-top: var(--spacer-xs);
+  opacity: 0.6;
+  font-variant-numeric: tabular-nums;
 }
 </style>

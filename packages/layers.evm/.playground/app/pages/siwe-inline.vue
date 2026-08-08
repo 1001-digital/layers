@@ -30,12 +30,19 @@
 </template>
 
 <script setup lang="ts">
+import type { SiweError } from '@1001-digital/components.evm'
 const onAuthenticated = (data: { address: `0x${string}`; chainId: number }) => {
   console.log('SIWE authenticated:', data)
 }
 
-const onError = (error: string) => {
-  console.error('SIWE error:', error)
+const onError = (error: SiweError) => {
+  console.error(
+    'SIWE error:',
+    error.code,
+    error.rpcCode,
+    error.message,
+    error.cause,
+  )
 }
 </script>
 
