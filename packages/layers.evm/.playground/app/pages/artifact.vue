@@ -99,8 +99,8 @@
           slot.
         </p>
         <EvmArtifact :metadata="{ name: 'Untitled artifact' }">
-          <template #fallback="{ name }">
-            <div class="custom-fallback">No media — {{ name }}</div>
+          <template #fallback="{ artifactName }">
+            <div class="custom-fallback">No media — {{ artifactName }}</div>
           </template>
         </EvmArtifact>
       </Card>
