@@ -1,5 +1,11 @@
 # @1001-digital/layers.base
 
+## 2.1.4
+
+### Patch Changes
+
+- [`c69fadd`](https://github.com/1001-digital/layers/commit/c69fadd84fc681a8adbd2e4af2cb62b7a5ea53a0) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Validate the Nuxt layers against Nuxt 4.5.2, including the patched Nuxt DevTools release and Vite 8 build stack.
+
 ## 2.1.3
 
 ### Patch Changes

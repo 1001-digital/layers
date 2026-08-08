@@ -3,6 +3,25 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-08-08
+
+- **Breaking** SIWE: surface a structured, machine-readable error so consumers can identify the underlying failure. [`ebccef6`](https://github.com/1001-digital/layers/commit/ebccef6)
+  - `useSiwe()` now exposes an `error` ref of shape `SiweError { code, message, rpcCode?, cause? }`. `code` is a stable `SiweErrorCode` (`not-connected`, `server-environment`, `nonce-request-failed`, `chain-switch-failed`, `user-rejected`, `sign-failed`, `verification-failed`) safe to branch on; `rpcCode` is the underlying EIP-1193 / JSON-RPC code from the wallet (e.g. `-32603`, `4001`); `cause` is the original error, also logged to the console.
+  - Wallet signing failures with JSON-RPC `-32603` now show safe, actionable troubleshooting guidance instead of the opaque provider string.
+  - **Breaking:** the `error` event on `EvmSiwe`, `EvmSiweDialog`, `EvmConnectAuth`, and `EvmConnectAuthDialog` now emits `SiweError` instead of a string. Read `error.message` for the display string.
+  - New exports: `SiweError`, `SiweErrorCode` types, and the `getRpcErrorCode(e)` helper.
+  - The EVM Nuxt layer now re-exports the SIWE types and auto-imports `getRpcErrorCode` for layer consumers.
+  - Fix: `createSiweMessage` now emits EIP-4361-canonical output when no `statement` is provided (two blank lines before `URI:`), matching viem/`siwe`. The previous single blank line produced a non-canonical message that strict on-device parsers (e.g. Ledger clear-signing) can reject.
+  _`components.evm`, `layers.evm`_
+
+- Validate the Nuxt layers against Nuxt 4.5.2, including the patched Nuxt DevTools release and Vite 8 build stack. [`c69fadd`](https://github.com/1001-digital/layers/commit/c69fadd)
+  _`layers.base`, `layers.evm`_
+
+## 2026-08-05
+
+- Load and reveal dynamically mounted GLB artifacts eagerly, size them to their artifact container, and autoplay their embedded animations. [`c2cca15`](https://github.com/1001-digital/layers/commit/c2cca15)
+  _`components.evm`_
+
 ## 2026-08-02
 
 - **Minor** Keep artifact names such as `_` from being interpreted as Vue slot names, and ([#94](https://github.com/1001-digital/layers/pull/94)) [`2076e7f`](https://github.com/1001-digital/layers/commit/2076e7f)
@@ -140,14 +159,6 @@ Generated from individual package changelogs — do not edit manually.
 ## 2026-05-27
 
 - Set explicit `block-size: var(--form-item-height)` on `FormItem` prefix/suffix instead of relying on `block-size: 100%`, so they render at the correct height regardless of the parent's resolved block size. [`722a1bc`](https://github.com/1001-digital/layers/commit/722a1bc)
-  _`components`_
-
-- Use `Symbol.for` for `LinkComponentKey` and `IconAliasesKey` so provide/inject identity survives Vite serving the same source file at two URLs. The previous fix (deduping `@1001-digital/components` and importing keys from deep subpaths) wasn't enough — Vite's dev server still appends `?v=<hash>` to imports of `src/base/link.ts` and `src/base/icons.ts` when the importer is inside the components package, but not when imported from a layer plugin. Two URLs evaluate the module twice and produce two `Symbol(...)` values, so `inject` silently falls back to defaults — `<Button to="…">` rendered as a plain `<a>` (full reload on click), and `<Icon>` aliases configured in the consumer were ignored. [`ca4e516`](https://github.com/1001-digital/layers/commit/ca4e516)
-  `Symbol.for` interns the symbol on the global registry, so all module instances resolve to the same key.
-  Also drops the unused `exact` prop on `Button`. Vue Router 4 / Nuxt 3 no longer support an `exact` prop on `<RouterLink>`/`<NuxtLink>` — it was leaking onto the rendered `<a>` as `exact="false"`.
-  _`components`_
-
-- Fix `Dialog` rendering nothing when the component is globally auto-registered as `Dialog` (which Nuxt layers do). The template used `<component :is="tag">` with `tag` being `'dialog'` or `'article'`. Vue's `resolveAsset` is case-insensitive (it probes the registry with `name`, `camelize(name)`, and `capitalize(camelize(name))`), so `:is="'dialog'"` resolved to the registered `Dialog` component instead of the native `<dialog>` element — the inner instance had no `open` prop, fired `[Vue warn]: Missing required prop: "open"`, and rendered a comment node. Replaced the dynamic component with literal `<dialog>` / `<article>` blocks so the wrapper element bypasses the component registry entirely. [`b3e8c9a`](https://github.com/1001-digital/layers/commit/b3e8c9a)
   _`components`_
 
 ## 2026-04-13
@@ -338,6 +349,14 @@ Generated from individual package changelogs — do not edit manually.
   _`styles`_
 
 ## Unknown
+
+- Use `Symbol.for` for `LinkComponentKey` and `IconAliasesKey` so provide/inject identity survives Vite serving the same source file at two URLs. The previous fix (deduping `@1001-digital/components` and importing keys from deep subpaths) wasn't enough — Vite's dev server still appends `?v=<hash>` to imports of `src/base/link.ts` and `src/base/icons.ts` when the importer is inside the components package, but not when imported from a layer plugin. Two URLs evaluate the module twice and produce two `Symbol(...)` values, so `inject` silently falls back to defaults — `<Button to="…">` rendered as a plain `<a>` (full reload on click), and `<Icon>` aliases configured in the consumer were ignored. [`ca4e516`](https://github.com/1001-digital/layers/commit/ca4e516)
+  `Symbol.for` interns the symbol on the global registry, so all module instances resolve to the same key.
+  Also drops the unused `exact` prop on `Button`. Vue Router 4 / Nuxt 3 no longer support an `exact` prop on `<RouterLink>`/`<NuxtLink>` — it was leaking onto the rendered `<a>` as `exact="false"`.
+  _`components`_
+
+- Fix `Dialog` rendering nothing when the component is globally auto-registered as `Dialog` (which Nuxt layers do). The template used `<component :is="tag">` with `tag` being `'dialog'` or `'article'`. Vue's `resolveAsset` is case-insensitive (it probes the registry with `name`, `camelize(name)`, and `capitalize(camelize(name))`), so `:is="'dialog'"` resolved to the registered `Dialog` component instead of the native `<dialog>` element — the inner instance had no `open` prop, fired `[Vue warn]: Missing required prop: "open"`, and rendered a comment node. Replaced the dynamic component with literal `<dialog>` / `<article>` blocks so the wrapper element bypasses the component registry entirely. [`b3e8c9a`](https://github.com/1001-digital/layers/commit/b3e8c9a)
+  _`components`_
 
 - Fix type-check failures for external consumers: [`7d3da95`](https://github.com/1001-digital/layers/commit/7d3da95)
   - `Autocomplete`: simplify `NormalizedGroup.options` type — the previous conditional resolved to `never[]`, so iterating grouped options in the template surfaced `'label' does not exist on type 'never'` errors.
