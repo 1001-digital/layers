@@ -1,5 +1,11 @@
 # @1001-digital/components.evm
 
+## 4.0.1
+
+### Patch Changes
+
+- [`8b4c5ab`](https://github.com/1001-digital/layers/commit/8b4c5abed1681547f6edf0cd926999ad844698ca) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Fix Nuxt 4.5 type checking for seed phrase input refs and replace obsolete CSS mixin directives with standard declarations.
+
 ## 4.0.0
 
 ### Major Changes
