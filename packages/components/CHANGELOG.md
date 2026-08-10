@@ -1,5 +1,11 @@
 # @1001-digital/components
 
+## 2.10.2
+
+### Patch Changes
+
+- [#98](https://github.com/1001-digital/layers/pull/98) [`8f2a74d`](https://github.com/1001-digital/layers/commit/8f2a74d4b2b9398cde7559410ec254534697a75f) Thanks [@yougogirldoteth](https://github.com/yougogirldoteth)! - Keep fixed-viewport HTML embeds scaled and centered in Firefox.
+
 ## 2.10.1
 
 ### Patch Changes
