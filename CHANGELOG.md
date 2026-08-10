@@ -3,6 +3,11 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-08-10
+
+- Keep fixed-viewport HTML embeds scaled and centered in Firefox. ([#98](https://github.com/1001-digital/layers/pull/98)) [`8f2a74d`](https://github.com/1001-digital/layers/commit/8f2a74d)
+  _`components`_
+
 ## 2026-08-08
 
 - Fix Nuxt 4.5 type checking for seed phrase input refs and replace obsolete CSS mixin directives with standard declarations. [`8b4c5ab`](https://github.com/1001-digital/layers/commit/8b4c5ab)
@@ -141,23 +146,6 @@ Generated from individual package changelogs — do not edit manually.
   `scrollbar-gutter: stable` (styles reset), so the gutter stays reserved and
   nothing shifts horizontally, while sticky descendants keep their positioning.
   _`components`_
-
-## 2026-05-30
-
-- Update reka-ui to ^2.9.8. [`a4cb297`](https://github.com/1001-digital/layers/commit/a4cb297)
-  The notable fix for consumers is accessibility: toast title and description are now announced to screen readers as plain text instead of being JSON-serialized (reka-ui [#2612](https://github.com/1001-digital/layers/issues/2612)). Also picks up reka-ui's Menu fixes that clear a stuck `data-highlighted` on pointer-leave and prevent a brief highlight flash on dropdown open ([#2596](https://github.com/1001-digital/layers/issues/2596)/[#2605](https://github.com/1001-digital/layers/issues/2605), [#2651](https://github.com/1001-digital/layers/issues/2651)), plus internal SSR/efficiency improvements. No API changes.
-  _`components`_
-
-- Expand the `resolveChain` known-chain list. [`656b1f9`](https://github.com/1001-digital/layers/commit/656b1f9)
-  Adds Shape (360) and Shape Sepolia (11011), Zora (7777777) and Zora Sepolia
-  (999999999), Base Sepolia (84532), OP Sepolia (11155420), and Hardhat (31337).
-  Previously these fell through to the generic `defineChain` fallback, so they
-  rendered as "Chain <id>" in the `EvmSwitchNetwork` switcher and had no default
-  RPC. They now resolve to viem's chain definitions with proper names and RPC
-  URLs. The Zora pair matches the creator/NFT focus of Shape; the Base/OP testnets
-  complete the mainnet+testnet pairs already shipped; and Hardhat (31337) covers
-  the common local-dev chain id (viem's `localhost` is only 1337).
-  _`components.evm`_
 
 ## 2026-04-13
 
@@ -348,6 +336,10 @@ Generated from individual package changelogs — do not edit manually.
 
 ## Unknown
 
+- Update reka-ui to ^2.9.8. [`a4cb297`](https://github.com/1001-digital/layers/commit/a4cb297)
+  The notable fix for consumers is accessibility: toast title and description are now announced to screen readers as plain text instead of being JSON-serialized (reka-ui [#2612](https://github.com/1001-digital/layers/issues/2612)). Also picks up reka-ui's Menu fixes that clear a stuck `data-highlighted` on pointer-leave and prevent a brief highlight flash on dropdown open ([#2596](https://github.com/1001-digital/layers/issues/2596)/[#2605](https://github.com/1001-digital/layers/issues/2605), [#2651](https://github.com/1001-digital/layers/issues/2651)), plus internal SSR/efficiency improvements. No API changes.
+  _`components`_
+
 - Set explicit `block-size: var(--form-item-height)` on `FormItem` prefix/suffix instead of relying on `block-size: 100%`, so they render at the correct height regardless of the parent's resolved block size. [`722a1bc`](https://github.com/1001-digital/layers/commit/722a1bc)
   _`components`_
 
@@ -376,6 +368,17 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Support non-persistent dismissal on `Alert`. Adds a `dismissable` boolean prop for in-memory dismissal and renames the persistence prop from `dismiss` to `dismiss-key` for clarity. Providing `dismiss-key` still implies `dismissable`. [`856096e`](https://github.com/1001-digital/layers/commit/856096e)
   _`components`_
+
+- Expand the `resolveChain` known-chain list. [`656b1f9`](https://github.com/1001-digital/layers/commit/656b1f9)
+  Adds Shape (360) and Shape Sepolia (11011), Zora (7777777) and Zora Sepolia
+  (999999999), Base Sepolia (84532), OP Sepolia (11155420), and Hardhat (31337).
+  Previously these fell through to the generic `defineChain` fallback, so they
+  rendered as "Chain <id>" in the `EvmSwitchNetwork` switcher and had no default
+  RPC. They now resolve to viem's chain definitions with proper names and RPC
+  URLs. The Zora pair matches the creator/NFT focus of Shape; the Base/OP testnets
+  complete the mainnet+testnet pairs already shipped; and Hardhat (31337) covers
+  the common local-dev chain id (viem's `localhost` is only 1337).
+  _`components.evm`_
 
 - Make the `EvmEthInput` suffix customizable: new optional `suffix` prop (defaults to `'ETH'`); pass a different string to relabel it or `:suffix="false"` to hide it entirely. The existing `#suffix` slot still overrides both. [`700aef7`](https://github.com/1001-digital/layers/commit/700aef7)
   _`components.evm`_
