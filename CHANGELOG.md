@@ -5,6 +5,9 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-08-10
 
+- Restore reliable fixed-viewport HTML embed scaling in Safari. ([#100](https://github.com/1001-digital/layers/pull/100)) [`1cd2922`](https://github.com/1001-digital/layers/commit/1cd2922)
+  _`components`_
+
 - Keep fixed-viewport HTML embeds scaled and centered in Firefox. ([#98](https://github.com/1001-digital/layers/pull/98)) [`8f2a74d`](https://github.com/1001-digital/layers/commit/8f2a74d)
   _`components`_
 
@@ -133,19 +136,6 @@ Generated from individual package changelogs — do not edit manually.
 
 - Upgrade `@1001-digital/dweb-fetch` to 0.6.0 and use gateway mode for UI URI resolution so Helia verified-fetch is not loaded for component image URL resolution. [`b3ca421`](https://github.com/1001-digital/layers/commit/b3ca421)
   _`components.evm`_
-
-## 2026-06-01
-
-- Fix `Dialog` scroll-lock breaking `position: sticky` layout. [`13e3143`](https://github.com/1001-digital/layers/commit/13e3143)
-  The open-dialog scroll lock applied `overflow: hidden` to both `html` and
-  `body`. Clipping `body` turns it into a scroll container, which breaks
-  `position: sticky` descendants — sticky headers and pinned panels drop to their
-  in-flow position and jump out of view while the page is scrolled behind the
-  dialog.
-  The lock now clips only `html`, the root scroller. `html` already carries
-  `scrollbar-gutter: stable` (styles reset), so the gutter stays reserved and
-  nothing shifts horizontally, while sticky descendants keep their positioning.
-  _`components`_
 
 ## 2026-04-13
 
@@ -335,6 +325,17 @@ Generated from individual package changelogs — do not edit manually.
   _`styles`_
 
 ## Unknown
+
+- Fix `Dialog` scroll-lock breaking `position: sticky` layout. [`13e3143`](https://github.com/1001-digital/layers/commit/13e3143)
+  The open-dialog scroll lock applied `overflow: hidden` to both `html` and
+  `body`. Clipping `body` turns it into a scroll container, which breaks
+  `position: sticky` descendants — sticky headers and pinned panels drop to their
+  in-flow position and jump out of view while the page is scrolled behind the
+  dialog.
+  The lock now clips only `html`, the root scroller. `html` already carries
+  `scrollbar-gutter: stable` (styles reset), so the gutter stays reserved and
+  nothing shifts horizontally, while sticky descendants keep their positioning.
+  _`components`_
 
 - Update reka-ui to ^2.9.8. [`a4cb297`](https://github.com/1001-digital/layers/commit/a4cb297)
   The notable fix for consumers is accessibility: toast title and description are now announced to screen readers as plain text instead of being JSON-serialized (reka-ui [#2612](https://github.com/1001-digital/layers/issues/2612)). Also picks up reka-ui's Menu fixes that clear a stuck `data-highlighted` on pointer-leave and prevent a brief highlight flash on dropdown open ([#2596](https://github.com/1001-digital/layers/issues/2596)/[#2605](https://github.com/1001-digital/layers/issues/2605), [#2651](https://github.com/1001-digital/layers/issues/2651)), plus internal SSR/efficiency improvements. No API changes.

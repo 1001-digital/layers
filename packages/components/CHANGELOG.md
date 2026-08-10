@@ -1,5 +1,11 @@
 # @1001-digital/components
 
+## 2.10.3
+
+### Patch Changes
+
+- [#100](https://github.com/1001-digital/layers/pull/100) [`1cd2922`](https://github.com/1001-digital/layers/commit/1cd29228d047d84a58f735ecebe19e4ea529de9d) Thanks [@yougogirldoteth](https://github.com/yougogirldoteth)! - Restore reliable fixed-viewport HTML embed scaling in Safari.
+
 ## 2.10.2
 
 ### Patch Changes
