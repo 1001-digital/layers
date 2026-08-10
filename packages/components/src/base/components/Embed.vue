@@ -122,9 +122,7 @@ watch(width, () => {
    the frame — `object-fit: contain` semantics the iframe element can't express
    itself. `cqw`/`cqh` resolve against .embed (now a size container), so the
    scale tracks the frame responsively with no JS measurement, and the smaller
-   axis wins so the document keeps its aspect ratio and stays centered.
-   `tan(atan2())` produces a unitless ratio without length division, which
-   Firefox does not support in typed CSS arithmetic. */
+   axis wins so the document keeps its aspect ratio and stays centered. */
 .embed.sized {
   container-type: size;
 
@@ -137,8 +135,8 @@ watch(width, () => {
     transform: translate(-50%, -50%)
       scale(
         min(
-          tan(atan2(100cqw, calc(var(--embed-w) * 1px))),
-          tan(atan2(100cqh, calc(var(--embed-h) * 1px)))
+          calc(100cqw / (var(--embed-w) * 1px)),
+          calc(100cqh / (var(--embed-h) * 1px))
         )
       );
   }
