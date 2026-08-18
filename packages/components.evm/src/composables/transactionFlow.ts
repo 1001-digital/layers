@@ -9,6 +9,7 @@ import { useConfig, useConnection, type Config } from '@wagmi/vue'
 import type { TransactionReceipt, Hash } from 'viem'
 import { useToast, delay } from '@1001-digital/components'
 import { useEnsureChainIdCheck, useBlockExplorer } from './chainId'
+import { createAsyncRunGuard } from '../utils/async-run'
 import { isUserRejection } from '../utils/errors'
 import type {
   TransactionFlowRequestResult,
@@ -83,6 +84,7 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
   const toast = useToast()
 
   const step = ref<TransactionFlowStep>('idle')
+  const isBusy = ref(false)
   const error = ref('')
   const tx = ref<Hash | null>(null)
   const callsId = ref<string | null>(null)
@@ -100,198 +102,256 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
   const canDismiss = computed(
     () =>
       (toValue(options.dismissable) ?? true) &&
+      !isBusy.value &&
       step.value !== 'requesting' &&
       !((toValue(options.keepOpen) ?? false) && step.value === 'waiting'),
   )
 
   let mounted = true
-  let progressTimer: ReturnType<typeof setInterval> | undefined
-
-  onBeforeUnmount(() => {
-    mounted = false
-    clearInterval(progressTimer)
+  const progressTimers = new Set<ReturnType<typeof setInterval>>()
+  const clearProgressTimers = () => {
+    for (const timer of progressTimers) clearInterval(timer)
+    progressTimers.clear()
+  }
+  const runGuard = createAsyncRunGuard((busy) => {
+    if (mounted) isBusy.value = busy
   })
+  const isActiveRun = (token: number) => mounted && runGuard.isActive(token)
 
   const cachedRequest = ref(toValue(options.request))
   watch(
     () => toValue(options.request),
-    (v) => {
-      cachedRequest.value = v
+    (value) => {
+      cachedRequest.value = value
     },
   )
 
-  watchChainId(wagmiConfig as Config, {
-    async onChange() {
-      if (step.value !== 'chain') return
-
-      if (await checkChain()) {
-        initializeRequest()
-      }
-    },
-  })
-
   const initializeRequest = async (request = cachedRequest.value) => {
+    const token = runGuard.begin()
+    if (token === null) return null
+
+    const isChainRetry = step.value === 'chain'
     cachedRequest.value = request
     error.value = ''
     tx.value = null
     callsId.value = null
     receipt.value = null
-    step.value = 'confirm'
+    if (!isChainRetry) step.value = 'confirm'
 
-    if (!(await checkChain())) {
-      step.value = 'chain'
-      return
-    }
-
-    // Phase 1: Signing
     try {
-      step.value = 'requesting'
-      const result = await request!()
-      if (isCallsResult(result)) callsId.value = result.id
-      else tx.value = result
-    } catch (e: unknown) {
-      if (isUserRejection(e)) {
-        error.value = 'Transaction rejected by user.'
-      } else {
-        error.value = errorMessage(e, 'Error submitting transaction request.')
+      if (!(await checkChain())) {
+        if (isActiveRun(token)) step.value = 'chain'
+        return null
       }
-      step.value = 'error'
-      console.log(e)
-      return
-    }
+      if (!isActiveRun(token)) return null
 
-    // Phase 2: Receipt
-    const keepOpen = toValue(options.keepOpen) ?? false
-    const delayAfter = toValue(options.delayAfter) ?? 2000
-    const delayAutoclose = toValue(options.delayAutoclose) ?? 2000
-    const autoCloseSuccess = toValue(options.autoCloseSuccess) ?? true
-    const waitForReceipt = async () => {
-      if (!callsId.value)
-        return waitForTransactionReceipt(wagmiConfig as Config, {
-          hash: tx.value!,
-        })
+      if (!request) {
+        error.value = 'No transaction request configured.'
+        step.value = 'error'
+        return null
+      }
 
-      const status = await waitForCallsStatus(wagmiConfig as Config, {
-        connector: connector.value,
-        id: callsId.value,
-        throwOnFailure: true,
-        timeout: 120_000,
-      })
-      tx.value = getCallsTransactionHash(status)
-      return waitForTransactionReceipt(wagmiConfig as Config, {
-        hash: tx.value,
-      })
-    }
-
-    if (keepOpen) {
-      step.value = 'waiting'
+      // Phase 1: request a signature. Keep local copies so reset/cancel cannot
+      // corrupt receipt polling that has already moved to a background toast.
+      let submittedTx: Hash | null = null
+      let submittedCallsId: string | null = null
+      const submittedConnector = connector.value
 
       try {
-        const receiptObject = await waitForReceipt()
-        await delay(delayAfter)
-        receipt.value = receiptObject
-        step.value = 'complete'
+        step.value = 'requesting'
+        const result = await request()
 
-        if (autoCloseSuccess) {
-          await delay(delayAutoclose)
-          if (step.value === 'complete') {
-            step.value = 'idle'
-          }
+        if (isCallsResult(result)) {
+          submittedCallsId = result.id
+          if (isActiveRun(token)) callsId.value = result.id
+        } else {
+          submittedTx = result
+          if (isActiveRun(token)) tx.value = result
         }
       } catch (e: unknown) {
-        error.value = errorMessage(e, 'Transaction failed.')
+        if (!isActiveRun(token)) return null
+
+        error.value = isUserRejection(e)
+          ? 'Transaction rejected by user.'
+          : errorMessage(e, 'Error submitting transaction request.')
         step.value = 'error'
         console.log(e)
+        return null
       }
-    } else {
-      step.value = 'idle'
 
-      const submittedTxLink = txLink.value
-      const toastId = toast.add({
-        variant: 'info',
-        title: text.value.title.waiting,
-        description: text.value.lead.waiting,
-        duration: Infinity,
-        loading: true,
-        progress: 0,
-        ...(submittedTxLink && {
-          action: {
-            label: text.value.action.viewOnExplorer!,
-            onClick: () => window.open(submittedTxLink, '_blank'),
-            persistent: true,
-          },
-        }),
-      })
-
-      const startTime = Date.now()
-      progressTimer = setInterval(() => {
-        const elapsed = (Date.now() - startTime) / 1000
-        toast.update(toastId, {
-          progress: Math.round(90 * (1 - Math.exp(-elapsed / 15))),
-        })
-      }, 500)
-
-      try {
-        const receiptObject = await waitForReceipt()
-        clearInterval(progressTimer)
-        toast.update(toastId, { progress: 100, loading: false })
-        await delay(delayAfter)
-        receipt.value = receiptObject
-
-        const confirmedTxLink = transactionExplorerUrl(
-          blockExplorer,
-          receiptObject.transactionHash,
-        )!
-        toast.update(toastId, {
-          variant: 'success',
-          title: text.value.title.complete,
-          description: text.value.lead.complete,
-          progress: false,
-          action: {
-            label: text.value.action.viewOnExplorer!,
-            onClick: () => window.open(confirmedTxLink, '_blank'),
-            persistent: true,
-          },
-          ...(autoCloseSuccess && { duration: delayAutoclose }),
-        })
-      } catch (e: unknown) {
-        clearInterval(progressTimer)
-        const message = errorMessage(e, 'Transaction failed.')
-        if (mounted) {
-          toast.dismiss(toastId)
-          error.value = message
-          step.value = 'error'
-        } else {
-          toast.update(toastId, {
-            variant: 'error',
-            title: text.value.title.error,
-            description: message,
-            loading: false,
-            progress: false,
+      // Phase 2: wait for an onchain receipt.
+      const keepOpen = toValue(options.keepOpen) ?? false
+      const delayAfter = toValue(options.delayAfter) ?? 2000
+      const delayAutoclose = toValue(options.delayAutoclose) ?? 2000
+      const autoCloseSuccess = toValue(options.autoCloseSuccess) ?? true
+      const waitForReceipt = async () => {
+        if (!submittedCallsId)
+          return waitForTransactionReceipt(wagmiConfig as Config, {
+            hash: submittedTx!,
           })
-        }
-        console.log(e)
-      }
-    }
 
-    return receipt.value
+        const status = await waitForCallsStatus(wagmiConfig as Config, {
+          connector: submittedConnector,
+          id: submittedCallsId,
+          throwOnFailure: true,
+          timeout: 120_000,
+        })
+        submittedTx = getCallsTransactionHash(status)
+        if (isActiveRun(token)) tx.value = submittedTx
+        return waitForTransactionReceipt(wagmiConfig as Config, {
+          hash: submittedTx,
+        })
+      }
+
+      if (keepOpen) {
+        if (isActiveRun(token)) step.value = 'waiting'
+
+        try {
+          const receiptObject = await waitForReceipt()
+          if (!isActiveRun(token)) return null
+
+          await delay(delayAfter)
+          if (!isActiveRun(token)) return null
+
+          receipt.value = receiptObject
+          step.value = 'complete'
+
+          if (autoCloseSuccess) {
+            await delay(delayAutoclose)
+            if (isActiveRun(token) && step.value === 'complete') {
+              step.value = 'idle'
+            }
+          }
+        } catch (e: unknown) {
+          if (!isActiveRun(token)) return null
+
+          error.value = errorMessage(e, 'Transaction failed.')
+          step.value = 'error'
+          console.log(e)
+        }
+      } else {
+        // Cancellation before the toast handoff suppresses all new UI while
+        // still waiting for the submitted transaction to settle. This keeps
+        // the wallet/receipt single-flight lock honest.
+        if (!isActiveRun(token)) {
+          try {
+            await waitForReceipt()
+          } catch (e: unknown) {
+            console.log(e)
+          }
+          return null
+        }
+
+        // The dialog hands receipt waiting to a toast. The toast still reaches
+        // a terminal state after unmount/cancel, but guarded component state
+        // does not update and therefore cannot emit a late completion.
+        step.value = 'idle'
+
+        const submittedTxLink = transactionExplorerUrl(
+          blockExplorer,
+          submittedTx,
+        )
+        const toastId = toast.add({
+          variant: 'info',
+          title: text.value.title.waiting,
+          description: text.value.lead.waiting,
+          duration: Infinity,
+          loading: true,
+          progress: 0,
+          ...(submittedTxLink && {
+            action: {
+              label: text.value.action.viewOnExplorer!,
+              onClick: () => window.open(submittedTxLink, '_blank'),
+              persistent: true,
+            },
+          }),
+        })
+
+        const startTime = Date.now()
+        const progressTimer = setInterval(() => {
+          const elapsed = (Date.now() - startTime) / 1000
+          toast.update(toastId, {
+            progress: Math.round(90 * (1 - Math.exp(-elapsed / 15))),
+          })
+        }, 500)
+        progressTimers.add(progressTimer)
+
+        try {
+          const receiptObject = await waitForReceipt()
+          clearInterval(progressTimer)
+          progressTimers.delete(progressTimer)
+          toast.update(toastId, { progress: 100, loading: false })
+          await delay(delayAfter)
+
+          if (isActiveRun(token)) receipt.value = receiptObject
+
+          const confirmedTxLink = transactionExplorerUrl(
+            blockExplorer,
+            receiptObject.transactionHash,
+          )!
+          toast.update(toastId, {
+            variant: 'success',
+            title: text.value.title.complete,
+            description: text.value.lead.complete,
+            progress: false,
+            action: {
+              label: text.value.action.viewOnExplorer!,
+              onClick: () => window.open(confirmedTxLink, '_blank'),
+              persistent: true,
+            },
+            ...(autoCloseSuccess && { duration: delayAutoclose }),
+          })
+        } catch (e: unknown) {
+          const message = errorMessage(e, 'Transaction failed.')
+          if (isActiveRun(token)) {
+            toast.dismiss(toastId)
+            error.value = message
+            step.value = 'error'
+          } else {
+            toast.update(toastId, {
+              variant: 'error',
+              title: text.value.title.error,
+              description: message,
+              loading: false,
+              progress: false,
+            })
+          }
+          console.log(e)
+        } finally {
+          clearInterval(progressTimer)
+          progressTimers.delete(progressTimer)
+        }
+      }
+
+      return isActiveRun(token) ? receipt.value : null
+    } finally {
+      runGuard.end(token)
+    }
   }
 
   const start = () => {
+    if (isBusy.value) return
+
     if ((toValue(options.skipConfirmation) ?? false) && step.value === 'idle') {
-      initializeRequest()
+      void initializeRequest()
       return
     }
 
+    error.value = ''
+    tx.value = null
+    callsId.value = null
+    receipt.value = null
     step.value = 'confirm'
   }
 
   const cancel = () => {
+    runGuard.invalidate()
     step.value = 'idle'
     error.value = ''
   }
 
   const reset = () => {
+    runGuard.invalidate()
     step.value = 'idle'
     error.value = ''
     tx.value = null
@@ -299,8 +359,22 @@ export const useTransactionFlow = (options: TransactionFlowOptions = {}) => {
     receipt.value = null
   }
 
+  const stopWatchChainId = watchChainId(wagmiConfig as Config, {
+    onChange() {
+      if (step.value === 'chain') void initializeRequest()
+    },
+  })
+
+  onBeforeUnmount(() => {
+    mounted = false
+    runGuard.invalidate()
+    clearProgressTimers()
+    stopWatchChainId?.()
+  })
+
   return {
     step,
+    isBusy,
     error,
     tx,
     callsId,

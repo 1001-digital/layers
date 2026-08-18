@@ -11,6 +11,7 @@
       :current-step="flow.currentStep.value"
       :cancel="cancel"
       :execute="() => flow.initializeRequest()"
+      :is-busy="flow.isBusy.value"
       :tx-link="flow.txLink.value"
     >
       <ol
@@ -86,6 +87,7 @@
       :current-step="flow.currentStep.value"
       :cancel="cancel"
       :execute="() => flow.initializeRequest()"
+      :is-busy="flow.isBusy.value"
       :tx-link="flow.txLink.value"
     >
       <slot
@@ -96,6 +98,7 @@
         :current-step="flow.currentStep.value"
         :cancel="cancel"
         :execute="() => flow.initializeRequest()"
+        :is-busy="flow.isBusy.value"
         :tx-link="flow.txLink.value"
       />
     </slot>
@@ -110,6 +113,7 @@
         :current-step="flow.currentStep.value"
         :cancel="cancel"
         :execute="() => flow.initializeRequest()"
+        :is-busy="flow.isBusy.value"
         :tx-link="flow.txLink.value"
       >
         <template v-if="flow.step.value === 'chain'">
@@ -118,6 +122,13 @@
             class="secondary"
             >Cancel</Button
           >
+          <Button
+            class="primary"
+            :disabled="flow.isBusy.value"
+            @click="() => flow.initializeRequest()"
+          >
+            {{ flow.isBusy.value ? 'Switching Network...' : 'Switch Network' }}
+          </Button>
         </template>
 
         <template
@@ -130,9 +141,14 @@
           >
           <Button
             class="primary"
+            :disabled="flow.isBusy.value"
             @click="() => flow.initializeRequest()"
           >
-            {{ flow.currentAction.value || 'Execute' }}
+            {{
+              flow.isBusy.value
+                ? 'Preparing...'
+                : flow.currentAction.value || 'Execute'
+            }}
           </Button>
         </template>
       </slot>
@@ -146,6 +162,7 @@
         :current-step="flow.currentStep.value"
         :cancel="cancel"
         :execute="() => flow.initializeRequest()"
+        :is-busy="flow.isBusy.value"
         :tx-link="flow.txLink.value"
       />
     </template>
@@ -235,6 +252,7 @@ defineExpose({
   cancel,
   reset: flow.reset,
   step: flow.step,
+  isBusy: flow.isBusy,
   stepIndex: flow.stepIndex,
   steps: flow.steps,
   stepStates: flow.stepStates,

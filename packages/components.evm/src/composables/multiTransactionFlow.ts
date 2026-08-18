@@ -10,6 +10,7 @@ import {
 import type { Hash, TransactionReceipt } from 'viem'
 import { delay } from '@1001-digital/components'
 import { useEvmConfig } from '../config'
+import { createAsyncRunGuard } from '../utils/async-run'
 import { isUserRejection } from '../utils/errors'
 import type {
   MultiTransactionFlowStep,
@@ -74,6 +75,7 @@ export const useMultiTransactionFlow = (
   const { mutateAsync: switchChain } = useSwitchChain()
 
   const step = ref<MultiTransactionFlowPhase>('idle')
+  const isBusy = ref(false)
   const stepIndex = ref(0)
   const error = ref('')
   const stepStates = ref<MultiTransactionFlowStepState[]>([])
@@ -134,12 +136,16 @@ export const useMultiTransactionFlow = (
   const canDismiss = computed(
     () =>
       (toValue(options.dismissable) ?? true) &&
+      !isBusy.value &&
       step.value !== 'requesting' &&
       step.value !== 'waiting',
   )
 
   let mounted = true
   let runId = 0
+  const runGuard = createAsyncRunGuard((busy) => {
+    if (mounted) isBusy.value = busy
+  })
 
   const resolveChainConfig = (key?: string | number) => {
     if (typeof key === 'number') {
@@ -185,6 +191,8 @@ export const useMultiTransactionFlow = (
   }
 
   const isActiveRun = (id: number) => mounted && id === runId
+  const isActiveAction = (id: number, token: number) =>
+    isActiveRun(id) && runGuard.isActive(token)
 
   const beginRun = () => {
     runId += 1
@@ -243,23 +251,27 @@ export const useMultiTransactionFlow = (
     }
   }
 
-  const completeFlow = async (id: number) => {
-    if (!isActiveRun(id)) return
+  const completeFlow = async (id: number, token: number) => {
+    if (!isActiveAction(id, token)) return
 
     error.value = ''
     step.value = 'complete'
 
     if (toValue(options.autoCloseSuccess) ?? true) {
       await delay(toValue(options.delayAutoclose) ?? 2000)
-      if (isActiveRun(id) && step.value === 'complete') {
+      if (isActiveAction(id, token) && step.value === 'complete') {
         step.value = 'idle'
       }
     }
   }
 
-  const moveToNextExecutableStep = async (fromIndex: number, id: number) => {
+  const moveToNextExecutableStep = async (
+    fromIndex: number,
+    id: number,
+    token: number,
+  ) => {
     for (let index = fromIndex; index < steps.value.length; index += 1) {
-      if (!isActiveRun(id)) return false
+      if (!isActiveAction(id, token)) return false
 
       const transactionStep = steps.value[index]
       if (!transactionStep) continue
@@ -267,7 +279,10 @@ export const useMultiTransactionFlow = (
       stepIndex.value = index
 
       try {
-        if (await transactionStep.skip?.(createContext())) {
+        const shouldSkip = await transactionStep.skip?.(createContext())
+        if (!isActiveAction(id, token)) return false
+
+        if (shouldSkip) {
           updateStepState(index, {
             status: 'skipped',
             error: '',
@@ -275,6 +290,8 @@ export const useMultiTransactionFlow = (
           continue
         }
       } catch (e: unknown) {
+        if (!isActiveAction(id, token)) return false
+
         setStepError(
           index,
           getErrorMessage(e, 'Error preparing transaction step.'),
@@ -291,28 +308,17 @@ export const useMultiTransactionFlow = (
       return true
     }
 
-    await completeFlow(id)
+    await completeFlow(id, token)
     return false
   }
 
-  const initializeRequest = async () => {
-    if (!steps.value.length) {
-      error.value = 'No transaction steps configured.'
-      step.value = 'error'
-      return null
-    }
-
-    let id = runId
-    if (step.value === 'idle' || step.value === 'complete' || !id) {
-      id = beginRun()
-      const hasStep = await moveToNextExecutableStep(0, id)
-      if (!hasStep) return null
-    }
+  const executeCurrentStep = async (id: number, token: number) => {
+    if (!isActiveAction(id, token)) return null
 
     const transactionStep = currentStep.value
     const index = stepIndex.value
     if (!transactionStep) {
-      await completeFlow(id)
+      await completeFlow(id, token)
       return null
     }
 
@@ -325,15 +331,14 @@ export const useMultiTransactionFlow = (
       error: '',
     })
 
-    if (!(await ensureChain(transactionStep))) {
-      if (!isActiveRun(id)) return null
+    const isCorrectChain = await ensureChain(transactionStep)
+    if (!isActiveAction(id, token)) return null
 
+    if (!isCorrectChain) {
       step.value = 'chain'
       updateStepState(index, { status: 'chain' })
       return null
     }
-
-    if (!isActiveRun(id)) return null
 
     try {
       step.value = 'requesting'
@@ -341,23 +346,24 @@ export const useMultiTransactionFlow = (
 
       const hash = await transactionStep.request(createContext())
 
-      if (!isActiveRun(id)) return null
+      if (isActiveAction(id, token)) {
+        updateStepState(index, {
+          tx: hash,
+          txLink: getTxLink(transactionStep, hash),
+        })
 
-      updateStepState(index, {
-        tx: hash,
-        txLink: getTxLink(transactionStep, hash),
-      })
-
-      step.value = 'waiting'
-      updateStepState(index, { status: 'waiting' })
+        step.value = 'waiting'
+        updateStepState(index, { status: 'waiting' })
+      }
 
       const receiptObject = await waitForTransactionReceipt(
         wagmiConfig as Config,
         { hash },
       )
+      if (!isActiveAction(id, token)) return null
 
       await delay(toValue(options.delayAfter) ?? 2000)
-      if (!isActiveRun(id)) return null
+      if (!isActiveAction(id, token)) return null
 
       updateStepState(index, {
         status: 'complete',
@@ -366,13 +372,16 @@ export const useMultiTransactionFlow = (
       })
 
       if (transactionStep.result) {
-        results.value[index] = await transactionStep.result(
+        const result = await transactionStep.result(
           receiptObject,
           createContext(),
         )
+        if (!isActiveAction(id, token)) return null
+
+        results.value[index] = result
       }
     } catch (e: unknown) {
-      if (!isActiveRun(id)) return null
+      if (!isActiveAction(id, token)) return null
 
       if (isUserRejection(e)) {
         setStepError(index, 'Transaction rejected by user.')
@@ -389,36 +398,71 @@ export const useMultiTransactionFlow = (
       return null
     }
 
-    const hasNextStep = await moveToNextExecutableStep(index + 1, id)
+    const hasNextStep = await moveToNextExecutableStep(index + 1, id, token)
     if (!hasNextStep) return receipts.value
+    if (!isActiveAction(id, token)) return null
 
     if (toValue(options.skipConfirmation) ?? false) {
-      return initializeRequest()
+      return executeCurrentStep(id, token)
     }
 
-    if (isActiveRun(id)) {
-      step.value = 'confirm'
-    }
+    step.value = 'confirm'
 
     return receipts.value
   }
 
-  const start = async () => {
-    const id = beginRun()
-    const hasStep = await moveToNextExecutableStep(0, id)
-    if (!hasStep) return
+  const initializeRequest = async () => {
+    const token = runGuard.begin()
+    if (token === null) return null
 
-    if (toValue(options.skipConfirmation) ?? false) {
-      await initializeRequest()
-      return
+    try {
+      if (!steps.value.length) {
+        error.value = 'No transaction steps configured.'
+        step.value = 'error'
+        return null
+      }
+
+      let id = runId
+      if (step.value === 'idle' || step.value === 'complete' || !id) {
+        id = beginRun()
+        const hasStep = await moveToNextExecutableStep(0, id, token)
+        if (!hasStep) return null
+      }
+
+      return await executeCurrentStep(id, token)
+    } finally {
+      runGuard.end(token)
     }
+  }
 
-    if (isActiveRun(id)) {
+  const start = async () => {
+    const token = runGuard.begin()
+    if (token === null) return
+
+    try {
+      if (!steps.value.length) {
+        error.value = 'No transaction steps configured.'
+        step.value = 'error'
+        return
+      }
+
+      const id = beginRun()
+      const hasStep = await moveToNextExecutableStep(0, id, token)
+      if (!hasStep || !isActiveAction(id, token)) return
+
+      if (toValue(options.skipConfirmation) ?? false) {
+        await executeCurrentStep(id, token)
+        return
+      }
+
       step.value = 'confirm'
+    } finally {
+      runGuard.end(token)
     }
   }
 
   const cancel = () => {
+    runGuard.invalidate()
     runId += 1
     step.value = 'idle'
     error.value = ''
@@ -426,6 +470,7 @@ export const useMultiTransactionFlow = (
   }
 
   const reset = () => {
+    runGuard.invalidate()
     runId += 1
     step.value = 'idle'
     error.value = ''
@@ -433,17 +478,17 @@ export const useMultiTransactionFlow = (
   }
 
   const stopWatchChainId = watchChainId(wagmiConfig as Config, {
-    async onChange() {
+    onChange() {
       if (step.value !== 'chain') return
 
-      await initializeRequest()
+      void initializeRequest()
     },
   })
 
   watch(
     () => steps.value.map((transactionStep) => transactionStep.id),
     () => {
-      if (step.value === 'idle') {
+      if (!isBusy.value && step.value === 'idle') {
         resetStepStates()
       } else {
         reset()
@@ -454,12 +499,14 @@ export const useMultiTransactionFlow = (
 
   onBeforeUnmount(() => {
     mounted = false
+    runGuard.invalidate()
     runId += 1
     stopWatchChainId?.()
   })
 
   return {
     step,
+    isBusy,
     stepIndex,
     steps,
     stepStates,
