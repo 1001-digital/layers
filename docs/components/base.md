@@ -62,7 +62,7 @@ Base components come from `@1001-digital/components`. Nuxt apps usually receive 
 
 | Component       | Purpose                                                                                |
 | --------------- | -------------------------------------------------------------------------------------- |
-| `Dialog`        | Accessible dialog wrapper around native dialog behavior.                               |
+| `Dialog`        | Accessible modal dialog built on Reka UI primitives.                                   |
 | `ConfirmDialog` | Global confirm dialog controlled by `useConfirm()`.                                    |
 | `Popover`       | Floating panel for contextual content.                                                 |
 | `Tooltip`       | Accessible tooltip.                                                                    |
@@ -82,6 +82,15 @@ Base components come from `@1001-digital/components`. Nuxt apps usually receive 
   </Dialog>
 </template>
 ```
+
+`title` provides the visible accessible name. For titleless dialogs, use
+`label` or the standard `aria-label`; `description` associates visible help
+text with the dialog. Dialog surfaces expose `data-state="open|closed"`. They
+use a `.dialog-overlay` element instead of native `<dialog>::backdrop`, so
+custom selectors should use `.dialog[data-state='open']` and
+`.dialog-overlay` rather than `dialog[open]` and `dialog::backdrop`. Compat
+mode retains its `<article class="dialog compat">` surface, but the overlay is
+now placed before it inside `.dialog-layer`.
 
 Dropdown-related components:
 

@@ -1,97 +1,111 @@
 <template>
-  <Teleport :to="teleportTarget || 'body'">
-    <Transition
-      :css="false"
-      appear
-      @enter="onEnter"
-      @leave="onLeave"
-      @after-leave="() => emit('closed')"
-    >
-      <!--
-        Literal <dialog>/<article> instead of <component :is="tag">. Vue's
-        resolveAsset is case-insensitive ('dialog' → 'Dialog'), and when this
-        component is auto-registered as `Dialog` (Nuxt layers do this), the
-        dynamic `is` resolves back to this component and renders nothing.
-      -->
-      <dialog
-        v-if="open && !compat"
-        ref="dialog"
-        :class="classes"
-        tabindex="-1"
-        @cancel.stop.prevent="closable && (open = false)"
-        @keydown.escape.stop.prevent="closable && (open = false)"
-        @click="onDialogClick"
+  <DialogRoot v-model:open="open">
+    <DialogPortal :to="layerTarget">
+      <div
+        v-if="layerPresent"
+        class="dialog-layer"
+        :data-layer-order="layerOrder"
+        :style="{ '--dialog-layer-order': layerOrder }"
       >
-        <div class="dialog-content">
-          <h1 v-if="title">{{ title }}</h1>
-          <button
-            v-if="closable"
-            class="close"
-            :title="`Close ${title || 'Dialog'}`"
-            @pointerdown="open = false"
-            @click="open = false"
+        <DialogOverlay
+          class="dialog-overlay"
+          :class="{ overlay: compat }"
+        />
+        <DialogContent
+          as-child
+          v-bind="
+            description || $attrs['aria-describedby'] !== undefined
+              ? $attrs
+              : { ...$attrs, 'aria-describedby': undefined }
+          "
+          @escape-key-down="onEscapeKeyDown"
+          @pointer-down-outside="onPointerDownOutside"
+          @after-leave="onAfterLeave"
+        >
+          <DialogSurface
+            :as="compat ? 'article' : 'div'"
+            :class="classes"
           >
-            <Icon name="close" />
-          </button>
+            <DialogTitle
+              v-if="title"
+              as="h1"
+            >
+              {{ title }}
+            </DialogTitle>
+            <DialogTitle
+              v-else
+              as="h1"
+              class="dialog-visually-hidden"
+            >
+              {{ label || $attrs['aria-label'] || 'Dialog' }}
+            </DialogTitle>
 
-          <section>
-            <slot />
-          </section>
+            <DialogClose
+              v-if="closable"
+              as-child
+            >
+              <button
+                type="button"
+                class="close"
+                :aria-label="resolvedCloseLabel"
+                :title="resolvedCloseLabel"
+              >
+                <Icon
+                  name="close"
+                  aria-hidden="true"
+                />
+              </button>
+            </DialogClose>
 
-          <footer v-if="$slots.footer">
-            <slot name="footer" />
-          </footer>
-        </div>
-      </dialog>
-      <article
-        v-else-if="open"
-        ref="dialog"
-        :class="classes"
-        tabindex="-1"
-        @keydown.escape.stop.prevent="closable && (open = false)"
-        @click="onDialogClick"
-      >
-        <div class="dialog-content">
-          <h1 v-if="title">{{ title }}</h1>
-          <button
-            v-if="closable"
-            class="close"
-            :title="`Close ${title || 'Dialog'}`"
-            @pointerdown="open = false"
-            @click="open = false"
-          >
-            <Icon name="close" />
-          </button>
+            <section>
+              <DialogDescription
+                v-if="description"
+                as="p"
+                class="dialog-description"
+              >
+                {{ description }}
+              </DialogDescription>
+              <slot />
+            </section>
 
-          <section>
-            <slot />
-          </section>
-
-          <footer v-if="$slots.footer">
-            <slot name="footer" />
-          </footer>
-        </div>
-      </article>
-    </Transition>
-
-    <div
-      v-if="compat && open"
-      class="overlay"
-      @click="onClickOutside"
-    />
-  </Teleport>
+            <footer v-if="$slots.footer">
+              <slot name="footer" />
+            </footer>
+          </DialogSurface>
+        </DialogContent>
+      </div>
+    </DialogPortal>
+  </DialogRoot>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, inject, onBeforeUnmount } from 'vue'
+import { computed, inject, ref, watch } from 'vue'
+import {
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogOverlay,
+  DialogPortal,
+  DialogRoot,
+  DialogTitle,
+} from 'reka-ui'
+import DialogSurface from '../internal/DialogSurface.vue'
+import { useDialogLayer } from '../internal/useDialogLayer'
 import Icon from './Icon.vue'
+
+defineOptions({ inheritAttrs: false })
 
 const teleportTarget = inject<HTMLElement | null>('teleport-target', null)
 
-const dialog = ref<HTMLDialogElement | null>(null)
 const props = withDefaults(
   defineProps<{
     title?: string
+    /** Accessible name used when there is no visible title. */
+    label?: string
+    /** Optional visible description associated with the dialog. */
+    description?: string
+    /** Accessible label for the close control. */
+    closeLabel?: string
     class?: string | string[] | Record<string, boolean>
     clickOutside?: boolean
     closable?: boolean
@@ -103,263 +117,45 @@ const props = withDefaults(
     closable: true,
   },
 )
+
 const emit = defineEmits<{
   closed: []
 }>()
+
 const open = defineModel<boolean>('open', { required: true })
-const classes = computed(() => {
-  let obj: Record<string, boolean> = {
-    dialog: true,
+const layerPresent = ref(open.value)
+const { layerOrder, layerTarget, releaseLayer } = useDialogLayer(
+  open,
+  teleportTarget,
+)
+const resolvedCloseLabel = computed(
+  () => props.closeLabel || `Close ${props.title || props.label || 'dialog'}`,
+)
+const classes = computed(() => [
+  props.class,
+  {
     compat: !!props.compat,
     large: !!props.large,
-  }
-
-  // Apply passed classes
-  if (typeof props.class === 'string') {
-    obj[props.class] = true
-  } else if (Array.isArray(props.class)) {
-    props.class.forEach((c) => {
-      obj[c] = true
-    })
-  } else if (typeof props.class === 'object') {
-    obj = { ...obj, ...props.class }
-  }
-
-  if (props.compat) {
-    obj.open = true
-  }
-
-  return obj
-})
-
-const onEnter = (el: Element, done: () => void) => {
-  if (!props.compat) {
-    ;(el as HTMLDialogElement).showModal()
-  }
-  // Focus the dialog itself to prevent the close button from gaining focus
-  ;(el as HTMLElement).focus()
-  done()
+    open: !!props.compat && open.value,
+  },
+])
+const onEscapeKeyDown = (event: KeyboardEvent) => {
+  if (!props.closable) event.preventDefault()
 }
 
-const onLeave = (el: Element, done: () => void) => {
-  let called = false
-  const finish = () => {
-    if (called) return
-    called = true
-    done()
-  }
-
-  el.addEventListener('transitionend', (e) => {
-    if ((e as TransitionEvent).propertyName === 'opacity') finish()
-  })
-
-  // Fallback in case transitionend never fires
-  const speed = getComputedStyle(el).getPropertyValue('--speed')
-  const ms = speed ? parseFloat(speed) * (speed.includes('ms') ? 1 : 1000) : 0
-  setTimeout(finish, ms + 50)
-
-  if (props.compat) {
-    el.classList.remove('open')
-  } else {
-    ;(el as HTMLDialogElement).close()
-  }
+const onPointerDownOutside = (event: Event) => {
+  if (!props.clickOutside) event.preventDefault()
 }
 
-const onDialogClick = (e: MouseEvent) => {
-  if (props.compat || e.target !== dialog.value) return
-  onClickOutside()
+const onAfterLeave = () => {
+  if (open.value) return
+
+  releaseLayer()
+  layerPresent.value = false
+  emit('closed')
 }
 
-const onClickOutside = () => {
-  if (props.clickOutside) {
-    open.value = false
-  }
-}
-
-onBeforeUnmount(() => {
-  if (!props.compat && dialog.value) {
-    dialog.value.close()
-  }
+watch(open, (value) => {
+  if (value) layerPresent.value = true
 })
 </script>
-
-<style>
-@layer components {
-  .dialog {
-    /* Flex prevents Safari from expanding the inner grid's 1fr row. */
-    display: flex;
-    flex-direction: column;
-    block-size: fit-content;
-    max-block-size: var(
-      --dialog-max-block-size,
-      calc(100dvh - 2 * var(--spacer))
-    );
-    max-inline-size: min(
-      var(--dialog-width, 32rem),
-      calc(100vw - var(--spacer) * 2)
-    );
-    inline-size: 100%;
-    background: var(--background);
-    color: var(--color);
-    border: var(--border);
-    border-radius: var(--dialog-border-radius);
-    padding: 0;
-    overflow: hidden;
-
-    > .dialog-content {
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      inline-size: 100%;
-      min-block-size: 0;
-      max-block-size: inherit;
-
-      > h1:first-child,
-      > .close {
-        display: flex;
-        align-items: center;
-        block-size: calc(var(--spacer) * 2);
-        background: var(--dialog-header-background);
-        box-shadow: var(--border-shadow);
-        padding-inline-start: var(--spacer);
-        font-family: var(--ui-font-family);
-        font-size: var(--ui-font-size);
-        text-transform: var(--ui-text-transform);
-        margin: 0;
-      }
-
-      > h1:first-child {
-        position: relative;
-        z-index: 1;
-        padding-right: calc(var(--spacer) * 3);
-      }
-
-      > .close {
-        color: var(--dialog-close-color);
-        position: absolute;
-        z-index: 2;
-        top: 0;
-        right: 0;
-        inline-size: calc(var(--spacer) * 2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        border-radius: 0;
-        border-start-end-radius: var(--dialog-border-radius);
-
-        &:is(:hover, :active, :focus, .active) {
-          outline: none;
-        }
-      }
-
-      > section {
-        overflow-y: auto;
-        overscroll-behavior: contain;
-        padding: var(--spacer);
-        display: grid;
-        gap: var(--spacer);
-      }
-
-      > footer {
-        display: flex;
-        gap: var(--spacer);
-        justify-content: safe flex-end;
-        padding: var(--spacer);
-        border-block-start: var(--border);
-        overflow-x: auto;
-
-        &:empty {
-          display: none;
-        }
-      }
-    }
-
-    /* Entry/exit animations */
-    opacity: 1;
-    scale: 1;
-    transition:
-      opacity var(--speed) ease,
-      scale var(--speed) ease,
-      overlay var(--speed) ease allow-discrete,
-      display var(--speed) ease allow-discrete;
-
-    @starting-style {
-      opacity: 0;
-      scale: 0.95;
-    }
-
-    /* Exit animation */
-    &:not([open]):not(:popover-open):not(.open) {
-      opacity: 0;
-      scale: 0.95;
-    }
-
-    &::backdrop {
-      background-color: var(--backdrop-background);
-      backdrop-filter: var(--blur);
-      transition:
-        background-color var(--speed) ease,
-        backdrop-filter var(--speed) ease,
-        overlay var(--speed) ease allow-discrete,
-        display var(--speed) ease allow-discrete;
-
-      @starting-style {
-        background-color: transparent;
-      }
-    }
-
-    &.compat {
-      position: fixed;
-      inset-block-start: 50%;
-      inset-inline-start: 50%;
-      z-index: var(--z-index-dialog);
-      transform: translate(-50%, -50%);
-
-      &.open + .overlay {
-        position: fixed;
-        inset: 0;
-        z-index: var(--z-index-overlay);
-        background-color: var(--backdrop-background);
-        backdrop-filter: var(--blur);
-        transition:
-          background-color var(--speed) ease,
-          backdrop-filter var(--speed) ease;
-
-        @starting-style {
-          background-color: transparent;
-        }
-      }
-    }
-
-    &:focus {
-      outline: none;
-    }
-
-    &.large {
-      --dialog-width: min(90vw, 64rem);
-    }
-  }
-
-  /* Stacked compat dialog z-index layering */
-  .overlay ~ .dialog.compat {
-    z-index: calc(var(--z-index-dialog) + 2);
-  }
-  .overlay ~ .dialog.compat.open + .overlay {
-    z-index: calc(var(--z-index-dialog) + 1);
-  }
-  .overlay ~ .overlay ~ .dialog.compat {
-    z-index: calc(var(--z-index-dialog) + 4);
-  }
-  .overlay ~ .overlay ~ .dialog.compat.open + .overlay {
-    z-index: calc(var(--z-index-dialog) + 3);
-  }
-
-  /*
-   * Lock document scroll while a dialog is open by clipping the root scroller.
-   */
-  html:has(dialog[open]),
-  html:has(.dialog.open) {
-    overflow: hidden;
-  }
-}
-</style>

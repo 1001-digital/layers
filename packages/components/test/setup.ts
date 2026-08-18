@@ -24,6 +24,17 @@ Object.defineProperty(globalThis, 'PointerEvent', {
   value: MouseEvent,
 })
 
+if (!globalThis.CSS) {
+  Object.defineProperty(globalThis, 'CSS', {
+    configurable: true,
+    value: {},
+  })
+}
+
+if (!globalThis.CSS.escape) {
+  globalThis.CSS.escape = (value) => value
+}
+
 Object.defineProperties(HTMLElement.prototype, {
   hasPointerCapture: {
     configurable: true,
