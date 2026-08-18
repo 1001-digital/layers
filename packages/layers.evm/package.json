@@ -21,15 +21,15 @@
     "typecheck": "nuxi typecheck .playground"
   },
   "devDependencies": {
-    "@nuxt/eslint": "1.16.0",
+    "@nuxt/eslint": "1.17.0",
     "@signinwithethereum/siwe": "^4.2.0",
-    "@types/node": "^24.10.4",
+    "@types/node": "^24.10.9",
     "@wagmi/core": "3.4.6",
-    "eslint": "^10.7.0",
+    "eslint": "^10.8.1",
     "nuxt": "^4.5.2",
     "typescript": "^5.9.3",
-    "vue": "^3.5.40",
-    "vue-tsc": "^3.3.7"
+    "vue": "^3.5.41",
+    "vue-tsc": "^3.3.10"
   },
   "dependencies": {
     "@1001-digital/components": "workspace:^",

@@ -1,12 +1,12 @@
+import { defineComponent, h, resolveComponent, type Component } from 'vue'
+import * as Originals from '@1001-digital/components-original'
+
 // Pass through composables, utils, types, and injection keys unchanged.
 // The component exports below intentionally shadow the originals so that
 // `import { Button } from '@1001-digital/components'` resolves through
 // Nuxt's component registry — letting consumer apps or layers override
 // any base component via their own `app/components/Button.vue`.
 export * from '@1001-digital/components-original'
-
-import { defineComponent, h, resolveComponent, type Component } from 'vue'
-import * as Originals from '@1001-digital/components-original'
 
 // No `name:` on the proxy — Vue's `resolveAsset` does a self-name check
 // before consulting the global registry, so a same-named proxy would

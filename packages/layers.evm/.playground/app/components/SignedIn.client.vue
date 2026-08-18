@@ -6,8 +6,8 @@
     </p>
     <Actions>
       <EvmProfile @disconnected="onDisconnected">
-        <template #default="{ display, address }">
-          <EvmAvatar :address="address" />
+        <template #default="{ display, address: profileAddress }">
+          <EvmAvatar :address="profileAddress" />
           <span>{{ display }}</span>
         </template>
       </EvmProfile>

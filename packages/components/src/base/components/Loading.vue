@@ -4,7 +4,7 @@
       v-if="spinner"
       class="spinner"
       aria-hidden="true"
-    ></span>
+    />
     <span
       v-if="txt"
       class="text"

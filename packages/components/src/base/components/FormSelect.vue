@@ -21,11 +21,11 @@
         <SelectViewport class="form-select-viewport">
           <SelectItem
             v-for="option in options"
-            :key="option[valueKey]"
-            :value="option[valueKey]"
+            :key="getOptionValue(option)"
+            :value="getOptionValue(option)"
             class="form-select-item"
           >
-            <SelectItemText>{{ option[labelKey] }}</SelectItemText>
+            <SelectItemText>{{ getOptionLabel(option) }}</SelectItemText>
             <SelectItemIndicator class="form-select-indicator">
               <Icon name="check" />
             </SelectItemIndicator>
@@ -55,37 +55,28 @@ import Icon from './Icon.vue'
 const teleportTarget = inject<HTMLElement | null>('teleport-target', null)
 
 const model = defineModel<string | string[]>()
+type Option = Record<string, unknown>
 
-defineProps({
-  options: {
-    type: Array as () => Record<string, any>[],
-    default: () => [],
+const props = withDefaults(
+  defineProps<{
+    options?: Option[]
+    placeholder?: string
+    multiple?: boolean
+    disabled?: boolean
+    valueKey?: string
+    labelKey?: string
+    name?: string
+  }>(),
+  {
+    options: () => [],
+    placeholder: 'Select...',
+    valueKey: 'value',
+    labelKey: 'label',
   },
-  placeholder: {
-    type: String,
-    default: 'Select...',
-  },
-  multiple: {
-    type: Boolean,
-    default: false,
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  valueKey: {
-    type: String,
-    default: 'value',
-  },
-  labelKey: {
-    type: String,
-    default: 'label',
-  },
-  name: {
-    type: String,
-    default: undefined,
-  },
-})
+)
+
+const getOptionValue = (option: Option) => option[props.valueKey] as string
+const getOptionLabel = (option: Option) => String(option[props.labelKey] ?? '')
 </script>
 
 <style scoped>

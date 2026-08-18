@@ -1,5 +1,11 @@
 export default defineEventHandler((event) => {
-  const { evm } = useAppConfig() as { evm: Record<string, any> }
+  const { evm } = useAppConfig() as {
+    evm?: {
+      appLogoUrl?: string
+      safe?: { description?: string; iconPath?: string }
+      title?: string
+    }
+  }
 
   setResponseHeaders(event, {
     'Access-Control-Allow-Origin': '*',

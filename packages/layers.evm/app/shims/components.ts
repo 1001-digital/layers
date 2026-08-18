@@ -1,12 +1,12 @@
+import { defineComponent, h, resolveComponent, type Component } from 'vue'
+import * as Originals from '@1001-digital/components.evm-original'
+
 // Pass through config, composables, utils, types, and constants unchanged.
 // The component exports below intentionally shadow the originals so that
 // `import { EvmConnect } from '@1001-digital/components.evm'` resolves
 // through Nuxt's component registry — letting consumer apps or layers
 // override any component via their own `app/components/EvmConnect.vue`.
 export * from '@1001-digital/components.evm-original'
-
-import { defineComponent, h, resolveComponent, type Component } from 'vue'
-import * as Originals from '@1001-digital/components.evm-original'
 
 // No `name:` on the proxy — Vue's `resolveAsset` does a self-name check
 // before consulting the global registry, so a same-named proxy would

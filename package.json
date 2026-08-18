@@ -9,15 +9,17 @@
     "docs:dev": "pnpm --dir docs dev",
     "docs:preview": "pnpm --dir docs preview",
     "version-packages": "changeset version && node scripts/generate-changelog.ts",
+    "build": "pnpm --filter @1001-digital/layers.base --filter @1001-digital/layers.evm build",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "lint": "pnpm --filter @1001-digital/layers.base --filter @1001-digital/layers.evm dev:prepare && pnpm -r --if-present lint",
     "typecheck": "pnpm -r --if-present typecheck",
     "test": "pnpm -r --if-present test"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.6.0",
     "@changesets/cli": "^2.30.0",
-    "prettier": "^3.8.1"
+    "prettier": "^3.9.6"
   },
   "engines": {
     "node": ">=22.18"

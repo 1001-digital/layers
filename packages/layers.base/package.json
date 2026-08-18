@@ -20,20 +20,21 @@
     "typecheck": "nuxi typecheck .playground"
   },
   "devDependencies": {
-    "@nuxt/eslint": "1.16.0",
-    "@types/node": "^24.10.1",
-    "@vueuse/core": "^14.2.1",
-    "eslint": "^10.7.0",
+    "@internationalized/date": "^3.12.3",
+    "@nuxt/eslint": "1.17.0",
+    "@types/node": "^24.10.9",
+    "@vueuse/core": "^14.4.0",
+    "eslint": "^10.8.1",
     "nuxt": "^4.5.2",
     "typescript": "^5.9.3",
-    "vue": "^3.5.40",
-    "vue-tsc": "^3.3.7"
+    "vue": "^3.5.41",
+    "vue-tsc": "^3.3.10"
   },
   "dependencies": {
     "@1001-digital/components": "workspace:^",
     "@1001-digital/styles": "workspace:^",
-    "@iconify-json/lucide": "^1.2.96",
-    "@iconify-json/simple-icons": "^1.2.72",
-    "@nuxt/icon": "^2.3.1"
+    "@iconify-json/lucide": "^1.2.123",
+    "@iconify-json/simple-icons": "^1.2.93",
+    "@nuxt/icon": "^2.5.0"
   }
 }

@@ -35,11 +35,11 @@
           </ComboboxEmpty>
           <ComboboxItem
             v-for="option in options"
-            :key="option[valueKey]"
-            :value="option[valueKey]"
+            :key="getOptionValue(option)"
+            :value="getOptionValue(option)"
             class="combobox-item"
           >
-            {{ option[labelKey] }}
+            {{ getOptionLabel(option) }}
             <ComboboxItemIndicator class="combobox-indicator">
               <Icon name="check" />
             </ComboboxItemIndicator>
@@ -70,10 +70,11 @@ const teleportTarget = inject<HTMLElement | null>('teleport-target', null)
 
 const model = defineModel<string | string[]>()
 const open = defineModel<boolean>('open', { default: false })
+type Option = Record<string, unknown>
 
 const props = withDefaults(
   defineProps<{
-    options?: Record<string, any>[]
+    options?: Option[]
     placeholder?: string
     multiple?: boolean
     disabled?: boolean
@@ -97,13 +98,16 @@ const props = withDefaults(
   },
 )
 
-const resolveLabel = (v: any) => {
+const getOptionValue = (option: Option) => option[props.valueKey] as string
+const getOptionLabel = (option: Option) => String(option[props.labelKey] ?? '')
+
+const resolveLabel = (v: unknown) => {
   if (v == null) return ''
   const option = props.options.find((o) => o[props.valueKey] === v)
-  return option ? String(option[props.labelKey]) : String(v)
+  return option ? getOptionLabel(option) : String(v)
 }
 
-const resolveDisplayValue = (val: any) => {
+const resolveDisplayValue = (val: unknown) => {
   if (val == null) return ''
   if (Array.isArray(val) && val.length === 0) return ''
   if (Array.isArray(val)) return val.map(resolveLabel).join(', ')
