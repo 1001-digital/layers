@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict'
-import test from 'node:test'
+import { test } from 'vitest'
 import {
   detectMediaInfoFromMime,
   detectMediaInfoFromUrl,
   fetchMediaInfo,
   inspectMediaUrl,
-} from '../src/base/utils/media.ts'
+} from '../src/base/utils/media'
 
 test('detects known media extensions with case, query, and fragment noise', () => {
   assert.deepEqual(

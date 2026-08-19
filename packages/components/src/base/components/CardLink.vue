@@ -14,7 +14,7 @@ import { LinkComponentKey } from '../link'
 
 const props = withDefaults(
   defineProps<{
-    to: string | Record<string, unknown>
+    to: string | object
     title?: string
   }>(),
   {

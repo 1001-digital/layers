@@ -26,7 +26,13 @@
 import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from 'reka-ui'
 
 const model = defineModel<string>()
-type Option = Record<string, unknown>
+/*
+ * Options are read through `valueKey` / `labelKey`, so any object shape is
+ * valid. `Record<string, unknown>` would reject interface-typed arrays,
+ * which have no implicit index signature.
+ */
+type Option = object
+type IndexedOption = Record<string, unknown>
 
 const props = withDefaults(
   defineProps<{
@@ -45,8 +51,10 @@ const props = withDefaults(
   },
 )
 
-const getOptionValue = (option: Option) => option[props.valueKey] as string
-const getOptionLabel = (option: Option) => String(option[props.labelKey] ?? '')
+const getOptionValue = (option: Option) =>
+  (option as IndexedOption)[props.valueKey] as string
+const getOptionLabel = (option: Option) =>
+  String((option as IndexedOption)[props.labelKey] ?? '')
 </script>
 
 <style scoped>
