@@ -1,4 +1,4 @@
-import { createCache } from './cache.ts'
+import { createCache } from './cache'
 
 export type MediaKind = 'image' | 'video' | 'audio' | 'model' | 'embed'
 

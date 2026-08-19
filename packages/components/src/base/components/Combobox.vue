@@ -70,7 +70,13 @@ const teleportTarget = inject<HTMLElement | null>('teleport-target', null)
 
 const model = defineModel<string | string[]>()
 const open = defineModel<boolean>('open', { default: false })
-type Option = Record<string, unknown>
+/*
+ * Options are read through `valueKey` / `labelKey`, so any object shape is
+ * valid. `Record<string, unknown>` would reject interface-typed arrays,
+ * which have no implicit index signature.
+ */
+type Option = object
+type IndexedOption = Record<string, unknown>
 
 const props = withDefaults(
   defineProps<{
@@ -98,12 +104,16 @@ const props = withDefaults(
   },
 )
 
-const getOptionValue = (option: Option) => option[props.valueKey] as string
-const getOptionLabel = (option: Option) => String(option[props.labelKey] ?? '')
+const getOptionValue = (option: Option) =>
+  (option as IndexedOption)[props.valueKey] as string
+const getOptionLabel = (option: Option) =>
+  String((option as IndexedOption)[props.labelKey] ?? '')
 
 const resolveLabel = (v: unknown) => {
   if (v == null) return ''
-  const option = props.options.find((o) => o[props.valueKey] === v)
+  const option = props.options.find(
+    (o) => (o as IndexedOption)[props.valueKey] === v,
+  )
   return option ? getOptionLabel(option) : String(v)
 }
 
