@@ -3,6 +3,25 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-08-19
+
+- Vertically centre labels in form controls and tags. Buttons and inputs are flex [`7e4df4d`](https://github.com/1001-digital/layers/commit/7e4df4d)
+  boxes with a fixed block size, so their label rendered against the top edge; the
+  tag label was stretched by the taller dismiss button and sat high in the chip.
+  _`components`, `styles`_
+
+## 2026-08-18
+
+- Upgrade the shared UI foundation to Reka UI 2.10.3, refresh compatible icon ([#102](https://github.com/1001-digital/layers/pull/102)) [`2f6571e`](https://github.com/1001-digital/layers/commit/2f6571e)
+  and Vue tooling, and add regression coverage for accessible component behavior.
+  _`components`, `layers.base`, `layers.evm`_
+
+- **Minor** Prevent duplicate transaction submissions, invalidate late async flow updates, ([#103](https://github.com/1001-digital/layers/pull/103)) [`ca57b29`](https://github.com/1001-digital/layers/commit/ca57b29)
+  clean up chain watchers and progress timers, and expose busy state through the
+  transaction flow composables and components. Re-export the transaction flow
+  composables for Nuxt auto-imports.
+  _`components.evm`, `layers.evm`_
+
 ## 2026-08-10
 
 - Restore reliable fixed-viewport HTML embed scaling in Safari. ([#100](https://github.com/1001-digital/layers/pull/100)) [`1cd2922`](https://github.com/1001-digital/layers/commit/1cd2922)

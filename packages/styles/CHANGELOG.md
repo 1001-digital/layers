@@ -1,5 +1,13 @@
 # @1001-digital/styles
 
+## 2.7.1
+
+### Patch Changes
+
+- [`7e4df4d`](https://github.com/1001-digital/layers/commit/7e4df4d5fced529e1fac49b2ee492e8a1589fb71) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Vertically centre labels in form controls and tags. Buttons and inputs are flex
+  boxes with a fixed block size, so their label rendered against the top edge; the
+  tag label was stretched by the taller dismiss button and sat high in the chip.
+
 ## 2.7.0
 
 ### Minor Changes

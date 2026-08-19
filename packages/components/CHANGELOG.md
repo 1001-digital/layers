@@ -1,5 +1,18 @@
 # @1001-digital/components
 
+## 2.10.4
+
+### Patch Changes
+
+- [#102](https://github.com/1001-digital/layers/pull/102) [`2f6571e`](https://github.com/1001-digital/layers/commit/2f6571e85435f6ca8ca9edc8e0aa9d7b62646e0c) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Upgrade the shared UI foundation to Reka UI 2.10.3, refresh compatible icon
+  and Vue tooling, and add regression coverage for accessible component behavior.
+
+- [`7e4df4d`](https://github.com/1001-digital/layers/commit/7e4df4d5fced529e1fac49b2ee492e8a1589fb71) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Vertically centre labels in form controls and tags. Buttons and inputs are flex
+  boxes with a fixed block size, so their label rendered against the top edge; the
+  tag label was stretched by the taller dismiss button and sat high in the chip.
+- Updated dependencies [[`7e4df4d`](https://github.com/1001-digital/layers/commit/7e4df4d5fced529e1fac49b2ee492e8a1589fb71)]:
+  - @1001-digital/styles@2.7.1
+
 ## 2.10.3
 
 ### Patch Changes
