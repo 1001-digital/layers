@@ -7,6 +7,8 @@
 </template>
 
 <script setup lang="ts">
+defineOptions({ name: 'BaseIcon' })
+
 const props = defineProps<{ name: string }>()
 
 const iconName = computed(() => props.name)

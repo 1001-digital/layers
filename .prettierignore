@@ -1,1 +1,7 @@
-.nuxt
+**/.nuxt
+**/.output
+**/.vitepress/cache
+**/.vitepress/dist
+**/coverage
+CHANGELOG.md
+pnpm-lock.yaml

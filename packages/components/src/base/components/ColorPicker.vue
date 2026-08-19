@@ -132,7 +132,7 @@ import {
 import FormInputGroup from './FormInputGroup.vue'
 import Popover from './Popover.vue'
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
     side?: 'top' | 'right' | 'bottom' | 'left'
     align?: 'start' | 'center' | 'end'

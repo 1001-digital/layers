@@ -31,7 +31,7 @@ import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'reka-ui'
 
 const model = defineModel<number[]>()
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
     disabled?: boolean
     min?: number

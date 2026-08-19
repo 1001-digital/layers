@@ -5,10 +5,10 @@
     <Card>
       <h2>Wallet Connection</h2>
       <EvmConnectDialog>
-        <template #connected="{ address }">
+        <template #connected="{ address: connectedAddress }">
           <p>
             Connected:
-            <EvmAccount :address="address" />
+            <EvmAccount :address="connectedAddress" />
           </p>
         </template>
       </EvmConnectDialog>

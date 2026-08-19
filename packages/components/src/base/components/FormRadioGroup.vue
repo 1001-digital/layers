@@ -8,16 +8,16 @@
   >
     <label
       v-for="option in options"
-      :key="option[valueKey]"
+      :key="getOptionValue(option)"
       class="form-radio-item"
     >
       <RadioGroupItem
-        :value="option[valueKey]"
+        :value="getOptionValue(option)"
         class="form-radio-button"
       >
         <RadioGroupIndicator class="form-radio-indicator" />
       </RadioGroupItem>
-      <span>{{ option[labelKey] }}</span>
+      <span>{{ getOptionLabel(option) }}</span>
     </label>
   </RadioGroupRoot>
 </template>
@@ -26,33 +26,27 @@
 import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from 'reka-ui'
 
 const model = defineModel<string>()
+type Option = Record<string, unknown>
 
-defineProps({
-  options: {
-    type: Array as () => Record<string, any>[],
-    default: () => [],
+const props = withDefaults(
+  defineProps<{
+    options?: Option[]
+    disabled?: boolean
+    orientation?: 'horizontal' | 'vertical'
+    valueKey?: string
+    labelKey?: string
+    name?: string
+  }>(),
+  {
+    options: () => [],
+    orientation: 'horizontal',
+    valueKey: 'value',
+    labelKey: 'label',
   },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  orientation: {
-    type: String as () => 'horizontal' | 'vertical',
-    default: 'horizontal',
-  },
-  valueKey: {
-    type: String,
-    default: 'value',
-  },
-  labelKey: {
-    type: String,
-    default: 'label',
-  },
-  name: {
-    type: String,
-    default: undefined,
-  },
-})
+)
+
+const getOptionValue = (option: Option) => option[props.valueKey] as string
+const getOptionLabel = (option: Option) => String(option[props.labelKey] ?? '')
 </script>
 
 <style scoped>

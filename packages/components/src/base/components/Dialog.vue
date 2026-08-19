@@ -78,7 +78,7 @@
       v-if="compat && open"
       class="overlay"
       @click="onClickOutside"
-    ></div>
+    />
   </Teleport>
 </template>
 

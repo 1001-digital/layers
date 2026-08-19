@@ -27,7 +27,7 @@
       :scrolling="scroll ? undefined : 'no'"
       :src="src"
       sandbox="allow-scripts"
-    ></iframe>
+    />
   </div>
 </template>
 
@@ -81,8 +81,8 @@ watchEffect(async () => {
 })
 
 // Force reload on resize
-const { width } = useWindowSize()
-watch(width, () => {
+const { width: viewportWidth } = useWindowSize()
+watch(viewportWidth, () => {
   src.value = ''
 
   nextTick(() => {
