@@ -18,7 +18,7 @@
     "access": "public"
   },
   "scripts": {
-    "test": "node --test test/*.test.ts"
+    "test": "node --import ./test/register-typescript.ts --test test/*.test.ts"
   },
   "peerDependencies": {
     "@1001-digital/components": "workspace:^",

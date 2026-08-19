@@ -3,6 +3,7 @@
     :start="flow.start"
     :step="flow.step.value"
     :open="open"
+    :is-busy="flow.isBusy.value"
     name="start"
   ></slot>
 
@@ -13,7 +14,7 @@
     :title="flow.text.value.title[flow.step.value] || ''"
     class="transaction-flow"
     compat
-    @closed="flow.reset"
+    @closed="onClosed"
   >
     <EvmTransactionFlow
       :flow="flow"
@@ -42,6 +43,13 @@
           class="secondary"
           >Cancel</Button
         >
+        <Button
+          class="primary"
+          :disabled="flow.isBusy.value"
+          @click="() => flow.initializeRequest()"
+        >
+          {{ flow.isBusy.value ? 'Switching Network...' : 'Switch Network' }}
+        </Button>
       </template>
 
       <template
@@ -54,9 +62,14 @@
         >
         <Button
           class="primary"
+          :disabled="flow.isBusy.value"
           @click="() => flow.initializeRequest()"
         >
-          {{ flow.text.value.action[flow.step.value] || 'Execute' }}
+          {{
+            flow.isBusy.value
+              ? 'Preparing...'
+              : flow.text.value.action[flow.step.value] || 'Execute'
+          }}
         </Button>
       </template>
 
@@ -65,6 +78,7 @@
         :step="flow.step.value"
         :cancel="cancel"
         :execute="() => flow.initializeRequest()"
+        :is-busy="flow.isBusy.value"
         :tx-link="flow.txLink.value"
       />
     </template>
@@ -72,7 +86,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, toRefs } from 'vue'
+import { computed, toRefs, watch } from 'vue'
 import { Dialog, Button } from '@1001-digital/components'
 import EvmTransactionFlow from './EvmTransactionFlow.vue'
 import {
@@ -83,8 +97,6 @@ import type {
   EvmTransactionFlowDialogProps,
   EvmTransactionFlowDialogEmits,
 } from '../types'
-import type { TransactionReceipt } from 'viem'
-import { watch } from 'vue'
 
 const props = withDefaults(defineProps<EvmTransactionFlowDialogProps>(), {
   delayAfter: 2000,
@@ -119,8 +131,13 @@ const cancel = () => {
   emit('cancel')
 }
 
+const onClosed = () => {
+  if (!flow.isBusy.value) flow.reset()
+}
+
 defineExpose({
   initializeRequest: flow.initializeRequest,
+  isBusy: flow.isBusy,
 })
 </script>
 

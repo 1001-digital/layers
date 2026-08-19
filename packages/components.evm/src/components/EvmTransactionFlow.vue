@@ -36,6 +36,7 @@
   <slot
     :name="flow.step.value"
     :cancel="cancel"
+    :is-busy="flow.isBusy.value"
   ></slot>
 
   <template v-if="!noFooter">
@@ -44,6 +45,7 @@
       :step="flow.step.value"
       :cancel="cancel"
       :execute="() => flow.initializeRequest()"
+      :is-busy="flow.isBusy.value"
       :tx-link="flow.txLink.value"
     >
       <template v-if="flow.step.value === 'chain'">
@@ -52,6 +54,13 @@
           class="secondary"
           >Cancel</Button
         >
+        <Button
+          class="primary"
+          :disabled="flow.isBusy.value"
+          @click="() => flow.initializeRequest()"
+        >
+          {{ flow.isBusy.value ? 'Switching Network...' : 'Switch Network' }}
+        </Button>
       </template>
 
       <template
@@ -64,9 +73,14 @@
         >
         <Button
           class="primary"
+          :disabled="flow.isBusy.value"
           @click="() => flow.initializeRequest()"
         >
-          {{ flow.text.value.action[flow.step.value] || 'Execute' }}
+          {{
+            flow.isBusy.value
+              ? 'Preparing...'
+              : flow.text.value.action[flow.step.value] || 'Execute'
+          }}
         </Button>
       </template>
     </slot>
@@ -76,6 +90,7 @@
       :step="flow.step.value"
       :cancel="cancel"
       :execute="() => flow.initializeRequest()"
+      :is-busy="flow.isBusy.value"
       :tx-link="flow.txLink.value"
     />
   </template>
@@ -131,6 +146,7 @@ defineExpose({
   cancel,
   reset: flow.reset,
   step: flow.step,
+  isBusy: flow.isBusy,
   text: flow.text,
   canDismiss: flow.canDismiss,
   txLink: flow.txLink,

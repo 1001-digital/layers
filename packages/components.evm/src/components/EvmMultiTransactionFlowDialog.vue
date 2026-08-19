@@ -4,6 +4,7 @@
     :step="flow.step.value"
     :step-index="flow.stepIndex.value"
     :open="open"
+    :is-busy="flow.isBusy.value"
     name="start"
   />
 
@@ -14,7 +15,7 @@
     :title="props.title || flow.currentTitle.value || ''"
     class="multi-transaction-flow-dialog"
     compat
-    @closed="flow.reset"
+    @closed="onClosed"
   >
     <EvmMultiTransactionFlow
       :flow="flow"
@@ -64,6 +65,13 @@
           class="secondary"
           >Cancel</Button
         >
+        <Button
+          class="primary"
+          :disabled="flow.isBusy.value"
+          @click="() => flow.initializeRequest()"
+        >
+          {{ flow.isBusy.value ? 'Switching Network...' : 'Switch Network' }}
+        </Button>
       </template>
 
       <template
@@ -76,9 +84,14 @@
         >
         <Button
           class="primary"
+          :disabled="flow.isBusy.value"
           @click="() => flow.initializeRequest()"
         >
-          {{ flow.currentAction.value || 'Execute' }}
+          {{
+            flow.isBusy.value
+              ? 'Preparing...'
+              : flow.currentAction.value || 'Execute'
+          }}
         </Button>
       </template>
 
@@ -91,6 +104,7 @@
         :current-step="flow.currentStep.value"
         :cancel="cancel"
         :execute="() => flow.initializeRequest()"
+        :is-busy="flow.isBusy.value"
         :tx-link="flow.txLink.value"
       />
     </template>
@@ -151,8 +165,13 @@ const cancel = () => {
   emit('cancel')
 }
 
+const onClosed = () => {
+  if (!flow.isBusy.value) flow.reset()
+}
+
 defineExpose({
   initializeRequest: flow.initializeRequest,
+  isBusy: flow.isBusy,
   start: flow.start,
   cancel,
   reset: flow.reset,
