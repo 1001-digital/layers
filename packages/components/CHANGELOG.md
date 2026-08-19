@@ -1,5 +1,16 @@
 # @1001-digital/components
 
+## 2.10.5
+
+### Patch Changes
+
+- [#106](https://github.com/1001-digital/layers/pull/106) [`d5c00e6`](https://github.com/1001-digital/layers/commit/d5c00e68e23c1c9b5f68a6141b432879cb8ebd16) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Keep component prop types usable from consuming apps. `Record<string, unknown>`
+  rejects interface-typed values, so `options` arrays and vue-router locations
+  failed to typecheck downstream; they now accept any object shape. Drop the `.ts`
+  import extension from `utils/media`, which raised TS5097 in every consumer that
+  typechecks the published source, and run the util tests through Vitest so the
+  extensionless import still resolves.
+
 ## 2.10.4
 
 ### Patch Changes

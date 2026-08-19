@@ -5,6 +5,14 @@ Generated from individual package changelogs — do not edit manually.
 
 ## 2026-08-19
 
+- Keep component prop types usable from consuming apps. `Record<string, unknown>` ([#106](https://github.com/1001-digital/layers/pull/106)) [`d5c00e6`](https://github.com/1001-digital/layers/commit/d5c00e6)
+  rejects interface-typed values, so `options` arrays and vue-router locations
+  failed to typecheck downstream; they now accept any object shape. Drop the `.ts`
+  import extension from `utils/media`, which raised TS5097 in every consumer that
+  typechecks the published source, and run the util tests through Vitest so the
+  extensionless import still resolves.
+  _`components`_
+
 - Vertically centre labels in form controls and tags. Buttons and inputs are flex [`7e4df4d`](https://github.com/1001-digital/layers/commit/7e4df4d)
   boxes with a fixed block size, so their label rendered against the top edge; the
   tag label was stretched by the taller dismiss button and sat high in the chip.
