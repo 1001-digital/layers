@@ -1,5 +1,19 @@
 # @1001-digital/components.evm
 
+## 4.1.0
+
+### Minor Changes
+
+- [#103](https://github.com/1001-digital/layers/pull/103) [`ca57b29`](https://github.com/1001-digital/layers/commit/ca57b291240e55f6286231f950349e60ecc02be7) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Prevent duplicate transaction submissions, invalidate late async flow updates,
+  clean up chain watchers and progress timers, and expose busy state through the
+  transaction flow composables and components. Re-export the transaction flow
+  composables for Nuxt auto-imports.
+
+### Patch Changes
+
+- Updated dependencies [[`2f6571e`](https://github.com/1001-digital/layers/commit/2f6571e85435f6ca8ca9edc8e0aa9d7b62646e0c), [`7e4df4d`](https://github.com/1001-digital/layers/commit/7e4df4d5fced529e1fac49b2ee492e8a1589fb71)]:
+  - @1001-digital/components@2.10.4
+
 ## 4.0.3
 
 ### Patch Changes
