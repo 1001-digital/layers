@@ -50,6 +50,9 @@ const emit = defineEmits<{
     min-width: 0;
     padding: var(--spacer-sm) var(--spacer);
     overflow-wrap: anywhere;
+    /* Stretched to the dismiss button's height — keep the label centred. */
+    display: flex;
+    align-items: center;
 
     + button {
       border-top-left-radius: 0;

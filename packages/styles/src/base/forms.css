@@ -25,6 +25,8 @@ select:not(.unstyled) {
   padding: var(--ui-padding-block) var(--ui-padding-inline);
   user-select: none;
   display: flex;
+  /* The fixed block size is taller than the line box, so centre the label. */
+  align-items: center;
   block-size: var(--form-item-height);
 
   &:-webkit-autofill {
