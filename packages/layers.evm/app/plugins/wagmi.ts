@@ -16,6 +16,18 @@ export default defineNuxtPlugin({
     const indexers =
       runtimeConfig.ens?.indexers?.split(/\s+/).filter(Boolean) || []
 
+    // Unset, resolution falls through to dweb-fetch's own ipfs.io default,
+    // which a browser cannot load: Cloudflare answers browser-shaped requests
+    // with a challenge whose interstitial refuses to be framed. Silent in
+    // production, loud in development, where it can still be fixed.
+    if (import.meta.dev && !appConfig.evm?.ipfsGateway) {
+      console.warn(
+        '[layers.evm] No `evm.ipfsGateway` configured in app.config. ' +
+          'IPFS images and embeds will fail to load in the browser. ' +
+          'Set it to a gateway you operate.',
+      )
+    }
+
     const { wagmiConfig, evmConfig } = createWagmiConfig({
       title: appConfig.evm?.title || 'EVM Layer',
       appLogoUrl: appConfig.evm?.appLogoUrl,

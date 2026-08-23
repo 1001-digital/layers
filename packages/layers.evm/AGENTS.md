@@ -62,7 +62,7 @@ evm: {
     sepolia: { id: 11155111, blockExplorer: 'https://sepolia.etherscan.io' },
   },
   ens: { mode: 'indexer' },           // 'indexer' (ponder-ens API) or 'chain' (on-chain)
-  ipfsGateway: 'https://ipfs.io/ipfs/',
+  ipfsGateway: 'https://your-gateway.example/ipfs/', // required, no default
   arweaveGateway: 'https://arweave.net/',
   inAppWallet: { enabled: false },
 }

@@ -51,7 +51,7 @@ export default defineAppConfig({
     ens: {
       mode: 'indexer',
     },
-    ipfsGateway: 'https://ipfs.io/ipfs/',
+    ipfsGateway: 'https://your-gateway.example/ipfs/', // required, see below
     arweaveGateway: 'https://arweave.net/',
     inAppWallet: {
       enabled: false,

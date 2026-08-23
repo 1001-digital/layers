@@ -1,6 +1,8 @@
 export default defineAppConfig({
   evm: {
     title: 'EVM Layer Playground',
+    // Required — the layer ships no default. See docs/reference/configuration.
+    ipfsGateway: 'https://ipfs.evm.now/ipfs/',
     defaultChain: 'sepolia',
     chains: {
       sepolia: {

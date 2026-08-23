@@ -74,7 +74,7 @@ export default defineAppConfig({
     ens: {
       mode: 'indexer',
     },
-    ipfsGateway: 'https://ipfs.io/ipfs/',
+    ipfsGateway: 'https://your-gateway.example/ipfs/', // required, see below
     arweaveGateway: 'https://arweave.net/',
     inAppWallet: {
       enabled: false,
@@ -87,19 +87,19 @@ export default defineAppConfig({
 })
 ```
 
-| Key                     | Type                                                                             | Purpose                                                                 |
-| ----------------------- | -------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `title`                 | `string`                                                                         | App name used by wallet connectors and UI.                              |
-| `appLogoUrl`            | `string`                                                                         | App logo used by connectors and Safe manifest defaults.                 |
-| `defaultChain`          | `string`                                                                         | Key in `chains` used as the primary chain.                              |
-| `chains`                | `Record<string, { id?: number; blockExplorer?: string; smartAccount?: object }>` | Named chain definitions.                                                |
-| `ens.mode`              | `'indexer' \| 'chain'`                                                           | ENS resolution strategy.                                                |
-| `ipfsGateway`           | `string`                                                                         | Gateway used to resolve IPFS URLs.                                      |
-| `arweaveGateway`        | `string`                                                                         | Gateway used to resolve Arweave URLs.                                   |
-| `inAppWallet.enabled`   | `boolean`                                                                        | Enables the integrated in-app wallet connector.                         |
-| `chains.*.smartAccount` | `{ entryPoint?, implementation?, paymasterContext? }`                            | Enables EIP-7702 calls when the chain also has a smart-account RPC URL. |
-| `safe.description`      | `string`                                                                         | Description in `/manifest.json` for Safe.                               |
-| `safe.iconPath`         | `string`                                                                         | Safe manifest icon path.                                                |
+| Key                     | Type                                                                             | Purpose                                                                  |
+| ----------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| `title`                 | `string`                                                                         | App name used by wallet connectors and UI.                               |
+| `appLogoUrl`            | `string`                                                                         | App logo used by connectors and Safe manifest defaults.                  |
+| `defaultChain`          | `string`                                                                         | Key in `chains` used as the primary chain.                               |
+| `chains`                | `Record<string, { id?: number; blockExplorer?: string; smartAccount?: object }>` | Named chain definitions.                                                 |
+| `ens.mode`              | `'indexer' \| 'chain'`                                                           | ENS resolution strategy.                                                 |
+| `ipfsGateway`           | `string`                                                                         | **Required.** Gateway used to resolve IPFS URLs. No default — see below. |
+| `arweaveGateway`        | `string`                                                                         | Gateway used to resolve Arweave URLs.                                    |
+| `inAppWallet.enabled`   | `boolean`                                                                        | Enables the integrated in-app wallet connector.                          |
+| `chains.*.smartAccount` | `{ entryPoint?, implementation?, paymasterContext? }`                            | Enables EIP-7702 calls when the chain also has a smart-account RPC URL.  |
+| `safe.description`      | `string`                                                                         | Description in `/manifest.json` for Safe.                                |
+| `safe.iconPath`         | `string`                                                                         | Safe manifest icon path.                                                 |
 
 ## Chain Configuration
 
@@ -145,3 +145,25 @@ The EVM layer serves `/manifest.json` for Safe apps. The manifest uses:
 - `evm.safe.iconPath`, falling back to `evm.appLogoUrl`, then `/icon.png`
 
 Configure these values in `app.config.ts` when your app is intended to run inside Safe.
+
+## Why `ipfsGateway` has no default
+
+Every widely-used public IPFS gateway — ipfs.io, dweb.link, w3s.link,
+nftstorage.link — now sits behind Cloudflare and answers browser-shaped
+requests with a managed challenge. The challenge interstitial carries
+`X-Frame-Options: SAMEORIGIN`, so an artwork in an `<iframe>` fails with
+"refused to connect", and uncached `<img>` loads fail the same way. Gateways
+that do serve browsers, such as `ipfs.filebase.io`, rate-limit quickly.
+
+Shipping any of them as a default would ship an app that looks fine in
+development against warm caches and breaks in production. So there is no
+default: point `ipfsGateway` at a gateway you operate, or one you have an
+arrangement with.
+
+A gateway that fetches server-side and re-serves the bytes is not subject to
+the challenge, because the challenge only targets requests that look like a
+browser. That is the shape worth building if you need to run your own.
+
+With `ipfsGateway` unset, resolution falls through to `dweb-fetch`'s own
+`https://ipfs.io` default and will not load in a browser. The layer logs a
+warning in development when this happens.

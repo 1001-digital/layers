@@ -141,14 +141,16 @@ const videoWithPosterToken = {
 
 const iframeToken = {
   name: 'HTML / iframe',
-  image: 'https://ipfs.io/ipfs/QmRRPWG96cmgTn2qSzjwr2qvfNEuFunLgtBBAj7ZF6T1zE',
+  image:
+    'https://ipfs.evm.now/ipfs/QmRRPWG96cmgTn2qSzjwr2qvfNEuFunLgtBBAj7ZF6T1zE',
   animation_url: 'https://example.com/',
   background_color: null,
 } as const
 
 const glbToken = {
   name: '3D model',
-  image: 'https://ipfs.io/ipfs/QmRRPWG96cmgTn2qSzjwr2qvfNEuFunLgtBBAj7ZF6T1zE',
+  image:
+    'https://ipfs.evm.now/ipfs/QmRRPWG96cmgTn2qSzjwr2qvfNEuFunLgtBBAj7ZF6T1zE',
   animation_url: 'https://modelviewer.dev/shared-assets/models/Astronaut.glb',
   background_color: null,
 } as const
