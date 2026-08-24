@@ -3,6 +3,20 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-08-23
+
+- **Breaking** Remove the default `evm.ipfsGateway`. It pointed at `https://ipfs.io/ipfs/`, [`d2baa8b`](https://github.com/1001-digital/layers/commit/d2baa8b)
+  which no longer works in a browser: ipfs.io answers browser-shaped requests
+  with a Cloudflare managed challenge whose interstitial carries
+  `X-Frame-Options: SAMEORIGIN`, so IPFS embeds fail with "refused to connect"
+  and uncached images never load. Every widely-used public gateway behaves the
+  same way, so there is no default worth shipping.
+  Apps that resolve IPFS content must now set `evm.ipfsGateway` in their
+  `app.config`, pointing at a gateway they operate or have an arrangement with.
+  Left unset, resolution falls through to `dweb-fetch`'s own ipfs.io default and
+  will not load in a browser; the layer logs a warning in development.
+  _`layers.evm`_
+
 ## 2026-08-19
 
 - Keep component prop types usable from consuming apps. `Record<string, unknown>` ([#106](https://github.com/1001-digital/layers/pull/106)) [`d5c00e6`](https://github.com/1001-digital/layers/commit/d5c00e6)
@@ -160,9 +174,6 @@ Generated from individual package changelogs — do not edit manually.
 
 - Upgrade dweb-fetch so gateway-mode URI resolution stays free of Helia in consumers. [`1e24ddd`](https://github.com/1001-digital/layers/commit/1e24ddd)
   _`components.evm`, `layers.evm`_
-
-- Upgrade `@1001-digital/dweb-fetch` to 0.6.0 and use gateway mode for UI URI resolution so Helia verified-fetch is not loaded for component image URL resolution. [`b3ca421`](https://github.com/1001-digital/layers/commit/b3ca421)
-  _`components.evm`_
 
 ## 2026-04-13
 
@@ -396,6 +407,9 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Support non-persistent dismissal on `Alert`. Adds a `dismissable` boolean prop for in-memory dismissal and renames the persistence prop from `dismiss` to `dismiss-key` for clarity. Providing `dismiss-key` still implies `dismissable`. [`856096e`](https://github.com/1001-digital/layers/commit/856096e)
   _`components`_
+
+- Upgrade `@1001-digital/dweb-fetch` to 0.6.0 and use gateway mode for UI URI resolution so Helia verified-fetch is not loaded for component image URL resolution. [`b3ca421`](https://github.com/1001-digital/layers/commit/b3ca421)
+  _`components.evm`_
 
 - Expand the `resolveChain` known-chain list. [`656b1f9`](https://github.com/1001-digital/layers/commit/656b1f9)
   Adds Shape (360) and Shape Sepolia (11011), Zora (7777777) and Zora Sepolia
