@@ -1,5 +1,11 @@
 # @1001-digital/components
 
+## 2.10.6
+
+### Patch Changes
+
+- [#109](https://github.com/1001-digital/layers/pull/109) [`008b354`](https://github.com/1001-digital/layers/commit/008b354a7e55a17d1c88e13320fb9b14a7345e2c) Thanks [@yougogirldoteth](https://github.com/yougogirldoteth)! - Allow sandboxed HTML embeds to handle form submissions.
+
 ## 2.10.5
 
 ### Patch Changes

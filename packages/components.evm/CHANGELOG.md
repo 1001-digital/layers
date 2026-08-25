@@ -1,5 +1,12 @@
 # @1001-digital/components.evm
 
+## 4.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`008b354`](https://github.com/1001-digital/layers/commit/008b354a7e55a17d1c88e13320fb9b14a7345e2c)]:
+  - @1001-digital/components@2.10.6
+
 ## 4.1.1
 
 ### Patch Changes
