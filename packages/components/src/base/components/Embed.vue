@@ -26,7 +26,7 @@
       frameborder="0"
       :scrolling="scroll ? undefined : 'no'"
       :src="src"
-      sandbox="allow-scripts"
+      sandbox="allow-scripts allow-forms"
     />
   </div>
 </template>
