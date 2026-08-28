@@ -318,23 +318,24 @@ defineExpose({
     calc(var(--spacer) * 2)
   );
   border-radius: var(--multi-transaction-flow-marker-border-radius, 50%);
-  box-shadow: var(--multi-transaction-flow-marker-shadow, var(--border-shadow));
+  border: var(--border-width) solid
+    var(--multi-transaction-flow-marker-border-color, var(--border-color));
   font-size: var(--ui-font-size);
   font-weight: var(--ui-font-weight);
 }
 
 .is-active .multi-transaction-flow__marker,
 .is-complete .multi-transaction-flow__marker {
-  box-shadow: var(
-    --multi-transaction-flow-marker-active-shadow,
-    0 0 0 var(--border-width) var(--color)
+  border-color: var(
+    --multi-transaction-flow-marker-active-border-color,
+    var(--color)
   );
 }
 
 .is-error .multi-transaction-flow__marker {
-  box-shadow: var(
-    --multi-transaction-flow-marker-error-shadow,
-    0 0 0 var(--border-width) var(--error)
+  border-color: var(
+    --multi-transaction-flow-marker-error-border-color,
+    var(--error)
   );
 }
 

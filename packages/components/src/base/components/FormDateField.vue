@@ -76,7 +76,7 @@ const placeholderValue = ref(props.placeholder) as ReturnType<
     background: var(--date-field-background);
     block-size: var(--form-item-height);
     padding-inline: var(--ui-padding-inline);
-    box-shadow: var(--border-shadow);
+    border: var(--border);
     border-radius: var(--border-radius);
     font-size: var(--font-sm);
 

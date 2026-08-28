@@ -49,21 +49,22 @@ defineProps({
     user-select: none;
 
     &:hover .form-switch-button {
-      box-shadow: 0 0 0 var(--border-width) var(--border-color-highlight);
+      border-color: var(--border-color-highlight);
     }
   }
 
   .form-switch-button {
     all: unset;
+    box-sizing: border-box;
     position: relative;
     inline-size: var(--switch-width);
     block-size: var(--switch-height);
     border-radius: var(--switch-border-radius);
     background: var(--switch-background);
-    box-shadow: var(--border-shadow);
+    border: var(--border);
     transition:
       background var(--speed),
-      box-shadow var(--speed);
+      border-color var(--speed);
     flex-shrink: 0;
 
     &[data-state='checked'] {
@@ -94,7 +95,7 @@ defineProps({
       transform: translateX(
         calc(
           var(--switch-width) - var(--switch-thumb-size) -
-            var(--switch-thumb-offset)
+            var(--switch-thumb-offset) - var(--border-width) * 2
         )
       );
     }

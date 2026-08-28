@@ -14,7 +14,14 @@
   --border: var(--border-width) solid var(--border-color);
   --border-dark: var(--border-width) solid var(--border-color-dark);
 
-  /* Border effects */
+  /*
+   * Border effects
+   *
+   * Prefer `--border` / `border-color` for hairlines. Browsers snap border
+   * widths down to whole device pixels, box-shadow rings are not snapped, so
+   * on fractional DPR screens a shadow ring paints visibly heavier than a
+   * border of the same width. These stay for layout-neutral rings only.
+   */
   --border-shadow: 0 0 0 var(--border-width) var(--border-color);
   --border-shadow-highlight: 0 0 0 var(--border-width)
     var(--border-color-highlight);

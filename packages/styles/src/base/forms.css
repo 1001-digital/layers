@@ -18,9 +18,8 @@ select:not(.unstyled) {
   color: var(--ui-color);
 
   transition: all var(--speed);
-  border: none;
+  border: var(--border);
   border-radius: var(--button-border-radius);
-  box-shadow: var(--border-shadow);
   background: var(--button-background);
   padding: var(--ui-padding-block) var(--ui-padding-inline);
   user-select: none;
@@ -36,7 +35,7 @@ select:not(.unstyled) {
 
   &:is(:hover, :active, :focus, .active) {
     outline: none;
-    box-shadow: var(--border-shadow-highlight);
+    border-color: var(--border-color-highlight);
   }
 
   &:not(select):is(:hover, :active, :focus, .active) {
@@ -77,7 +76,7 @@ select:not(.unstyled) {
   --select-bg: var(--input-background);
   appearance: none;
   line-height: 1;
-  transition-property: box-shadow, background-color, color;
+  transition-property: border-color, background-color, color;
   background:
     url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM4ODgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0iZmVhdGhlciBmZWF0aGVyLWNoZXZyb24tZG93biI+PHBvbHlsaW5lIHBvaW50cz0iNiA5IDEyIDE1IDE4IDkiPjwvcG9seWxpbmU+PC9zdmc+),
     var(--select-bg);

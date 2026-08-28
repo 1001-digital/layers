@@ -144,12 +144,13 @@ const resolveDisplayValue = (val: unknown) => {
     gap: var(--size-1);
     background: var(--combobox-background);
     border-radius: var(--combobox-border-radius);
-    box-shadow: var(--border-shadow);
+    border: var(--border);
+    block-size: var(--form-item-height);
     padding-inline-end: var(--size-2);
-    transition: box-shadow var(--speed);
+    transition: border-color var(--speed);
 
     &:focus-within {
-      box-shadow: var(--border-shadow-highlight);
+      border-color: var(--border-color-highlight);
     }
 
     &[data-disabled] {
@@ -161,7 +162,7 @@ const resolveDisplayValue = (val: unknown) => {
   .combobox-input {
     all: unset;
     flex: 1;
-    height: 32px;
+    block-size: 100%;
     padding-inline: var(--size-3);
     font-family: var(--ui-font-family);
     font-size: var(--ui-font-size);

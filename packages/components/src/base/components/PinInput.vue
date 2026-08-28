@@ -60,6 +60,7 @@ defineEmits<{
 
   .pin-input-field {
     all: unset;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -67,7 +68,7 @@ defineEmits<{
     inline-size: var(--pin-input-size);
     block-size: var(--pin-input-size);
     border-radius: var(--pin-input-border-radius);
-    box-shadow: var(--border-shadow);
+    border: var(--border);
     background: var(--pin-input-background);
     color: var(--pin-input-color);
     font-family: var(--ui-font-family);
@@ -76,11 +77,11 @@ defineEmits<{
     text-transform: var(--ui-text-transform);
     letter-spacing: var(--ui-letter-spacing);
     transition:
-      box-shadow var(--speed),
+      border-color var(--speed),
       background var(--speed);
 
     &:is(:hover, :focus) {
-      box-shadow: var(--border-shadow-highlight);
+      border-color: var(--border-color-highlight);
     }
 
     &:focus {
@@ -98,8 +99,7 @@ defineEmits<{
     }
 
     &[data-complete] {
-      box-shadow: 0 0 0 var(--border-width)
-        var(--pin-input-complete-border-color);
+      border-color: var(--pin-input-complete-border-color);
     }
   }
 }

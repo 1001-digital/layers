@@ -214,7 +214,7 @@ const onClose = (id: string) => {
       gap: var(--spacer-sm);
       block-size: calc(var(--spacer) * 2);
       background: var(--toast-header-background);
-      box-shadow: var(--border-shadow);
+      border-block-end: var(--border);
       padding-inline-start: var(--ui-padding-inline);
       padding-right: calc(var(--spacer) * 3);
       font-family: var(--ui-font-family);
@@ -250,7 +250,8 @@ const onClose = (id: string) => {
       top: 0;
       right: 0;
       background: var(--toast-header-background) !important;
-      box-shadow: var(--border-shadow) !important;
+      border-color: var(--border-color) !important;
+      border-width: 0 0 var(--border-width) var(--border-width) !important;
       border-radius: 0 !important;
       border-start-end-radius: var(--toast-border-radius) !important;
     }

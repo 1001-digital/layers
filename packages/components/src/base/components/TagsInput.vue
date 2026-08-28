@@ -84,11 +84,11 @@ withDefaults(
     min-height: calc(var(--form-item-height) + 2 * var(--ui-padding-block));
     border-radius: var(--border-radius);
     background: var(--input-background);
-    box-shadow: var(--border-shadow);
-    transition: box-shadow var(--speed);
+    border: var(--border);
+    transition: border-color var(--speed);
 
     &:focus-within {
-      box-shadow: var(--border-shadow-highlight);
+      border-color: var(--border-color-highlight);
     }
 
     &[data-disabled] {

@@ -196,7 +196,7 @@ const placeholderValue = ref(props.placeholder) as ReturnType<
     align-items: center;
     background: var(--date-field-background);
     block-size: var(--form-item-height);
-    box-shadow: var(--border-shadow);
+    border: var(--border);
     border-radius: var(--border-radius);
 
     &[data-disabled] {

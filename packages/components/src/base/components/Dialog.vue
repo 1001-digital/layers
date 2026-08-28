@@ -219,7 +219,7 @@ onBeforeUnmount(() => {
         align-items: center;
         block-size: calc(var(--spacer) * 2);
         background: var(--dialog-header-background);
-        box-shadow: var(--border-shadow);
+        border-block-end: var(--border);
         padding-inline-start: var(--spacer);
         font-family: var(--ui-font-family);
         font-size: var(--ui-font-size);
@@ -235,6 +235,7 @@ onBeforeUnmount(() => {
 
       > .close {
         color: var(--dialog-close-color);
+        border-width: 0 0 var(--border-width) var(--border-width);
         position: absolute;
         z-index: 2;
         top: 0;

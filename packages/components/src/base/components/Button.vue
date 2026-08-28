@@ -53,12 +53,11 @@ const linkProps = computed(() => {
       color: var(--button-color);
       font-weight: var(--button-font-weight);
       padding: var(--ui-padding-block) var(--ui-padding-inline);
-      border: none;
+      border: var(--border);
       border-radius: var(--button-border-radius);
-      box-shadow: var(--border-shadow);
       transition:
         background var(--speed),
-        box-shadow var(--speed),
+        border-color var(--speed),
         color var(--speed);
     }
 
@@ -133,7 +132,7 @@ const linkProps = computed(() => {
     }
 
     &.link {
-      box-shadow: none;
+      border-width: 0;
       background: transparent;
       line-height: inherit;
       color: var(--color);
@@ -176,7 +175,7 @@ const linkProps = computed(() => {
     }
 
     &.danger {
-      box-shadow: 0 0 0 var(--border-width) var(--error);
+      border-color: var(--error);
       color: var(--error) !important;
 
       > .icon {
@@ -187,7 +186,7 @@ const linkProps = computed(() => {
     /* Primary variant */
     &.primary {
       background: var(--button-primary-background);
-      box-shadow: 0 0 0 var(--border-width) var(--button-primary-border-color);
+      border-color: var(--button-primary-border-color);
       color: var(--button-primary-color);
       font-weight: var(--button-primary-font-weight);
 
@@ -197,8 +196,7 @@ const linkProps = computed(() => {
 
       &:is(:hover, :active, :focus, .active) {
         background: var(--button-primary-background-highlight);
-        box-shadow: 0 0 0 var(--border-width)
-          var(--button-primary-border-color-highlight);
+        border-color: var(--button-primary-border-color-highlight);
         color: var(--button-primary-color-highlight);
 
         > .icon {
@@ -210,7 +208,7 @@ const linkProps = computed(() => {
     /* Tertiary variant */
     &.tertiary {
       background: var(--button-tertiary-background);
-      box-shadow: 0 0 0 var(--border-width) var(--button-tertiary-border-color);
+      border-color: var(--button-tertiary-border-color);
       color: var(--button-tertiary-color);
 
       > .icon {
@@ -219,8 +217,7 @@ const linkProps = computed(() => {
 
       &:is(:hover, :active, :focus, .active) {
         background: var(--button-tertiary-background-highlight);
-        box-shadow: 0 0 0 var(--border-width)
-          var(--button-tertiary-border-color-highlight);
+        border-color: var(--button-tertiary-border-color-highlight);
         color: var(--button-tertiary-color-highlight);
 
         > .icon {
@@ -231,7 +228,7 @@ const linkProps = computed(() => {
 
     &:is(:hover, :active, :focus, .active) {
       background: var(--button-background-highlight);
-      box-shadow: var(--border-shadow-highlight);
+      border-color: var(--border-color-highlight);
       color: var(--button-color-highlight);
 
       > .icon {
@@ -240,7 +237,7 @@ const linkProps = computed(() => {
 
       &.link {
         background: transparent !important;
-        box-shadow: none;
+        border-width: 0;
         color: var(--color);
 
         > .icon {

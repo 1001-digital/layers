@@ -82,10 +82,25 @@ const dismiss = () => {
       align-items: center;
       justify-content: center;
       position: absolute;
-      inline-size: var(--size-4);
-      block-size: var(--size-4);
+      /*
+       * The box is exactly one icon. A 1em glyph centred inside a fixed
+       * `--size-4` button left 1.5px a side, which straddles device pixels on
+       * fractional DPR screens: the browser snapped one side to 1px and the
+       * other to 2px, painting the X up and to the left of centre.
+       */
+      box-sizing: content-box;
+      inline-size: 1em;
+      block-size: 1em;
+      font-size: var(--size-4);
       padding: 0;
-      inset-block-start: var(--spacer-sm);
+      /*
+       * Inherit the alert's line box so `1lh` centres the button on the first
+       * line. The border sits outside the icon box, so discount it.
+       */
+      line-height: inherit;
+      inset-block-start: calc(
+        var(--spacer-sm) + (1lh - var(--size-4)) / 2 - var(--border-width)
+      );
       inset-inline-end: var(--spacer-sm);
       background: none;
 
