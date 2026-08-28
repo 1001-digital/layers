@@ -3,6 +3,33 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-08-28
+
+- **Minor** Draw every hairline with `border` instead of a box-shadow ring [`9e30abd`](https://github.com/1001-digital/layers/commit/9e30abd)
+  Inputs, buttons, comboboxes, tags, switches, sliders, pin inputs and panel
+  headers outlined themselves with `box-shadow: 0 0 0 1px`, while cards, popovers
+  and dialogs used a real `border`. Browsers snap border widths down to whole
+  device pixels but leave box-shadow spread unsnapped, so on fractional-DPR
+  screens the shadow rings painted about twice as heavy as the borders next to
+  them. Everything now uses `border` / `border-color`, so all outlines share one
+  weight.
+  Shadow rings overlapped each other where two outlined boxes met; borders do not,
+  so the places that relied on that now leave exactly one border per shared edge:
+  the tag dismiss button keeps only its divider, `FormItem` prefix/suffix and the
+  leading controls of a `FormInputGroup` drop the border their neighbour draws,
+  and dialog, popover and toast headers draw only the separator below them.
+  Hovering a tag's dismiss button now highlights the tag's border, which is the
+  line that button no longer draws.
+  The `--border-shadow` / `--border-shadow-highlight` tokens remain for
+  layout-neutral rings. The multi transaction flow marker tokens change from
+  shadows to colors: `--multi-transaction-flow-marker-shadow`,
+  `--multi-transaction-flow-marker-active-shadow` and
+  `--multi-transaction-flow-marker-error-shadow` are replaced by
+  `--multi-transaction-flow-marker-border-color`,
+  `--multi-transaction-flow-marker-active-border-color` and
+  `--multi-transaction-flow-marker-error-border-color`.
+  _`components`, `components.evm`, `styles`_
+
 ## 2026-08-25
 
 - Allow sandboxed HTML embeds to handle form submissions. ([#109](https://github.com/1001-digital/layers/pull/109)) [`008b354`](https://github.com/1001-digital/layers/commit/008b354)
@@ -167,12 +194,6 @@ Generated from individual package changelogs — do not edit manually.
 ## 2026-07-03
 
 - **Minor** Add `EvmAmountInput` — a decimals-aware token amount input with an optional symbol suffix, balance-backed "max" button (default writes the full balance; a `max` listener takes over the behavior), and a parsed base-unit `units` model. `EvmEthInput` is now a thin wrapper over it and gains a `balance` prop. The underlying `useAmountInput`/`parseAmountInput`/`normalizeAmountInput` composables are exported and auto-imported through the layer. [`ab0c0f0`](https://github.com/1001-digital/layers/commit/ab0c0f0)
-  _`components.evm`, `layers.evm`_
-
-## 2026-07-02
-
-- **Minor** Add `useEnsResolver`, an imperative awaitable ENS resolver. [`ecff162`](https://github.com/1001-digital/layers/commit/ecff162)
-  `useEnsResolver()` returns `resolveAddress(identifier)` and `resolveProfile(identifier)` functions that share the cache and strategy order of `useEns`, so consumers can force-resolve a name at the moment it is acted on (e.g. form submit) instead of relying on a background resolution having already landed in the cache. A cached failed resolution is evicted and retried rather than pinning the name as unresolvable for the whole cache TTL. Also adds `evict(key)` to `createCache`.
   _`components.evm`, `layers.evm`_
 
 ## 2026-04-13
@@ -407,6 +428,10 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Support non-persistent dismissal on `Alert`. Adds a `dismissable` boolean prop for in-memory dismissal and renames the persistence prop from `dismiss` to `dismiss-key` for clarity. Providing `dismiss-key` still implies `dismissable`. [`856096e`](https://github.com/1001-digital/layers/commit/856096e)
   _`components`_
+
+- **Minor** Add `useEnsResolver`, an imperative awaitable ENS resolver. [`ecff162`](https://github.com/1001-digital/layers/commit/ecff162)
+  `useEnsResolver()` returns `resolveAddress(identifier)` and `resolveProfile(identifier)` functions that share the cache and strategy order of `useEns`, so consumers can force-resolve a name at the moment it is acted on (e.g. form submit) instead of relying on a background resolution having already landed in the cache. A cached failed resolution is evicted and retried rather than pinning the name as unresolvable for the whole cache TTL. Also adds `evict(key)` to `createCache`.
+  _`components.evm`, `layers.evm`_
 
 - Upgrade dweb-fetch so gateway-mode URI resolution stays free of Helia in consumers. [`1e24ddd`](https://github.com/1001-digital/layers/commit/1e24ddd)
   _`components.evm`, `layers.evm`_
