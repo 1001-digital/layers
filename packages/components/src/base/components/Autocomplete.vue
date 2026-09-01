@@ -195,13 +195,12 @@ const normalizedOptions = computed<(NormalizedItem | NormalizedGroup)[]>(() =>
     gap: var(--size-1);
     background: var(--autocomplete-background);
     border-radius: var(--autocomplete-border-radius);
-    border: var(--border);
-    block-size: var(--form-item-height);
+    box-shadow: var(--border-shadow);
     padding-inline-end: var(--size-2);
-    transition: border-color var(--speed);
+    transition: box-shadow var(--speed);
 
     &:focus-within {
-      border-color: var(--border-color-highlight);
+      box-shadow: var(--border-shadow-highlight);
     }
 
     &[data-disabled] {
@@ -213,7 +212,7 @@ const normalizedOptions = computed<(NormalizedItem | NormalizedGroup)[]>(() =>
   .autocomplete-input {
     all: unset;
     flex: 1;
-    block-size: 100%;
+    height: 32px;
     padding-inline: var(--size-3);
     font-family: var(--ui-font-family);
     font-size: var(--ui-font-size);

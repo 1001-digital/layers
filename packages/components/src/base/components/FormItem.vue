@@ -37,7 +37,7 @@
       .prefix,
       .suffix {
         background: var(--button-background-highlight);
-        border-color: var(--border-color-highlight);
+        box-shadow: var(--border-shadow-highlight);
       }
     }
 
@@ -51,20 +51,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border: var(--border);
+      box-shadow: var(--border-shadow);
       width: min-content;
     }
 
     .prefix {
       border-start-start-radius: var(--border-radius);
       border-end-start-radius: var(--border-radius);
-      border-inline-end-width: 0;
     }
 
     .suffix {
       border-start-end-radius: var(--border-radius);
       border-end-end-radius: var(--border-radius);
-      border-inline-start-width: 0;
     }
 
     &:has(> .prefix) :deep(> :last-child) {

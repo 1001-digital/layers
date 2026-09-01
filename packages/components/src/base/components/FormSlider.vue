@@ -119,19 +119,18 @@ const thumbCount = computed(() => model.value?.length || 1)
 
   .form-slider-thumb {
     all: unset;
-    box-sizing: border-box;
     display: block;
     inline-size: var(--slider-thumb-size);
     block-size: var(--slider-thumb-size);
     border-radius: var(--slider-thumb-radius);
     background: var(--slider-thumb-background);
-    border: var(--border);
+    box-shadow: var(--border-shadow);
     transition:
-      border-color var(--speed),
+      box-shadow var(--speed),
       background var(--speed);
 
     &:is(:hover, :focus) {
-      border-color: var(--border-color-highlight);
+      box-shadow: var(--border-shadow-highlight);
     }
 
     &:focus-visible {

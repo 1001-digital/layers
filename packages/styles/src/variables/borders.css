@@ -15,12 +15,12 @@
   --border-dark: var(--border-width) solid var(--border-color-dark);
 
   /*
-   * Border effects
+   * Layout-neutral control rings
    *
-   * Prefer `--border` / `border-color` for hairlines. Browsers snap border
-   * widths down to whole device pixels, box-shadow rings are not snapped, so
-   * on fractional DPR screens a shadow ring paints visibly heavier than a
-   * border of the same width. These stay for layout-neutral rings only.
+   * Use these for interactive controls that may be composed side by side.
+   * Each control retains its complete ring and can paint its hover or focus
+   * state above an adjacent control without changing either control's box.
+   * Use `--border` for structural container edges and dividers instead.
    */
   --border-shadow: 0 0 0 var(--border-width) var(--border-color);
   --border-shadow-highlight: 0 0 0 var(--border-width)

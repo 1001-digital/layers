@@ -35,8 +35,7 @@ const emit = defineEmits<{
 .tag {
   background: var(--tag-background);
   border-radius: var(--tag-border-radius);
-  border: var(--border);
-  transition: border-color var(--speed);
+  box-shadow: var(--border-shadow);
   font-family: var(--ui-font-family);
   font-size: var(--font-sm);
   font-weight: var(--ui-font-weight);
@@ -46,11 +45,6 @@ const emit = defineEmits<{
   color: var(--ui-color);
   display: flex;
   align-items: stretch;
-
-  /* The dismiss button owns only the divider, so the tag lights up with it. */
-  &:has(> button:is(:hover, :focus-visible)) {
-    border-color: var(--border-color-highlight);
-  }
 
   &:deep(> span) {
     min-width: 0;
@@ -63,9 +57,6 @@ const emit = defineEmits<{
     + button {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
-      /* The tag draws the outer border — keep only the divider. */
-      border-width: 0;
-      border-inline-start-width: var(--border-width);
       padding: var(--spacer-sm);
 
       &:is(:hover, :active, :focus, .active) {

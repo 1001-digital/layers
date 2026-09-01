@@ -179,24 +179,23 @@ function handleHexUpdate(hex: string) {
 @layer components {
   .color-picker-trigger {
     all: unset;
-    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     gap: var(--size-2);
     padding: var(--ui-padding-block) var(--ui-padding-inline);
     background: var(--button-background);
     border-radius: var(--button-border-radius);
-    border: var(--border);
+    box-shadow: var(--border-shadow);
     font-family: var(--ui-font-family);
     font-size: var(--ui-font-size);
     cursor: pointer;
     transition:
-      border-color var(--speed),
+      box-shadow var(--speed),
       background var(--speed);
     max-width: var(--color-picker-trigger-max-width);
 
     &:is(:hover, :focus) {
-      border-color: var(--border-color-highlight);
+      box-shadow: var(--border-shadow-highlight);
     }
 
     &:focus-visible {
