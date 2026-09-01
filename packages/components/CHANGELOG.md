@@ -1,5 +1,21 @@
 # @1001-digital/components
 
+## 2.11.1
+
+### Patch Changes
+
+- [`b509765`](https://github.com/1001-digital/layers/commit/b509765df7d6e2a8262a1a5736940e26294ae964) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Restore layout-neutral box-shadow rings for interactive controls.
+
+  Buttons, form controls, input-like component triggers, tags, sliders, switches,
+  pin inputs, and transaction-flow markers retain their complete outline as a
+  shadow ring. This lets controls in `FormInputGroup` show their full hover or
+  focus edge above adjacent controls without changing layout.
+
+  Structural containers and dividers continue to use physical borders.
+
+- Updated dependencies [[`b509765`](https://github.com/1001-digital/layers/commit/b509765df7d6e2a8262a1a5736940e26294ae964)]:
+  - @1001-digital/styles@2.8.1
+
 ## 2.11.0
 
 ### Minor Changes
