@@ -102,44 +102,59 @@ export function createWagmiConfig(options: CreateOptions): {
       }
   }
 
-  // Connectors
-  const connectors: CreateConnectorFn[] = [
-    injected(),
-    safe({
-      allowedDomains: [/app.safe.global$/],
-    }),
-    baseAccount({
-      appName: title,
-      appLogoUrl,
-      // Disable telemetry — its init runs eagerly during wagmi's SSR
-      // reconnect and throws `Telemetry is not supported in non-browser
-      // environments` because it touches `window`/`document`.
-      preference: { telemetry: false },
-    }),
-    metaMask({
-      headless: true,
-      dapp: {
-        name: title,
-        iconUrl: appLogoUrl || '',
-        url: baseURL || '',
-      },
-    }),
-  ]
+  // Connectors — browser only.
+  //
+  // Every connector wraps a wallet SDK that can only ever talk to a browser,
+  // so instantiating them during SSR does no useful work: the connector list
+  // is never server-rendered. It is also actively harmful. `metaMask()` boots
+  // the MetaMask SDK, which parks a singleton on `globalThis`
+  // (`__METAMASK_CONNECT_MULTICHAIN_SINGLETON__`) and registers per-instance
+  // event handlers against it. Because the Nuxt plugin that calls this builds
+  // a fresh config on every request, each SSR render used to strand another
+  // connector set on that singleton — a permanent ~23KB/request heap leak that
+  // grew until workers hit their heap ceiling.
+  //
+  // Keeping the whole list behind `isClient` means the server builds a config
+  // with chains, transports and cookie storage only, which is all SSR and
+  // hydration actually need.
+  const connectors: CreateConnectorFn[] = []
 
-  if (isClient && walletConnectProjectId)
+  if (isClient) {
     connectors.push(
-      walletConnect({
-        projectId: walletConnectProjectId,
-        showQrModal: false,
+      injected(),
+      safe({
+        allowedDomains: [/app.safe.global$/],
+      }),
+      baseAccount({
+        appName: title,
+        appLogoUrl,
+        preference: { telemetry: false },
+      }),
+      metaMask({
+        headless: true,
+        dapp: {
+          name: title,
+          iconUrl: appLogoUrl || '',
+          url: baseURL || '',
+        },
       }),
     )
 
-  if (inAppWalletEnabled)
-    connectors.push(
-      inAppWallet({
-        smartAccounts,
-      }),
-    )
+    if (walletConnectProjectId)
+      connectors.push(
+        walletConnect({
+          projectId: walletConnectProjectId,
+          showQrModal: false,
+        }),
+      )
+
+    if (inAppWalletEnabled)
+      connectors.push(
+        inAppWallet({
+          smartAccounts,
+        }),
+      )
+  }
 
   const wagmiConfig: Config = createConfig({
     chains: chains as [Chain, ...Chain[]],
