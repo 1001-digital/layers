@@ -24,6 +24,10 @@
             >Other</NuxtLink
           >
         </nav>
+
+        <footer>
+          <FormSwitch v-model="isDark"> Dark mode </FormSwitch>
+        </footer>
       </div>
     </template>
 
@@ -56,6 +60,21 @@
 import { useMediaQuery } from '@vueuse/core'
 
 const sidebarOpen = useState('sidebar-open', () => false)
+const colorMode = useCookie<'light' | 'dark'>('playground-color-mode', {
+  default: () => 'light',
+})
+const isDark = computed({
+  get: () => colorMode.value === 'dark',
+  set: (value) => {
+    colorMode.value = value ? 'dark' : 'light'
+  },
+})
+
+useHead({
+  htmlAttrs: {
+    class: colorMode,
+  },
+})
 
 const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 const closeMobile = () => {
@@ -109,6 +128,12 @@ const closeMobile = () => {
         background: var(--gray-z-2);
       }
     }
+  }
+
+  > footer {
+    margin-block-start: auto;
+    padding: var(--spacer-lg);
+    border-block-start: var(--border);
   }
 }
 
