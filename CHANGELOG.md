@@ -3,6 +3,33 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-09-01
+
+- Restore layout-neutral box-shadow rings for interactive controls. [`b509765`](https://github.com/1001-digital/layers/commit/b509765)
+  Buttons, form controls, input-like component triggers, tags, sliders, switches,
+  pin inputs, and transaction-flow markers retain their complete outline as a
+  shadow ring. This lets controls in `FormInputGroup` show their full hover or
+  focus edge above adjacent controls without changing layout.
+  Structural containers and dividers continue to use physical borders.
+  _`components`, `components.evm`, `styles`_
+
+- Only instantiate wallet connectors in the browser ([#112](https://github.com/1001-digital/layers/pull/112)) [`b851672`](https://github.com/1001-digital/layers/commit/b851672)
+  `createWagmiConfig` built the full connector list — `injected`, `safe`,
+  `baseAccount` and `metaMask` — on every call, including during SSR. The Nuxt
+  plugin that calls it is universal, so a server rendering one request per
+  visitor constructed a fresh connector set per request.
+  That is wasted work, since the connector list is never server-rendered, and it
+  leaks. `metaMask()` boots the MetaMask SDK, which parks a singleton on
+  `globalThis` (`__METAMASK_CONNECT_MULTICHAIN_SINGLETON__`) and registers
+  per-instance event handlers against it. Nothing ever unregisters them, so every
+  SSR render stranded another connector set on that process-global singleton —
+  roughly 23KB of permanently reachable heap per request, which accumulated until
+  Node workers approached their heap ceiling and had to be restarted.
+  All connectors now live behind the existing `isClient` flag, which previously
+  guarded only `walletConnect`. The server builds a config with chains,
+  transports and cookie storage, which is all SSR and hydration need.
+  _`layers.evm`_
+
 ## 2026-08-28
 
 - **Minor** Draw every hairline with `border` instead of a box-shadow ring [`9e30abd`](https://github.com/1001-digital/layers/commit/9e30abd)
@@ -175,26 +202,6 @@ Generated from individual package changelogs — do not edit manually.
   - Adding the four packages as regular dependencies of the layer puts them in every consumer's resolution graph, so pnpm links them as the SDK's peers and the imports resolve.
   - Remove again once the SDK guards these imports (lazy import or hard dependency).
   _`layers.evm`_
-
-## 2026-07-18
-
-- Upgrade `nuxt` to 4.4.8 and align the toolchain around it: [`83024fb`](https://github.com/1001-digital/layers/commit/83024fb)
-  - `vue` ^3.5.40 (matches nuxt's `^3.5.35` requirement — previously the exact pin at 3.5.30 produced a second Vue copy in the tree)
-  - `eslint` 10.7.0 and `@nuxt/eslint` 1.16.0
-  - `@nuxt/icon` 2.3.1
-  - `vue-tsc` added as a dev dependency since `nuxi typecheck` no longer installs a type checker on demand
-  - `compatibilityDate` set to 2026-07-18 in layers.base; layers.evm (previously stuck on 2024-11-01) now inherits it through `extends` instead of duplicating the date
-  _`layers.base`, `layers.evm`_
-
-## 2026-07-11
-
-- **Minor** Expose an `error-actions` slot for SIWE auth errors so apps can render recovery actions next to the retry button. [`5c4e910`](https://github.com/1001-digital/layers/commit/5c4e910)
-  _`components.evm`_
-
-## 2026-07-03
-
-- **Minor** Add `EvmAmountInput` — a decimals-aware token amount input with an optional symbol suffix, balance-backed "max" button (default writes the full balance; a `max` listener takes over the behavior), and a parsed base-unit `units` model. `EvmEthInput` is now a thin wrapper over it and gains a `balance` prop. The underlying `useAmountInput`/`parseAmountInput`/`normalizeAmountInput` composables are exported and auto-imported through the layer. [`ab0c0f0`](https://github.com/1001-digital/layers/commit/ab0c0f0)
-  _`components.evm`, `layers.evm`_
 
 ## 2026-04-13
 
@@ -429,6 +436,12 @@ Generated from individual package changelogs — do not edit manually.
 - **Minor** Support non-persistent dismissal on `Alert`. Adds a `dismissable` boolean prop for in-memory dismissal and renames the persistence prop from `dismiss` to `dismiss-key` for clarity. Providing `dismiss-key` still implies `dismissable`. [`856096e`](https://github.com/1001-digital/layers/commit/856096e)
   _`components`_
 
+- **Minor** Expose an `error-actions` slot for SIWE auth errors so apps can render recovery actions next to the retry button. [`5c4e910`](https://github.com/1001-digital/layers/commit/5c4e910)
+  _`components.evm`_
+
+- **Minor** Add `EvmAmountInput` — a decimals-aware token amount input with an optional symbol suffix, balance-backed "max" button (default writes the full balance; a `max` listener takes over the behavior), and a parsed base-unit `units` model. `EvmEthInput` is now a thin wrapper over it and gains a `balance` prop. The underlying `useAmountInput`/`parseAmountInput`/`normalizeAmountInput` composables are exported and auto-imported through the layer. [`ab0c0f0`](https://github.com/1001-digital/layers/commit/ab0c0f0)
+  _`components.evm`, `layers.evm`_
+
 - **Minor** Add `useEnsResolver`, an imperative awaitable ENS resolver. [`ecff162`](https://github.com/1001-digital/layers/commit/ecff162)
   `useEnsResolver()` returns `resolveAddress(identifier)` and `resolveProfile(identifier)` functions that share the cache and strategy order of `useEns`, so consumers can force-resolve a name at the moment it is acted on (e.g. form submit) instead of relying on a background resolution having already landed in the cache. A cached failed resolution is evicted and retried rather than pinning the name as unresolvable for the whole cache TTL. Also adds `evict(key)` to `createCache`.
   _`components.evm`, `layers.evm`_
@@ -500,6 +513,14 @@ Generated from individual package changelogs — do not edit manually.
 
 - **Minor** Add `EvmConnectAuth` and `EvmConnectAuthDialog` for a combined connect + SIWE flow that auto-prompts the signature once the wallet connects, plus an `autoSignIn` prop on `EvmSiwe` that triggers sign-in on mount. [`76b8b30`](https://github.com/1001-digital/layers/commit/76b8b30)
   _`components.evm`, `layers.evm`_
+
+- Upgrade `nuxt` to 4.4.8 and align the toolchain around it: [`83024fb`](https://github.com/1001-digital/layers/commit/83024fb)
+  - `vue` ^3.5.40 (matches nuxt's `^3.5.35` requirement — previously the exact pin at 3.5.30 produced a second Vue copy in the tree)
+  - `eslint` 10.7.0 and `@nuxt/eslint` 1.16.0
+  - `@nuxt/icon` 2.3.1
+  - `vue-tsc` added as a dev dependency since `nuxi typecheck` no longer installs a type checker on demand
+  - `compatibilityDate` set to 2026-07-18 in layers.base; layers.evm (previously stuck on 2024-11-01) now inherits it through `extends` instead of duplicating the date
+  _`layers.base`, `layers.evm`_
 
 - Force Vite to dedupe `@1001-digital/components` and `@1001-digital/components.evm` so injection keys (`EvmConfigKey`, `LinkComponentKey`, `IconAliasesKey`, …) resolve to a single `Symbol(...)` everywhere. Without this, Vite's dep optimizer pre-bundles the bare-specifier import as a separate chunk from the package's own relative-path imports — two module instances, two symbols, and `inject` silently falls back to defaults (in `EvmConfigKey`'s case: a mainnet-only config, which is why every write transaction prompted the wallet to switch to chain 1). [`ad3c686`](https://github.com/1001-digital/layers/commit/ad3c686)
   `exclude` must list both the bare name and its `-original` companion. The new facade re-exports through `@1001-digital/components.evm-original` (and `@1001-digital/components-original` in the base layer); Vite's optimizer scans those as bare specifiers too, and pre-bundling either name creates the same parallel module instance the bare name causes. The combined `resolve.dedupe` + `optimizeDeps.exclude` for both spellings picks the same physical file and keeps everything as source.
