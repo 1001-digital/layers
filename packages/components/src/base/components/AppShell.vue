@@ -42,6 +42,10 @@ const sidebarOpen = defineModel<boolean>('sidebarOpen', { default: false })
   .app-shell {
     display: flex;
     min-block-size: 100dvh;
+
+    &:has(> nav.bottom-nav) > .sidebar {
+      padding-block-end: var(--bottom-nav-height);
+    }
   }
 
   html:has(.app-shell nav.bottom-nav) > body {
