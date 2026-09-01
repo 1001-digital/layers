@@ -240,6 +240,25 @@
         </div>
 
         <div class="component-demo">
+          <h4>Default Button FormInputGroup</h4>
+          <FormInputGroup>
+            <Button>View</Button>
+            <Button>Edit</Button>
+            <Button>Share</Button>
+          </FormInputGroup>
+        </div>
+
+        <div class="component-demo">
+          <h4>Default Button FormInputGroup with Four Actions</h4>
+          <FormInputGroup>
+            <Button>Back</Button>
+            <Button>Pause</Button>
+            <Button>Next</Button>
+            <Button>More</Button>
+          </FormInputGroup>
+        </div>
+
+        <div class="component-demo">
           <h4>Button FormInputGroup with Icons</h4>
           <FormInputGroup>
             <Button>
