@@ -26,6 +26,13 @@ export default defineNuxtConfig({
 
 ## Development
 
+Configured runtime RPCs also become the chain's default RPC metadata, used by
+wallet SDKs and network switching. HTTP and WebSocket URLs retain their configured
+order within each protocol. With custom HTTP endpoints, reads use those endpoints
+and the injected-wallet fallback; they do not add a built-in public HTTP fallback.
+Without a custom HTTP endpoint, the chain's built-in HTTP default remains available
+for wallet SDKs, including WebSocket-only configurations.
+
 ```bash
 pnpm dev
 pnpm build

@@ -12,6 +12,7 @@
     "access": "public"
   },
   "scripts": {
+    "test": "node --test test/*.test.ts",
     "dev": "nuxi dev .playground",
     "dev:prepare": "nuxt prepare .playground",
     "build": "nuxt build .playground",
