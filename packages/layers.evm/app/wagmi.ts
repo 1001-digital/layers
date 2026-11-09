@@ -17,6 +17,7 @@ import {
   walletConnect,
 } from '@wagmi/vue/connectors'
 import type { Chain, Transport } from 'viem'
+import { withConfiguredRpcUrls } from './rpc-chain'
 import {
   resolveChain,
   inAppWallet,
@@ -81,15 +82,16 @@ export function createWagmiConfig(options: CreateOptions): {
   const smartAccounts: NonNullable<EvmConfig['smartAccounts']> = {}
 
   for (const [key, entry] of sortedEntries) {
-    const chain = resolveChain(entry.id)
+    const rpcs = runtimeChains[key]?.rpcs?.split(/\s+/).filter(Boolean) || []
+    const chain = withConfiguredRpcUrls(resolveChain(entry.id), rpcs)
     chains.push(chain)
 
-    const rpcs = runtimeChains[key]?.rpcs?.split(/\s+/).filter(Boolean) || []
     const transportList: Transport[] = rpcs.map((url: string) =>
       url.startsWith('wss://') ? webSocket(url) : http(url),
     )
     transportList.push(unstable_connector(injected))
-    transportList.push(http())
+    if (!rpcs.some((url) => /^https?:\/\//.test(url)))
+      transportList.push(http())
 
     transports[chain.id] = fallback(transportList)
     if (rpcs[0]) rpcUrls[chain.id] = rpcs[0]
