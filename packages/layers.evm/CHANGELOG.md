@@ -1,5 +1,15 @@
 # @1001-digital/layers.evm
 
+## 4.0.4
+
+### Patch Changes
+
+- [#114](https://github.com/1001-digital/layers/pull/114) [`add1f33`](https://github.com/1001-digital/layers/commit/add1f3397a484c13815fa9eee1ed974d0e96c83d) Thanks [@jwahdatehagh](https://github.com/jwahdatehagh)! - Use configured RPC URLs in chain defaults as well as Wagmi transports. MetaMask
+  SDK reads and network switching now use the app's HTTP RPC instead of the chain's
+  built-in public endpoint. Keep each app's chain metadata isolated, preserve
+  WebSocket transport configuration, and retain built-in HTTP defaults when no HTTP
+  RPC is configured.
+
 ## 4.0.3
 
 ### Patch Changes
