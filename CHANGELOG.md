@@ -3,6 +3,15 @@
 All notable changes across all packages in this monorepo.
 Generated from individual package changelogs — do not edit manually.
 
+## 2026-11-09
+
+- Use configured RPC URLs in chain defaults as well as Wagmi transports. MetaMask ([#114](https://github.com/1001-digital/layers/pull/114)) [`add1f33`](https://github.com/1001-digital/layers/commit/add1f33)
+  SDK reads and network switching now use the app's HTTP RPC instead of the chain's
+  built-in public endpoint. Keep each app's chain metadata isolated, preserve
+  WebSocket transport configuration, and retain built-in HTTP defaults when no HTTP
+  RPC is configured.
+  _`layers.evm`_
+
 ## 2026-09-01
 
 - Restore layout-neutral box-shadow rings for interactive controls. [`b509765`](https://github.com/1001-digital/layers/commit/b509765)
@@ -190,12 +199,6 @@ Generated from individual package changelogs — do not edit manually.
   _`components`, `components.evm`, `layers.base`, `layers.evm`_
 
 ## 2026-07-22
-
-- Accessibility improvements for `Autocomplete` and `Combobox`: [`14da803`](https://github.com/1001-digital/layers/commit/14da803)
-  - New `ariaLabel` prop forwarded to the inner input as `aria-label`, so consumers can give the combobox an accessible name (placeholders alone are an unreliable name source).
-  - `Autocomplete` no longer renders a group label element when the group's label is empty — screen readers previously announced these as nameless groups.
-  - Highlighted options honor new `--autocomplete-item-highlight` / `--combobox-item-highlight` tokens (falling back to `--button-background-highlight`), so apps whose button highlight is white can keep the keyboard cursor visible.
-  _`components`_
 
 - Declare `@x402/*` as dependencies so consumer builds keep working with `@coinbase/cdp-sdk` >= 1.53: [`b924b3c`](https://github.com/1001-digital/layers/commit/b924b3c)
   - `@base-org/account` (pulled in for the Base connector) depends on `@coinbase/cdp-sdk`, and since 1.53.0 the SDK does static named imports from its _optional_ peer deps `@x402/core|evm|extensions|svm`. When they're absent, Vite substitutes an empty shim and consumer Nuxt builds fail with `"toClientEvmSigner" is not exported by "__vite-optional-peer-dep:@x402/evm..."`.
@@ -391,6 +394,12 @@ Generated from individual package changelogs — do not edit manually.
   _`styles`_
 
 ## Unknown
+
+- Accessibility improvements for `Autocomplete` and `Combobox`: [`14da803`](https://github.com/1001-digital/layers/commit/14da803)
+  - New `ariaLabel` prop forwarded to the inner input as `aria-label`, so consumers can give the combobox an accessible name (placeholders alone are an unreliable name source).
+  - `Autocomplete` no longer renders a group label element when the group's label is empty — screen readers previously announced these as nameless groups.
+  - Highlighted options honor new `--autocomplete-item-highlight` / `--combobox-item-highlight` tokens (falling back to `--button-background-highlight`), so apps whose button highlight is white can keep the keyboard cursor visible.
+  _`components`_
 
 - Fix `Dialog` scroll-lock breaking `position: sticky` layout. [`13e3143`](https://github.com/1001-digital/layers/commit/13e3143)
   The open-dialog scroll lock applied `overflow: hidden` to both `html` and
